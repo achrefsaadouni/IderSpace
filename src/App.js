@@ -7,14 +7,12 @@ import "./App.css";
 class App extends Component {
   render() {
     return (
-      <Provider>
-        <Router>
-          <div className="App">
-            <Header />
-            <div className="container" />
-          </div>
-        </Router>
-      </Provider>
+      <Router>
+        <div className="App">
+          <Header />
+          <div className="container" />
+        </div>
+      </Router>
     );
   }
 }
