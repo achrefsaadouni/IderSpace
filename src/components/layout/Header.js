@@ -1,9 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
-
 
 function Header() {
-  var useTag = '<use xlinkHref="/svg/svg-sprite#my-icon" />';
   return (
     <React.Fragment>
      <header className="header" id="site-header">

@@ -1,18 +1,18 @@
 import React, { Component } from "react";
 import Header from "./components/layout/Header";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import logo from "./logo.svg";
-import "./App.css";
+import Login from "./pages/Login"
 
 class App extends Component {
   render() {
     return (
-      <Router>
-        <div className="App">
+      <React.Fragment>
+          <div className="landing-page">
+
+          <div className="content-bg-wrap"/>
           <Header />
-          <div className="container" />
-        </div>
-      </Router>
+          <Login />
+          </div>
+      </React.Fragment>
     );
   }
 }
