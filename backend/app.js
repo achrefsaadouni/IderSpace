@@ -9,7 +9,7 @@ const app = express();
 
 mongoose
   .connect(
-    "mongodb+srv://ismail:<password>@iderspace-ifund.azure.mongodb.net/iderspace",
+    "mongodb+srv://ismail:1234aze@iderspace-ifund.azure.mongodb.net/test?retryWrites=true\n",
     { useNewUrlParser: true }
   )
   .then(() => {
