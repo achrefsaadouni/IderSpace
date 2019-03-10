@@ -4,6 +4,7 @@ class Forum extends Component {
   render() {
     return (
       <React.Fragment>
+        <div className="header-spacer header-spacer-small" />
         <div className="main-header">
           <div className="content-bg-wrap bg-group" />
           <div className="container">

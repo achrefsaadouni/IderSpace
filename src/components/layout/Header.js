@@ -1334,8 +1334,6 @@ function Header() {
           </div>
         </div>
       </header>
-
-      <div className="header-spacer header-spacer-small" />
     </React.Fragment>
   );
 }
