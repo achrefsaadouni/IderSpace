@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class SideBar extends Component {
   render() {
@@ -6,16 +7,16 @@ class SideBar extends Component {
       <React.Fragment>
         <div className="fixed-sidebar">
           <div className="fixed-sidebar-left sidebar--small" id="sidebar-left">
-            <a href="02-ProfilePage.html" className="logo">
+            <Link to="/" className="logo">
               <div className="img-wrap">
                 <img src="img/logo.png" alt="Olympus" />
               </div>
-            </a>
+            </Link>
 
             <div className="mCustomScrollbar" data-mcs-theme="dark">
               <ul className="left-menu">
                 <li>
-                  <a href="#" className="js-sidebar-open">
+                  <Link to="/" className="js-sidebar-open">
                     <svg
                       className="olymp-menu-icon left-menu-icon"
                       data-toggle="tooltip"
@@ -24,10 +25,10 @@ class SideBar extends Component {
                     >
                       <use xlinkHref="svg-icons/sprites/icons.svg#olymp-menu-icon" />
                     </svg>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="03-Newsfeed.html">
+                  <Link to="/">
                     <svg
                       className="olymp-newsfeed-icon left-menu-icon"
                       data-toggle="tooltip"
@@ -36,10 +37,10 @@ class SideBar extends Component {
                     >
                       <use xlinkHref="svg-icons/sprites/icons.svg#olymp-newsfeed-icon" />
                     </svg>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="16-FavPagesFeed.html">
+                  <Link to="/">
                     <svg
                       className="olymp-star-icon left-menu-icon"
                       data-toggle="tooltip"
@@ -48,10 +49,10 @@ class SideBar extends Component {
                     >
                       <use xlinkHref="svg-icons/sprites/icons.svg#olymp-star-icon" />
                     </svg>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="17-FriendGroups.html">
+                  <Link to="/">
                     <svg
                       className="olymp-happy-faces-icon left-menu-icon"
                       data-toggle="tooltip"
@@ -60,10 +61,10 @@ class SideBar extends Component {
                     >
                       <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-faces-icon" />
                     </svg>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="18-MusicAndPlaylists.html">
+                  <Link to="/">
                     <svg
                       className="olymp-headphones-icon left-menu-icon"
                       data-toggle="tooltip"
@@ -72,10 +73,10 @@ class SideBar extends Component {
                     >
                       <use xlinkHref="svg-icons/sprites/icons.svg#olymp-headphones-icon" />
                     </svg>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="19-WeatherWidget.html">
+                  <Link to="/">
                     <svg
                       className="olymp-weather-icon left-menu-icon"
                       data-toggle="tooltip"
@@ -84,10 +85,10 @@ class SideBar extends Component {
                     >
                       <use xlinkHref="svg-icons/sprites/icons.svg#olymp-weather-icon" />
                     </svg>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="20-CalendarAndEvents-MonthlyCalendar.html">
+                  <Link to="/">
                     <svg
                       className="olymp-calendar-icon left-menu-icon"
                       data-toggle="tooltip"
@@ -96,10 +97,10 @@ class SideBar extends Component {
                     >
                       <use xlinkHref="svg-icons/sprites/icons.svg#olymp-calendar-icon" />
                     </svg>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="24-CommunityBadges.html">
+                  <Link to="/">
                     <svg
                       className="olymp-badge-icon left-menu-icon"
                       data-toggle="tooltip"
@@ -108,10 +109,10 @@ class SideBar extends Component {
                     >
                       <use xlinkHref="svg-icons/sprites/icons.svg#olymp-badge-icon" />
                     </svg>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="25-FriendsBirthday.html">
+                  <Link to="/">
                     <svg
                       className="olymp-cupcake-icon left-menu-icon"
                       data-toggle="tooltip"
@@ -120,10 +121,10 @@ class SideBar extends Component {
                     >
                       <use xlinkHref="svg-icons/sprites/icons.svg#olymp-cupcake-icon" />
                     </svg>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="26-Statistics.html">
+                  <Link to="/">
                     <svg
                       className="olymp-stats-icon left-menu-icon"
                       data-toggle="tooltip"
@@ -132,10 +133,10 @@ class SideBar extends Component {
                     >
                       <use xlinkHref="svg-icons/sprites/icons.svg#olymp-stats-icon" />
                     </svg>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="27-ManageWidgets.html">
+                  <Link to="/">
                     <svg
                       className="olymp-manage-widgets-icon left-menu-icon"
                       data-toggle="tooltip"
@@ -144,7 +145,7 @@ class SideBar extends Component {
                     >
                       <use xlinkHref="svg-icons/sprites/icons.svg#olymp-manage-widgets-icon" />
                     </svg>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -154,27 +155,27 @@ class SideBar extends Component {
             className="fixed-sidebar-left sidebar--large"
             id="sidebar-left-1"
           >
-            <a href="02-ProfilePage.html" className="logo">
+            <Link to="/" className="logo">
               <div className="img-wrap">
                 <img src="img/logo.png" alt="Olympus" />
               </div>
               <div className="title-block">
                 <h6 className="logo-title">olympus</h6>
               </div>
-            </a>
+            </Link>
 
             <div className="mCustomScrollbar" data-mcs-theme="dark">
               <ul className="left-menu">
                 <li>
-                  <a href="#" className="js-sidebar-open">
+                  <Link to="/" className="js-sidebar-open">
                     <svg className="olymp-close-icon left-menu-icon">
                       <use xlinkHref="svg-icons/sprites/icons.svg#olymp-close-icon" />
                     </svg>
                     <span className="left-menu-title">Collapse Menu</span>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="03-Newsfeed.html">
+                  <Link to="/">
                     <svg
                       className="olymp-newsfeed-icon left-menu-icon"
                       data-toggle="tooltip"
@@ -184,10 +185,10 @@ class SideBar extends Component {
                       <use xlinkHref="svg-icons/sprites/icons.svg#olymp-newsfeed-icon" />
                     </svg>
                     <span className="left-menu-title">Newsfeed</span>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="16-FavPagesFeed.html">
+                  <Link to="/">
                     <svg
                       className="olymp-star-icon left-menu-icon"
                       data-toggle="tooltip"
@@ -197,10 +198,10 @@ class SideBar extends Component {
                       <use xlinkHref="svg-icons/sprites/icons.svg#olymp-star-icon" />
                     </svg>
                     <span className="left-menu-title">Fav Pages Feed</span>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="17-FriendGroups.html">
+                  <Link to="/">
                     <svg
                       className="olymp-happy-faces-icon left-menu-icon"
                       data-toggle="tooltip"
@@ -210,10 +211,10 @@ class SideBar extends Component {
                       <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-faces-icon" />
                     </svg>
                     <span className="left-menu-title">Friend Groups</span>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="18-MusicAndPlaylists.html">
+                  <Link to="/">
                     <svg
                       className="olymp-headphones-icon left-menu-icon"
                       data-toggle="tooltip"
@@ -223,10 +224,10 @@ class SideBar extends Component {
                       <use xlinkHref="svg-icons/sprites/icons.svg#olymp-headphones-icon" />
                     </svg>
                     <span className="left-menu-title">Music & Playlists</span>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="19-WeatherWidget.html">
+                  <Link to="/">
                     <svg
                       className="olymp-weather-icon left-menu-icon"
                       data-toggle="tooltip"
@@ -236,10 +237,10 @@ class SideBar extends Component {
                       <use xlinkHref="svg-icons/sprites/icons.svg#olymp-weather-icon" />
                     </svg>
                     <span className="left-menu-title">Weather App</span>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="20-CalendarAndEvents-MonthlyCalendar.html">
+                  <Link to="/">
                     <svg
                       className="olymp-calendar-icon left-menu-icon"
                       data-toggle="tooltip"
@@ -249,10 +250,10 @@ class SideBar extends Component {
                       <use xlinkHref="svg-icons/sprites/icons.svg#olymp-calendar-icon" />
                     </svg>
                     <span className="left-menu-title">Calendar and Events</span>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="24-CommunityBadges.html">
+                  <Link to="/">
                     <svg
                       className="olymp-badge-icon left-menu-icon"
                       data-toggle="tooltip"
@@ -262,10 +263,10 @@ class SideBar extends Component {
                       <use xlinkHref="svg-icons/sprites/icons.svg#olymp-badge-icon" />
                     </svg>
                     <span className="left-menu-title">Community Badges</span>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="25-FriendsBirthday.html">
+                  <Link to="/">
                     <svg
                       className="olymp-cupcake-icon left-menu-icon"
                       data-toggle="tooltip"
@@ -275,10 +276,10 @@ class SideBar extends Component {
                       <use xlinkHref="svg-icons/sprites/icons.svg#olymp-cupcake-icon" />
                     </svg>
                     <span className="left-menu-title">Friends Birthdays</span>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="26-Statistics.html">
+                  <Link to="/">
                     <svg
                       className="olymp-stats-icon left-menu-icon"
                       data-toggle="tooltip"
@@ -288,10 +289,10 @@ class SideBar extends Component {
                       <use xlinkHref="svg-icons/sprites/icons.svg#olymp-stats-icon" />
                     </svg>
                     <span className="left-menu-title">Account Stats</span>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="27-ManageWidgets.html">
+                  <Link to="/">
                     <svg
                       className="olymp-manage-widgets-icon left-menu-icon"
                       data-toggle="tooltip"
@@ -301,7 +302,7 @@ class SideBar extends Component {
                       <use xlinkHref="svg-icons/sprites/icons.svg#olymp-manage-widgets-icon" />
                     </svg>
                     <span className="left-menu-title">Manage Widgets</span>
-                  </a>
+                  </Link>
                 </li>
               </ul>
 
@@ -331,8 +332,8 @@ class SideBar extends Component {
                 </div>
 
                 <span>
-                  Complete <a href="#">your profile</a> so people can know more
-                  about you!
+                  Complete <Link to="/">your profile</Link> so people can know
+                  more about you!
                 </span>
               </div>
             </div>
@@ -344,23 +345,23 @@ class SideBar extends Component {
             className="fixed-sidebar-left sidebar--small"
             id="sidebar-left-responsive"
           >
-            <a href="#" className="logo js-sidebar-open">
+            <Link to="/" className="logo js-sidebar-open">
               <img src="img/logo.png" alt="Olympus" />
-            </a>
+            </Link>
           </div>
 
           <div
             className="fixed-sidebar-left sidebar--large"
             id="sidebar-left-1-responsive"
           >
-            <a href="#" className="logo">
+            <Link to="/" className="logo">
               <div className="img-wrap">
                 <img src="img/logo.png" alt="Olympus" />
               </div>
               <div className="title-block">
                 <h6 className="logo-title">olympus</h6>
               </div>
-            </a>
+            </Link>
 
             <div className="mCustomScrollbar" data-mcs-theme="dark">
               <div className="control-block">
@@ -373,7 +374,7 @@ class SideBar extends Component {
                     />
                     <span className="icon-status online" />
                   </div>
-                  <a href="02-ProfilePage.html" className="author-name fn">
+                  <Link to="/" className="author-name fn">
                     <div className="author-title">
                       James Spiegel{" "}
                       <svg className="olymp-dropdown-arrow-icon">
@@ -381,7 +382,7 @@ class SideBar extends Component {
                       </svg>
                     </div>
                     <span className="author-subtitle">SPACE COWBOY</span>
-                  </a>
+                  </Link>
                 </div>
               </div>
 
@@ -391,15 +392,15 @@ class SideBar extends Component {
 
               <ul className="left-menu">
                 <li>
-                  <a href="#" className="js-sidebar-open">
+                  <Link to="/" className="js-sidebar-open">
                     <svg className="olymp-close-icon left-menu-icon">
                       <use xlinkHref="svg-icons/sprites/icons.svg#olymp-close-icon" />
                     </svg>
                     <span className="left-menu-title">Collapse Menu</span>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="mobile-index.html">
+                  <Link to="/">
                     <svg
                       className="olymp-newsfeed-icon left-menu-icon"
                       data-toggle="tooltip"
@@ -409,10 +410,10 @@ class SideBar extends Component {
                       <use xlinkHref="svg-icons/sprites/icons.svg#olymp-newsfeed-icon" />
                     </svg>
                     <span className="left-menu-title">Newsfeed</span>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="Mobile-28-YourAccount-PersonalInformation.html">
+                  <Link to="/">
                     <svg
                       className="olymp-star-icon left-menu-icon"
                       data-toggle="tooltip"
@@ -422,10 +423,10 @@ class SideBar extends Component {
                       <use xlinkHref="svg-icons/sprites/icons.svg#olymp-star-icon" />
                     </svg>
                     <span className="left-menu-title">Fav Pages Feed</span>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="mobile-29-YourAccount-AccountSettings.html">
+                  <Link to="/">
                     <svg
                       className="olymp-happy-faces-icon left-menu-icon"
                       data-toggle="tooltip"
@@ -435,10 +436,10 @@ class SideBar extends Component {
                       <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-faces-icon" />
                     </svg>
                     <span className="left-menu-title">Friend Groups</span>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="Mobile-30-YourAccount-ChangePassword.html">
+                  <Link to="/">
                     <svg
                       className="olymp-headphones-icon left-menu-icon"
                       data-toggle="tooltip"
@@ -448,10 +449,10 @@ class SideBar extends Component {
                       <use xlinkHref="svg-icons/sprites/icons.svg#olymp-headphones-icon" />
                     </svg>
                     <span className="left-menu-title">Music & Playlists</span>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="Mobile-31-YourAccount-HobbiesAndInterests.html">
+                  <Link to="/">
                     <svg
                       className="olymp-weather-icon left-menu-icon"
                       data-toggle="tooltip"
@@ -461,10 +462,10 @@ class SideBar extends Component {
                       <use xlinkHref="svg-icons/sprites/icons.svg#olymp-weather-icon" />
                     </svg>
                     <span className="left-menu-title">Weather App</span>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="Mobile-32-YourAccount-EducationAndEmployement.html">
+                  <Link to="/">
                     <svg
                       className="olymp-calendar-icon left-menu-icon"
                       data-toggle="tooltip"
@@ -474,10 +475,10 @@ class SideBar extends Component {
                       <use xlinkHref="svg-icons/sprites/icons.svg#olymp-calendar-icon" />
                     </svg>
                     <span className="left-menu-title">Calendar and Events</span>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="Mobile-33-YourAccount-Notifications.html">
+                  <Link to="/">
                     <svg
                       className="olymp-badge-icon left-menu-icon"
                       data-toggle="tooltip"
@@ -487,10 +488,10 @@ class SideBar extends Component {
                       <use xlinkHref="svg-icons/sprites/icons.svg#olymp-badge-icon" />
                     </svg>
                     <span className="left-menu-title">Community Badges</span>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="Mobile-34-YourAccount-ChatMessages.html">
+                  <Link to="/">
                     <svg
                       className="olymp-cupcake-icon left-menu-icon"
                       data-toggle="tooltip"
@@ -500,10 +501,10 @@ class SideBar extends Component {
                       <use xlinkHref="svg-icons/sprites/icons.svg#olymp-cupcake-icon" />
                     </svg>
                     <span className="left-menu-title">Friends Birthdays</span>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="Mobile-35-YourAccount-FriendsRequests.html">
+                  <Link to="/">
                     <svg
                       className="olymp-stats-icon left-menu-icon"
                       data-toggle="tooltip"
@@ -513,10 +514,10 @@ class SideBar extends Component {
                       <use xlinkHref="svg-icons/sprites/icons.svg#olymp-stats-icon" />
                     </svg>
                     <span className="left-menu-title">Account Stats</span>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#">
+                  <Link to="/">
                     <svg
                       className="olymp-manage-widgets-icon left-menu-icon"
                       data-toggle="tooltip"
@@ -526,7 +527,7 @@ class SideBar extends Component {
                       <use xlinkHref="svg-icons/sprites/icons.svg#olymp-manage-widgets-icon" />
                     </svg>
                     <span className="left-menu-title">Manage Widgets</span>
-                  </a>
+                  </Link>
                 </li>
               </ul>
 
@@ -536,16 +537,16 @@ class SideBar extends Component {
 
               <ul className="account-settings">
                 <li>
-                  <a href="#">
+                  <Link to="/">
                     <svg className="olymp-menu-icon">
                       <use xlinkHref="svg-icons/sprites/icons.svg#olymp-menu-icon" />
                     </svg>
 
                     <span>Profile Settings</span>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#">
+                  <Link to="/">
                     <svg
                       className="olymp-star-icon left-menu-icon"
                       data-toggle="tooltip"
@@ -556,16 +557,16 @@ class SideBar extends Component {
                     </svg>
 
                     <span>Create Fav Page</span>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#">
+                  <Link to="/">
                     <svg className="olymp-logout-icon">
                       <use xlinkHref="svg-icons/sprites/icons.svg#olymp-logout-icon" />
                     </svg>
 
                     <span>Log Out</span>
-                  </a>
+                  </Link>
                 </li>
               </ul>
 
@@ -575,24 +576,24 @@ class SideBar extends Component {
 
               <ul className="about-olympus">
                 <li>
-                  <a href="#">
+                  <Link to="/">
                     <span>Terms and Conditions</span>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#">
+                  <Link to="/">
                     <span>FAQs</span>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#">
+                  <Link to="/">
                     <span>Careers</span>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#">
+                  <Link to="/">
                     <span>Contact</span>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>

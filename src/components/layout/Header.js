@@ -1,5 +1,6 @@
 import React from "react";
 import logo from "./../../logoWhite.png";
+import { Link } from "react-router-dom";
 
 function Header() {
   return (
@@ -25,9 +26,9 @@ function Header() {
             </div>
           </form>
 
-          <a href="#" className="link-find-friend">
+          <Link to="/" className="link-find-friend">
             Find Friends
-          </a>
+          </Link>
 
           <div className="control-block">
             <div className="control-icon more has-items">
@@ -39,8 +40,8 @@ function Header() {
               <div className="more-dropdown more-with-triangle triangle-top-center">
                 <div className="ui-block-title ui-block-title-small">
                   <h6 className="title">FRIEND REQUESTS</h6>
-                  <a href="#">Find Friends</a>
-                  <a href="#">Settings</a>
+                  <Link to="/">Find Friends</Link>
+                  <Link to="/">Settings</Link>
                 </div>
 
                 <div className="mCustomScrollbar" data-mcs-theme="dark">
@@ -50,29 +51,29 @@ function Header() {
                         <img src="img/avatar55-sm.jpg" alt="author" />
                       </div>
                       <div className="notification-event">
-                        <a href="#" className="h6 notification-friend">
+                        <Link to="/" className="h6 notification-friend">
                           Tamara Romanoff
-                        </a>
+                        </Link>
                         <span className="chat-message-item">
                           Mutual Friend: Sarah Hetfield
                         </span>
                       </div>
                       <span className="notification-icon">
-                        <a href="#" className="accept-request">
+                        <Link to="/" className="accept-request">
                           <span className="icon-add without-text">
                             <svg className="olymp-happy-face-icon">
                               <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
                             </svg>
                           </span>
-                        </a>
+                        </Link>
 
-                        <a href="#" className="accept-request request-del">
+                        <Link to="/" className="accept-request request-del">
                           <span className="icon-minus">
                             <svg className="olymp-happy-face-icon">
                               <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
                             </svg>
                           </span>
-                        </a>
+                        </Link>
                       </span>
 
                       <div className="more">
@@ -87,29 +88,29 @@ function Header() {
                         <img src="img/avatar56-sm.jpg" alt="author" />
                       </div>
                       <div className="notification-event">
-                        <a href="#" className="h6 notification-friend">
+                        <Link to="/" className="h6 notification-friend">
                           Tony Stevens
-                        </a>
+                        </Link>
                         <span className="chat-message-item">
                           4 Friends in Common
                         </span>
                       </div>
                       <span className="notification-icon">
-                        <a href="#" className="accept-request">
+                        <Link to="/" className="accept-request">
                           <span className="icon-add without-text">
                             <svg className="olymp-happy-face-icon">
                               <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
                             </svg>
                           </span>
-                        </a>
+                        </Link>
 
-                        <a href="#" className="accept-request request-del">
+                        <Link to="/" className="accept-request request-del">
                           <span className="icon-minus">
                             <svg className="olymp-happy-face-icon">
                               <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
                             </svg>
                           </span>
-                        </a>
+                        </Link>
                       </span>
 
                       <div className="more">
@@ -125,13 +126,13 @@ function Header() {
                       </div>
                       <div className="notification-event">
                         You and{" "}
-                        <a href="#" className="h6 notification-friend">
+                        <Link to="/" className="h6 notification-friend">
                           Mary Jane Stark
-                        </a>{" "}
+                        </Link>{" "}
                         just became friends. Write on{" "}
-                        <a href="#" className="notification-link">
+                        <Link to="/" className="notification-link">
                           her wall
-                        </a>
+                        </Link>
                         .
                       </div>
                       <span className="notification-icon">
@@ -155,29 +156,29 @@ function Header() {
                         <img src="img/avatar58-sm.jpg" alt="author" />
                       </div>
                       <div className="notification-event">
-                        <a href="#" className="h6 notification-friend">
+                        <Link to="/" className="h6 notification-friend">
                           Stagg Clothing
-                        </a>
+                        </Link>
                         <span className="chat-message-item">
                           9 Friends in Common
                         </span>
                       </div>
                       <span className="notification-icon">
-                        <a href="#" className="accept-request">
+                        <Link to="/" className="accept-request">
                           <span className="icon-add without-text">
                             <svg className="olymp-happy-face-icon">
                               <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
                             </svg>
                           </span>
-                        </a>
+                        </Link>
 
-                        <a href="#" className="accept-request request-del">
+                        <Link to="/" className="accept-request request-del">
                           <span className="icon-minus">
                             <svg className="olymp-happy-face-icon">
                               <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
                             </svg>
                           </span>
-                        </a>
+                        </Link>
                       </span>
 
                       <div className="more">
@@ -189,9 +190,9 @@ function Header() {
                   </ul>
                 </div>
 
-                <a href="#" className="view-all bg-blue">
+                <Link to="/" className="view-all bg-blue">
                   Check all your Events
-                </a>
+                </Link>
               </div>
             </div>
 
@@ -204,8 +205,8 @@ function Header() {
               <div className="more-dropdown more-with-triangle triangle-top-center">
                 <div className="ui-block-title ui-block-title-small">
                   <h6 className="title">Chat / Messages</h6>
-                  <a href="#">Mark all as read</a>
-                  <a href="#">Settings</a>
+                  <Link to="/">Mark all as read</Link>
+                  <Link to="/">Settings</Link>
                 </div>
 
                 <div className="mCustomScrollbar" data-mcs-theme="dark">
@@ -215,9 +216,9 @@ function Header() {
                         <img src="img/avatar59-sm.jpg" alt="author" />
                       </div>
                       <div className="notification-event">
-                        <a href="#" className="h6 notification-friend">
+                        <Link to="/" className="h6 notification-friend">
                           Diana Jameson
-                        </a>
+                        </Link>
                         <span className="chat-message-item">
                           Hi James! It’s Diana, I just wanted to let you know
                           that we have to reschedule...
@@ -248,9 +249,9 @@ function Header() {
                         <img src="img/avatar60-sm.jpg" alt="author" />
                       </div>
                       <div className="notification-event">
-                        <a href="#" className="h6 notification-friend">
+                        <Link to="/" className="h6 notification-friend">
                           Jake Parker
-                        </a>
+                        </Link>
                         <span className="chat-message-item">
                           Great, I’ll see you tomorrow!.
                         </span>
@@ -280,9 +281,9 @@ function Header() {
                         <img src="img/avatar61-sm.jpg" alt="author" />
                       </div>
                       <div className="notification-event">
-                        <a href="#" className="h6 notification-friend">
+                        <Link to="/" className="h6 notification-friend">
                           Elaine Dreyfuss
-                        </a>
+                        </Link>
                         <span className="chat-message-item">
                           We’ll have to check that at the office and see if the
                           client is on board with...
@@ -316,9 +317,9 @@ function Header() {
                         <img src="img/avatar10-sm.jpg" alt="author" />
                       </div>
                       <div className="notification-event">
-                        <a href="#" className="h6 notification-friend">
+                        <Link to="/" className="h6 notification-friend">
                           You, Faye, Ed &amp; Jet +3
-                        </a>
+                        </Link>
                         <span className="last-message-author">Ed:</span>
                         <span className="chat-message-item">
                           Yeah! Seems fine by me!
@@ -346,9 +347,9 @@ function Header() {
                   </ul>
                 </div>
 
-                <a href="#" className="view-all bg-purple">
+                <Link to="/" className="view-all bg-purple">
                   View All Messages
-                </a>
+                </Link>
               </div>
             </div>
 
@@ -362,8 +363,8 @@ function Header() {
               <div className="more-dropdown more-with-triangle triangle-top-center">
                 <div className="ui-block-title ui-block-title-small">
                   <h6 className="title">Notifications</h6>
-                  <a href="#">Mark all as read</a>
-                  <a href="#">Settings</a>
+                  <Link to="/">Mark all as read</Link>
+                  <Link to="/">Settings</Link>
                 </div>
 
                 <div className="mCustomScrollbar" data-mcs-theme="dark">
@@ -374,13 +375,13 @@ function Header() {
                       </div>
                       <div className="notification-event">
                         <div>
-                          <a href="#" className="h6 notification-friend">
+                          <Link to="/" className="h6 notification-friend">
                             Mathilda Brinker
-                          </a>{" "}
+                          </Link>{" "}
                           commented on your new{" "}
-                          <a href="#" className="notification-link">
+                          <Link to="/" className="notification-link">
                             profile status
-                          </a>
+                          </Link>
                           .
                         </div>
                         <span className="notification-date">
@@ -415,13 +416,13 @@ function Header() {
                       <div className="notification-event">
                         <div>
                           You and{" "}
-                          <a href="#" className="h6 notification-friend">
+                          <Link to="/" className="h6 notification-friend">
                             Nicholas Grissom
-                          </a>{" "}
+                          </Link>{" "}
                           just became friends. Write on{" "}
-                          <a href="#" className="notification-link">
+                          <Link to="/" className="notification-link">
                             his wall
-                          </a>
+                          </Link>
                           .
                         </div>
                         <span className="notification-date">
@@ -455,13 +456,13 @@ function Header() {
                       </div>
                       <div className="notification-event">
                         <div>
-                          <a href="#" className="h6 notification-friend">
+                          <Link to="/" className="h6 notification-friend">
                             Sarah Hetfield
-                          </a>{" "}
+                          </Link>{" "}
                           commented on your{" "}
-                          <a href="#" className="notification-link">
+                          <Link to="/" className="notification-link">
                             photo
-                          </a>
+                          </Link>
                           .
                         </div>
                         <span className="notification-date">
@@ -480,7 +481,7 @@ function Header() {
                       </span>
 
                       <div className="comment-photo">
-                        <img src="img/comment-photo1.jpg" alt="photo" />
+                        <img src="img/comment-photo1.jpg" alt="photo1" />
                         <span>
                           “She looks incredible in that outfit! We should see
                           each...”
@@ -503,13 +504,13 @@ function Header() {
                       </div>
                       <div className="notification-event">
                         <div>
-                          <a href="#" className="h6 notification-friend">
+                          <Link to="/" className="h6 notification-friend">
                             Green Goo Rock
-                          </a>{" "}
+                          </Link>{" "}
                           invited you to attend to his event Goo in{" "}
-                          <a href="#" className="notification-link">
+                          <Link to="/" className="notification-link">
                             Gotham Bar
-                          </a>
+                          </Link>
                           .
                         </div>
                         <span className="notification-date">
@@ -543,13 +544,13 @@ function Header() {
                       </div>
                       <div className="notification-event">
                         <div>
-                          <a href="#" className="h6 notification-friend">
+                          <Link to="/" className="h6 notification-friend">
                             James Summers
-                          </a>{" "}
+                          </Link>{" "}
                           commented on your new{" "}
-                          <a href="#" className="notification-link">
+                          <Link to="/" className="notification-link">
                             profile status
-                          </a>
+                          </Link>
                           .
                         </div>
                         <span className="notification-date">
@@ -579,9 +580,9 @@ function Header() {
                   </ul>
                 </div>
 
-                <a href="#" className="view-all bg-primary">
+                <Link to="/" className="view-all bg-primary">
                   View All Notifications
-                </a>
+                </Link>
               </div>
             </div>
 
@@ -601,16 +602,16 @@ function Header() {
 
                     <ul className="account-settings">
                       <li>
-                        <a href="29-YourAccount-AccountSettings.html">
+                        <Link to="/">
                           <svg className="olymp-menu-icon">
                             <use xlinkHref="svg-icons/sprites/icons.svg#olymp-menu-icon" />
                           </svg>
 
                           <span>Profile Settings</span>
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="36-FavPage-SettingsAndCreatePopup.html">
+                        <Link to="/">
                           <svg
                             className="olymp-star-icon left-menu-icon"
                             data-toggle="tooltip"
@@ -621,16 +622,16 @@ function Header() {
                           </svg>
 
                           <span>Create Fav Page</span>
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="#">
+                        <Link to="/">
                           <svg className="olymp-logout-icon">
                             <use xlinkHref="svg-icons/sprites/icons.svg#olymp-logout-icon" />
                           </svg>
 
                           <span>Log Out</span>
-                        </a>
+                        </Link>
                       </li>
                     </ul>
 
@@ -640,29 +641,29 @@ function Header() {
 
                     <ul className="chat-settings">
                       <li>
-                        <a href="#">
+                        <Link to="/">
                           <span className="icon-status online" />
                           <span>Online</span>
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="#">
+                        <Link to="/">
                           <span className="icon-status away" />
                           <span>Away</span>
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="#">
+                        <Link to="/">
                           <span className="icon-status disconected" />
                           <span>Disconnected</span>
-                        </a>
+                        </Link>
                       </li>
 
                       <li>
-                        <a href="#">
+                        <Link to="/">
                           <span className="icon-status status-invisible" />
                           <span>Invisible</span>
-                        </a>
+                        </Link>
                       </li>
                     </ul>
 
@@ -691,30 +692,30 @@ function Header() {
 
                     <ul>
                       <li>
-                        <a href="#">
+                        <Link to="/">
                           <span>Terms and Conditions</span>
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="#">
+                        <Link to="/">
                           <span>FAQs</span>
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="#">
+                        <Link to="/">
                           <span>Careers</span>
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="#">
+                        <Link to="/">
                           <span>Contact</span>
-                        </a>
+                        </Link>
                       </li>
                     </ul>
                   </div>
                 </div>
               </div>
-              <a href="02-ProfilePage.html" className="author-name fn">
+              <Link to="/" className="author-name fn">
                 <div className="author-title">
                   James Spiegel{" "}
                   <svg className="olymp-dropdown-arrow-icon">
@@ -722,7 +723,7 @@ function Header() {
                   </svg>
                 </div>
                 <span className="author-subtitle">SPACE COWBOY</span>
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -732,62 +733,47 @@ function Header() {
         <div className="header-content-wrapper">
           <ul className="nav nav-tabs mobile-app-tabs" role="tablist">
             <li className="nav-item">
-              <a
-                className="nav-link"
-                data-toggle="tab"
-                href="#request"
-                role="tab"
-              >
+              <Link className="nav-link" data-toggle="tab" to="/" role="tab">
                 <div className="control-icon has-items">
                   <svg className="olymp-happy-face-icon">
                     <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
                   </svg>
                   <div className="label-avatar bg-blue">6</div>
                 </div>
-              </a>
+              </Link>
             </li>
 
             <li className="nav-item">
-              <a className="nav-link" data-toggle="tab" href="#chat" role="tab">
+              <Link className="nav-link" data-toggle="tab" to="/" role="tab">
                 <div className="control-icon has-items">
                   <svg className="olymp-chat---messages-icon">
                     <use xlinkHref="svg-icons/sprites/icons.svg#olymp-chat---messages-icon" />
                   </svg>
                   <div className="label-avatar bg-purple">2</div>
                 </div>
-              </a>
+              </Link>
             </li>
 
             <li className="nav-item">
-              <a
-                className="nav-link"
-                data-toggle="tab"
-                href="#notification"
-                role="tab"
-              >
+              <Link className="nav-link" data-toggle="tab" to="/" role="tab">
                 <div className="control-icon has-items">
                   <svg className="olymp-thunder-icon">
                     <use xlinkHref="svg-icons/sprites/icons.svg#olymp-thunder-icon" />
                   </svg>
                   <div className="label-avatar bg-primary">8</div>
                 </div>
-              </a>
+              </Link>
             </li>
 
             <li className="nav-item">
-              <a
-                className="nav-link"
-                data-toggle="tab"
-                href="#search"
-                role="tab"
-              >
+              <Link className="nav-link" data-toggle="tab" to="/" role="tab">
                 <svg className="olymp-magnifying-glass-icon">
                   <use xlinkHref="svg-icons/sprites/icons.svg#olymp-magnifying-glass-icon" />
                 </svg>
                 <svg className="olymp-close-icon">
                   <use xlinkHref="svg-icons/sprites/icons.svg#olymp-close-icon" />
                 </svg>
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
@@ -797,8 +783,8 @@ function Header() {
             <div className="mCustomScrollbar" data-mcs-theme="dark">
               <div className="ui-block-title ui-block-title-small">
                 <h6 className="title">FRIEND REQUESTS</h6>
-                <a href="#">Find Friends</a>
-                <a href="#">Settings</a>
+                <Link to="/">Find Friends</Link>
+                <Link to="/">Settings</Link>
               </div>
               <ul className="notification-list friend-requests">
                 <li>
@@ -806,29 +792,29 @@ function Header() {
                     <img src="img/avatar55-sm.jpg" alt="author" />
                   </div>
                   <div className="notification-event">
-                    <a href="#" className="h6 notification-friend">
+                    <Link to="/" className="h6 notification-friend">
                       Tamara Romanoff
-                    </a>
+                    </Link>
                     <span className="chat-message-item">
                       Mutual Friend: Sarah Hetfield
                     </span>
                   </div>
                   <span className="notification-icon">
-                    <a href="#" className="accept-request">
+                    <Link to="/" className="accept-request">
                       <span className="icon-add without-text">
                         <svg className="olymp-happy-face-icon">
                           <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
                         </svg>
                       </span>
-                    </a>
+                    </Link>
 
-                    <a href="#" className="accept-request request-del">
+                    <Link to="/" className="accept-request request-del">
                       <span className="icon-minus">
                         <svg className="olymp-happy-face-icon">
                           <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
                         </svg>
                       </span>
-                    </a>
+                    </Link>
                   </span>
 
                   <div className="more">
@@ -842,29 +828,29 @@ function Header() {
                     <img src="img/avatar56-sm.jpg" alt="author" />
                   </div>
                   <div className="notification-event">
-                    <a href="#" className="h6 notification-friend">
+                    <Link to="/" className="h6 notification-friend">
                       Tony Stevens
-                    </a>
+                    </Link>
                     <span className="chat-message-item">
                       4 Friends in Common
                     </span>
                   </div>
                   <span className="notification-icon">
-                    <a href="#" className="accept-request">
+                    <Link to="/" className="accept-request">
                       <span className="icon-add without-text">
                         <svg className="olymp-happy-face-icon">
                           <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
                         </svg>
                       </span>
-                    </a>
+                    </Link>
 
-                    <a href="#" className="accept-request request-del">
+                    <Link to="/" className="accept-request request-del">
                       <span className="icon-minus">
                         <svg className="olymp-happy-face-icon">
                           <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
                         </svg>
                       </span>
-                    </a>
+                    </Link>
                   </span>
 
                   <div className="more">
@@ -879,13 +865,13 @@ function Header() {
                   </div>
                   <div className="notification-event">
                     You and{" "}
-                    <a href="#" className="h6 notification-friend">
+                    <Link to="/" className="h6 notification-friend">
                       Mary Jane Stark
-                    </a>{" "}
+                    </Link>{" "}
                     just became friends. Write on{" "}
-                    <a href="#" className="notification-link">
+                    <Link to="/" className="notification-link">
                       her wall
-                    </a>
+                    </Link>
                     .
                   </div>
                   <span className="notification-icon">
@@ -908,29 +894,29 @@ function Header() {
                     <img src="img/avatar58-sm.jpg" alt="author" />
                   </div>
                   <div className="notification-event">
-                    <a href="#" className="h6 notification-friend">
+                    <Link to="/" className="h6 notification-friend">
                       Stagg Clothing
-                    </a>
+                    </Link>
                     <span className="chat-message-item">
                       9 Friends in Common
                     </span>
                   </div>
                   <span className="notification-icon">
-                    <a href="#" className="accept-request">
+                    <Link to="/" className="accept-request">
                       <span className="icon-add without-text">
                         <svg className="olymp-happy-face-icon">
                           <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
                         </svg>
                       </span>
-                    </a>
+                    </Link>
 
-                    <a href="#" className="accept-request request-del">
+                    <Link to="/" className="accept-request request-del">
                       <span className="icon-minus">
                         <svg className="olymp-happy-face-icon">
                           <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
                         </svg>
                       </span>
-                    </a>
+                    </Link>
                   </span>
 
                   <div className="more">
@@ -940,9 +926,9 @@ function Header() {
                   </div>
                 </li>
               </ul>
-              <a href="#" className="view-all bg-blue">
+              <Link to="/" className="view-all bg-blue">
                 Check all your Events
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -950,8 +936,8 @@ function Header() {
             <div className="mCustomScrollbar" data-mcs-theme="dark">
               <div className="ui-block-title ui-block-title-small">
                 <h6 className="title">Chat / Messages</h6>
-                <a href="#">Mark all as read</a>
-                <a href="#">Settings</a>
+                <Link to="/">Mark all as read</Link>
+                <Link to="/">Settings</Link>
               </div>
 
               <ul className="notification-list chat-message">
@@ -960,9 +946,9 @@ function Header() {
                     <img src="img/avatar59-sm.jpg" alt="author" />
                   </div>
                   <div className="notification-event">
-                    <a href="#" className="h6 notification-friend">
+                    <Link to="/" className="h6 notification-friend">
                       Diana Jameson
-                    </a>
+                    </Link>
                     <span className="chat-message-item">
                       Hi James! It’s Diana, I just wanted to let you know that
                       we have to reschedule...
@@ -993,9 +979,9 @@ function Header() {
                     <img src="img/avatar60-sm.jpg" alt="author" />
                   </div>
                   <div className="notification-event">
-                    <a href="#" className="h6 notification-friend">
+                    <Link to="/" className="h6 notification-friend">
                       Jake Parker
-                    </a>
+                    </Link>
                     <span className="chat-message-item">
                       Great, I’ll see you tomorrow!.
                     </span>
@@ -1025,9 +1011,9 @@ function Header() {
                     <img src="img/avatar61-sm.jpg" alt="author" />
                   </div>
                   <div className="notification-event">
-                    <a href="#" className="h6 notification-friend">
+                    <Link to="/" className="h6 notification-friend">
                       Elaine Dreyfuss
-                    </a>
+                    </Link>
                     <span className="chat-message-item">
                       We’ll have to check that at the office and see if the
                       client is on board with...
@@ -1061,9 +1047,9 @@ function Header() {
                     <img src="img/avatar10-sm.jpg" alt="author" />
                   </div>
                   <div className="notification-event">
-                    <a href="#" className="h6 notification-friend">
+                    <Link to="/" className="h6 notification-friend">
                       You, Faye, Ed &amp; Jet +3
-                    </a>
+                    </Link>
                     <span className="last-message-author">Ed:</span>
                     <span className="chat-message-item">
                       Yeah! Seems fine by me!
@@ -1090,9 +1076,9 @@ function Header() {
                 </li>
               </ul>
 
-              <a href="#" className="view-all bg-purple">
+              <Link to="/" className="view-all bg-purple">
                 View All Messages
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -1100,8 +1086,8 @@ function Header() {
             <div className="mCustomScrollbar" data-mcs-theme="dark">
               <div className="ui-block-title ui-block-title-small">
                 <h6 className="title">Notifications</h6>
-                <a href="#">Mark all as read</a>
-                <a href="#">Settings</a>
+                <Link to="/">Mark all as read</Link>
+                <Link to="/">Settings</Link>
               </div>
 
               <ul className="notification-list">
@@ -1111,13 +1097,13 @@ function Header() {
                   </div>
                   <div className="notification-event">
                     <div>
-                      <a href="#" className="h6 notification-friend">
+                      <Link to="/" className="h6 notification-friend">
                         Mathilda Brinker
-                      </a>{" "}
+                      </Link>{" "}
                       commented on your new{" "}
-                      <a href="#" className="notification-link">
+                      <Link to="/" className="notification-link">
                         profile status
-                      </a>
+                      </Link>
                       .
                     </div>
                     <span className="notification-date">
@@ -1152,13 +1138,13 @@ function Header() {
                   <div className="notification-event">
                     <div>
                       You and{" "}
-                      <a href="#" className="h6 notification-friend">
+                      <Link to="/" className="h6 notification-friend">
                         Nicholas Grissom
-                      </a>{" "}
+                      </Link>{" "}
                       just became friends. Write on{" "}
-                      <a href="#" className="notification-link">
+                      <Link to="/" className="notification-link">
                         his wall
-                      </a>
+                      </Link>
                       .
                     </div>
                     <span className="notification-date">
@@ -1192,13 +1178,13 @@ function Header() {
                   </div>
                   <div className="notification-event">
                     <div>
-                      <a href="#" className="h6 notification-friend">
+                      <Link to="/" className="h6 notification-friend">
                         Sarah Hetfield
-                      </a>{" "}
+                      </Link>{" "}
                       commented on your{" "}
-                      <a href="#" className="notification-link">
+                      <Link to="/" className="notification-link">
                         photo
-                      </a>
+                      </Link>
                       .
                     </div>
                     <span className="notification-date">
@@ -1217,7 +1203,7 @@ function Header() {
                   </span>
 
                   <div className="comment-photo">
-                    <img src="img/comment-photo1.jpg" alt="photo" />
+                    <img src="img/comment-photo1.jpg" alt="photo1" />
                     <span>
                       “She looks incredible in that outfit! We should see
                       each...”
@@ -1240,13 +1226,13 @@ function Header() {
                   </div>
                   <div className="notification-event">
                     <div>
-                      <a href="#" className="h6 notification-friend">
+                      <Link to="/" className="h6 notification-friend">
                         Green Goo Rock
-                      </a>{" "}
+                      </Link>{" "}
                       invited you to attend to his event Goo in{" "}
-                      <a href="#" className="notification-link">
+                      <Link to="/" className="notification-link">
                         Gotham Bar
-                      </a>
+                      </Link>
                       .
                     </div>
                     <span className="notification-date">
@@ -1280,13 +1266,13 @@ function Header() {
                   </div>
                   <div className="notification-event">
                     <div>
-                      <a href="#" className="h6 notification-friend">
+                      <Link to="/" className="h6 notification-friend">
                         James Summers
-                      </a>{" "}
+                      </Link>{" "}
                       commented on your new{" "}
-                      <a href="#" className="notification-link">
+                      <Link to="/" className="notification-link">
                         profile status
-                      </a>
+                      </Link>
                       .
                     </div>
                     <span className="notification-date">
@@ -1315,9 +1301,9 @@ function Header() {
                 </li>
               </ul>
 
-              <a href="#" className="view-all bg-primary">
+              <Link to="/" className="view-all bg-primary">
                 View All Notifications
-              </a>
+              </Link>
             </div>
           </div>
 

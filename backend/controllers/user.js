@@ -11,17 +11,19 @@ exports.createUser = (req, res, next) => {
       firstname: req.body.firstname,
       lastname: req.body.lastname,
       role: req.body.role,
-      password: hash,
+      password: hash
     });
     user
       .save()
       .then(result => {
+        console.log("ok");
         res.status(201).json({
           message: "User created!",
           result: result
         });
       })
       .catch(err => {
+        console.log(err);
         res.status(500).json({
           error: err
         });
@@ -48,7 +50,8 @@ exports.userLogin = (req, res, next) => {
         });
       }
       const token = jwt.sign(
-        { email: fetchedUser.email,
+        {
+          email: fetchedUser.email,
           userId: fetchedUser._id,
           username: fetchedUser.username
         },
@@ -58,7 +61,13 @@ exports.userLogin = (req, res, next) => {
       res.status(200).json({
         token: token,
         expiresIn: 3600,
-        user: fetchedUser
+        user: {
+          email: fetchedUser.email,
+          username: fetchedUser.username,
+          firstname: fetchedUser.firstname,
+          lastname: fetchedUser.lastname,
+          role: fetchedUser.role
+        }
       });
     })
     .catch(err => {
