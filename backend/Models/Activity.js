@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+//const mongoose = require("mongoose");
 
 let Schema = mongoose.Schema;
 const ActivitySchema = mongoose.Schema({
@@ -7,7 +8,8 @@ const ActivitySchema = mongoose.Schema({
     type: { type: String, required: true },
     generalProgress: { type: Number, required: true },
     creator: { type: Schema.ObjectId, ref: 'User' },
-    supervisor: [{ type: Schema.ObjectId, ref: 'User' }]
+    supervisor: [{ type: Schema.ObjectId, ref: 'User' }],
+    members: {type: Schema.ObjectId, ref:'User'}
 });
 
 
