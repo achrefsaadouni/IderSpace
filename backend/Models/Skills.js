@@ -5,4 +5,4 @@ const SkillsSchema = mongoose.Schema({
     level: { type: Number, require: true }
 });
 
-module.exports = mongoose.model("Skills", SkillsSchema);
+module.exports = SkillsSchema;

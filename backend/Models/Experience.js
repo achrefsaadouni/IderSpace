@@ -8,4 +8,4 @@ const ExperienceSchema = mongoose.Schema({
     address: { type: String, required: true }
 });
 
-module.exports = mongoose.model("Experience", ExperienceSchema);
+module.exports = ExperienceSchema;
