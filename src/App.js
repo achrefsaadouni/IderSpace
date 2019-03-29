@@ -3,7 +3,8 @@ import Header from "./components/layout/Header";
 import SideBar from "./components/layout/SideBar";
 import SideBarRight from "./components/layout/SideBar_Right";
 import Login from "./components/pages/Login";
-import Profile from "./components/profile/Index";
+import Profile from "./components/account/Index";
+import EditProfile from "./components/account/editProfile";
 import Forum from "./components/pages/Forum";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -23,6 +24,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={Forum} />
               <Route exact path="/profile" component={Profile} />
+              <Route exact path="/edit-profile" component={EditProfile} />
               <Route exact path="/login" pathname="login" component={Login} />
             </Switch>
             {window.location.pathname !== "/login" ? (

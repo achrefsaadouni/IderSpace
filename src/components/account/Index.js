@@ -19,27 +19,27 @@ class Index extends Component {
                       <div className="col col-lg-5 col-md-5 col-sm-12 col-12">
                         <ul className="profile-menu">
                           <li>
-                            <Link href="02-ProfilePage.html" className="active">
+                            <Link to="02-ProfilePage.html" className="active">
                               Timeline
                             </Link>
                           </li>
                           <li>
-                            <Link href="05-ProfilePage-About.html">About</Link>
+                            <Link to="05-ProfilePage-About.html">About</Link>
                           </li>
                           <li>
-                            <Link href="06-ProfilePage.html">Friends</Link>
+                            <Link to="06-ProfilePage.html">Friends</Link>
                           </li>
                         </ul>
                       </div>
                       <div className="col col-lg-5 ml-auto col-md-5 col-sm-12 col-12">
                         <ul className="profile-menu">
                           <li>
-                            <Link href="07-ProfilePage-Photos.html">
+                            <Link to="07-ProfilePage-Photos.html">
                               Photos
                             </Link>
                           </li>
                           <li>
-                            <Link href="09-ProfilePage-Videos.html">
+                            <Link to="09-ProfilePage-Videos.html">
                               Videos
                             </Link>
                           </li>
@@ -64,7 +64,7 @@ class Index extends Component {
 
                     <div className="control-block-button">
                       <Link
-                        href="35-YourAccount-FriendsRequests.html"
+                        to="35-YourAccount-FriendsRequests.html"
                         className="btn btn-control bg-blue"
                       >
                         <svg className="olymp-happy-face-icon">
@@ -103,7 +103,7 @@ class Index extends Component {
                             </Link>
                           </li>
                           <li>
-                            <Link href="29-YourAccount-AccountSettings.html">
+                            <Link to="29-YourAccount-AccountSettings.html">
                               Account Settings
                             </Link>
                           </li>
@@ -112,12 +112,12 @@ class Index extends Component {
                     </div>
                   </div>
                   <div className="top-header-author">
-                    <Link href="02-ProfilePage.html" className="author-thumb">
+                    <Link to="02-ProfilePage.html" className="author-thumb">
                       <img src="img/author-main1.jpg" alt="author" />
                     </Link>
                     <div className="author-content">
                       <Link
-                        href="02-ProfilePage.html"
+                        to="02-ProfilePage.html"
                         className="h4 author-name"
                       >
                         James Spiegel
@@ -142,7 +142,7 @@ class Index extends Component {
                       <div className="author-date">
                         <Link
                           className="h6 post__author-name fn"
-                          href="02-ProfilePage.html"
+                          to="02-ProfilePage.html"
                         >
                           James Spiegel
                         </Link>
