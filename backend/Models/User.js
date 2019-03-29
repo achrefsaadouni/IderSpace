@@ -12,7 +12,7 @@ const userSchema = mongoose.Schema({
   linkedin: {type: String},
   github: {type:String},
   class: {type:String},
-  Resume: {Resume},
+  Resume: Resume,
 });
 
 userSchema.plugin(uniqueValidator);
