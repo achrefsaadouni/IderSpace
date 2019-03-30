@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 var cors = require("cors");
 
 const userRoutes = require("./routes/user");
+const ActivitiesRoutes = require("./routes/activity");
 
 const app = express();
 
@@ -28,5 +29,6 @@ app.use(cookieParser());
 app.use("/images", express.static(path.join("backend/images")));
 
 app.use("/api/user", userRoutes);
+app.use("/api/activity", ActivitiesRoutes);
 
 module.exports = app;

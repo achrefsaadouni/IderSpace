@@ -14,7 +14,7 @@ const config = {
     hasToLog: configFile.hasToLog,
     rootProfiles: configFile.rootProfiles,
     isHeadless: true,
-    idUser:''
+    idUser: ''
 }
 
 exports.createUser = (req, res, next) => {
