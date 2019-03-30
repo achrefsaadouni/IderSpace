@@ -12,4 +12,10 @@ router.post("/addResume" , UserController.addResume);
 
 router.post("/addlinkedIn" , UserController.addlinkedIn);
 
+router.get("/getSkills/:id" , UserController.getSkills);
+
+router.post("/addskills" , UserController.addSkills);
+
+router.get("/getExperiences/:id" , UserController.getExperiences);
+
 module.exports = router;

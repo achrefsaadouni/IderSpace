@@ -51,23 +51,7 @@ module.exports = (content) => {
             message: "Invalid authentication credentials!"
         });
     });
-    /* for (const skil of content.skills){
-       skill = new Skills({
-         name : skil.title,
-         level : skil.count,
-         type: SkillsType(skil.title)
-       })
-       skill.save(function (err, u) {
-         if (err){
-           console.log(err)
-         }else{
-           console.log(u)
-           console.log('kamel')
-         }
-       })
-     } */
 
-    console.log('kamelt saye')
 
 
 };
