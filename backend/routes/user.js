@@ -8,4 +8,8 @@ router.post("/signup", UserController.createUser);
 
 router.post("/login", UserController.userLogin);
 
+router.post("/addResume" , UserController.addResume);
+
+router.post("/addlinkedIn" , UserController.addlinkedIn);
+
 module.exports = router;
