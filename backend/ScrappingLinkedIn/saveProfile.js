@@ -1,15 +1,17 @@
 const mongoose = require('mongoose');
 const Skills = require('../Models/Skills.js');
+const Experience = require('../Models/Experience.js');
 const SkillsType = require('../Dictionnary/SkillsType');
 const User = require("../models/user");
 const dependencies = {
     fs: require('fs'),
     config: require('../config.json')
-}
+};
+const skills = mongoose.model('skills', Skills);
+const experiences = mongoose.model('Experience',Experience);
 
 module.exports = (content) => {
     console.log(content.idUser);
-    const skills = mongoose.model('skills', Skills);
     User.findById(content.idUser)
         .then(user => {
             if (!user) {
@@ -23,8 +25,19 @@ module.exports = (content) => {
                     name: skil.title,
                     level: 1,
                     type: SkillsType(skil.title)
-                })
+                });
                 user.Resume.Skills.push(skill)
+            }
+            for (const experienc of content.positions){
+                var date = experienc.date1.split('–');
+                let exper = new experiences({
+                    name: experienc.title,
+                    description: experienc.description,
+                    start_date: date[0],
+                    end_date: date[1],
+                    address: experienc.companyName
+                });
+                user.Resume.experiences.push(exper)
             }
             user.save()/*.then(result => {
                 res.status(200).json({
@@ -57,4 +70,4 @@ module.exports = (content) => {
     console.log('kamelt saye')
 
 
-}
+};
