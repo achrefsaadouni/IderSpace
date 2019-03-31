@@ -25,6 +25,9 @@ exports.createUser = (req, res, next) => {
       firstname: req.body.firstname,
       lastname: req.body.lastname,
       role: req.body.role,
+      github: req.body.github,
+      linkedin: req.body.linkedin,
+      class: req.body.class,
       password: hash
     });
     user
@@ -80,7 +83,10 @@ exports.userLogin = (req, res, next) => {
           username: fetchedUser.username,
           firstname: fetchedUser.firstname,
           lastname: fetchedUser.lastname,
-          role: fetchedUser.role
+          role: fetchedUser.role,
+          github: fetchedUser.github,
+          linkedin: fetchedUser.linkedin,
+          class: fetchedUser.class
         }
       });
     })
