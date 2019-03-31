@@ -8,21 +8,23 @@ router.post("/signup", UserController.createUser);
 
 router.post("/login", UserController.userLogin);
 
-router.post("/addResume" , UserController.addResume);
+router.post("/addResume", UserController.addResume);
 
-router.post("/addLinkedIn" , UserController.addlinkedIn);
+router.post("/addLinkedIn", UserController.addlinkedIn);
 
-router.get("/getSkills/:id" , UserController.getSkills);
+router.put("/:d", UserController.updateUser);
 
-router.post("/addSkills" , UserController.addSkills);
+//router.get("/getSkills/:id", UserController.getSkills);
 
-router.post("/addExperience" , UserController.addExperience);
+//router.post("/addSkills", UserController.addSkills);
 
-router.get("/getExperiences/:id" , UserController.getExperiences);
+//router.post("/addExperience", UserController.addExperience);
 
-router.post("/removeSkill" , UserController.removeSkill);
+//router.get("/getExperiences/:id", UserController.getExperiences);
 
-router.post("/removeExperience" , UserController.removeExperience);
+//router.post("/removeSkill", UserController.removeSkill);
+
+//router.post("/removeExperience", UserController.removeExperience);
 
 router.post("/checkData" , UserController.checkData);
 

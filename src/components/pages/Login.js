@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import logo from "../../logoWhite.png";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 import PropTypes from "prop-types";
-import { postLogin } from "../../store/actions/authActions";
+import { login } from "../../store/actions/authActions";
 import { connect } from "react-redux";
 
 class Login extends Component {
@@ -35,7 +35,7 @@ class Login extends Component {
       password: pwd
     };
 
-    this.props.postLogin(auth);
+    this.props.login(auth);
 
     // Clear State
     this.setState({
@@ -50,6 +50,13 @@ class Login extends Component {
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
   render() {
+    const { from } = this.props.location.state || { from: { pathname: "/" } };
+    const { isAuth } = this.props;
+
+    if (isAuth === true) {
+      return <Redirect to={from} />;
+    }
+
     const { email, pwd } = this.state;
     return (
       <div className="landing-page">
@@ -144,10 +151,10 @@ class Login extends Component {
 }
 
 Login.propTypes = {
-  postLogin: PropTypes.func.isRequired
+  login: PropTypes.func.isRequired
 };
 
 export default connect(
   null,
-  { postLogin }
+  { login }
 )(Login);
