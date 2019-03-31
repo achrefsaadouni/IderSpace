@@ -5,7 +5,8 @@ const mongoose = require("mongoose");
 var cors = require("cors");
 
 const userRoutes = require("./routes/user");
-
+const chatbotRoutes = require("./routes/chatbot");
+const chatRoutes = require("./routes/chat");
 const app = express();
 
 app.use(cors());
@@ -28,5 +29,6 @@ app.use(cookieParser());
 app.use("/images", express.static(path.join("backend/images")));
 
 app.use("/api/user", userRoutes);
-
+app.use("/api/chatbot", chatbotRoutes);
+app.use("/api/chat", chatRoutes);
 module.exports = app;
