@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const Resume = require("../Models/Resume");
 const Skills = require('../Models/Skills.js');
+const Experience = require('../Models/Experience.js');
 const scrapping = require('../ScrappingLinkedIn/index');
 const configFile = require('../config');
 const SkillsType = require('../Dictionnary/SkillsType');
@@ -238,6 +239,122 @@ exports.addSkills = (req, res, next) => {
             });
         });
 };
+
+exports.addExperience = (req, res, next) => {
+    const experiences = mongoose.model('experiences', Experience);
+    let fetchedUser;
+    User.findById({_id: req.body.id})
+        .then(user => {
+            if (!user) {
+                return res.status(401).json({
+                    message: "undifined user"
+                });
+            }
+            user.Resume.experiences.push(new experiences({
+                name: req.body.name,
+                description: req.body.description,
+                start_date: req.body.startDate,
+                end_date: req.body.endDate,
+                address: req.body.address
+            }));
+            user.save().then(result => {
+                res.status(200).json({
+                    msg: "Experience has been added successfully"
+                });
+            })
+        })
+        .catch(err => {
+            console.log(err);
+            return res.status(401).json({
+                message: "Invalid authentication credentials!"
+            });
+        });
+};
+
+exports.removeSkill = (req, res, next) => {
+    let skillstab;
+    let fetcheduser;
+    let state = true;
+    User.findById({_id: req.body.id})
+        .then(user => {
+            if (!user) {
+                return res.status(401).json({
+                    message: "undifined user"
+                });
+            }
+            fetcheduser = user;
+            skillstab = user.Resume.Skills;
+            for (const skill of skillstab) {
+                if (skill.id === req.body.idSkill) {
+                    state = false;
+                    user.Resume.Skills.id(req.body.idSkill).remove()
+                }
+            }
+            return state;
+
+        }).then(result => {
+        if (!result) {
+            fetcheduser.save().then(result => {
+                res.status(200).json({
+                    msg: "skill deleted successfully"
+                });
+            })
+        } else {
+            return res.status(401).json({
+                message: "Something wrong with the delete!"
+            });
+        }
+    })
+        .catch(err => {
+            console.log(err);
+            return res.status(401).json({
+                message: "Something wrong with the delete!"
+            });
+        });
+};
+
+exports.removeExperience = (req, res, next) => {
+    let experiencestab;
+    let fetcheduser;
+    let state = true;
+    User.findById({_id: req.body.id})
+        .then(user => {
+            if (!user) {
+                return res.status(401).json({
+                    message: "undifined user"
+                });
+            }
+            fetcheduser = user;
+            experiencestab = user.Resume.experiences;
+            for (const experience of experiencestab) {
+                if (experience.id === req.body.idExperience) {
+                    state = false;
+                    user.Resume.experiences.id(req.body.idExperience).remove()
+                }
+            }
+            return state;
+
+        }).then(result => {
+        if (!result) {
+            fetcheduser.save().then(result => {
+                res.status(200).json({
+                    msg: "Experience deleted successfully"
+                });
+            })
+        } else {
+            return res.status(401).json({
+                message: "Something wrong with the delete!"
+            });
+        }
+    })
+        .catch(err => {
+            console.log(err);
+            return res.status(401).json({
+                message: "Something wrong with the delete!"
+            });
+        });
+};
+
 
 
 
