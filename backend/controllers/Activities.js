@@ -117,19 +117,44 @@ exports.addToDosToModule = (req, res, next) => {
 
 }
 
+exports.addMembersManually = (req, res, next) => {
 
-async function createModules(modules) {
+    let MembersId=[]
 
-    modules.map(e => {
-        let Module = new Module({})
+    var promises = req.body.members.map(e => {
+
+
+            MembersId.push(e.memberId)
+            console.log(e.memberId)
+
+        return MembersId
     })
+    Promise.all(promises).then(result => {
+        Module.findById(req.body.activityId).then((act) => {
+            //console.log(modu)
+            act.members.push(result)
+            act.save()
+
+        })
+    })
+
+
+        .then(result => {
+
+            console.log("success");
+            res.status(200).json({
+                message: "members (manual mode)added successfully ",
+                result: result
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            })
+        });
+
 
 }
 
-async function createTodos(todos) {
 
-    todos.map(e => {
-        let ToDo = new todo({})
-    })
-
-}
