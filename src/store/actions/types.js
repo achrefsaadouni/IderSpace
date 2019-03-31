@@ -1,2 +1,6 @@
-export const POST_LOGIN = "POST_LOGIN";
-export const GET_USER = "POST_LOGIN";
+export const USERS_LOGIN_SUCCESS = "USERS_LOGIN_SUCCESS";
+export const USERS_LOGIN_FAILURE = "USERS_LOGIN_FAILURE";
+export const USERS_LOGIN_AUTO = "USERS_LOGIN_AUTO";
+export const GET_USER = "GET_USER";
+export const USER_LOGOUT = "USER_LOGOUT";
+export const UPDATE_USER_PROFILE = "UPDATE_USER_PROFILE";
