@@ -4,6 +4,7 @@ let Schema = mongoose.Schema;
 const ToDoSchema = mongoose.Schema({
     name: { type: String, require:true },
     done: { type: Boolean, required: true },
+    description: { type: String, required: true },
     rate: [{ type: Schema.ObjectId, ref: 'Rate' }]
 });
 
