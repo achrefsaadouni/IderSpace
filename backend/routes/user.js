@@ -24,4 +24,6 @@ router.post("/removeSkill" , UserController.removeSkill);
 
 router.post("/removeExperience" , UserController.removeExperience);
 
+router.post("/checkData" , UserController.checkData);
+
 module.exports = router;

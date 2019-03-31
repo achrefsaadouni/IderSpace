@@ -356,5 +356,48 @@ exports.removeExperience = (req, res, next) => {
 };
 
 
+async function makeData(array) {
+    const data = [];
+    // for(const user of array){ //x is a bad name by the way
+    const attribute1 = await getSkillsOfUser(array.id);
+    const attribute2 = await getExperiencesOfUser(array.id);
+    data.push(attribute1, attribute2);
+    // }
+    return attribute1;
+}
+
+async function returnNameSkill(array){
+    let chaine="";
+    for (const t of array){
+        chaine+=t.name+":"+t.level;
+    }
+    return chaine
+}
+
+function getAllConcernedUsers() {
+    return new Promise(resolve => {
+        User.find().then(async user => {
+            return resolve(user[1]);
+        });
+    });
+}
+
+
+exports.checkData = async (req, res, next) => {
+    const data = [];
+    let response = await getAllConcernedUsers();
+    const tt = await makeData(response);
+    let people = {'user':response.firstname}
+    for (var i=0 ; i<tt.length;i++){
+        people = {
+            ...people,[""+tt[i].name]:tt[i].level
+        }
+    }
+    data.push(people);
+    return res.status(200).json({
+        data
+
+    })
+};
 
 
