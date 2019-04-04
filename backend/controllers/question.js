@@ -1,4 +1,5 @@
 const Question = require("../models/Question");
+const User = require("../models/user");
 
 exports.createQuestion = (req, res, next) => {
   const url = req.protocol + "://" + req.get("host");
@@ -29,7 +30,6 @@ exports.createQuestion = (req, res, next) => {
 
 exports.updateQuestion = (req, res, next) => {
   const question = new Question({
-    _id: req.body.id,
     subject: req.body.subject,
     content: req.body.content
   });
@@ -230,6 +230,15 @@ exports.bestCommentQuestion = (req, res, next) => {
         result.comments.find(
           comment => comment._id.toString() === req.params.comment_id
         ).approved = true;
+
+        // add +1 aprove to user
+        const userId = result.comments
+          .find(comment => comment._id.toString() === req.params.comment_id)
+          .user._id.toString();
+        User.findById(userId).then(user => {
+          user.nbrBestAnswer += 1;
+          user.save();
+        });
 
         result.save().then(result => res.json(result));
       } else {
