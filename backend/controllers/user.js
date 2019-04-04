@@ -431,3 +431,24 @@ exports.removeExperience = (req, res, next) => {
       });
     });
 };
+
+
+exports.collectData = async (req, res, next) => {
+    const data = [];
+    let users = await getAllConcernedUsers();
+    let people = {};
+    for (const user of users) {
+        const skill = await getSkillsOfUser(user);
+        const experience = await getExperiencesOfUser(user);
+        let prototype = {
+            user: user.id,
+            skills: skill,
+            Experiences: experience
+        }
+        people = Object.assign(prototype, skill)
+        data.push(people);
+    }
+    return res.status(200).json(
+        data
+    )
+}
