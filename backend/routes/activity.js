@@ -4,14 +4,17 @@ const ActivityController = require("../controllers/Activities");
 const checkAuth = require("../middleware/check-auth")
 const router = express.Router();
 
-router.post("/create", ActivityController.createActivity);
-router.put("/addModules", ActivityController.addModulesToActivity);
-router.put("/addTodos", ActivityController.addToDosToModule);
-router.put("/addMembersManually", ActivityController.addMembersManually);
-router.put("/addSupervisor", ActivityController.assignSupervisors);
-router.put("/assignModule", ActivityController.assignModule);
-router.post("/pushTodo", ActivityController.pushTodoToValidation);
-router.put("/validateRequest", ActivityController.validateRequest);
+router.post("/create",checkAuth, ActivityController.createActivity);
+router.put("/addModules",checkAuth ,ActivityController.addModulesToActivity);
+router.put("/addTodos",checkAuth, ActivityController.addToDosToModule);
+router.put("/addMembersManually",checkAuth, ActivityController.addMembersManually);
+router.put("/addSupervisor",checkAuth, ActivityController.assignSupervisors);
+router.put("/assignModule",checkAuth, ActivityController.assignModule);
+router.post("/pushTodo",checkAuth, ActivityController.pushTodoToValidation);
+router.put("/validateRequest",checkAuth, ActivityController.validateRequest);
+router.get("/getAllCreatedActivities",checkAuth, ActivityController.getAllCreatedActivities);
+router.get("/getActivityModules",checkAuth, ActivityController.getActivityModules);
+router.get("/getTodoByModule",checkAuth, ActivityController.getTodoByModule);
 
 ActivityController.incrementProgress()
 //ActivityController.enrichCv()

@@ -7,28 +7,32 @@ const Workspace = require("../models/Workspace");
 const ValidatingRequests = require("../models/ValidatingRequests");
 var schedule = require('node-schedule');
 exports.createActivity = (req, res, next) => {
-
-    const act = new activity({
-        title: req.body.title,
-        description: req.body.description,
-        descriptionDocument: req.body.descriptionDocument,
-        type: req.body.type,
-        creator: "5c9f9a081c42ee2db075f20a"
-    })
-    act.save()
-        .then(result => {
-            console.log("success");
-            res.status(200).json({
-                message: "activity first step created!",
-                result: result
-            });
+    if (req.userData.role === "teacher") {
+        const act = new activity({
+            title: req.body.title,
+            description: req.body.description,
+            descriptionDocument: req.body.descriptionDocument,
+            type: req.body.type,
+            creator: req.userData.userId
         })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({
-                error: err
+        act.save()
+            .then(result => {
+                console.log("success");
+                res.status(200).json({
+                    message: "activity first step created!",
+                    result: result
+                });
             })
-        });
+            .catch(err => {
+                console.log(err);
+                res.status(500).json({
+                    error: err
+                })
+            });
+    }
+    else {
+        console.log("user is not a teacher")
+    }
 
 }
 exports.addModulesToActivity = (req, res, next) => {
@@ -174,42 +178,27 @@ exports.addMembersManually = (req, res, next) => {
 exports.assignSupervisors = (req, res, next) => {
 
     let supervisorsId = []
-    activity.findById(req.body.activityId).then((ac) => {
-        var promises = req.body.supervisors.map(e => {
-            let state = false;
-            for (const t of ac.supervisor) {
-                if (t === e.supervisorId) {
-                    state = true;
-                }
-            }
-            if (state) {
-                supervisorsId.push(e.supervisorId)
-                console.log("no duplication")
-            } else {
-                console.log('duplication')
+    activity.findById(req.body.activityId).then(ac => {
+
+
+        req.body.supervisors.map(e => {
+            if (!ac.supervisor.includes(e.supervisorId)) {
+                ac.supervisor.push(e.supervisorId)
+                ac.save()
+                return "done"
             }
         })
-        return promises
+
 
     }).then(result => {
-        Promise.all(result).then(result => {
-            activity.findById(req.body.activityId).then((act) => {
-                //console.log(MembersId)
-                if (supervisorsId.length > 0) {
-                    act.supervisor.push(supervisorsId)
-                    act.save()
-                }
-            })
-        })
-    })
-        .then(result => {
 
-            console.log("success");
-            res.status(200).json({
-                message: "supervisors added successfully ",
-                result: result
-            });
-        })
+
+        res.status(200).json({
+            message: "supervisors added successfully ",
+            result: result
+        });
+
+    })
         .catch(err => {
             console.log(err);
             res.status(500).json({
@@ -373,6 +362,99 @@ exports.enrichCv = () => {
         console.log('updating cv ..');
     });
 
+}
+exports.getAllCreatedActivities = (req, res, next) => {
+    if (req.userData.role === "teacher") {
+        activity.find().where("creator").equals(req.userData.userId).then(result => {
+            console.log(result)
+            return result
+        }).then(x => {
+            res.status(200).json({
+                message: "All of your created activities!",
+                resultat: x
+            });
+        })
+            .catch(err => {
+                console.log(err);
+                res.status(500).json({
+                    error: err
+                })
+            });
+
+
+    }
+
+}
+exports.getActivityModules = (req, res, next) => {
+    let mods = []
+    activity.findById("5c9f9d3bc3294c42f452c454").then(ac => {
+
+
+           var promises= Module.find({
+                '_id': {$in: ac.modules}
+            }, function (err, docs) {
+                mods.push(docs)
+            });
+            return promises
+
+
+
+    })
+        .then(resultat => {
+            Promise.all(resultat).then(reslt=>{
+                if (reslt != null) {
+                    res.status(200).json(
+                        {
+                            message: "all modules for this activity",
+                            result: reslt
+                        }
+                    )
+                }
+            })
+
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            })
+        });
+}
+
+exports.getTodoByModule = (req, res, next) => {
+    let Todoos = []
+    Module.findById(req.body.moduleId).then(ac => {
+
+
+        var promises= todo.find({
+            '_id': {$in: ac.todos}
+        }, function (err, docs) {
+            Todoos.push(docs)
+        });
+        return promises
+
+
+
+    })
+        .then(resultat => {
+            Promise.all(resultat).then(reslt=>{
+                if (reslt != null) {
+                    res.status(200).json(
+                        {
+                            message: "all Todos for this Module",
+                            result: reslt
+                        }
+                    )
+                }
+            })
+
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            })
+        });
 }
 
 
