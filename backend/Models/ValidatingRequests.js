@@ -7,5 +7,6 @@ const RequestSchema = mongoose.Schema({
     activity: {type: Schema.ObjectId, ref: 'Activity'},
     module: {type: Schema.ObjectId, ref: 'Module'},
     validation: {type: Boolean},
+    state: {type: Boolean},
     });
 module.exports = mongoose.model("ValidatingRequests", RequestSchema);
