@@ -110,3 +110,131 @@ exports.deleteQuestion = (req, res, next) => {
       });
     });
 };
+
+exports.likeQuestion = (req, res, next) => {
+  Question.findById(req.params.id).then(result => {
+    if (
+      result.likes.filter(like => like.user.toString() === req.userData.userId)
+        .length > 0
+    ) {
+      return res
+        .status(400)
+        .json({ alreadyliked: "User already liked this post" });
+    }
+
+    // Add user id to likes array
+    result.likes.unshift({ user: req.userData.userId });
+
+    result.save().then(result => res.json(result));
+  });
+};
+
+exports.unlikeQuestion = (req, res, next) => {
+  Question.findById(req.params.id)
+    .then(result => {
+      if (
+        result.likes.filter(
+          like => like.user.toString() === req.userData.userId
+        ).length === 0
+      ) {
+        return res
+          .status(400)
+          .json({ alreadyliked: "You have not yet liked this post" });
+      }
+
+      // Get remove index
+      const removeIndex = result.likes
+        .map(item => item.user.toString())
+        .indexOf(req.userData.userId);
+
+      // Splice out of array
+      result.likes.splice(removeIndex, 1);
+
+      // Save
+      result.save().then(result => res.json(result));
+    })
+    .catch(err => res.status(404).json({ postnotfound: "No Question found" }));
+};
+
+exports.addCommenttoQuestion = (req, res, next) => {
+  Question.findById(req.params.id)
+    .then(result => {
+      const newComment = {
+        content: req.body.content,
+        name: req.body.name,
+        user: req.userData.userId
+      };
+
+      // Add to comments array
+      result.comments.unshift(newComment);
+
+      // Save
+      result.save().then(result => res.json(result));
+    })
+    .catch(err => res.status(404).json({ postnotfound: "No Question found" }));
+};
+
+exports.deleteCommenttoQuestion = (req, res, next) => {
+  Question.findById(req.params.id)
+    .then(result => {
+      // Check to see if comment exists
+      if (
+        result.comments.filter(
+          comment => comment._id.toString() === req.params.comment_id
+        ).length === 0
+      ) {
+        return res
+          .status(404)
+          .json({ commentnotexists: "Comment does not exist" });
+      }
+
+      // Get remove index
+      const removeIndex = result.comments
+        .map(item => item._id.toString())
+        .indexOf(req.params.comment_id);
+
+      // Splice comment out of array
+      result.comments.splice(removeIndex, 1);
+
+      result.save().then(result => res.json(result));
+    })
+    .catch(err => res.status(404).json({ postnotfound: "No Question found" }));
+};
+
+exports.bestCommentQuestion = (req, res, next) => {
+  Question.findById(req.params.id)
+    .then(result => {
+      // Check to see if comment exists
+      if (
+        result.comments.filter(
+          comment => comment._id.toString() === req.params.comment_id
+        ).length === 0
+      ) {
+        return res
+          .status(404)
+          .json({ commentnotexists: "Comment does not exist" });
+      }
+
+      if (result.author._id.toString() === req.userData.userId) {
+        // unprove the last comment if exist
+        if (
+          result.comments.filter(comment => comment.approved === true)
+            .length !== 0
+        ) {
+          result.comments.forEach(comment => {
+            comment.approved = false;
+          });
+        }
+
+        // Approve the comment
+        result.comments.find(
+          comment => comment._id.toString() === req.params.comment_id
+        ).approved = true;
+
+        result.save().then(result => res.json(result));
+      } else {
+        return res.status(401).json({ commentnotexists: "Not authorized" });
+      }
+    })
+    .catch(err => res.status(404).json({ postnotfound: "No Question found" }));
+};
