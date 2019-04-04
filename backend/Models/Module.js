@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 
 let Schema = mongoose.Schema;
 const ModuleSchema = mongoose.Schema({
-
     progress: { type: Number, required: true },
     title: { type: String, required: true },
     state: { type: Boolean, required: true },
