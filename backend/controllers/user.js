@@ -195,3 +195,235 @@ exports.updateUser = (req, res, next) => {
       });
     });
 };
+
+async function getExperiencesOfUser(id) {
+    return new Promise(resolve => {
+        User.findById(id).exec(function (err, user) {
+            return resolve(user.Resume.experiences);
+        });
+    });
+
+}
+
+async function getSkillsOfUser(id) {
+    return new Promise(resolve => {
+        User.findById(id).exec(function (err, user) {
+            return resolve(user.Resume.Skills);
+        });
+    });
+
+}
+
+async function makeData(array) {
+    const data = [];
+    // for(const user of array){ //x is a bad name by the way
+    const attribute1 = await getSkillsOfUser(array.id);
+    const attribute2 = await getExperiencesOfUser(array.id);
+    data.push(attribute1, attribute2);
+    // }
+    return attribute1;
+}
+
+async function returnNameSkill(array){
+    let chaine="";
+    for (const t of array){
+        chaine+=t.name+":"+t.level;
+    }
+    return chaine
+}
+
+exports.getSkills = async (req, res, next) => {
+    let skills = await getSkillsOfUser(req.params.id)
+    return res.status(200).json({
+        Skills: skills
+    });
+};
+
+exports.getExperiences = async (req, res, next) => {
+    let experience = await getExperiencesOfUser(req.params.id)
+    return res.status(200).json({
+        Experiences: experience
+    });
+};
+
+function getAllConcernedUsers() {
+    return new Promise(resolve => {
+        User.find().then(async user => {
+            return resolve(user[1]);
+        });
+    });
+};
+
+
+exports.checkData = async (req, res, next) => {
+    const data = [];
+    let response = await getAllConcernedUsers();
+    const tt = await makeData(response);
+    let people = {'user':response.firstname}
+    for (var i=0 ; i<tt.length;i++){
+        people = {
+            ...people,[""+tt[i].name]:tt[i].level
+        }
+    }
+    data.push(people);
+    return res.status(200).json({
+        data
+
+    })
+};
+
+exports.addSkills = (req, res, next) => {
+    const skills = mongoose.model('skills', Skills);
+    let fetchedUser;
+    let verify = true;
+    User.findById({_id: req.body.id})
+        .then(user => {
+            if (!user) {
+                return res.status(401).json({
+                    message: "undifined user"
+                });
+            }
+            for (const skill of user.Resume.Skills) {
+                if (skill.name === req.body.nameSkill) {
+                    verify = false;
+                }
+            }
+            fetchedUser = user;
+            return verify
+        }).then(result => {
+        if (!result) {
+            return res.status(401).json({
+                message: "user already have this skill"
+            });
+        } else {
+            fetchedUser.Resume.Skills.push(new skills({
+                name: req.body.nameSkill,
+                level: 1,
+                type: SkillsType(req.body.nameSkill)
+            }));
+            fetchedUser.save().then(result => {
+                res.status(200).json({
+                    msg: "skill has been added successfully"
+                });
+            })
+        }
+    })
+        .catch(err => {
+            console.log(err);
+        })
+};
+
+exports.addExperience = (req, res, next) => {
+    const experiences = mongoose.model('experiences', Experience);
+    let fetchedUser;
+    User.findById({_id: req.body.id})
+        .then(user => {
+            if (!user) {
+                return res.status(401).json({
+                    message: "undifined user"
+                });
+            }
+            user.Resume.experiences.push(new experiences({
+                name: req.body.name,
+                description: req.body.description,
+                start_date: req.body.startDate,
+                end_date: req.body.endDate,
+                address: req.body.address
+            }));
+            user.save().then(result => {
+                res.status(200).json({
+                    msg: "Experience has been added successfully"
+                });
+            })
+        })
+        .catch(err => {
+            console.log(err);
+            return res.status(401).json({
+                message: "Invalid authentication credentials!"
+            });
+        });
+};
+
+exports.removeSkill = (req, res, next) => {
+    let skillstab;
+    let fetcheduser;
+    let state = true;
+    User.findById({_id: req.body.id})
+        .then(user => {
+            if (!user) {
+                return res.status(401).json({
+                    message: "undifined user"
+                });
+            }
+            fetcheduser = user;
+            skillstab = user.Resume.Skills;
+            for (const skill of skillstab) {
+                if (skill.id === req.body.idSkill) {
+                    state = false;
+                    user.Resume.Skills.id(req.body.idSkill).remove()
+                }
+            }
+            return state;
+
+        }).then(result => {
+        if (!result) {
+            fetcheduser.save().then(result => {
+                res.status(200).json({
+                    msg: "skill deleted successfully"
+                });
+            })
+        } else {
+            return res.status(401).json({
+                message: "Something wrong with the delete!"
+            });
+        }
+    })
+        .catch(err => {
+            console.log(err);
+            return res.status(401).json({
+                message: "Something wrong with the delete!"
+            });
+        });
+};
+
+exports.removeExperience = (req, res, next) => {
+    let experiencestab;
+    let fetcheduser;
+    let state = true;
+    User.findById({_id: req.body.id})
+        .then(user => {
+            if (!user) {
+                return res.status(401).json({
+                    message: "undifined user"
+                });
+            }
+            fetcheduser = user;
+            experiencestab = user.Resume.experiences;
+            for (const experience of experiencestab) {
+                if (experience.id === req.body.idExperience) {
+                    state = false;
+                    user.Resume.experiences.id(req.body.idExperience).remove()
+                }
+            }
+            return state;
+
+        }).then(result => {
+        if (!result) {
+            fetcheduser.save().then(result => {
+                res.status(200).json({
+                    msg: "Experience deleted successfully"
+                });
+            })
+        } else {
+            return res.status(401).json({
+                message: "Something wrong with the delete!"
+            });
+        }
+    })
+        .catch(err => {
+            console.log(err);
+            return res.status(401).json({
+                message: "Something wrong with the delete!"
+            });
+        });
+};

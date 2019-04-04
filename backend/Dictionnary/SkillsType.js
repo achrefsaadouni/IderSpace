@@ -1,7 +1,7 @@
 const dev = [
     "JEE", "JAVA","python","R","javascript","typescript","swift","objective-c",
     "ANGULAR",
-    "ANGULARJS","React","Reactjs",
+    "ANGULARJS","React","Reactjs","Node.js","node",
     "C++", "C#", "PHP", "SYMFONY", "SQL", "C", "mysql", "html", "html5", "jquery", "android", "mongodb", "css", "css3", "Maven", "XML", "json", "hibernate", "rest"
 ];
 
