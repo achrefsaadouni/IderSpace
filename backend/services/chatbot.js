@@ -1,4 +1,5 @@
 exports.createTextResponse = createTextResponse;
+exports.getApprovedAnswer = getApprovedAnswer;
 function createTextResponse(textResponse){
     let response = {
         "fulfillmentText": "This is a text response",
@@ -34,4 +35,13 @@ function createTextResponse(textResponse){
         }
     }
     return response;
+}
+
+function getApprovedAnswer(comments) {
+    for (var i = 0; i < comments.comments.length; i++) {
+        if (comments.comments[i].approved == true)
+        {
+            return comments.comments[i];
+        }
+    }
 }

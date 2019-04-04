@@ -1,14 +1,14 @@
 const chatbot = require('../services/chatbot');
-var Activity  = require('../Models/Activity');
+var Question  = require('../models/Question');
 exports.chat = (req, res, next) => {
- Activity.findOne({ 'title': 'test5' }, 'description',function(err,question){
+ Question.findOne({ 'subject': req.body.queryResult.queryText  },'comments',function(err,answer){
   if(err)
    res.send(err);
-  if(!question)
-   res.status(404).send();
+  if(!answer)
+   res.send(chatbot.createTextResponse("There are no Answer in our Forum that seems similar to your question"));
   else
   {
-   res.send(chatbot.createTextResponse(question.description));
+   res.send(chatbot.createTextResponse(chatbot.getApprovedAnswer(answer).content));
   }
  });
 };
