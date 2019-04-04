@@ -1,6 +1,14 @@
-const chatbot = require('../services/chatbot')
+const chatbot = require('../services/chatbot');
+var Activity  = require('../Models/Activity');
 exports.chat = (req, res, next) => {
- res.send(chatbot.createTextResponse("The goals of IderSpace are clear and simple, provide comfortable features to Our Members\n" +
-     "within its quarters with a modern touch. The assistant will be a chat bot ready to respond to\n" +
-     "user’s commands and an advanced Recommendation system."));
+ Activity.findOne({ 'title': 'test5' }, 'description',function(err,question){
+  if(err)
+   res.send(err);
+  if(!question)
+   res.status(404).send();
+  else
+  {
+   res.send(chatbot.createTextResponse(question.description));
+  }
+ });
 };

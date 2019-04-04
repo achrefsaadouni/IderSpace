@@ -4,6 +4,8 @@ const Module = require("../models/Module");
 const todo = require("../models/ToDo");
 const groups = require("../models/Groups");
 const Workspace = require("../models/Workspace");
+const ValidatingRequests = require("../models/ValidatingRequests");
+var schedule = require('node-schedule');
 exports.createActivity = (req, res, next) => {
 
     const act = new activity({
@@ -220,9 +222,9 @@ exports.assignSupervisors = (req, res, next) => {
 
 exports.assignModule = (req, res, next) => {
     Module.findById(req.body.moduleId).then((ac) => {
-        if(ac!=null){
-            if(req.body.responsible!=null){
-                ac.responsible=req.body.responsible
+        if (ac != null) {
+            if (req.body.responsible != null) {
+                ac.responsible = req.body.responsible
                 console.log(ac.responsible)
                 ac.save()
             }
@@ -230,12 +232,12 @@ exports.assignModule = (req, res, next) => {
 
     }).then(result => {
 
-            console.log("success");
-            res.status(200).json({
-                message: "Module assigned successfully ",
-                result: result
-            });
-        })
+        console.log("success");
+        res.status(200).json({
+            message: "Module assigned successfully ",
+            result: result
+        });
+    })
         .catch(err => {
             console.log(err);
             res.status(500).json({
@@ -245,9 +247,132 @@ exports.assignModule = (req, res, next) => {
 
 
 }
+exports.pushTodoToValidation = (req, res, next) => {
+    ValidatingRequests.find({"ToDo": req.body.todoId}).then(result => {
+        console.log(result)
+        if (result.length === 0) {
+            const validating = new ValidatingRequests(
+                {
+                    ToDo: req.body.todoId,
+                    activity: req.body.activityId,
+                    module: req.body.moduleId,
+                    validation: false,
+                }
+            )
+            validating.save()
+
+        }
+        else {
+            console.log("nulled")
+            return null
+        }
+    })
+        .then(result => {
+            console.log("success");
+            res.status(200).json({
+                message: "PUSHED to validation successfully ",
+                result: result
+            });
+        }).catch(err => {
+        console.log(err);
+        res.status(500).json({
+            error: err
+        })
+    });
+}
+
+exports.validateRequest = (req, res, next) => {
+    ValidatingRequests.findById(req.body.requestId).then(result => {
+        console.log(result)
+        if (result != null) {
+
+            result.validation = true
+            result.save()
+
+        }
+    })
+        .then(result => {
+            console.log("success");
+            res.status(200).json({
+                message: "validation operation  runned successfully ",
+                result: result
+            });
+        }).catch(err => {
+        console.log(err);
+        res.status(500).json({
+            error: err
+        })
+    });
+}
+
+exports.incrementProgress = () => {
+    let requests = []
+    var j = schedule.scheduleJob('* * * * *', function () {
+        //console.log('The answer to life, the universe, and everything!');
+        ValidatingRequests.find().then(re => {
+            //console.log(re)
+            if (re.length !== 0) {
+                re.map(e => {
+                    if (e.validation === true && e.state === false) {
+                        Module.findById(e.module).then(m => {
+                            if (m.progress < 100) {
+                                m.progress += 100 / re.length
+                                if (m.progress != 100) {
+                                    m.save().then(state => {
+                                        e.state = true
+                                        e.save()
+                                        requests.push(e)
+                                        console.log("ModuleProgressor : module progress was updated")
+                                        return requests
+                                    })
+                                }
 
 
+                            }
+
+                        })
+
+                    }
+                })
+            }
+        })
+    });
+
+}
 
 
+var j = schedule.scheduleJob('* * * * *', function () {
+    activity.find().then(ac => {
+        if (ac.length !== 0) {
+            ac.map(e => {
+                e.modules.map(i => {
+                    Module.findById(i).then(mo => {
+                        if (mo.progress === 100 && mo.state === false) {
+                            if (e.generalProgress < 100) {
+                                mo.state = true
+                                mo.save().then(() => {
+                                    e.generalProgress += 100 / e.modules.length
+                                    e.save()
+                                    console.log("Activity progress was updated")
+                                })
+
+                            }
+                        }
+                    })
+                })
+            })
+
+        }
+    })
+
+})
+
+
+exports.enrichCv = () => {
+    var j = schedule.scheduleJob('*/1 * * * *', function () {
+        console.log('updating cv ..');
+    });
+
+}
 
 
