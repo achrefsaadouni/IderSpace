@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
-const Resume = require('./Resume');
+const Resume = require("./Resume");
 
 const userSchema = mongoose.Schema({
   email: { type: String, required: true, unique: true },
@@ -9,10 +9,11 @@ const userSchema = mongoose.Schema({
   lastname: { type: String, required: true },
   role: { type: String, required: true },
   password: { type: String, required: true },
-  linkedin: {type: String},
-  github: {type:String},
-  class: {type:String},
+  linkedin: { type: String },
+  github: { type: String },
+  class: { type: String },
   Resume: Resume,
+  nbrBestAnswer: { type: Number, default: 0 }
 });
 
 userSchema.plugin(uniqueValidator);
