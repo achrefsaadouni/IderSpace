@@ -130,18 +130,13 @@ exports.addMembersManually = (req, res, next) => {
     let MembersId = []
     activity.findById(req.body.activityId).then((ac) => {
         var promises = req.body.members.map(e => {
-            let state = false;
+
             for (const t of ac.members) {
-                if (t === e.memberId) {
-                    state = true;
+                if (t != e.memberId) {
+                    MembersId.push(e.memberId)
                 }
             }
-            if (state) {
-                MembersId.push(e.memberId)
-                console.log("no duplication")
-            } else {
-                console.log('duplication')
-            }
+
         })
         return promises
 
@@ -237,6 +232,7 @@ exports.assignModule = (req, res, next) => {
 
 }
 exports.pushTodoToValidation = (req, res, next) => {
+    if(req.userData.role=="student"){
     ValidatingRequests.find({"ToDo": req.body.todoId}).then(result => {
         console.log(result)
         if (result.length === 0) {
@@ -268,9 +264,17 @@ exports.pushTodoToValidation = (req, res, next) => {
             error: err
         })
     });
+    }
+    else {
+        res.status(403).json({
+            message: "request to validate ToDo",
+            result: "you will not be able to continue with this action"
+        })
+    }
 }
 
 exports.validateRequest = (req, res, next) => {
+
     ValidatingRequests.findById(req.body.requestId).then(result => {
         console.log(result)
         if (result != null) {
@@ -279,6 +283,11 @@ exports.validateRequest = (req, res, next) => {
             result.save()
 
         }
+    }).then(x=>{
+        todo.findById(x.ToDo).then(e=>{
+            e.done=true
+            e.save()
+        })
     })
         .then(result => {
             console.log("success");
@@ -356,13 +365,13 @@ var j = schedule.scheduleJob('* * * * *', function () {
 
 })
 
-
 exports.enrichCv = () => {
     var j = schedule.scheduleJob('*/1 * * * *', function () {
         console.log('updating cv ..');
     });
 
 }
+
 exports.getAllCreatedActivities = (req, res, next) => {
     if (req.userData.role === "teacher") {
         activity.find().where("creator").equals(req.userData.userId).then(result => {
@@ -387,21 +396,20 @@ exports.getAllCreatedActivities = (req, res, next) => {
 }
 exports.getActivityModules = (req, res, next) => {
     let mods = []
-    activity.findById("5c9f9d3bc3294c42f452c454").then(ac => {
+    activity.findById(req.body.activityId).then(ac => {
 
 
-           var promises= Module.find({
-                '_id': {$in: ac.modules}
-            }, function (err, docs) {
-                mods.push(docs)
-            });
-            return promises
-
+        var promises = Module.find({
+            '_id': {$in: ac.modules}
+        }, function (err, docs) {
+            mods.push(docs)
+        });
+        return promises
 
 
     })
         .then(resultat => {
-            Promise.all(resultat).then(reslt=>{
+            Promise.all(resultat).then(reslt => {
                 if (reslt != null) {
                     res.status(200).json(
                         {
@@ -426,7 +434,7 @@ exports.getTodoByModule = (req, res, next) => {
     Module.findById(req.body.moduleId).then(ac => {
 
 
-        var promises= todo.find({
+        var promises = todo.find({
             '_id': {$in: ac.todos}
         }, function (err, docs) {
             Todoos.push(docs)
@@ -434,10 +442,9 @@ exports.getTodoByModule = (req, res, next) => {
         return promises
 
 
-
     })
         .then(resultat => {
-            Promise.all(resultat).then(reslt=>{
+            Promise.all(resultat).then(reslt => {
                 if (reslt != null) {
                     res.status(200).json(
                         {
@@ -455,6 +462,86 @@ exports.getTodoByModule = (req, res, next) => {
                 error: err
             })
         });
+}
+
+
+exports.getAllActivitiesSupervisor = (req, res, next) => {
+    let activi = []
+    if (req.userData.role == "teacher") {
+        activity.find({
+            'supervisor': {$eq: req.userData.userId}
+        }, function (err, docs) {
+            console.log(docs)
+            activi.push(docs)
+            return activi
+        }).then(re => {
+            if (re != null) {
+                res.status(200).json({
+                    message: "all of your supervised activities",
+                    result: re
+                })
+            }
+            else {
+                res.status(204).json({
+                    message: "all of your supervised activities",
+                    result: "no content"
+                })
+            }
+        }).catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            })
+        })
+
+
+    }
+    else {
+        res.status(403).json({
+            message: "all of your supervised activities",
+            result: "you will not be able to see this content"
+        })
+    }
+
+
+}
+exports.getAllForStudent=(req,res,next)=>{
+    let activi = []
+    if (req.userData.role == "student") {
+        activity.find({
+            'members': {$eq: req.userData.userId}
+        }, function (err, docs) {
+            console.log(docs)
+            activi.push(docs)
+            return activi
+        }).then(re => {
+            if (re != null) {
+                res.status(200).json({
+                    message: "all of activities that you are participating in ",
+                    result: re
+                })
+            }
+            else {
+                res.status(204).json({
+                    message: "all of your activities",
+                    result: "no content"
+                })
+            }
+        }).catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            })
+        })
+
+
+    }
+    else {
+        res.status(403).json({
+            message: "all of your  activities(Student)",
+            result: "you will not be able to see this content"
+        })
+    }
 }
 
 
