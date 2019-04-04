@@ -14,6 +14,4 @@ const ActivitySchema = mongoose.Schema({
     supervisor: [{type: Schema.ObjectId, ref: 'User'}],
     members: [{type: Schema.ObjectId, ref: 'User'}]
 });
-
-
 module.exports = mongoose.model("Activity", ActivitySchema);

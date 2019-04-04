@@ -2,10 +2,44 @@ const mongoose = require("mongoose");
 
 let Schema = mongoose.Schema;
 const QuestionSchema = mongoose.Schema({
-    progress: { type: Number, required: true },
-    todos: [{ type: Schema.ObjectId, ref: 'Todo' }],
-    duration: { type: Number, required: true },
-    start_date: { type: Date, required: true },
-    responsible: { type: Schema.ObjectId, ref: 'User' }
+  likes: [
+    {
+      user: {
+        type: Schema.Types.ObjectId,
+        ref: "User"
+      }
+    }
+  ],
+  createdAt: { type: Date, required: true },
+  subject: { type: String, required: true },
+  content: { type: String, required: true },
+  comments: [
+    {
+      user: {
+        type: Schema.Types.ObjectId,
+        ref: "User"
+      },
+      content: {
+        type: String,
+        required: true
+      },
+      name: {
+        type: String
+      },
+      date: {
+        type: Date,
+        default: Date.now
+      },
+      approved: {
+        type: Boolean,
+        default: false
+      }
+    }
+  ],
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true
+  }
 });
 module.exports = mongoose.model("Question", QuestionSchema);
