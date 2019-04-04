@@ -2,6 +2,8 @@ const activity = require("../Models/Activity")
 const User = require("../models/user");
 const Module = require("../models/Module");
 const todo = require("../models/ToDo");
+const groups = require("../models/Groups");
+const Workspace = require("../models/Workspace");
 exports.createActivity = (req, res, next) => {
 
     const act = new activity({
@@ -74,7 +76,7 @@ exports.addModulesToActivity = (req, res, next) => {
 }
 exports.addToDosToModule = (req, res, next) => {
 
-    let todosId=[]
+    let todosId = []
 
     var promises = req.body.todos.map(e => {
         const to = new todo({
@@ -119,26 +121,35 @@ exports.addToDosToModule = (req, res, next) => {
 
 exports.addMembersManually = (req, res, next) => {
 
-    let MembersId=[]
+    let MembersId = []
+    activity.findById(req.body.activityId).then((ac) => {
+        var promises = req.body.members.map(e => {
+            let state = false;
+            for (const t of ac.members) {
+                if (t === e.memberId) {
+                    state = true;
+                }
+            }
+            if (state) {
+                MembersId.push(e.memberId)
+                console.log("no duplication")
+            } else {
+                console.log('duplication')
+            }
+        })
+        return promises
 
-    var promises = req.body.members.map(e => {
-
-
-            MembersId.push(e.memberId)
-            console.log(e.memberId)
-
-        return MembersId
-    })
-    Promise.all(promises).then(result => {
-        Module.findById(req.body.activityId).then((act) => {
-            //console.log(modu)
-            act.members.push(result)
-            act.save()
-
+    }).then(result => {
+        Promise.all(result).then(result => {
+            activity.findById(req.body.activityId).then((act) => {
+                //console.log(MembersId)
+                if (MembersId.length > 0) {
+                    act.members.push(MembersId)
+                    act.save()
+                }
+            })
         })
     })
-
-
         .then(result => {
 
             console.log("success");
@@ -156,5 +167,87 @@ exports.addMembersManually = (req, res, next) => {
 
 
 }
+
+
+exports.assignSupervisors = (req, res, next) => {
+
+    let supervisorsId = []
+    activity.findById(req.body.activityId).then((ac) => {
+        var promises = req.body.supervisors.map(e => {
+            let state = false;
+            for (const t of ac.supervisor) {
+                if (t === e.supervisorId) {
+                    state = true;
+                }
+            }
+            if (state) {
+                supervisorsId.push(e.supervisorId)
+                console.log("no duplication")
+            } else {
+                console.log('duplication')
+            }
+        })
+        return promises
+
+    }).then(result => {
+        Promise.all(result).then(result => {
+            activity.findById(req.body.activityId).then((act) => {
+                //console.log(MembersId)
+                if (supervisorsId.length > 0) {
+                    act.supervisor.push(supervisorsId)
+                    act.save()
+                }
+            })
+        })
+    })
+        .then(result => {
+
+            console.log("success");
+            res.status(200).json({
+                message: "supervisors added successfully ",
+                result: result
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            })
+        });
+
+
+}
+
+exports.assignModule = (req, res, next) => {
+    Module.findById(req.body.moduleId).then((ac) => {
+        if(ac!=null){
+            if(req.body.responsible!=null){
+                ac.responsible=req.body.responsible
+                console.log(ac.responsible)
+                ac.save()
+            }
+        }
+
+    }).then(result => {
+
+            console.log("success");
+            res.status(200).json({
+                message: "Module assigned successfully ",
+                result: result
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            })
+        });
+
+
+}
+
+
+
+
 
 
