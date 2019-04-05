@@ -33,4 +33,10 @@ router.post(
   QuestionController.bestCommentQuestion
 );
 
+router.get("/get/badwords", QuestionController.getAllBadWords);
+
+router.post("/badword", QuestionController.addBadWord);
+
+router.delete("/badword/:id", QuestionController.deleteBadWord);
+
 module.exports = router;

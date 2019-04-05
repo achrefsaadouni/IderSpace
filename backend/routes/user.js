@@ -28,7 +28,9 @@ router.post("/removeExperience", UserController.removeExperience);
 
 router.post("/checkData" , UserController.checkData);
 
-router.post("/collectData" , UserController.collectData);
+router.post("/getRecommendation" , UserController.getRecommendation);
+
+router.post("/updateSkill",UserController.updateSkill);
 
 
 module.exports = router;

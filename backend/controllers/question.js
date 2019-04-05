@@ -1,52 +1,147 @@
+const Filter = require("bad-words");
 const Question = require("../models/Question");
+const BadWord = require("../models/BadWord");
 const User = require("../models/user");
 
-exports.createQuestion = (req, res, next) => {
-  const url = req.protocol + "://" + req.get("host");
-  const question = new Question({
-    createdAt: new Date(),
-    subject: req.body.subject,
-    content: req.body.content,
-    author: req.userData.userId
+filter = new Filter();
+filter.addWords("bad");
+
+exports.addBadWord = (req, res, next) => {
+  const newBadWord = BadWord({
+    word: req.body.word
   });
-  question
+  newBadWord
     .save()
-    .then(createdQuestion => {
+    .then(result => {
       res.status(201).json({
-        message: "question added successfully",
-        question: {
-          ...createdQuestion,
-          id: createdQuestion._id
-        }
+        word: result
       });
     })
     .catch(error => {
       console.log(error);
       res.status(500).json({
-        message: "Creating a question failed!"
+        message: "Creating word failed!"
       });
     });
 };
 
-exports.updateQuestion = (req, res, next) => {
-  const question = new Question({
-    subject: req.body.subject,
-    content: req.body.content
-  });
-  question
-    .updateOne({ _id: req.params.id, author: req.userData.userId }, question)
+exports.deleteBadWord = (req, res, next) => {
+  BadWord.deleteOne({ _id: req.params.id })
     .then(result => {
-      console.log(result);
-      if (result.n > 0) {
-        res.status(200).json({ message: "Updated successful!" });
-      } else {
-        res.status(401).json({ message: "Updated successful!" });
-      }
+      res.status(200).json({ message: "Deletion successful!" });
     })
     .catch(error => {
       res.status(500).json({
-        message: "Couldn't udpate question!"
+        message: "Deleting word failed!"
       });
+    });
+};
+
+exports.getAllBadWords = (req, res, next) => {
+  console.log("hello");
+  BadWord.find()
+    .then(documents => {
+      res.status(200).json({
+        words: documents
+      });
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).json({
+        message: "Fetching words failed!"
+      });
+    });
+};
+
+exports.createQuestion = (req, res, next) => {
+  const url = req.protocol + "://" + req.get("host");
+
+  //adding bad words
+  let badwords = [];
+  BadWord.find()
+    .then(documents => {
+      for (var i = 0; i < documents.length; i++) {
+        badwords.push(documents[i].word);
+      }
+    })
+    .then(() => {
+      filter.addWords(...badwords);
+      console.log(badwords);
+      const question = new Question({
+        createdAt: new Date(),
+        subject: filter.clean(req.body.subject),
+        content: filter.clean(req.body.content),
+        author: req.userData.userId
+      });
+      if (
+        filter.isProfane(req.body.content) ||
+        filter.isProfane(req.body.subject)
+      ) {
+        return res.status(400).json({
+          message: "bad words exist",
+          badword: true
+        });
+      }
+      question
+        .save()
+        .then(createdQuestion => {
+          res.status(201).json({
+            badword: false,
+            message: "question added successfully",
+            question: createdQuestion
+          });
+        })
+        .catch(error => {
+          console.log(error);
+          res.status(500).json({
+            message: "Creating a question failed!"
+          });
+        });
+    });
+};
+
+exports.updateQuestion = (req, res, next) => {
+  //adding bad words
+  let badwords = [];
+  BadWord.find()
+    .then(documents => {
+      for (var i = 0; i < documents.length; i++) {
+        badwords.push(documents[i].word);
+      }
+    })
+    .then(() => {
+      filter.addWords(...badwords);
+      console.log(badwords);
+      const question = {
+        subject: req.body.subject,
+        content: req.body.content
+      };
+      Question.findOne({ _id: req.params.id, author: req.userData.userId })
+        .then(result => {
+          result.subject = question.subject;
+          result.content = question.content;
+          result.save().then(result => {
+            if (
+              filter.isProfane(req.body.content) ||
+              filter.isProfane(req.body.subject)
+            ) {
+              return res.status(400).json({
+                message: "bad words exist",
+                badword: true
+              });
+            }
+            return res.status(200).json({
+              badword: false,
+              message: "Update successful!"
+            });
+          });
+        })
+        .catch(error => {
+          console.log(error);
+          res.status(500).json({
+            message: "Couldn't udpate question!"
+          });
+        });
     });
 };
 
