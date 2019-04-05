@@ -146,8 +146,8 @@ exports.updateQuestion = (req, res, next) => {
 };
 
 exports.getQuestions = (req, res, next) => {
-  const pageSize = +req.query.pagesize; //number of questions
-  const currentPage = +req.query.page; //number of page
+  const pageSize = +req.query.pageSize; //number of questions
+  const currentPage = +req.query.currentPage; //number of page
   const questionQuery = Question.find();
   let fetchedQuestions;
   if (pageSize && currentPage) {
