@@ -1,13 +1,14 @@
 const Question = require("../models/Question");
 const BotQuestion = require("../Models/BotQuestion");
 const Activity = require("../Models/Activity");
+const Module = require("../models/Module");
 exports.createTextResponse = createTextResponse;
 exports.getApprovedAnswer = getApprovedAnswer;
 exports.addQuestion = addQuestion;
 exports.addBotQuestion = addBotQuestion;
-exports.AnswerBotQuestion = AnswerBotQuestion;
 exports.GetAllBotQuestion = GetAllBotQuestion;
 exports.addActivity = addActivity;
+exports.AddModule = AddModule;
 function createTextResponse(textResponse){
     let response = {
         "fulfillmentText": "This is a text response",
@@ -73,7 +74,7 @@ async function addQuestion(subject,description) {
 
 }
 
-async function addActivity(title,description,type) {
+ function addActivity(title,description,type) {
     const activity = new Activity({
         title: title,
         description: description,
@@ -81,15 +82,15 @@ async function addActivity(title,description,type) {
         creator: '5c9cbff3d36f4828c0bac721',
         supervisor: '5c9cbff3d36f4828c0bac721'
     });
-    let v = await activity
+    return  activity
         .save()
         .catch(error => {
-            return  false;
+           return  null;
         })
         .then(e => {
-            return  true;
+            return  e;
         });
-    return v ;
+
 
 }
 
@@ -113,12 +114,6 @@ async function addBotQuestion(content) {
     return v ;
 }
 
-
-async function AnswerBotQuestion(subject,description) {
- //to do
-}
-
-
 function GetAllBotQuestion() {
     return new Promise (resolve =>{
         BotQuestion.find()
@@ -127,5 +122,20 @@ function GetAllBotQuestion() {
             })
             .catch(error => {
                 return [];} )
+    });
+}
 
-    });}
+async function AddModule(activityId,title,description,start_date,end_date,) {
+    const module = new Module({
+        title: title,
+        description: description,
+        start_date : start_date,
+        end_date : end_date,
+        state : false,
+        progress : 0,
+    });
+    Activity.update(
+        { _id: activityId },
+        { $push: { modules: module } }
+    );
+}

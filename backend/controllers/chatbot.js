@@ -1,7 +1,8 @@
 const chatbot = require('../services/chatbot');
 var Question  = require('../models/Question');
 const fs = require('fs');
-exports.chat = (req, res, next) => {
+var currentActivity = null;
+exports.chat = async (req, res, next) => {
  //Add A  Request
 if (req.body.queryResult.intent.displayName=="Add_Question_Forum")
 {
@@ -13,25 +14,44 @@ if (req.body.queryResult.intent.displayName=="Add_Question_Forum")
   }
   else
   {
-   res.send(chatbot.createTextResponse("Your Question were added successfully"));
+   res.send(chatbot.createTextResponse("Your Question were added successfully , do you need any other assistance ?"));
   }
 
 }
+
+
 if(req.body.queryResult.intent.displayName=="Add_Activity")
 {
  var title = req.body.queryResult.parameters.title;
  var description = req.body.queryResult.parameters.description;
  var type = req.body.queryResult.parameters.type;
- if (!chatbot.addActivity(title,description,type))
+ currentActivity = await chatbot.addActivity(title,description,type);
+ if (currentActivity == null)
  {
   res.send(chatbot.createTextResponse("There were a problem adding your activity please can your retype the command Create Activity"));
  }
  else
  {
-  res.send(chatbot.createTextResponse("Your Activity were added successfully"));
+  res.send(chatbot.createTextResponse("Your Activity were added successfully Do you want to add modules to it"));
  }
 }
-else {
+ if(req.body.queryResult.intent.displayName=="Add_Module")
+ {
+
+  if(currentActivity == null)
+  {
+   res.send(chatbot.createTextResponse("Sorry i can't do this now"));
+  }
+  else {
+   var title = req.body.queryResult.parameters.title;
+   var description = req.body.queryResult.parameters.description;
+   var start_date = req.body.queryResult.parameters.start_date;
+   var end_date = req.body.queryResult.parameters.end_date;
+   chatbot.AddModule(currentActivity._id,title,description,start_date,end_date);
+   res.send(chatbot.createTextResponse("Module added to your current activity do you want to add another Module"));
+  }
+ }
+ else {
  var mot  = '.*'+req.body.queryResult.queryText+'.*';
  Question.findOne({ 'subject': {$regex : mot,$options : 'i'}  },'comments',function(err,answer){
   if(err)
@@ -48,6 +68,5 @@ else {
  });
 }
 };
-
 
 

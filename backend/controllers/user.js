@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 
 const User = require("../models/user");
 const Resume = require("../Models/Resume");
+const Skills = require("../Models/Skills");
 const scrapping = require("../ScrappingLinkedIn/index");
 const kmeans = require('node-kmeans');
 const configFile = require("../config");
@@ -527,7 +528,7 @@ exports.getRecommendation = async (req, res, next) => {
     }
     let response = await getidWithRecommendation(vectors);
     let listUsers = [];
-    for (const t of response){
+    for (const t of response) {
         listUsers.push(users[t])
     }
     return res.status(200).json(
@@ -569,8 +570,8 @@ async function returnFindedSkills(user, reqSkills) {
     });
 }
 
-function getidWithRecommendation(vectors){
-    return new Promise( resolve => {
+function getidWithRecommendation(vectors) {
+    return new Promise(resolve => {
         kmeans.clusterize(vectors, {k: 2}, (err, res) => {
             let Recommendation = [];
             if (err) console.error(err);
@@ -595,7 +596,7 @@ function getidWithRecommendation(vectors){
                     x = 0;
                 }
                 let vector4;
-                let people='';
+                let people = '';
                 for (let i = 0; i < res[newcentre].clusterInd.length; i++) {
                     //console.log('dkhal mara');
                     console.log(res[newcentre].clusterInd[i]);
@@ -605,4 +606,51 @@ function getidWithRecommendation(vectors){
             return resolve(Recommendation);
         })
     })
+}
+
+exports.updateSkill = (req, res, next) => {
+    let skillstab;
+    let fetcheduser;
+    let state = true;
+    let newLevel = req.body.level;
+    User.findById({_id: req.body.idUser})
+        .then(user => {
+            if (!user) {
+                return res.status(401).json({
+                    message: "undifined user"
+                });
+            }
+            fetcheduser = user;
+            skillstab = user.Resume.Skills;
+            for (const skill of skillstab) {
+                if (skill.id === req.body.idSkill) {
+                    state = false;
+                    if (newLevel){
+                        console.log(user.Resume.Skills.id(req.body.idSkill).level);
+                        user.Resume.Skills.id(req.body.idSkill).level = newLevel;
+                    }
+
+                }
+            }
+            return state;
+        })
+        .then(result => {
+            if (!result) {
+                fetcheduser.save().then(result => {
+                    res.status(200).json({
+                        msg: "skill updated successfully"
+                    });
+                });
+            } else {
+                return res.status(401).json({
+                    message: "Something wrong with the update of the skill!"
+                });
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            return res.status(401).json({
+                message: "Something wrong with the update of the skill!"
+            });
+        });
 }

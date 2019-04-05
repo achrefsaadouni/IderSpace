@@ -30,5 +30,7 @@ router.post("/checkData" , UserController.checkData);
 
 router.post("/getRecommendation" , UserController.getRecommendation);
 
+router.post("/updateSkill",UserController.updateSkill);
+
 
 module.exports = router;

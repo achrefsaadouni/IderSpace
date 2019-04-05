@@ -4,6 +4,5 @@ const activityType = {
     Entertaining: "Entertaining",
     Challenge: "Challenge",
     Volunteer: "Volunteer"
-
-}
+};
 
