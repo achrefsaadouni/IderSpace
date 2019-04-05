@@ -7,7 +7,7 @@ const ActivitySchema = mongoose.Schema({
     modules: [{type: Schema.ObjectId, ref: 'Module'}],
     description: {type: String, required: true},
     EstimatedTime: {type: String},
-    descriptionDocument: {type: String, required: true},
+    descriptionDocument: {type: String},
     type: {type: String, required: true},
     generalProgress: {type: Number},
     creator: {type: Schema.ObjectId, ref: 'User'},

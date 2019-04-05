@@ -15,6 +15,9 @@ router.put("/validateRequest",checkAuth, ActivityController.validateRequest);
 router.get("/getAllCreatedActivities",checkAuth, ActivityController.getAllCreatedActivities);
 router.get("/getActivityModules",checkAuth, ActivityController.getActivityModules);
 router.get("/getTodoByModule",checkAuth, ActivityController.getTodoByModule);
+router.get("/getAllActivitiesSupervisor",checkAuth, ActivityController.getAllActivitiesSupervisor);
+router.get("/getAllActivitiesSupervisor",checkAuth, ActivityController.getAllActivitiesSupervisor);
+router.get("/getAllForStudent",checkAuth, ActivityController.getAllForStudent);
 
 ActivityController.incrementProgress()
 //ActivityController.enrichCv()
