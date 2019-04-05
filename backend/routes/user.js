@@ -28,7 +28,7 @@ router.post("/removeExperience", UserController.removeExperience);
 
 router.post("/checkData" , UserController.checkData);
 
-router.post("/collectData" , UserController.collectData);
+router.post("/getRecommendation" , UserController.getRecommendation);
 
 
 module.exports = router;

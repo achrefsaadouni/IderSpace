@@ -47,9 +47,9 @@ module.exports = (content) => {
 
         }).catch(err => {
         console.log(err);
-        return res.status(401).json({
+       /* return res.status(401).json({
             message: "Invalid authentication credentials!"
-        });
+        });*/
     });
 
 
