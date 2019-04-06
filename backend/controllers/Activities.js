@@ -58,7 +58,8 @@ exports.createActivity = (req, res, next) => {
             description: req.body.description,
             descriptionDocument: req.body.descriptionDocument,
             type: req.body.type,
-            creator: req.userData.userId
+            creator: req.userData.userId,
+            techs:req.body.techs
         })
         act.save()
             .then(result => {
@@ -288,6 +289,7 @@ exports.pushTodoToValidation = (req, res, next) => {
                         activity: req.body.activityId,
                         module: req.body.moduleId,
                         validation: false,
+                        state:false
                     }
                 )
                 validating.save()
@@ -411,12 +413,6 @@ var j = schedule.scheduleJob('* * * * *', function () {
 
 })
 
-exports.enrichCv = () => {
-    var j = schedule.scheduleJob('*/1 * * * *', function () {
-        console.log('updating cv ..');
-    });
-
-}
 
 exports.getAllCreatedActivities = (req, res, next) => {
     if (req.userData.role === "teacher") {
