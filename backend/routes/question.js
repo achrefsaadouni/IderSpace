@@ -21,8 +21,10 @@ router.post("/unlike/:id", authCheck, QuestionController.unlikeQuestion);
 
 router.post("/comment/:id", authCheck, QuestionController.addCommenttoQuestion);
 
+router.get("/comments/:id", QuestionController.getAllCommentsQuestions);
+
 router.delete(
-  "/comment/:id/:comment_id",
+  "/:id/comment/:comment_id",
   authCheck,
   QuestionController.deleteCommenttoQuestion
 );

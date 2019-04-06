@@ -4,7 +4,6 @@ const BadWord = require("../models/BadWord");
 const User = require("../models/user");
 
 filter = new Filter();
-filter.addWords("bad");
 
 exports.addBadWord = (req, res, next) => {
   const newBadWord = BadWord({
@@ -68,6 +67,7 @@ exports.createQuestion = (req, res, next) => {
       filter.addWords(...badwords);
       console.log(badwords);
       const question = new Question({
+        category: req.body.categoryId,
         createdAt: new Date(),
         subject: filter.clean(req.body.subject),
         content: filter.clean(req.body.content),
@@ -120,6 +120,7 @@ exports.updateQuestion = (req, res, next) => {
         .then(result => {
           result.subject = question.subject;
           result.content = question.content;
+          result.category = question.category;
           result.save().then(result => {
             if (
               filter.isProfane(req.body.content) ||
@@ -146,8 +147,8 @@ exports.updateQuestion = (req, res, next) => {
 };
 
 exports.getQuestions = (req, res, next) => {
-  const pageSize = +req.query.pagesize; //number of questions
-  const currentPage = +req.query.page; //number of page
+  const pageSize = +req.query.pageSize; //number of questions
+  const currentPage = +req.query.currentPage; //number of page
   const questionQuery = Question.find();
   let fetchedQuestions;
   if (pageSize && currentPage) {
@@ -341,4 +342,27 @@ exports.bestCommentQuestion = (req, res, next) => {
       }
     })
     .catch(err => res.status(404).json({ postnotfound: "No Question found" }));
+};
+
+exports.getAllCommentsQuestions = (req, res, next) => {
+  const questionQuery = Question.findById(req.params.id).distinct("comments"); // get all comments
+  let fetcheDoc;
+  questionQuery
+    .then(documents => {
+      fetcheDoc = documents;
+      return fetcheDoc.length;
+    })
+    .then(count => {
+      res.status(200).json({
+        message: "Comments fetched successfully!",
+        comments: fetcheDoc,
+        maxComments: count
+      });
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).json({
+        message: "Fetching Questions failed!"
+      });
+    });
 };

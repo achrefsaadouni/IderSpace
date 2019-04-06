@@ -5,7 +5,8 @@ import SideBar from "./layout/SideBar";
 import Login from "./pages/Login";
 import Profile from "./account/Index";
 import EditProfile from "./account/editProfile";
-import Forum from "./pages/Forum";
+import Forum from "./forum/index";
+import Category from "./forum/category/index";
 import {
   BrowserRouter as Router,
   Route,
@@ -65,8 +66,13 @@ class index extends Component {
             <PrivateRoute
               isAuth={this.props.isAuth}
               exact
-              path="/"
+              path="/forum"
               component={Forum}
+            />
+            <PrivateRoute
+              isAuth={this.props.isAuth}
+              path="/category"
+              component={Category}
             />
             <PrivateRoute
               isAuth={this.props.isAuth}
