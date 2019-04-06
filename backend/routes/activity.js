@@ -20,7 +20,7 @@ router.get("/getAllActivitiesSupervisor",checkAuth, ActivityController.getAllAct
 router.get("/getAllForStudent",checkAuth, ActivityController.getAllForStudent);
 router.delete("/deleteToDo",checkAuth, ActivityController.deleteToDo);
 ActivityController.incrementProgress()
-//ActivityController.enrichCv()
+ActivityController.enrichCv()
 
 
 module.exports = router;
