@@ -12,7 +12,7 @@ class Index extends Component {
               <div className="ui-block">
                 <div className="top-header">
                   <div className="top-header-thumb">
-                    <img src="img/top-header1.jpg" alt="nature" />
+                    <img src="/img/top-header1.jpg" alt="nature" />
                   </div>
                   <div className="profile-section">
                     <div className="row">
@@ -34,19 +34,15 @@ class Index extends Component {
                       <div className="col col-lg-5 ml-auto col-md-5 col-sm-12 col-12">
                         <ul className="profile-menu">
                           <li>
-                            <Link to="07-ProfilePage-Photos.html">
-                              Photos
-                            </Link>
+                            <Link to="07-ProfilePage-Photos.html">Photos</Link>
                           </li>
                           <li>
-                            <Link to="09-ProfilePage-Videos.html">
-                              Videos
-                            </Link>
+                            <Link to="09-ProfilePage-Videos.html">Videos</Link>
                           </li>
                           <li>
                             <div className="more">
                               <svg className="olymp-three-dots-icon">
-                                <use xlinkHref="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                                <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                               </svg>
                               <ul className="more-dropdown more-with-triangle">
                                 <li>
@@ -68,19 +64,19 @@ class Index extends Component {
                         className="btn btn-control bg-blue"
                       >
                         <svg className="olymp-happy-face-icon">
-                          <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
+                          <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
                         </svg>
                       </Link>
 
                       <Link to="/" className="btn btn-control bg-purple">
                         <svg className="olymp-chat---messages-icon">
-                          <use xlinkHref="svg-icons/sprites/icons.svg#olymp-chat---messages-icon" />
+                          <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-chat---messages-icon" />
                         </svg>
                       </Link>
 
                       <div className="btn btn-control bg-primary more">
                         <svg className="olymp-settings-icon">
-                          <use xlinkHref="svg-icons/sprites/icons.svg#olymp-settings-icon" />
+                          <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-settings-icon" />
                         </svg>
 
                         <ul className="more-dropdown more-with-triangle triangle-bottom-right">
@@ -113,13 +109,10 @@ class Index extends Component {
                   </div>
                   <div className="top-header-author">
                     <Link to="02-ProfilePage.html" className="author-thumb">
-                      <img src="img/author-main1.jpg" alt="author" />
+                      <img src="/img/author-main1.jpg" alt="author" />
                     </Link>
                     <div className="author-content">
-                      <Link
-                        to="02-ProfilePage.html"
-                        className="h4 author-name"
-                      >
+                      <Link to="02-ProfilePage.html" className="h4 author-name">
                         James Spiegel
                       </Link>
                       <div className="country">San Francisco, CA</div>
@@ -137,7 +130,7 @@ class Index extends Component {
                 <div className="ui-block">
                   <article className="hentry post">
                     <div className="post__author author vcard inline-items">
-                      <img src="img/author-page.jpg" alt="author" />
+                      <img src="/img/author-page.jpg" alt="author" />
 
                       <div className="author-date">
                         <Link
@@ -149,7 +142,7 @@ class Index extends Component {
                         <div className="post__date">
                           <time
                             className="published"
-                            datetime="2017-03-24T18:18"
+                            dateTime="2017-03-24T18:18"
                           >
                             19 hours ago
                           </time>
@@ -158,7 +151,7 @@ class Index extends Component {
 
                       <div className="more">
                         <svg className="olymp-three-dots-icon">
-                          <use xlinkHref="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                          <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                         </svg>
                         <ul className="more-dropdown">
                           <li>
@@ -189,7 +182,7 @@ class Index extends Component {
                     <div className="post-additional-info inline-items">
                       <Link to="/" className="post-add-icon inline-items">
                         <svg className="olymp-heart-icon">
-                          <use xlinkHref="svg-icons/sprites/icons.svg#olymp-heart-icon" />
+                          <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-heart-icon" />
                         </svg>
                         <span>8</span>
                       </Link>
@@ -197,27 +190,33 @@ class Index extends Component {
                       <ul className="friends-harmonic">
                         <li>
                           <Link to="/">
-                            <img src="img/friend-harmonic7.jpg" alt="friend" />
+                            <img src="/img/friend-harmonic7.jpg" alt="friend" />
                           </Link>
                         </li>
                         <li>
                           <Link to="/">
-                            <img src="img/friend-harmonic8.jpg" alt="friend" />
+                            <img src="/img/friend-harmonic8.jpg" alt="friend" />
                           </Link>
                         </li>
                         <li>
                           <Link to="/">
-                            <img src="img/friend-harmonic9.jpg" alt="friend" />
+                            <img src="/img/friend-harmonic9.jpg" alt="friend" />
                           </Link>
                         </li>
                         <li>
                           <Link to="/">
-                            <img src="img/friend-harmonic10.jpg" alt="friend" />
+                            <img
+                              src="/img/friend-harmonic10.jpg"
+                              alt="friend"
+                            />
                           </Link>
                         </li>
                         <li>
                           <Link to="/">
-                            <img src="img/friend-harmonic11.jpg" alt="friend" />
+                            <img
+                              src="/img/friend-harmonic11.jpg"
+                              alt="friend"
+                            />
                           </Link>
                         </li>
                       </ul>
@@ -231,14 +230,14 @@ class Index extends Component {
                       <div className="comments-shared">
                         <Link to="/" className="post-add-icon inline-items">
                           <svg className="olymp-speech-balloon-icon">
-                            <use xlinkHref="svg-icons/sprites/icons.svg#olymp-speech-balloon-icon" />
+                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-speech-balloon-icon" />
                           </svg>
                           <span>17</span>
                         </Link>
 
                         <Link to="/" className="post-add-icon inline-items">
                           <svg className="olymp-share-icon">
-                            <use xlinkHref="svg-icons/sprites/icons.svg#olymp-share-icon" />
+                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-share-icon" />
                           </svg>
                           <span>24</span>
                         </Link>
@@ -248,25 +247,25 @@ class Index extends Component {
                     <div className="control-block-button post-control-button">
                       <Link to="/" className="btn btn-control featured-post">
                         <svg className="olymp-trophy-icon">
-                          <use xlinkHref="svg-icons/sprites/icons.svg#olymp-trophy-icon" />
+                          <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-trophy-icon" />
                         </svg>
                       </Link>
 
                       <Link to="/" className="btn btn-control">
                         <svg className="olymp-like-post-icon">
-                          <use xlinkHref="svg-icons/sprites/icons.svg#olymp-like-post-icon" />
+                          <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-like-post-icon" />
                         </svg>
                       </Link>
 
                       <Link to="/" className="btn btn-control">
                         <svg className="olymp-comments-post-icon">
-                          <use xlinkHref="svg-icons/sprites/icons.svg#olymp-comments-post-icon" />
+                          <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-comments-post-icon" />
                         </svg>
                       </Link>
 
                       <Link to="/" className="btn btn-control">
                         <svg className="olymp-share-icon">
-                          <use xlinkHref="svg-icons/sprites/icons.svg#olymp-share-icon" />
+                          <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-share-icon" />
                         </svg>
                       </Link>
                     </div>
@@ -333,72 +332,72 @@ class Index extends Component {
                   <ul className="widget w-faved-page js-zoom-gallery">
                     <li>
                       <Link to="/">
-                        <img src="img/avatar38-sm.jpg" alt="author" />
+                        <img src="/img/avatar38-sm.jpg" alt="author" />
                       </Link>
                     </li>
                     <li>
                       <Link to="/">
-                        <img src="img/avatar24-sm.jpg" alt="user" />
+                        <img src="/img/avatar24-sm.jpg" alt="user" />
                       </Link>
                     </li>
                     <li>
                       <Link to="/">
-                        <img src="img/avatar36-sm.jpg" alt="author" />
+                        <img src="/img/avatar36-sm.jpg" alt="author" />
                       </Link>
                     </li>
                     <li>
                       <Link to="/">
-                        <img src="img/avatar35-sm.jpg" alt="user" />
+                        <img src="/img/avatar35-sm.jpg" alt="user" />
                       </Link>
                     </li>
                     <li>
                       <Link to="/">
-                        <img src="img/avatar34-sm.jpg" alt="author" />
+                        <img src="/img/avatar34-sm.jpg" alt="author" />
                       </Link>
                     </li>
                     <li>
                       <Link to="/">
-                        <img src="img/avatar33-sm.jpg" alt="author" />
+                        <img src="/img/avatar33-sm.jpg" alt="author" />
                       </Link>
                     </li>
                     <li>
                       <Link to="/">
-                        <img src="img/avatar32-sm.jpg" alt="user" />
+                        <img src="/img/avatar32-sm.jpg" alt="user" />
                       </Link>
                     </li>
                     <li>
                       <Link to="/">
-                        <img src="img/avatar31-sm.jpg" alt="author" />
+                        <img src="/img/avatar31-sm.jpg" alt="author" />
                       </Link>
                     </li>
                     <li>
                       <Link to="/">
-                        <img src="img/avatar30-sm.jpg" alt="author" />
+                        <img src="/img/avatar30-sm.jpg" alt="author" />
                       </Link>
                     </li>
                     <li>
                       <Link to="/">
-                        <img src="img/avatar29-sm.jpg" alt="user" />
+                        <img src="/img/avatar29-sm.jpg" alt="user" />
                       </Link>
                     </li>
                     <li>
                       <Link to="/">
-                        <img src="img/avatar28-sm.jpg" alt="user" />
+                        <img src="/img/avatar28-sm.jpg" alt="user" />
                       </Link>
                     </li>
                     <li>
                       <Link to="/">
-                        <img src="img/avatar27-sm.jpg" alt="user" />
+                        <img src="/img/avatar27-sm.jpg" alt="user" />
                       </Link>
                     </li>
                     <li>
                       <Link to="/">
-                        <img src="img/avatar26-sm.jpg" alt="user" />
+                        <img src="/img/avatar26-sm.jpg" alt="user" />
                       </Link>
                     </li>
                     <li>
                       <Link to="/">
-                        <img src="img/avatar25-sm.jpg" alt="user" />
+                        <img src="/img/avatar25-sm.jpg" alt="user" />
                       </Link>
                     </li>
                     <li className="all-users">

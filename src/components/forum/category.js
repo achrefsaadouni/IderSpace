@@ -6,7 +6,7 @@ export default class category extends Component {
       <tr>
         <td className="forum">
           <div className="forum-item">
-            <img src="img/forum6.png" alt="forum" />
+            <img src="/img/forum6.png" alt="forum" />
             <div className="content">
               <a href="#" className="h6 title">
                 web development
@@ -30,7 +30,7 @@ export default class category extends Component {
         <td className="freshness">
           <div className="author-freshness">
             <div className="author-thumb">
-              <img src="img/avatar40-sm.jpg" alt="author" />
+              <img src="/img/avatar40-sm.jpg" alt="author" />
             </div>
             <a href="#" className="h6 title">
               Mathilda Brinker

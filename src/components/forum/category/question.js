@@ -14,7 +14,7 @@ class question extends Component {
       <tr>
         <td className="forum">
           <div className="forum-item">
-            <img src="img/forum6.png" alt="forum" />
+            <img src="/img/forum6.png" alt="forum" />
             <div className="content">
               <a href="#" className="h6 title">
                 {title}
@@ -25,9 +25,9 @@ class question extends Component {
         </td>
         <td className="topics">
           {approuved ? (
-            <img width="50px" src="img/aprouved.jpg" alt="aprouved" />
+            <img width="50px" src="/img/aprouved.jpg" alt="aprouved" />
           ) : (
-            <img width="50px" src="img/pending.png" alt="aprouved" />
+            <img width="50px" src="/img/pending.png" alt="aprouved" />
           )}
         </td>
         <td className="posts">
@@ -43,7 +43,7 @@ class question extends Component {
         <td className="freshness">
           <div className="author-freshness">
             <div className="author-thumb">
-              <img src="img/avatar40-sm.jpg" alt="author" />
+              <img src="/img/avatar40-sm.jpg" alt="author" />
             </div>
             <a href="#" className="h6 title">
               Mathilda Brinker

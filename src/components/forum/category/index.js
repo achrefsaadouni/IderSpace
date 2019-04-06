@@ -28,7 +28,7 @@ export default class index extends Component {
           </div>
           <img
             className="img-bottom"
-            src="img/group-bottom.png"
+            src="/img/group-bottom.png"
             alt="friends"
           />
         </div>
@@ -49,7 +49,7 @@ export default class index extends Component {
                         />
                         <button>
                           <svg className="olymp-magnifying-glass-icon">
-                            <use xlinkHref="svg-icons/sprites/icons.svg#olymp-magnifying-glass-icon" />
+                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-magnifying-glass-icon" />
                           </svg>
                         </button>
                       </div>

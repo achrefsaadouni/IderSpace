@@ -14,7 +14,6 @@ import {
   Redirect
 } from "react-router-dom";
 import { connect } from "react-redux";
-import { autoAuthUser } from "../store/actions/authActions";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
@@ -36,11 +35,7 @@ const PrivateRoute = ({ component: Component, isAuth, ...rest }) => (
   />
 );
 
-class index extends Component {
-  componentDidMount() {
-    this.props.autoAuthUser();
-  }
-
+class root extends Component {
   state = {
     isAuthenticated: false
   };
@@ -71,7 +66,8 @@ class index extends Component {
             />
             <PrivateRoute
               isAuth={this.props.isAuth}
-              path="/category"
+              path="/forum/category"
+              exact
               component={Category}
             />
             <PrivateRoute
@@ -95,7 +91,7 @@ class index extends Component {
           {isAuthenticated ? (
             <Link className="back-to-top" to="#">
               <img
-                src="svg-icons/back-to-top.svg"
+                src="/svg-icons/back-to-top.svg"
                 alt="arrow"
                 className="back-icon"
               />
@@ -112,11 +108,4 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-index.propTypes = {
-  autoAuthUser: PropTypes.func.isRequired
-};
-
-export default connect(
-  mapStateToProps,
-  { autoAuthUser }
-)(index);
+export default connect(mapStateToProps)(root);

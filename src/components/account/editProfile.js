@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { updateProfile } from "../../store/actions/authActions";
 import { connect } from "react-redux";
 
 class EditProfile extends Component {
@@ -89,7 +88,7 @@ class EditProfile extends Component {
           </div>
           <img
             className="img-bottom"
-            src="img/account-bottom.png"
+            src="/img/account-bottom.png"
             alt="friends"
           />
         </div>
@@ -132,10 +131,10 @@ class EditProfile extends Component {
                         </div>
                         <div className="form-group date-time-picker label-floating">
                           <label className="control-label">Your Birthday</label>
-                          <input name="datetimepicker" value="10/24/1984" />
+                          <input name="dateTimepicker" value="10/24/1984" />
                           <span className="input-group-addon">
                             <svg className="olymp-month-calendar-icon icon">
-                              <use xlinkHref="svg-icons/sprites/icons.svg#olymp-month-calendar-icon" />
+                              <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-month-calendar-icon" />
                             </svg>
                           </span>
                         </div>
@@ -315,7 +314,7 @@ class EditProfile extends Component {
                           >
                             Profile Settings
                             <svg className="olymp-dropdown-arrow-icon">
-                              <use xlinkHref="svg-icons/sprites/icons.svg#olymp-dropdown-arrow-icon" />
+                              <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-dropdown-arrow-icon" />
                             </svg>
                           </a>
                         </h6>
@@ -422,11 +421,4 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-EditProfile.propTypes = {
-  updateProfile: PropTypes.func.isRequired
-};
-
-export default connect(
-  mapStateToProps,
-  { updateProfile }
-)(EditProfile);
+export default connect(mapStateToProps)(EditProfile);
