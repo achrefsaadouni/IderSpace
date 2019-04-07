@@ -3,7 +3,7 @@ import logo from "./../../logoWhite.png";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logout } from "../../store/actions/authActions";
+import { logoutUser } from "../../store/actions/authActions";
 
 class Header extends Component {
   render() {
@@ -26,7 +26,7 @@ class Header extends Component {
                 />
                 <button>
                   <svg className="olymp-magnifying-glass-icon">
-                    <use xlinkHref="svg-icons/sprites/icons.svg#olymp-magnifying-glass-icon" />
+                    <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-magnifying-glass-icon" />
                   </svg>
                 </button>
               </div>
@@ -39,7 +39,7 @@ class Header extends Component {
             <div className="control-block">
               <div className="control-icon more has-items">
                 <svg className="olymp-happy-face-icon">
-                  <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
+                  <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
                 </svg>
                 <div className="label-avatar bg-blue">6</div>
 
@@ -54,7 +54,12 @@ class Header extends Component {
                     <ul className="notification-list friend-requests">
                       <li>
                         <div className="author-thumb">
-                          <img src="img/avatar55-sm.jpg" alt="author" />
+                          <img
+                            src={
+                              process.env.PUBLIC_URL + "/img/avatar55-sm.jpg"
+                            }
+                            alt="author"
+                          />
                         </div>
                         <div className="notification-event">
                           <Link to="/" className="h6 notification-friend">
@@ -68,7 +73,7 @@ class Header extends Component {
                           <Link to="/" className="accept-request">
                             <span className="icon-add without-text">
                               <svg className="olymp-happy-face-icon">
-                                <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
+                                <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
                               </svg>
                             </span>
                           </Link>
@@ -76,7 +81,7 @@ class Header extends Component {
                           <Link to="/" className="accept-request request-del">
                             <span className="icon-minus">
                               <svg className="olymp-happy-face-icon">
-                                <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
+                                <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
                               </svg>
                             </span>
                           </Link>
@@ -84,14 +89,19 @@ class Header extends Component {
 
                         <div className="more">
                           <svg className="olymp-three-dots-icon">
-                            <use xlinkHref="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                           </svg>
                         </div>
                       </li>
 
                       <li>
                         <div className="author-thumb">
-                          <img src="img/avatar56-sm.jpg" alt="author" />
+                          <img
+                            src={
+                              process.env.PUBLIC_URL + "/img/avatar56-sm.jpg"
+                            }
+                            alt="author"
+                          />
                         </div>
                         <div className="notification-event">
                           <Link to="/" className="h6 notification-friend">
@@ -105,7 +115,7 @@ class Header extends Component {
                           <Link to="/" className="accept-request">
                             <span className="icon-add without-text">
                               <svg className="olymp-happy-face-icon">
-                                <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
+                                <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
                               </svg>
                             </span>
                           </Link>
@@ -113,7 +123,7 @@ class Header extends Component {
                           <Link to="/" className="accept-request request-del">
                             <span className="icon-minus">
                               <svg className="olymp-happy-face-icon">
-                                <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
+                                <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
                               </svg>
                             </span>
                           </Link>
@@ -121,14 +131,19 @@ class Header extends Component {
 
                         <div className="more">
                           <svg className="olymp-three-dots-icon">
-                            <use xlinkHref="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                           </svg>
                         </div>
                       </li>
 
                       <li className="accepted">
                         <div className="author-thumb">
-                          <img src="img/avatar57-sm.jpg" alt="author" />
+                          <img
+                            src={
+                              process.env.PUBLIC_URL + "/img/avatar57-sm.jpg"
+                            }
+                            alt="author"
+                          />
                         </div>
                         <div className="notification-event">
                           You and{" "}
@@ -143,23 +158,28 @@ class Header extends Component {
                         </div>
                         <span className="notification-icon">
                           <svg className="olymp-happy-face-icon">
-                            <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
+                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
                           </svg>
                         </span>
 
                         <div className="more">
                           <svg className="olymp-three-dots-icon">
-                            <use xlinkHref="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                           </svg>
                           <svg className="olymp-little-delete">
-                            <use xlinkHref="svg-icons/sprites/icons.svg#olymp-little-delete" />
+                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-little-delete" />
                           </svg>
                         </div>
                       </li>
 
                       <li>
                         <div className="author-thumb">
-                          <img src="img/avatar58-sm.jpg" alt="author" />
+                          <img
+                            src={
+                              process.env.PUBLIC_URL + "/img/avatar58-sm.jpg"
+                            }
+                            alt="author"
+                          />
                         </div>
                         <div className="notification-event">
                           <Link to="/" className="h6 notification-friend">
@@ -173,7 +193,7 @@ class Header extends Component {
                           <Link to="/" className="accept-request">
                             <span className="icon-add without-text">
                               <svg className="olymp-happy-face-icon">
-                                <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
+                                <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
                               </svg>
                             </span>
                           </Link>
@@ -181,7 +201,7 @@ class Header extends Component {
                           <Link to="/" className="accept-request request-del">
                             <span className="icon-minus">
                               <svg className="olymp-happy-face-icon">
-                                <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
+                                <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
                               </svg>
                             </span>
                           </Link>
@@ -189,7 +209,7 @@ class Header extends Component {
 
                         <div className="more">
                           <svg className="olymp-three-dots-icon">
-                            <use xlinkHref="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                           </svg>
                         </div>
                       </li>
@@ -204,7 +224,7 @@ class Header extends Component {
 
               <div className="control-icon more has-items">
                 <svg className="olymp-chat---messages-icon">
-                  <use xlinkHref="svg-icons/sprites/icons.svg#olymp-chat---messages-icon" />
+                  <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-chat---messages-icon" />
                 </svg>
                 <div className="label-avatar bg-purple">2</div>
 
@@ -219,7 +239,12 @@ class Header extends Component {
                     <ul className="notification-list chat-message">
                       <li className="message-unread">
                         <div className="author-thumb">
-                          <img src="img/avatar59-sm.jpg" alt="author" />
+                          <img
+                            src={
+                              process.env.PUBLIC_URL + "/img/avatar59-sm.jpg"
+                            }
+                            alt="author"
+                          />
                         </div>
                         <div className="notification-event">
                           <Link to="/" className="h6 notification-friend">
@@ -240,19 +265,24 @@ class Header extends Component {
                         </div>
                         <span className="notification-icon">
                           <svg className="olymp-chat---messages-icon">
-                            <use xlinkHref="svg-icons/sprites/icons.svg#olymp-chat---messages-icon" />
+                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-chat---messages-icon" />
                           </svg>
                         </span>
                         <div className="more">
                           <svg className="olymp-three-dots-icon">
-                            <use xlinkHref="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                           </svg>
                         </div>
                       </li>
 
                       <li>
                         <div className="author-thumb">
-                          <img src="img/avatar60-sm.jpg" alt="author" />
+                          <img
+                            src={
+                              process.env.PUBLIC_URL + "/img/avatar60-sm.jpg"
+                            }
+                            alt="author"
+                          />
                         </div>
                         <div className="notification-event">
                           <Link to="/" className="h6 notification-friend">
@@ -272,19 +302,24 @@ class Header extends Component {
                         </div>
                         <span className="notification-icon">
                           <svg className="olymp-chat---messages-icon">
-                            <use xlinkHref="svg-icons/sprites/icons.svg#olymp-chat---messages-icon" />
+                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-chat---messages-icon" />
                           </svg>
                         </span>
 
                         <div className="more">
                           <svg className="olymp-three-dots-icon">
-                            <use xlinkHref="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                           </svg>
                         </div>
                       </li>
                       <li>
                         <div className="author-thumb">
-                          <img src="img/avatar61-sm.jpg" alt="author" />
+                          <img
+                            src={
+                              process.env.PUBLIC_URL + "/img/avatar61-sm.jpg"
+                            }
+                            alt="author"
+                          />
                         </div>
                         <div className="notification-event">
                           <Link to="/" className="h6 notification-friend">
@@ -305,22 +340,42 @@ class Header extends Component {
                         </div>
                         <span className="notification-icon">
                           <svg className="olymp-chat---messages-icon">
-                            <use xlinkHref="svg-icons/sprites/icons.svg#olymp-chat---messages-icon" />
+                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-chat---messages-icon" />
                           </svg>
                         </span>
                         <div className="more">
                           <svg className="olymp-three-dots-icon">
-                            <use xlinkHref="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                           </svg>
                         </div>
                       </li>
 
                       <li className="chat-group">
                         <div className="author-thumb">
-                          <img src="img/avatar11-sm.jpg" alt="author" />
-                          <img src="img/avatar12-sm.jpg" alt="author" />
-                          <img src="img/avatar13-sm.jpg" alt="author" />
-                          <img src="img/avatar10-sm.jpg" alt="author" />
+                          <img
+                            src={
+                              process.env.PUBLIC_URL + "/img/avatar11-sm.jpg"
+                            }
+                            alt="author"
+                          />
+                          <img
+                            src={
+                              process.env.PUBLIC_URL + "/img/avatar12-sm.jpg"
+                            }
+                            alt="author"
+                          />
+                          <img
+                            src={
+                              process.env.PUBLIC_URL + "/img/avatar13-sm.jpg"
+                            }
+                            alt="author"
+                          />
+                          <img
+                            src={
+                              process.env.PUBLIC_URL + "/img/avatar10-sm.jpg"
+                            }
+                            alt="author"
+                          />
                         </div>
                         <div className="notification-event">
                           <Link to="/" className="h6 notification-friend">
@@ -341,12 +396,12 @@ class Header extends Component {
                         </div>
                         <span className="notification-icon">
                           <svg className="olymp-chat---messages-icon">
-                            <use xlinkHref="svg-icons/sprites/icons.svg#olymp-chat---messages-icon" />
+                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-chat---messages-icon" />
                           </svg>
                         </span>
                         <div className="more">
                           <svg className="olymp-three-dots-icon">
-                            <use xlinkHref="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                           </svg>
                         </div>
                       </li>
@@ -361,7 +416,7 @@ class Header extends Component {
 
               <div className="control-icon more has-items">
                 <svg className="olymp-thunder-icon">
-                  <use xlinkHref="svg-icons/sprites/icons.svg#olymp-thunder-icon" />
+                  <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-thunder-icon" />
                 </svg>
 
                 <div className="label-avatar bg-primary">8</div>
@@ -377,7 +432,12 @@ class Header extends Component {
                     <ul className="notification-list">
                       <li>
                         <div className="author-thumb">
-                          <img src="img/avatar62-sm.jpg" alt="author" />
+                          <img
+                            src={
+                              process.env.PUBLIC_URL + "/img/avatar62-sm.jpg"
+                            }
+                            alt="author"
+                          />
                         </div>
                         <div className="notification-event">
                           <div>
@@ -401,23 +461,28 @@ class Header extends Component {
                         </div>
                         <span className="notification-icon">
                           <svg className="olymp-comments-post-icon">
-                            <use xlinkHref="svg-icons/sprites/icons.svg#olymp-comments-post-icon" />
+                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-comments-post-icon" />
                           </svg>
                         </span>
 
                         <div className="more">
                           <svg className="olymp-three-dots-icon">
-                            <use xlinkHref="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                           </svg>
                           <svg className="olymp-little-delete">
-                            <use xlinkHref="svg-icons/sprites/icons.svg#olymp-little-delete" />
+                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-little-delete" />
                           </svg>
                         </div>
                       </li>
 
                       <li className="un-read">
                         <div className="author-thumb">
-                          <img src="img/avatar63-sm.jpg" alt="author" />
+                          <img
+                            src={
+                              process.env.PUBLIC_URL + "/img/avatar63-sm.jpg"
+                            }
+                            alt="author"
+                          />
                         </div>
                         <div className="notification-event">
                           <div>
@@ -442,23 +507,28 @@ class Header extends Component {
                         </div>
                         <span className="notification-icon">
                           <svg className="olymp-happy-face-icon">
-                            <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
+                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
                           </svg>
                         </span>
 
                         <div className="more">
                           <svg className="olymp-three-dots-icon">
-                            <use xlinkHref="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                           </svg>
                           <svg className="olymp-little-delete">
-                            <use xlinkHref="svg-icons/sprites/icons.svg#olymp-little-delete" />
+                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-little-delete" />
                           </svg>
                         </div>
                       </li>
 
                       <li className="with-comment-photo">
                         <div className="author-thumb">
-                          <img src="img/avatar64-sm.jpg" alt="author" />
+                          <img
+                            src={
+                              process.env.PUBLIC_URL + "/img/avatar64-sm.jpg"
+                            }
+                            alt="author"
+                          />
                         </div>
                         <div className="notification-event">
                           <div>
@@ -482,12 +552,17 @@ class Header extends Component {
                         </div>
                         <span className="notification-icon">
                           <svg className="olymp-comments-post-icon">
-                            <use xlinkHref="svg-icons/sprites/icons.svg#olymp-comments-post-icon" />
+                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-comments-post-icon" />
                           </svg>
                         </span>
 
                         <div className="comment-photo">
-                          <img src="img/comment-photo1.jpg" alt="photo1" />
+                          <img
+                            src={
+                              process.env.PUBLIC_URL + "/img/comment-photo1.jpg"
+                            }
+                            alt="photo1"
+                          />
                           <span>
                             “She looks incredible in that outfit! We should see
                             each...”
@@ -496,17 +571,22 @@ class Header extends Component {
 
                         <div className="more">
                           <svg className="olymp-three-dots-icon">
-                            <use xlinkHref="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                           </svg>
                           <svg className="olymp-little-delete">
-                            <use xlinkHref="svg-icons/sprites/icons.svg#olymp-little-delete" />
+                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-little-delete" />
                           </svg>
                         </div>
                       </li>
 
                       <li>
                         <div className="author-thumb">
-                          <img src="img/avatar65-sm.jpg" alt="author" />
+                          <img
+                            src={
+                              process.env.PUBLIC_URL + "/img/avatar65-sm.jpg"
+                            }
+                            alt="author"
+                          />
                         </div>
                         <div className="notification-event">
                           <div>
@@ -530,28 +610,33 @@ class Header extends Component {
                         </div>
                         <span className="notification-icon">
                           <svg className="olymp-happy-face-icon">
-                            <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
+                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
                           </svg>
                         </span>
 
                         <div className="more">
                           <svg className="olymp-three-dots-icon">
-                            <use xlinkHref="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                           </svg>
                           <svg className="olymp-little-delete">
-                            <use xlinkHref="svg-icons/sprites/icons.svg#olymp-little-delete" />
+                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-little-delete" />
                           </svg>
                         </div>
                       </li>
 
                       <li>
                         <div className="author-thumb">
-                          <img src="img/avatar66-sm.jpg" alt="author" />
+                          <img
+                            src={
+                              process.env.PUBLIC_URL + "/img/avatar66-sm.jpg"
+                            }
+                            alt="author"
+                          />
                         </div>
                         <div className="notification-event">
                           <div>
                             <Link to="/" className="h6 notification-friend">
-                              {user.firstname} {user.lastname}
+                              {user.username}
                             </Link>{" "}
                             commented on your new{" "}
                             <Link to="/" className="notification-link">
@@ -570,16 +655,16 @@ class Header extends Component {
                         </div>
                         <span className="notification-icon">
                           <svg className="olymp-heart-icon">
-                            <use xlinkHref="svg-icons/sprites/icons.svg#olymp-heart-icon" />
+                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-heart-icon" />
                           </svg>
                         </span>
 
                         <div className="more">
                           <svg className="olymp-three-dots-icon">
-                            <use xlinkHref="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                           </svg>
                           <svg className="olymp-little-delete">
-                            <use xlinkHref="svg-icons/sprites/icons.svg#olymp-little-delete" />
+                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-little-delete" />
                           </svg>
                         </div>
                       </li>
@@ -596,7 +681,7 @@ class Header extends Component {
                 <div className="author-thumb">
                   <img
                     alt="author"
-                    src="img/author-page.jpg"
+                    src={process.env.PUBLIC_URL + "/img/author-page.jpg"}
                     className="avatar"
                   />
                   <span className="icon-status online" />
@@ -610,7 +695,7 @@ class Header extends Component {
                         <li>
                           <Link to="/edit-profile">
                             <svg className="olymp-menu-icon">
-                              <use xlinkHref="svg-icons/sprites/icons.svg#olymp-menu-icon" />
+                              <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-menu-icon" />
                             </svg>
 
                             <span>Profile Settings</span>
@@ -624,16 +709,16 @@ class Header extends Component {
                               data-placement="right"
                               data-original-title="FAV PAGE"
                             >
-                              <use xlinkHref="svg-icons/sprites/icons.svg#olymp-star-icon" />
+                              <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-star-icon" />
                             </svg>
 
                             <span>Create Fav Page</span>
                           </Link>
                         </li>
                         <li>
-                          <Link to="#" onClick={this.props.logout}>
+                          <Link to="#" onClick={this.props.logoutUser}>
                             <svg className="olymp-logout-icon">
-                              <use xlinkHref="svg-icons/sprites/icons.svg#olymp-logout-icon" />
+                              <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-logout-icon" />
                             </svg>
                             <span>Log Out</span>
                           </Link>
@@ -644,9 +729,9 @@ class Header extends Component {
                 </div>
                 <Link to="/profile" className="author-name fn">
                   <div className="author-title">
-                    {user.firstname} {user.lastname}
+                    {user.username}
                     <svg className="olymp-dropdown-arrow-icon">
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-dropdown-arrow-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-dropdown-arrow-icon" />
                     </svg>
                   </div>
                   <span className="author-subtitle">SPACE COWBOY</span>
@@ -666,7 +751,7 @@ class Header extends Component {
                 <Link className="nav-link" data-toggle="tab" to="/" role="tab">
                   <div className="control-icon has-items">
                     <svg className="olymp-happy-face-icon">
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
                     </svg>
                     <div className="label-avatar bg-blue">6</div>
                   </div>
@@ -677,7 +762,7 @@ class Header extends Component {
                 <Link className="nav-link" data-toggle="tab" to="/" role="tab">
                   <div className="control-icon has-items">
                     <svg className="olymp-chat---messages-icon">
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-chat---messages-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-chat---messages-icon" />
                     </svg>
                     <div className="label-avatar bg-purple">2</div>
                   </div>
@@ -688,7 +773,7 @@ class Header extends Component {
                 <Link className="nav-link" data-toggle="tab" to="/" role="tab">
                   <div className="control-icon has-items">
                     <svg className="olymp-thunder-icon">
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-thunder-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-thunder-icon" />
                     </svg>
                     <div className="label-avatar bg-primary">8</div>
                   </div>
@@ -698,10 +783,10 @@ class Header extends Component {
               <li className="nav-item">
                 <Link className="nav-link" data-toggle="tab" to="/" role="tab">
                   <svg className="olymp-magnifying-glass-icon">
-                    <use xlinkHref="svg-icons/sprites/icons.svg#olymp-magnifying-glass-icon" />
+                    <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-magnifying-glass-icon" />
                   </svg>
                   <svg className="olymp-close-icon">
-                    <use xlinkHref="svg-icons/sprites/icons.svg#olymp-close-icon" />
+                    <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-close-icon" />
                   </svg>
                 </Link>
               </li>
@@ -719,7 +804,10 @@ class Header extends Component {
                 <ul className="notification-list friend-requests">
                   <li>
                     <div className="author-thumb">
-                      <img src="img/avatar55-sm.jpg" alt="author" />
+                      <img
+                        src={process.env.PUBLIC_URL + "/img/avatar55-sm.jpg"}
+                        alt="author"
+                      />
                     </div>
                     <div className="notification-event">
                       <Link to="/" className="h6 notification-friend">
@@ -733,7 +821,7 @@ class Header extends Component {
                       <Link to="/" className="accept-request">
                         <span className="icon-add without-text">
                           <svg className="olymp-happy-face-icon">
-                            <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
+                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
                           </svg>
                         </span>
                       </Link>
@@ -741,7 +829,7 @@ class Header extends Component {
                       <Link to="/" className="accept-request request-del">
                         <span className="icon-minus">
                           <svg className="olymp-happy-face-icon">
-                            <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
+                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
                           </svg>
                         </span>
                       </Link>
@@ -749,13 +837,16 @@ class Header extends Component {
 
                     <div className="more">
                       <svg className="olymp-three-dots-icon">
-                        <use xlinkHref="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                        <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                       </svg>
                     </div>
                   </li>
                   <li>
                     <div className="author-thumb">
-                      <img src="img/avatar56-sm.jpg" alt="author" />
+                      <img
+                        src={process.env.PUBLIC_URL + "/img/avatar56-sm.jpg"}
+                        alt="author"
+                      />
                     </div>
                     <div className="notification-event">
                       <Link to="/" className="h6 notification-friend">
@@ -769,7 +860,7 @@ class Header extends Component {
                       <Link to="/" className="accept-request">
                         <span className="icon-add without-text">
                           <svg className="olymp-happy-face-icon">
-                            <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
+                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
                           </svg>
                         </span>
                       </Link>
@@ -777,7 +868,7 @@ class Header extends Component {
                       <Link to="/" className="accept-request request-del">
                         <span className="icon-minus">
                           <svg className="olymp-happy-face-icon">
-                            <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
+                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
                           </svg>
                         </span>
                       </Link>
@@ -785,13 +876,16 @@ class Header extends Component {
 
                     <div className="more">
                       <svg className="olymp-three-dots-icon">
-                        <use xlinkHref="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                        <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                       </svg>
                     </div>
                   </li>
                   <li className="accepted">
                     <div className="author-thumb">
-                      <img src="img/avatar57-sm.jpg" alt="author" />
+                      <img
+                        src={process.env.PUBLIC_URL + "/img/avatar57-sm.jpg"}
+                        alt="author"
+                      />
                     </div>
                     <div className="notification-event">
                       You and{" "}
@@ -806,22 +900,25 @@ class Header extends Component {
                     </div>
                     <span className="notification-icon">
                       <svg className="olymp-happy-face-icon">
-                        <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
+                        <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
                       </svg>
                     </span>
 
                     <div className="more">
                       <svg className="olymp-three-dots-icon">
-                        <use xlinkHref="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                        <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                       </svg>
                       <svg className="olymp-little-delete">
-                        <use xlinkHref="svg-icons/sprites/icons.svg#olymp-little-delete" />
+                        <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-little-delete" />
                       </svg>
                     </div>
                   </li>
                   <li>
                     <div className="author-thumb">
-                      <img src="img/avatar58-sm.jpg" alt="author" />
+                      <img
+                        src={process.env.PUBLIC_URL + "/img/avatar58-sm.jpg"}
+                        alt="author"
+                      />
                     </div>
                     <div className="notification-event">
                       <Link to="/" className="h6 notification-friend">
@@ -835,7 +932,7 @@ class Header extends Component {
                       <Link to="/" className="accept-request">
                         <span className="icon-add without-text">
                           <svg className="olymp-happy-face-icon">
-                            <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
+                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
                           </svg>
                         </span>
                       </Link>
@@ -843,7 +940,7 @@ class Header extends Component {
                       <Link to="/" className="accept-request request-del">
                         <span className="icon-minus">
                           <svg className="olymp-happy-face-icon">
-                            <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
+                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
                           </svg>
                         </span>
                       </Link>
@@ -851,7 +948,7 @@ class Header extends Component {
 
                     <div className="more">
                       <svg className="olymp-three-dots-icon">
-                        <use xlinkHref="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                        <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                       </svg>
                     </div>
                   </li>
@@ -873,7 +970,10 @@ class Header extends Component {
                 <ul className="notification-list chat-message">
                   <li className="message-unread">
                     <div className="author-thumb">
-                      <img src="img/avatar59-sm.jpg" alt="author" />
+                      <img
+                        src={process.env.PUBLIC_URL + "/img/avatar59-sm.jpg"}
+                        alt="author"
+                      />
                     </div>
                     <div className="notification-event">
                       <Link to="/" className="h6 notification-friend">
@@ -894,19 +994,22 @@ class Header extends Component {
                     </div>
                     <span className="notification-icon">
                       <svg className="olymp-chat---messages-icon">
-                        <use xlinkHref="svg-icons/sprites/icons.svg#olymp-chat---messages-icon" />
+                        <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-chat---messages-icon" />
                       </svg>
                     </span>
                     <div className="more">
                       <svg className="olymp-three-dots-icon">
-                        <use xlinkHref="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                        <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                       </svg>
                     </div>
                   </li>
 
                   <li>
                     <div className="author-thumb">
-                      <img src="img/avatar60-sm.jpg" alt="author" />
+                      <img
+                        src={process.env.PUBLIC_URL + "/img/avatar60-sm.jpg"}
+                        alt="author"
+                      />
                     </div>
                     <div className="notification-event">
                       <Link to="/" className="h6 notification-friend">
@@ -926,19 +1029,22 @@ class Header extends Component {
                     </div>
                     <span className="notification-icon">
                       <svg className="olymp-chat---messages-icon">
-                        <use xlinkHref="svg-icons/sprites/icons.svg#olymp-chat---messages-icon" />
+                        <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-chat---messages-icon" />
                       </svg>
                     </span>
 
                     <div className="more">
                       <svg className="olymp-three-dots-icon">
-                        <use xlinkHref="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                        <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                       </svg>
                     </div>
                   </li>
                   <li>
                     <div className="author-thumb">
-                      <img src="img/avatar61-sm.jpg" alt="author" />
+                      <img
+                        src={process.env.PUBLIC_URL + "/img/avatar61-sm.jpg"}
+                        alt="author"
+                      />
                     </div>
                     <div className="notification-event">
                       <Link to="/" className="h6 notification-friend">
@@ -959,22 +1065,34 @@ class Header extends Component {
                     </div>
                     <span className="notification-icon">
                       <svg className="olymp-chat---messages-icon">
-                        <use xlinkHref="svg-icons/sprites/icons.svg#olymp-chat---messages-icon" />
+                        <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-chat---messages-icon" />
                       </svg>
                     </span>
                     <div className="more">
                       <svg className="olymp-three-dots-icon">
-                        <use xlinkHref="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                        <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                       </svg>
                     </div>
                   </li>
 
                   <li className="chat-group">
                     <div className="author-thumb">
-                      <img src="img/avatar11-sm.jpg" alt="author" />
-                      <img src="img/avatar12-sm.jpg" alt="author" />
-                      <img src="img/avatar13-sm.jpg" alt="author" />
-                      <img src="img/avatar10-sm.jpg" alt="author" />
+                      <img
+                        src={process.env.PUBLIC_URL + "/img/avatar11-sm.jpg"}
+                        alt="author"
+                      />
+                      <img
+                        src={process.env.PUBLIC_URL + "/img/avatar12-sm.jpg"}
+                        alt="author"
+                      />
+                      <img
+                        src={process.env.PUBLIC_URL + "/img/avatar13-sm.jpg"}
+                        alt="author"
+                      />
+                      <img
+                        src={process.env.PUBLIC_URL + "/img/avatar10-sm.jpg"}
+                        alt="author"
+                      />
                     </div>
                     <div className="notification-event">
                       <Link to="/" className="h6 notification-friend">
@@ -995,12 +1113,12 @@ class Header extends Component {
                     </div>
                     <span className="notification-icon">
                       <svg className="olymp-chat---messages-icon">
-                        <use xlinkHref="svg-icons/sprites/icons.svg#olymp-chat---messages-icon" />
+                        <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-chat---messages-icon" />
                       </svg>
                     </span>
                     <div className="more">
                       <svg className="olymp-three-dots-icon">
-                        <use xlinkHref="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                        <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                       </svg>
                     </div>
                   </li>
@@ -1023,7 +1141,10 @@ class Header extends Component {
                 <ul className="notification-list">
                   <li>
                     <div className="author-thumb">
-                      <img src="img/avatar62-sm.jpg" alt="author" />
+                      <img
+                        src={process.env.PUBLIC_URL + "/img/avatar62-sm.jpg"}
+                        alt="author"
+                      />
                     </div>
                     <div className="notification-event">
                       <div>
@@ -1047,23 +1168,26 @@ class Header extends Component {
                     </div>
                     <span className="notification-icon">
                       <svg className="olymp-comments-post-icon">
-                        <use xlinkHref="svg-icons/sprites/icons.svg#olymp-comments-post-icon" />
+                        <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-comments-post-icon" />
                       </svg>
                     </span>
 
                     <div className="more">
                       <svg className="olymp-three-dots-icon">
-                        <use xlinkHref="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                        <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                       </svg>
                       <svg className="olymp-little-delete">
-                        <use xlinkHref="svg-icons/sprites/icons.svg#olymp-little-delete" />
+                        <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-little-delete" />
                       </svg>
                     </div>
                   </li>
 
                   <li className="un-read">
                     <div className="author-thumb">
-                      <img src="img/avatar63-sm.jpg" alt="author" />
+                      <img
+                        src={process.env.PUBLIC_URL + "/img/avatar63-sm.jpg"}
+                        alt="author"
+                      />
                     </div>
                     <div className="notification-event">
                       <div>
@@ -1088,23 +1212,26 @@ class Header extends Component {
                     </div>
                     <span className="notification-icon">
                       <svg className="olymp-happy-face-icon">
-                        <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
+                        <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
                       </svg>
                     </span>
 
                     <div className="more">
                       <svg className="olymp-three-dots-icon">
-                        <use xlinkHref="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                        <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                       </svg>
                       <svg className="olymp-little-delete">
-                        <use xlinkHref="svg-icons/sprites/icons.svg#olymp-little-delete" />
+                        <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-little-delete" />
                       </svg>
                     </div>
                   </li>
 
                   <li className="with-comment-photo">
                     <div className="author-thumb">
-                      <img src="img/avatar64-sm.jpg" alt="author" />
+                      <img
+                        src={process.env.PUBLIC_URL + "/img/avatar64-sm.jpg"}
+                        alt="author"
+                      />
                     </div>
                     <div className="notification-event">
                       <div>
@@ -1128,12 +1255,15 @@ class Header extends Component {
                     </div>
                     <span className="notification-icon">
                       <svg className="olymp-comments-post-icon">
-                        <use xlinkHref="svg-icons/sprites/icons.svg#olymp-comments-post-icon" />
+                        <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-comments-post-icon" />
                       </svg>
                     </span>
 
                     <div className="comment-photo">
-                      <img src="img/comment-photo1.jpg" alt="photo1" />
+                      <img
+                        src={process.env.PUBLIC_URL + "/img/comment-photo1.jpg"}
+                        alt="photo1"
+                      />
                       <span>
                         “She looks incredible in that outfit! We should see
                         each...”
@@ -1142,17 +1272,20 @@ class Header extends Component {
 
                     <div className="more">
                       <svg className="olymp-three-dots-icon">
-                        <use xlinkHref="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                        <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                       </svg>
                       <svg className="olymp-little-delete">
-                        <use xlinkHref="svg-icons/sprites/icons.svg#olymp-little-delete" />
+                        <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-little-delete" />
                       </svg>
                     </div>
                   </li>
 
                   <li>
                     <div className="author-thumb">
-                      <img src="img/avatar65-sm.jpg" alt="author" />
+                      <img
+                        src={process.env.PUBLIC_URL + "/img/avatar65-sm.jpg"}
+                        alt="author"
+                      />
                     </div>
                     <div className="notification-event">
                       <div>
@@ -1176,23 +1309,26 @@ class Header extends Component {
                     </div>
                     <span className="notification-icon">
                       <svg className="olymp-happy-face-icon">
-                        <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
+                        <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
                       </svg>
                     </span>
 
                     <div className="more">
                       <svg className="olymp-three-dots-icon">
-                        <use xlinkHref="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                        <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                       </svg>
                       <svg className="olymp-little-delete">
-                        <use xlinkHref="svg-icons/sprites/icons.svg#olymp-little-delete" />
+                        <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-little-delete" />
                       </svg>
                     </div>
                   </li>
 
                   <li>
                     <div className="author-thumb">
-                      <img src="img/avatar66-sm.jpg" alt="author" />
+                      <img
+                        src={process.env.PUBLIC_URL + "/img/avatar66-sm.jpg"}
+                        alt="author"
+                      />
                     </div>
                     <div className="notification-event">
                       <div>
@@ -1216,16 +1352,16 @@ class Header extends Component {
                     </div>
                     <span className="notification-icon">
                       <svg className="olymp-heart-icon">
-                        <use xlinkHref="svg-icons/sprites/icons.svg#olymp-heart-icon" />
+                        <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-heart-icon" />
                       </svg>
                     </span>
 
                     <div className="more">
                       <svg className="olymp-three-dots-icon">
-                        <use xlinkHref="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                        <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                       </svg>
                       <svg className="olymp-little-delete">
-                        <use xlinkHref="svg-icons/sprites/icons.svg#olymp-little-delete" />
+                        <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-little-delete" />
                       </svg>
                     </div>
                   </li>
@@ -1257,15 +1393,15 @@ class Header extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    user: state.auth.auth.user
+    user: state.auth.user
   };
 };
 
 Header.propTypes = {
-  logout: PropTypes.func.isRequired
+  logoutUser: PropTypes.func.isRequired
 };
 
 export default connect(
   mapStateToProps,
-  { logout }
+  { logoutUser }
 )(Header);

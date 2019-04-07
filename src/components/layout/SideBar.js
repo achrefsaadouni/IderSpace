@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 class SideBar extends Component {
-
   render() {
     return (
       <React.Fragment>
@@ -10,7 +9,7 @@ class SideBar extends Component {
           <div className="fixed-sidebar-left sidebar--small" id="sidebar-left">
             <Link to="/" className="logo">
               <div className="img-wrap">
-                <img src="img/logo.png" alt="Olympus" />
+                <img src="/img/logo.png" alt="Olympus" />
               </div>
             </Link>
 
@@ -24,7 +23,7 @@ class SideBar extends Component {
                       data-placement="right"
                       data-original-title="OPEN MENU"
                     >
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-menu-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-menu-icon" />
                     </svg>
                   </Link>
                 </li>
@@ -36,7 +35,7 @@ class SideBar extends Component {
                       data-placement="right"
                       data-original-title="NEWSFEED"
                     >
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-newsfeed-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-newsfeed-icon" />
                     </svg>
                   </Link>
                 </li>
@@ -48,7 +47,7 @@ class SideBar extends Component {
                       data-placement="right"
                       data-original-title="FAV PAGE"
                     >
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-star-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-star-icon" />
                     </svg>
                   </Link>
                 </li>
@@ -60,7 +59,7 @@ class SideBar extends Component {
                       data-placement="right"
                       data-original-title="FRIEND GROUPS"
                     >
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-faces-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-happy-faces-icon" />
                     </svg>
                   </Link>
                 </li>
@@ -72,7 +71,7 @@ class SideBar extends Component {
                       data-placement="right"
                       data-original-title="MUSIC&PLAYLISTS"
                     >
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-headphones-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-headphones-icon" />
                     </svg>
                   </Link>
                 </li>
@@ -84,7 +83,7 @@ class SideBar extends Component {
                       data-placement="right"
                       data-original-title="WEATHER APP"
                     >
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-weather-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-weather-icon" />
                     </svg>
                   </Link>
                 </li>
@@ -96,7 +95,7 @@ class SideBar extends Component {
                       data-placement="right"
                       data-original-title="CALENDAR AND EVENTS"
                     >
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-calendar-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-calendar-icon" />
                     </svg>
                   </Link>
                 </li>
@@ -108,7 +107,7 @@ class SideBar extends Component {
                       data-placement="right"
                       data-original-title="Community Badges"
                     >
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-badge-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-badge-icon" />
                     </svg>
                   </Link>
                 </li>
@@ -120,7 +119,7 @@ class SideBar extends Component {
                       data-placement="right"
                       data-original-title="Friends Birthdays"
                     >
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-cupcake-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-cupcake-icon" />
                     </svg>
                   </Link>
                 </li>
@@ -132,7 +131,7 @@ class SideBar extends Component {
                       data-placement="right"
                       data-original-title="Account Stats"
                     >
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-stats-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-stats-icon" />
                     </svg>
                   </Link>
                 </li>
@@ -144,7 +143,7 @@ class SideBar extends Component {
                       data-placement="right"
                       data-original-title="Manage Widgets"
                     >
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-manage-widgets-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-manage-widgets-icon" />
                     </svg>
                   </Link>
                 </li>
@@ -158,7 +157,7 @@ class SideBar extends Component {
           >
             <Link to="/" className="logo">
               <div className="img-wrap">
-                <img src="img/logo.png" alt="Olympus" />
+                <img src="/img/logo.png" alt="Olympus" />
               </div>
               <div className="title-block">
                 <h6 className="logo-title">olympus</h6>
@@ -170,7 +169,7 @@ class SideBar extends Component {
                 <li>
                   <Link to="/" className="js-sidebar-open">
                     <svg className="olymp-close-icon left-menu-icon">
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-close-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-close-icon" />
                     </svg>
                     <span className="left-menu-title">Collapse Menu</span>
                   </Link>
@@ -183,7 +182,7 @@ class SideBar extends Component {
                       data-placement="right"
                       data-original-title="NEWSFEED"
                     >
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-newsfeed-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-newsfeed-icon" />
                     </svg>
                     <span className="left-menu-title">Newsfeed</span>
                   </Link>
@@ -196,7 +195,7 @@ class SideBar extends Component {
                       data-placement="right"
                       data-original-title="FAV PAGE"
                     >
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-star-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-star-icon" />
                     </svg>
                     <span className="left-menu-title">Fav Pages Feed</span>
                   </Link>
@@ -209,7 +208,7 @@ class SideBar extends Component {
                       data-placement="right"
                       data-original-title="FRIEND GROUPS"
                     >
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-faces-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-happy-faces-icon" />
                     </svg>
                     <span className="left-menu-title">Friend Groups</span>
                   </Link>
@@ -222,7 +221,7 @@ class SideBar extends Component {
                       data-placement="right"
                       data-original-title="MUSIC&PLAYLISTS"
                     >
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-headphones-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-headphones-icon" />
                     </svg>
                     <span className="left-menu-title">Music & Playlists</span>
                   </Link>
@@ -235,7 +234,7 @@ class SideBar extends Component {
                       data-placement="right"
                       data-original-title="WEATHER APP"
                     >
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-weather-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-weather-icon" />
                     </svg>
                     <span className="left-menu-title">Weather App</span>
                   </Link>
@@ -248,7 +247,7 @@ class SideBar extends Component {
                       data-placement="right"
                       data-original-title="CALENDAR AND EVENTS"
                     >
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-calendar-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-calendar-icon" />
                     </svg>
                     <span className="left-menu-title">Calendar and Events</span>
                   </Link>
@@ -261,7 +260,7 @@ class SideBar extends Component {
                       data-placement="right"
                       data-original-title="Community Badges"
                     >
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-badge-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-badge-icon" />
                     </svg>
                     <span className="left-menu-title">Community Badges</span>
                   </Link>
@@ -274,7 +273,7 @@ class SideBar extends Component {
                       data-placement="right"
                       data-original-title="Friends Birthdays"
                     >
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-cupcake-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-cupcake-icon" />
                     </svg>
                     <span className="left-menu-title">Friends Birthdays</span>
                   </Link>
@@ -287,7 +286,7 @@ class SideBar extends Component {
                       data-placement="right"
                       data-original-title="Account Stats"
                     >
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-stats-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-stats-icon" />
                     </svg>
                     <span className="left-menu-title">Account Stats</span>
                   </Link>
@@ -300,7 +299,7 @@ class SideBar extends Component {
                       data-placement="right"
                       data-original-title="Manage Widgets"
                     >
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-manage-widgets-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-manage-widgets-icon" />
                     </svg>
                     <span className="left-menu-title">Manage Widgets</span>
                   </Link>
@@ -347,7 +346,7 @@ class SideBar extends Component {
             id="sidebar-left-responsive"
           >
             <Link to="/" className="logo js-sidebar-open">
-              <img src="img/logo.png" alt="Olympus" />
+              <img src="/img/logo.png" alt="Olympus" />
             </Link>
           </div>
 
@@ -357,7 +356,7 @@ class SideBar extends Component {
           >
             <Link to="/" className="logo">
               <div className="img-wrap">
-                <img src="img/logo.png" alt="Olympus" />
+                <img src="/img/logo.png" alt="Olympus" />
               </div>
               <div className="title-block">
                 <h6 className="logo-title">olympus</h6>
@@ -370,7 +369,7 @@ class SideBar extends Component {
                   <div className="author-thumb">
                     <img
                       alt="author"
-                      src="img/author-page.jpg"
+                      src="/img/author-page.jpg"
                       className="avatar"
                     />
                     <span className="icon-status online" />
@@ -379,7 +378,7 @@ class SideBar extends Component {
                     <div className="author-title">
                       James Spiegel{" "}
                       <svg className="olymp-dropdown-arrow-icon">
-                        <use xlinkHref="svg-icons/sprites/icons.svg#olymp-dropdown-arrow-icon" />
+                        <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-dropdown-arrow-icon" />
                       </svg>
                     </div>
                     <span className="author-subtitle">SPACE COWBOY</span>
@@ -395,7 +394,7 @@ class SideBar extends Component {
                 <li>
                   <Link to="/" className="js-sidebar-open">
                     <svg className="olymp-close-icon left-menu-icon">
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-close-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-close-icon" />
                     </svg>
                     <span className="left-menu-title">Collapse Menu</span>
                   </Link>
@@ -408,7 +407,7 @@ class SideBar extends Component {
                       data-placement="right"
                       data-original-title="NEWSFEED"
                     >
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-newsfeed-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-newsfeed-icon" />
                     </svg>
                     <span className="left-menu-title">Newsfeed</span>
                   </Link>
@@ -421,7 +420,7 @@ class SideBar extends Component {
                       data-placement="right"
                       data-original-title="FAV PAGE"
                     >
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-star-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-star-icon" />
                     </svg>
                     <span className="left-menu-title">Fav Pages Feed</span>
                   </Link>
@@ -434,7 +433,7 @@ class SideBar extends Component {
                       data-placement="right"
                       data-original-title="FRIEND GROUPS"
                     >
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-happy-faces-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-happy-faces-icon" />
                     </svg>
                     <span className="left-menu-title">Friend Groups</span>
                   </Link>
@@ -447,7 +446,7 @@ class SideBar extends Component {
                       data-placement="right"
                       data-original-title="MUSIC&PLAYLISTS"
                     >
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-headphones-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-headphones-icon" />
                     </svg>
                     <span className="left-menu-title">Music & Playlists</span>
                   </Link>
@@ -460,7 +459,7 @@ class SideBar extends Component {
                       data-placement="right"
                       data-original-title="WEATHER APP"
                     >
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-weather-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-weather-icon" />
                     </svg>
                     <span className="left-menu-title">Weather App</span>
                   </Link>
@@ -473,7 +472,7 @@ class SideBar extends Component {
                       data-placement="right"
                       data-original-title="CALENDAR AND EVENTS"
                     >
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-calendar-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-calendar-icon" />
                     </svg>
                     <span className="left-menu-title">Calendar and Events</span>
                   </Link>
@@ -486,7 +485,7 @@ class SideBar extends Component {
                       data-placement="right"
                       data-original-title="Community Badges"
                     >
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-badge-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-badge-icon" />
                     </svg>
                     <span className="left-menu-title">Community Badges</span>
                   </Link>
@@ -499,7 +498,7 @@ class SideBar extends Component {
                       data-placement="right"
                       data-original-title="Friends Birthdays"
                     >
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-cupcake-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-cupcake-icon" />
                     </svg>
                     <span className="left-menu-title">Friends Birthdays</span>
                   </Link>
@@ -512,7 +511,7 @@ class SideBar extends Component {
                       data-placement="right"
                       data-original-title="Account Stats"
                     >
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-stats-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-stats-icon" />
                     </svg>
                     <span className="left-menu-title">Account Stats</span>
                   </Link>
@@ -525,7 +524,7 @@ class SideBar extends Component {
                       data-placement="right"
                       data-original-title="Manage Widgets"
                     >
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-manage-widgets-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-manage-widgets-icon" />
                     </svg>
                     <span className="left-menu-title">Manage Widgets</span>
                   </Link>
@@ -540,7 +539,7 @@ class SideBar extends Component {
                 <li>
                   <Link to="/">
                     <svg className="olymp-menu-icon">
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-menu-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-menu-icon" />
                     </svg>
 
                     <span>Profile Settings</span>
@@ -554,7 +553,7 @@ class SideBar extends Component {
                       data-placement="right"
                       data-original-title="FAV PAGE"
                     >
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-star-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-star-icon" />
                     </svg>
 
                     <span>Create Fav Page</span>
@@ -563,7 +562,7 @@ class SideBar extends Component {
                 <li>
                   <Link to="/">
                     <svg className="olymp-logout-icon">
-                      <use xlinkHref="svg-icons/sprites/icons.svg#olymp-logout-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-logout-icon" />
                     </svg>
 
                     <span>Log Out</span>

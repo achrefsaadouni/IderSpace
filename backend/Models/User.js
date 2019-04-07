@@ -12,6 +12,7 @@ const userSchema = mongoose.Schema({
   linkedin: { type: String },
   github: { type: String },
   class: { type: String },
+  type: { type: String },
   Resume: Resume,
   nbrBestAnswer: { type: Number, default: 0 }
 });

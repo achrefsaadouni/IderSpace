@@ -40,6 +40,11 @@ const QuestionSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true
+  },
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Forum",
+    required: true
   }
 });
 module.exports = mongoose.model("Question", QuestionSchema);

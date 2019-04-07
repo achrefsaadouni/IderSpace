@@ -16,7 +16,7 @@ class SideBar_Right extends Component {
                   <div className="author-thumb">
                     <img
                       alt="author"
-                      src="img/avatar67-sm.jpg"
+                      src="/img/avatar67-sm.jpg"
                       className="avatar"
                     />
                     <span className="icon-status online" />
@@ -26,18 +26,7 @@ class SideBar_Right extends Component {
                   <div className="author-thumb">
                     <img
                       alt="author"
-                      src="img/avatar62-sm.jpg"
-                      className="avatar"
-                    />
-                    <span className="icon-status online" />
-                  </div>
-                </li>
-
-                <li className="inline-items js-chat-open">
-                  <div className="author-thumb">
-                    <img
-                      alt="author"
-                      src="img/avatar68-sm.jpg"
+                      src="/img/avatar62-sm.jpg"
                       className="avatar"
                     />
                     <span className="icon-status online" />
@@ -48,7 +37,18 @@ class SideBar_Right extends Component {
                   <div className="author-thumb">
                     <img
                       alt="author"
-                      src="img/avatar69-sm.jpg"
+                      src="/img/avatar68-sm.jpg"
+                      className="avatar"
+                    />
+                    <span className="icon-status online" />
+                  </div>
+                </li>
+
+                <li className="inline-items js-chat-open">
+                  <div className="author-thumb">
+                    <img
+                      alt="author"
+                      src="/img/avatar69-sm.jpg"
                       className="avatar"
                     />
                     <span className="icon-status away" />
@@ -59,7 +59,7 @@ class SideBar_Right extends Component {
                   <div className="author-thumb">
                     <img
                       alt="author"
-                      src="img/avatar70-sm.jpg"
+                      src="/img/avatar70-sm.jpg"
                       className="avatar"
                     />
                     <span className="icon-status disconected" />
@@ -69,7 +69,7 @@ class SideBar_Right extends Component {
                   <div className="author-thumb">
                     <img
                       alt="author"
-                      src="img/avatar64-sm.jpg"
+                      src="/img/avatar64-sm.jpg"
                       className="avatar"
                     />
                     <span className="icon-status online" />
@@ -79,7 +79,7 @@ class SideBar_Right extends Component {
                   <div className="author-thumb">
                     <img
                       alt="author"
-                      src="img/avatar71-sm.jpg"
+                      src="/img/avatar71-sm.jpg"
                       className="avatar"
                     />
                     <span className="icon-status online" />
@@ -89,7 +89,7 @@ class SideBar_Right extends Component {
                   <div className="author-thumb">
                     <img
                       alt="author"
-                      src="img/avatar72-sm.jpg"
+                      src="/img/avatar72-sm.jpg"
                       className="avatar"
                     />
                     <span className="icon-status away" />
@@ -99,7 +99,7 @@ class SideBar_Right extends Component {
                   <div className="author-thumb">
                     <img
                       alt="author"
-                      src="img/avatar63-sm.jpg"
+                      src="/img/avatar63-sm.jpg"
                       className="avatar"
                     />
                     <span className="icon-status status-invisible" />
@@ -109,7 +109,7 @@ class SideBar_Right extends Component {
                   <div className="author-thumb">
                     <img
                       alt="author"
-                      src="img/avatar72-sm.jpg"
+                      src="/img/avatar72-sm.jpg"
                       className="avatar"
                     />
                     <span className="icon-status away" />
@@ -119,7 +119,7 @@ class SideBar_Right extends Component {
                   <div className="author-thumb">
                     <img
                       alt="author"
-                      src="img/avatar71-sm.jpg"
+                      src="/img/avatar71-sm.jpg"
                       className="avatar"
                     />
                     <span className="icon-status online" />
@@ -131,14 +131,14 @@ class SideBar_Right extends Component {
             <div className="search-friend inline-items">
               <Link to="/" className="js-sidebar-open">
                 <svg className="olymp-menu-icon">
-                  <use xlinkto="svg-icons/sprites/icons.svg#olymp-menu-icon" />
+                  <use xlinkto="/svg-icons/sprites/icons.svg#olymp-menu-icon" />
                 </svg>
               </Link>
             </div>
 
             <Link to="/" className="olympus-chat inline-items js-chat-open">
               <svg className="olymp-chat---messages-icon">
-                <use xlinkto="svg-icons/sprites/icons.svg#olymp-chat---messages-icon" />
+                <use xlinkto="/svg-icons/sprites/icons.svg#olymp-chat---messages-icon" />
               </svg>
             </Link>
           </div>
@@ -160,7 +160,7 @@ class SideBar_Right extends Component {
                   <div className="author-thumb">
                     <img
                       alt="author"
-                      src="img/avatar67-sm.jpg"
+                      src="/img/avatar67-sm.jpg"
                       className="avatar"
                     />
                     <span className="icon-status online" />
@@ -175,7 +175,7 @@ class SideBar_Right extends Component {
 
                   <div className="more">
                     <svg className="olymp-three-dots-icon">
-                      <use xlinkto="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                      <use xlinkto="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                     </svg>
 
                     <ul className="more-icons">
@@ -186,7 +186,7 @@ class SideBar_Right extends Component {
                           data-original-title="START CONVERSATION"
                           className="olymp-comments-post-icon"
                         >
-                          <use xlinkto="svg-icons/sprites/icons.svg#olymp-comments-post-icon" />
+                          <use xlinkto="/svg-icons/sprites/icons.svg#olymp-comments-post-icon" />
                         </svg>
                       </li>
 
@@ -197,7 +197,7 @@ class SideBar_Right extends Component {
                           data-original-title="ADD TO CONVERSATION"
                           className="olymp-add-to-conversation-icon"
                         >
-                          <use xlinkto="svg-icons/sprites/icons.svg#olymp-add-to-conversation-icon" />
+                          <use xlinkto="/svg-icons/sprites/icons.svg#olymp-add-to-conversation-icon" />
                         </svg>
                       </li>
 
@@ -208,7 +208,7 @@ class SideBar_Right extends Component {
                           data-original-title="BLOCK FROM CHAT"
                           className="olymp-block-from-chat-icon"
                         >
-                          <use xlinkto="svg-icons/sprites/icons.svg#olymp-block-from-chat-icon" />
+                          <use xlinkto="/svg-icons/sprites/icons.svg#olymp-block-from-chat-icon" />
                         </svg>
                       </li>
                     </ul>
@@ -218,7 +218,7 @@ class SideBar_Right extends Component {
                   <div className="author-thumb">
                     <img
                       alt="author"
-                      src="img/avatar62-sm.jpg"
+                      src="/img/avatar62-sm.jpg"
                       className="avatar"
                     />
                     <span className="icon-status online" />
@@ -233,7 +233,7 @@ class SideBar_Right extends Component {
 
                   <div className="more">
                     <svg className="olymp-three-dots-icon">
-                      <use xlinkto="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                      <use xlinkto="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                     </svg>
 
                     <ul className="more-icons">
@@ -244,7 +244,7 @@ class SideBar_Right extends Component {
                           data-original-title="START CONVERSATION"
                           className="olymp-comments-post-icon"
                         >
-                          <use xlinkto="svg-icons/sprites/icons.svg#olymp-comments-post-icon" />
+                          <use xlinkto="/svg-icons/sprites/icons.svg#olymp-comments-post-icon" />
                         </svg>
                       </li>
 
@@ -255,7 +255,7 @@ class SideBar_Right extends Component {
                           data-original-title="ADD TO CONVERSATION"
                           className="olymp-add-to-conversation-icon"
                         >
-                          <use xlinkto="svg-icons/sprites/icons.svg#olymp-add-to-conversation-icon" />
+                          <use xlinkto="/svg-icons/sprites/icons.svg#olymp-add-to-conversation-icon" />
                         </svg>
                       </li>
 
@@ -266,7 +266,7 @@ class SideBar_Right extends Component {
                           data-original-title="BLOCK FROM CHAT"
                           className="olymp-block-from-chat-icon"
                         >
-                          <use xlinkto="svg-icons/sprites/icons.svg#olymp-block-from-chat-icon" />
+                          <use xlinkto="/svg-icons/sprites/icons.svg#olymp-block-from-chat-icon" />
                         </svg>
                       </li>
                     </ul>
@@ -277,7 +277,7 @@ class SideBar_Right extends Component {
                   <div className="author-thumb">
                     <img
                       alt="author"
-                      src="img/avatar68-sm.jpg"
+                      src="/img/avatar68-sm.jpg"
                       className="avatar"
                     />
                     <span className="icon-status online" />
@@ -292,7 +292,7 @@ class SideBar_Right extends Component {
 
                   <div className="more">
                     <svg className="olymp-three-dots-icon">
-                      <use xlinkto="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                      <use xlinkto="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                     </svg>
 
                     <ul className="more-icons">
@@ -303,7 +303,7 @@ class SideBar_Right extends Component {
                           data-original-title="START CONVERSATION"
                           className="olymp-comments-post-icon"
                         >
-                          <use xlinkto="svg-icons/sprites/icons.svg#olymp-comments-post-icon" />
+                          <use xlinkto="/svg-icons/sprites/icons.svg#olymp-comments-post-icon" />
                         </svg>
                       </li>
 
@@ -314,7 +314,7 @@ class SideBar_Right extends Component {
                           data-original-title="ADD TO CONVERSATION"
                           className="olymp-add-to-conversation-icon"
                         >
-                          <use xlinkto="svg-icons/sprites/icons.svg#olymp-add-to-conversation-icon" />
+                          <use xlinkto="/svg-icons/sprites/icons.svg#olymp-add-to-conversation-icon" />
                         </svg>
                       </li>
 
@@ -325,7 +325,7 @@ class SideBar_Right extends Component {
                           data-original-title="BLOCK FROM CHAT"
                           className="olymp-block-from-chat-icon"
                         >
-                          <use xlinkto="svg-icons/sprites/icons.svg#olymp-block-from-chat-icon" />
+                          <use xlinkto="/svg-icons/sprites/icons.svg#olymp-block-from-chat-icon" />
                         </svg>
                       </li>
                     </ul>
@@ -336,7 +336,7 @@ class SideBar_Right extends Component {
                   <div className="author-thumb">
                     <img
                       alt="author"
-                      src="img/avatar69-sm.jpg"
+                      src="/img/avatar69-sm.jpg"
                       className="avatar"
                     />
                     <span className="icon-status away" />
@@ -351,7 +351,7 @@ class SideBar_Right extends Component {
 
                   <div className="more">
                     <svg className="olymp-three-dots-icon">
-                      <use xlinkto="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                      <use xlinkto="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                     </svg>
 
                     <ul className="more-icons">
@@ -362,7 +362,7 @@ class SideBar_Right extends Component {
                           data-original-title="START CONVERSATION"
                           className="olymp-comments-post-icon"
                         >
-                          <use xlinkto="svg-icons/sprites/icons.svg#olymp-comments-post-icon" />
+                          <use xlinkto="/svg-icons/sprites/icons.svg#olymp-comments-post-icon" />
                         </svg>
                       </li>
 
@@ -373,7 +373,7 @@ class SideBar_Right extends Component {
                           data-original-title="ADD TO CONVERSATION"
                           className="olymp-add-to-conversation-icon"
                         >
-                          <use xlinkto="svg-icons/sprites/icons.svg#olymp-add-to-conversation-icon" />
+                          <use xlinkto="/svg-icons/sprites/icons.svg#olymp-add-to-conversation-icon" />
                         </svg>
                       </li>
 
@@ -384,7 +384,7 @@ class SideBar_Right extends Component {
                           data-original-title="BLOCK FROM CHAT"
                           className="olymp-block-from-chat-icon"
                         >
-                          <use xlinkto="svg-icons/sprites/icons.svg#olymp-block-from-chat-icon" />
+                          <use xlinkto="/svg-icons/sprites/icons.svg#olymp-block-from-chat-icon" />
                         </svg>
                       </li>
                     </ul>
@@ -395,7 +395,7 @@ class SideBar_Right extends Component {
                   <div className="author-thumb">
                     <img
                       alt="author"
-                      src="img/avatar70-sm.jpg"
+                      src="/img/avatar70-sm.jpg"
                       className="avatar"
                     />
                     <span className="icon-status disconected" />
@@ -410,7 +410,7 @@ class SideBar_Right extends Component {
 
                   <div className="more">
                     <svg className="olymp-three-dots-icon">
-                      <use xlinkto="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                      <use xlinkto="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                     </svg>
 
                     <ul className="more-icons">
@@ -421,7 +421,7 @@ class SideBar_Right extends Component {
                           data-original-title="START CONVERSATION"
                           className="olymp-comments-post-icon"
                         >
-                          <use xlinkto="svg-icons/sprites/icons.svg#olymp-comments-post-icon" />
+                          <use xlinkto="/svg-icons/sprites/icons.svg#olymp-comments-post-icon" />
                         </svg>
                       </li>
 
@@ -432,7 +432,7 @@ class SideBar_Right extends Component {
                           data-original-title="ADD TO CONVERSATION"
                           className="olymp-add-to-conversation-icon"
                         >
-                          <use xlinkto="svg-icons/sprites/icons.svg#olymp-add-to-conversation-icon" />
+                          <use xlinkto="/svg-icons/sprites/icons.svg#olymp-add-to-conversation-icon" />
                         </svg>
                       </li>
 
@@ -443,7 +443,7 @@ class SideBar_Right extends Component {
                           data-original-title="BLOCK FROM CHAT"
                           className="olymp-block-from-chat-icon"
                         >
-                          <use xlinkto="svg-icons/sprites/icons.svg#olymp-block-from-chat-icon" />
+                          <use xlinkto="/svg-icons/sprites/icons.svg#olymp-block-from-chat-icon" />
                         </svg>
                       </li>
                     </ul>
@@ -463,7 +463,7 @@ class SideBar_Right extends Component {
                   <div className="author-thumb">
                     <img
                       alt="author"
-                      src="img/avatar64-sm.jpg"
+                      src="/img/avatar64-sm.jpg"
                       className="avatar"
                     />
                     <span className="icon-status online" />
@@ -478,7 +478,7 @@ class SideBar_Right extends Component {
 
                   <div className="more">
                     <svg className="olymp-three-dots-icon">
-                      <use xlinkto="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                      <use xlinkto="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                     </svg>
 
                     <ul className="more-icons">
@@ -489,7 +489,7 @@ class SideBar_Right extends Component {
                           data-original-title="START CONVERSATION"
                           className="olymp-comments-post-icon"
                         >
-                          <use xlinkto="svg-icons/sprites/icons.svg#olymp-comments-post-icon" />
+                          <use xlinkto="/svg-icons/sprites/icons.svg#olymp-comments-post-icon" />
                         </svg>
                       </li>
 
@@ -500,7 +500,7 @@ class SideBar_Right extends Component {
                           data-original-title="ADD TO CONVERSATION"
                           className="olymp-add-to-conversation-icon"
                         >
-                          <use xlinkto="svg-icons/sprites/icons.svg#olymp-add-to-conversation-icon" />
+                          <use xlinkto="/svg-icons/sprites/icons.svg#olymp-add-to-conversation-icon" />
                         </svg>
                       </li>
 
@@ -511,7 +511,7 @@ class SideBar_Right extends Component {
                           data-original-title="BLOCK FROM CHAT"
                           className="olymp-block-from-chat-icon"
                         >
-                          <use xlinkto="svg-icons/sprites/icons.svg#olymp-block-from-chat-icon" />
+                          <use xlinkto="/svg-icons/sprites/icons.svg#olymp-block-from-chat-icon" />
                         </svg>
                       </li>
                     </ul>
@@ -531,7 +531,7 @@ class SideBar_Right extends Component {
                   <div className="author-thumb">
                     <img
                       alt="author"
-                      src="img/avatar71-sm.jpg"
+                      src="/img/avatar71-sm.jpg"
                       className="avatar"
                     />
                     <span className="icon-status online" />
@@ -546,7 +546,7 @@ class SideBar_Right extends Component {
 
                   <div className="more">
                     <svg className="olymp-three-dots-icon">
-                      <use xlinkto="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                      <use xlinkto="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                     </svg>
 
                     <ul className="more-icons">
@@ -557,7 +557,7 @@ class SideBar_Right extends Component {
                           data-original-title="START CONVERSATION"
                           className="olymp-comments-post-icon"
                         >
-                          <use xlinkto="svg-icons/sprites/icons.svg#olymp-comments-post-icon" />
+                          <use xlinkto="/svg-icons/sprites/icons.svg#olymp-comments-post-icon" />
                         </svg>
                       </li>
 
@@ -568,7 +568,7 @@ class SideBar_Right extends Component {
                           data-original-title="ADD TO CONVERSATION"
                           className="olymp-add-to-conversation-icon"
                         >
-                          <use xlinkto="svg-icons/sprites/icons.svg#olymp-add-to-conversation-icon" />
+                          <use xlinkto="/svg-icons/sprites/icons.svg#olymp-add-to-conversation-icon" />
                         </svg>
                       </li>
 
@@ -579,7 +579,7 @@ class SideBar_Right extends Component {
                           data-original-title="BLOCK FROM CHAT"
                           className="olymp-block-from-chat-icon"
                         >
-                          <use xlinkto="svg-icons/sprites/icons.svg#olymp-block-from-chat-icon" />
+                          <use xlinkto="/svg-icons/sprites/icons.svg#olymp-block-from-chat-icon" />
                         </svg>
                       </li>
                     </ul>
@@ -589,7 +589,7 @@ class SideBar_Right extends Component {
                   <div className="author-thumb">
                     <img
                       alt="author"
-                      src="img/avatar72-sm.jpg"
+                      src="/img/avatar72-sm.jpg"
                       className="avatar"
                     />
                     <span className="icon-status away" />
@@ -604,7 +604,7 @@ class SideBar_Right extends Component {
 
                   <div className="more">
                     <svg className="olymp-three-dots-icon">
-                      <use xlinkto="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                      <use xlinkto="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                     </svg>
 
                     <ul className="more-icons">
@@ -615,7 +615,7 @@ class SideBar_Right extends Component {
                           data-original-title="START CONVERSATION"
                           className="olymp-comments-post-icon"
                         >
-                          <use xlinkto="svg-icons/sprites/icons.svg#olymp-comments-post-icon" />
+                          <use xlinkto="/svg-icons/sprites/icons.svg#olymp-comments-post-icon" />
                         </svg>
                       </li>
 
@@ -626,7 +626,7 @@ class SideBar_Right extends Component {
                           data-original-title="ADD TO CONVERSATION"
                           className="olymp-add-to-conversation-icon"
                         >
-                          <use xlinkto="svg-icons/sprites/icons.svg#olymp-add-to-conversation-icon" />
+                          <use xlinkto="/svg-icons/sprites/icons.svg#olymp-add-to-conversation-icon" />
                         </svg>
                       </li>
 
@@ -637,7 +637,7 @@ class SideBar_Right extends Component {
                           data-original-title="BLOCK FROM CHAT"
                           className="olymp-block-from-chat-icon"
                         >
-                          <use xlinkto="svg-icons/sprites/icons.svg#olymp-block-from-chat-icon" />
+                          <use xlinkto="/svg-icons/sprites/icons.svg#olymp-block-from-chat-icon" />
                         </svg>
                       </li>
                     </ul>
@@ -647,7 +647,7 @@ class SideBar_Right extends Component {
                   <div className="author-thumb">
                     <img
                       alt="author"
-                      src="img/avatar63-sm.jpg"
+                      src="/img/avatar63-sm.jpg"
                       className="avatar"
                     />
                     <span className="icon-status status-invisible" />
@@ -662,7 +662,7 @@ class SideBar_Right extends Component {
 
                   <div className="more">
                     <svg className="olymp-three-dots-icon">
-                      <use xlinkto="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                      <use xlinkto="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                     </svg>
 
                     <ul className="more-icons">
@@ -673,7 +673,7 @@ class SideBar_Right extends Component {
                           data-original-title="START CONVERSATION"
                           className="olymp-comments-post-icon"
                         >
-                          <use xlinkto="svg-icons/sprites/icons.svg#olymp-comments-post-icon" />
+                          <use xlinkto="/svg-icons/sprites/icons.svg#olymp-comments-post-icon" />
                         </svg>
                       </li>
 
@@ -684,7 +684,7 @@ class SideBar_Right extends Component {
                           data-original-title="ADD TO CONVERSATION"
                           className="olymp-add-to-conversation-icon"
                         >
-                          <use xlinkto="svg-icons/sprites/icons.svg#olymp-add-to-conversation-icon" />
+                          <use xlinkto="/svg-icons/sprites/icons.svg#olymp-add-to-conversation-icon" />
                         </svg>
                       </li>
 
@@ -695,7 +695,7 @@ class SideBar_Right extends Component {
                           data-original-title="BLOCK FROM CHAT"
                           className="olymp-block-from-chat-icon"
                         >
-                          <use xlinkto="svg-icons/sprites/icons.svg#olymp-block-from-chat-icon" />
+                          <use xlinkto="/svg-icons/sprites/icons.svg#olymp-block-from-chat-icon" />
                         </svg>
                       </li>
                     </ul>
@@ -705,7 +705,7 @@ class SideBar_Right extends Component {
                   <div className="author-thumb">
                     <img
                       alt="author"
-                      src="img/avatar72-sm.jpg"
+                      src="/img/avatar72-sm.jpg"
                       className="avatar"
                     />
                     <span className="icon-status away" />
@@ -720,7 +720,7 @@ class SideBar_Right extends Component {
 
                   <div className="more">
                     <svg className="olymp-three-dots-icon">
-                      <use xlinkto="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                      <use xlinkto="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                     </svg>
 
                     <ul className="more-icons">
@@ -731,7 +731,7 @@ class SideBar_Right extends Component {
                           data-original-title="START CONVERSATION"
                           className="olymp-comments-post-icon"
                         >
-                          <use xlinkto="svg-icons/sprites/icons.svg#olymp-comments-post-icon" />
+                          <use xlinkto="/svg-icons/sprites/icons.svg#olymp-comments-post-icon" />
                         </svg>
                       </li>
 
@@ -742,7 +742,7 @@ class SideBar_Right extends Component {
                           data-original-title="ADD TO CONVERSATION"
                           className="olymp-add-to-conversation-icon"
                         >
-                          <use xlinkto="svg-icons/sprites/icons.svg#olymp-add-to-conversation-icon" />
+                          <use xlinkto="/svg-icons/sprites/icons.svg#olymp-add-to-conversation-icon" />
                         </svg>
                       </li>
 
@@ -753,7 +753,7 @@ class SideBar_Right extends Component {
                           data-original-title="BLOCK FROM CHAT"
                           className="olymp-block-from-chat-icon"
                         >
-                          <use xlinkto="svg-icons/sprites/icons.svg#olymp-block-from-chat-icon" />
+                          <use xlinkto="/svg-icons/sprites/icons.svg#olymp-block-from-chat-icon" />
                         </svg>
                       </li>
                     </ul>
@@ -763,7 +763,7 @@ class SideBar_Right extends Component {
                   <div className="author-thumb">
                     <img
                       alt="author"
-                      src="img/avatar71-sm.jpg"
+                      src="/img/avatar71-sm.jpg"
                       className="avatar"
                     />
                     <span className="icon-status online" />
@@ -778,7 +778,7 @@ class SideBar_Right extends Component {
 
                   <div className="more">
                     <svg className="olymp-three-dots-icon">
-                      <use xlinkto="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                      <use xlinkto="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                     </svg>
 
                     <ul className="more-icons">
@@ -789,7 +789,7 @@ class SideBar_Right extends Component {
                           data-original-title="START CONVERSATION"
                           className="olymp-comments-post-icon"
                         >
-                          <use xlinkto="svg-icons/sprites/icons.svg#olymp-comments-post-icon" />
+                          <use xlinkto="/svg-icons/sprites/icons.svg#olymp-comments-post-icon" />
                         </svg>
                       </li>
 
@@ -800,7 +800,7 @@ class SideBar_Right extends Component {
                           data-original-title="ADD TO CONVERSATION"
                           className="olymp-add-to-conversation-icon"
                         >
-                          <use xlinkto="svg-icons/sprites/icons.svg#olymp-add-to-conversation-icon" />
+                          <use xlinkto="/svg-icons/sprites/icons.svg#olymp-add-to-conversation-icon" />
                         </svg>
                       </li>
 
@@ -811,7 +811,7 @@ class SideBar_Right extends Component {
                           data-original-title="BLOCK FROM CHAT"
                           className="olymp-block-from-chat-icon"
                         >
-                          <use xlinkto="svg-icons/sprites/icons.svg#olymp-block-from-chat-icon" />
+                          <use xlinkto="/svg-icons/sprites/icons.svg#olymp-block-from-chat-icon" />
                         </svg>
                       </li>
                     </ul>
@@ -835,13 +835,13 @@ class SideBar_Right extends Component {
                 className="settings"
               >
                 <svg className="olymp-settings-icon">
-                  <use xlinkto="svg-icons/sprites/icons.svg#olymp-settings-icon" />
+                  <use xlinkto="/svg-icons/sprites/icons.svg#olymp-settings-icon" />
                 </svg>
               </Link>
 
               <Link to="/" className="js-sidebar-open">
                 <svg className="olymp-close-icon">
-                  <use xlinkto="svg-icons/sprites/icons.svg#olymp-close-icon" />
+                  <use xlinkto="/svg-icons/sprites/icons.svg#olymp-close-icon" />
                 </svg>
               </Link>
             </div>
@@ -849,7 +849,7 @@ class SideBar_Right extends Component {
             <Link to="/" className="olympus-chat inline-items js-chat-open">
               <h6 className="olympus-chat-title">OLYMPUS CHAT</h6>
               <svg className="olymp-chat---messages-icon">
-                <use xlinkto="svg-icons/sprites/icons.svg#olymp-chat---messages-icon" />
+                <use xlinkto="/svg-icons/sprites/icons.svg#olymp-chat---messages-icon" />
               </svg>
             </Link>
           </div>
@@ -862,7 +862,7 @@ class SideBar_Right extends Component {
           >
             <Link to="/" className="olympus-chat inline-items js-chat-open">
               <svg className="olymp-chat---messages-icon">
-                <use xlinkto="svg-icons/sprites/icons.svg#olymp-chat---messages-icon" />
+                <use xlinkto="/svg-icons/sprites/icons.svg#olymp-chat---messages-icon" />
               </svg>
             </Link>
           </div>
@@ -881,10 +881,10 @@ class SideBar_Right extends Component {
               <h6 className="title">Chat</h6>
               <div className="more">
                 <svg className="olymp-three-dots-icon">
-                  <use xlinkto="svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
+                  <use xlinkto="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
                 </svg>
                 <svg className="olymp-little-delete js-chat-open">
-                  <use xlinkto="svg-icons/sprites/icons.svg#olymp-little-delete" />
+                  <use xlinkto="/svg-icons/sprites/icons.svg#olymp-little-delete" />
                 </svg>
               </div>
             </div>
@@ -894,7 +894,7 @@ class SideBar_Right extends Component {
                   <li>
                     <div className="author-thumb">
                       <img
-                        src="img/avatar14-sm.jpg"
+                        src="/img/avatar14-sm.jpg"
                         alt="author"
                         className="mCS_img_loaded"
                       />
@@ -908,7 +908,7 @@ class SideBar_Right extends Component {
                       <span className="notification-date">
                         <time
                           className="entry-date updated"
-                          datetime="2004-07-24T18:18"
+                          dateTime="2004-07-24T18:18"
                         >
                           Yesterday at 8:10pm
                         </time>
@@ -919,7 +919,7 @@ class SideBar_Right extends Component {
                   <li>
                     <div className="author-thumb">
                       <img
-                        src="img/author-page.jpg"
+                        src="/img/author-page.jpg"
                         alt="author"
                         className="mCS_img_loaded"
                       />
@@ -934,7 +934,7 @@ class SideBar_Right extends Component {
                       <span className="notification-date">
                         <time
                           className="entry-date updated"
-                          datetime="2004-07-24T18:18"
+                          dateTime="2004-07-24T18:18"
                         >
                           Yesterday at 8:29pm
                         </time>
@@ -945,7 +945,7 @@ class SideBar_Right extends Component {
                   <li>
                     <div className="author-thumb">
                       <img
-                        src="img/avatar14-sm.jpg"
+                        src="/img/avatar14-sm.jpg"
                         alt="author"
                         className="mCS_img_loaded"
                       />
@@ -959,7 +959,7 @@ class SideBar_Right extends Component {
                       <span className="notification-date">
                         <time
                           className="entry-date updated"
-                          datetime="2004-07-24T18:18"
+                          dateTime="2004-07-24T18:18"
                         >
                           Yesterday at 8:10pm
                         </time>
@@ -978,148 +978,148 @@ class SideBar_Right extends Component {
                   <div className="add-options-message">
                     <Link to="/" className="options-message">
                       <svg className="olymp-computer-icon">
-                        <use xlinkto="svg-icons/sprites/icons.svg#olymp-computer-icon" />
+                        <use xlinkto="/svg-icons/sprites/icons.svg#olymp-computer-icon" />
                       </svg>
                     </Link>
                     <div className="options-message smile-block">
                       <svg className="olymp-happy-sticker-icon">
-                        <use xlinkto="svg-icons/sprites/icons.svg#olymp-happy-sticker-icon" />
+                        <use xlinkto="/svg-icons/sprites/icons.svg#olymp-happy-sticker-icon" />
                       </svg>
 
                       <ul className="more-dropdown more-with-triangle triangle-bottom-right">
                         <li>
                           <Link to="/">
-                            <img src="img/icon-chat1.png" alt="icon" />
+                            <img src="/img/icon-chat1.png" alt="icon" />
                           </Link>
                         </li>
                         <li>
                           <Link to="/">
-                            <img src="img/icon-chat2.png" alt="icon" />
+                            <img src="/img/icon-chat2.png" alt="icon" />
                           </Link>
                         </li>
                         <li>
                           <Link to="/">
-                            <img src="img/icon-chat3.png" alt="icon" />
+                            <img src="/img/icon-chat3.png" alt="icon" />
                           </Link>
                         </li>
                         <li>
                           <Link to="/">
-                            <img src="img/icon-chat4.png" alt="icon" />
+                            <img src="/img/icon-chat4.png" alt="icon" />
                           </Link>
                         </li>
                         <li>
                           <Link to="/">
-                            <img src="img/icon-chat5.png" alt="icon" />
+                            <img src="/img/icon-chat5.png" alt="icon" />
                           </Link>
                         </li>
                         <li>
                           <Link to="/">
-                            <img src="img/icon-chat6.png" alt="icon" />
+                            <img src="/img/icon-chat6.png" alt="icon" />
                           </Link>
                         </li>
                         <li>
                           <Link to="/">
-                            <img src="img/icon-chat7.png" alt="icon" />
+                            <img src="/img/icon-chat7.png" alt="icon" />
                           </Link>
                         </li>
                         <li>
                           <Link to="/">
-                            <img src="img/icon-chat8.png" alt="icon" />
+                            <img src="/img/icon-chat8.png" alt="icon" />
                           </Link>
                         </li>
                         <li>
                           <Link to="/">
-                            <img src="img/icon-chat9.png" alt="icon" />
+                            <img src="/img/icon-chat9.png" alt="icon" />
                           </Link>
                         </li>
                         <li>
                           <Link to="/">
-                            <img src="img/icon-chat10.png" alt="icon" />
+                            <img src="/img/icon-chat10.png" alt="icon" />
                           </Link>
                         </li>
                         <li>
                           <Link to="/">
-                            <img src="img/icon-chat11.png" alt="icon" />
+                            <img src="/img/icon-chat11.png" alt="icon" />
                           </Link>
                         </li>
                         <li>
                           <Link to="/">
-                            <img src="img/icon-chat12.png" alt="icon" />
+                            <img src="/img/icon-chat12.png" alt="icon" />
                           </Link>
                         </li>
                         <li>
                           <Link to="/">
-                            <img src="img/icon-chat13.png" alt="icon" />
+                            <img src="/img/icon-chat13.png" alt="icon" />
                           </Link>
                         </li>
                         <li>
                           <Link to="/">
-                            <img src="img/icon-chat14.png" alt="icon" />
+                            <img src="/img/icon-chat14.png" alt="icon" />
                           </Link>
                         </li>
                         <li>
                           <Link to="/">
-                            <img src="img/icon-chat15.png" alt="icon" />
+                            <img src="/img/icon-chat15.png" alt="icon" />
                           </Link>
                         </li>
                         <li>
                           <Link to="/">
-                            <img src="img/icon-chat16.png" alt="icon" />
+                            <img src="/img/icon-chat16.png" alt="icon" />
                           </Link>
                         </li>
                         <li>
                           <Link to="/">
-                            <img src="img/icon-chat17.png" alt="icon" />
+                            <img src="/img/icon-chat17.png" alt="icon" />
                           </Link>
                         </li>
                         <li>
                           <Link to="/">
-                            <img src="img/icon-chat18.png" alt="icon" />
+                            <img src="/img/icon-chat18.png" alt="icon" />
                           </Link>
                         </li>
                         <li>
                           <Link to="/">
-                            <img src="img/icon-chat19.png" alt="icon" />
+                            <img src="/img/icon-chat19.png" alt="icon" />
                           </Link>
                         </li>
                         <li>
                           <Link to="/">
-                            <img src="img/icon-chat20.png" alt="icon" />
+                            <img src="/img/icon-chat20.png" alt="icon" />
                           </Link>
                         </li>
                         <li>
                           <Link to="/">
-                            <img src="img/icon-chat21.png" alt="icon" />
+                            <img src="/img/icon-chat21.png" alt="icon" />
                           </Link>
                         </li>
                         <li>
                           <Link to="/">
-                            <img src="img/icon-chat22.png" alt="icon" />
+                            <img src="/img/icon-chat22.png" alt="icon" />
                           </Link>
                         </li>
                         <li>
                           <Link to="/">
-                            <img src="img/icon-chat23.png" alt="icon" />
+                            <img src="/img/icon-chat23.png" alt="icon" />
                           </Link>
                         </li>
                         <li>
                           <Link to="/">
-                            <img src="img/icon-chat24.png" alt="icon" />
+                            <img src="/img/icon-chat24.png" alt="icon" />
                           </Link>
                         </li>
                         <li>
                           <Link to="/">
-                            <img src="img/icon-chat25.png" alt="icon" />
+                            <img src="/img/icon-chat25.png" alt="icon" />
                           </Link>
                         </li>
                         <li>
                           <Link to="/">
-                            <img src="img/icon-chat26.png" alt="icon" />
+                            <img src="/img/icon-chat26.png" alt="icon" />
                           </Link>
                         </li>
                         <li>
                           <Link to="/">
-                            <img src="img/icon-chat27.png" alt="icon" />
+                            <img src="/img/icon-chat27.png" alt="icon" />
                           </Link>
                         </li>
                       </ul>

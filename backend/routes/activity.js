@@ -18,8 +18,9 @@ router.get("/getTodoByModule",checkAuth, ActivityController.getTodoByModule);
 router.get("/getAllActivitiesSupervisor",checkAuth, ActivityController.getAllActivitiesSupervisor);
 router.get("/getAllActivitiesSupervisor",checkAuth, ActivityController.getAllActivitiesSupervisor);
 router.get("/getAllForStudent",checkAuth, ActivityController.getAllForStudent);
-
+router.delete("/deleteToDo",checkAuth, ActivityController.deleteToDo);
 ActivityController.incrementProgress()
-//ActivityController.enrichCv()
+ActivityController.enrichCv()
+
 
 module.exports = router;

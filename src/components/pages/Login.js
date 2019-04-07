@@ -1,50 +1,50 @@
 import React, { Component } from "react";
 import logo from "../../logoWhite.png";
 import { Link, Redirect } from "react-router-dom";
-
+import TextFieldGroup from "../common/TextFieldGroup";
 import PropTypes from "prop-types";
-import { login } from "../../store/actions/authActions";
+import { loginUser } from "../../store/actions/authActions";
 import { connect } from "react-redux";
 
 class Login extends Component {
-  state = {
-    email: "",
-    pwd: "",
-    errors: {}
-  };
+  constructor() {
+    super();
+    this.state = {
+      email: "",
+      pwd: "",
+      errors: {}
+    };
+  }
+
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push("/profile");
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.auth.isAuthenticated) {
+      this.props.history.push("/profile");
+    }
+
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
+  }
 
   onSubmit = e => {
     e.preventDefault();
-    console.log("submted");
 
-    const { email, pwd } = this.state;
-
-    // Check For Errors
-    if (email === "") {
-      this.setState({ errors: { email: "Email is required" } });
-      return;
-    }
-
-    if (pwd === "") {
-      this.setState({ errors: { phone: "Pwd is required" } });
-      return;
-    }
+    const { email, pwd, errors } = this.state;
 
     const auth = {
       email,
       password: pwd
     };
 
-    this.props.login(auth);
+    this.props.loginUser(auth);
 
-    // Clear State
-    this.setState({
-      name: "",
-      pwd: "",
-      errors: {}
-    });
-
-    this.props.history.push("/login");
+    //this.props.history.push("/profile");
   };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
@@ -57,7 +57,7 @@ class Login extends Component {
       return <Redirect to={from} />;
     }
 
-    const { email, pwd } = this.state;
+    const { email, pwd, errors } = this.state;
     return (
       <div className="landing-page">
         <div className="content-bg-wrap" />
@@ -105,30 +105,33 @@ class Login extends Component {
                   <form onSubmit={this.onSubmit}>
                     <div className="row">
                       <div className="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                        <br />
+                        {errors.message ? (
+                          <p style={{ color: "red" }}>{errors.message}</p>
+                        ) : (
+                          ""
+                        )}
+                        <br />
                         <div className="form-group label-floating is-empty">
-                          <label className="control-label" htmlFor="email">
-                            Your Email
-                          </label>
-                          <input
-                            className="form-control"
+                          <TextFieldGroup
                             placeholder=""
-                            type="email"
                             name="email"
+                            type="email"
                             value={email}
                             onChange={this.onChange}
+                            error={errors.email}
+                            label="Your Email"
                           />
                         </div>
                         <div className="form-group label-floating is-empty">
-                          <label className="control-label" htmlFor="pwd">
-                            Your Password
-                          </label>
-                          <input
-                            className="form-control"
+                          <TextFieldGroup
                             placeholder=""
-                            type="password"
                             name="pwd"
+                            type="password"
                             value={pwd}
                             onChange={this.onChange}
+                            error={errors.password}
+                            label="Your Password"
                           />
                         </div>
                         <button
@@ -151,10 +154,17 @@ class Login extends Component {
 }
 
 Login.propTypes = {
-  login: PropTypes.func.isRequired
+  loginUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
 };
 
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+
 export default connect(
-  null,
-  { login }
+  mapStateToProps,
+  { loginUser }
 )(Login);

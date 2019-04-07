@@ -9,6 +9,7 @@ const chatbotRoutes = require("./routes/chatbot");
 const chatRoutes = require("./routes/chat");
 const ActivitiesRoutes = require("./routes/activity");
 const QuestRoutes = require("./routes/question");
+const ForumRoutes = require("./routes/forum");
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use("/api/user", userRoutes);
 app.use("/api/chatbot", chatbotRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/question", QuestRoutes);
+app.use("/api/forum", ForumRoutes);
 app.use("/api/activity", ActivitiesRoutes);
 
 module.exports = app;

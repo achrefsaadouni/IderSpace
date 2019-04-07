@@ -5,7 +5,8 @@ import SideBar from "./layout/SideBar";
 import Login from "./pages/Login";
 import Profile from "./account/Index";
 import EditProfile from "./account/editProfile";
-import Forum from "./pages/Forum";
+import Forum from "./forum/index";
+import Category from "./forum/category/index";
 import {
   BrowserRouter as Router,
   Route,
@@ -13,7 +14,6 @@ import {
   Redirect
 } from "react-router-dom";
 import { connect } from "react-redux";
-import { autoAuthUser } from "../store/actions/authActions";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
@@ -35,11 +35,7 @@ const PrivateRoute = ({ component: Component, isAuth, ...rest }) => (
   />
 );
 
-class index extends Component {
-  componentDidMount() {
-    this.props.autoAuthUser();
-  }
-
+class root extends Component {
   state = {
     isAuthenticated: false
   };
@@ -65,8 +61,14 @@ class index extends Component {
             <PrivateRoute
               isAuth={this.props.isAuth}
               exact
-              path="/"
+              path="/forum"
               component={Forum}
+            />
+            <PrivateRoute
+              isAuth={this.props.isAuth}
+              path="/forum/category"
+              exact
+              component={Category}
             />
             <PrivateRoute
               isAuth={this.props.isAuth}
@@ -89,7 +91,7 @@ class index extends Component {
           {isAuthenticated ? (
             <Link className="back-to-top" to="#">
               <img
-                src="svg-icons/back-to-top.svg"
+                src="/svg-icons/back-to-top.svg"
                 alt="arrow"
                 className="back-icon"
               />
@@ -106,11 +108,4 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-index.propTypes = {
-  autoAuthUser: PropTypes.func.isRequired
-};
-
-export default connect(
-  mapStateToProps,
-  { autoAuthUser }
-)(index);
+export default connect(mapStateToProps)(root);
