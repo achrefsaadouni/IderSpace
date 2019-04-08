@@ -7,9 +7,7 @@ exports.addForum = (req, res, next) => {
   newForum
     .save()
     .then(result => {
-      res.status(201).json({
-        category: result
-      });
+      res.status(201).json(result);
     })
     .catch(error => {
       console.log(error);
@@ -21,8 +19,8 @@ exports.addForum = (req, res, next) => {
 
 exports.deleteForum = (req, res, next) => {
   Forum.deleteOne({ _id: req.params.id })
-    .then(result => {
-      res.status(200).json({ message: "Deletion successful!" });
+    .then(() => {
+      res.status(200).json(true);
     })
     .catch(error => {
       res.status(500).json({
@@ -32,11 +30,9 @@ exports.deleteForum = (req, res, next) => {
 };
 
 exports.getAllForum = (req, res, next) => {
-  BadWord.find()
+  Forum.find()
     .then(documents => {
-      res.status(200).json({
-        category: documents
-      });
+      res.status(200).json(documents);
     })
     .catch(error => {
       console.log(error);

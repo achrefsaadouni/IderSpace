@@ -1,44 +1,26 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 export default class category extends Component {
   render() {
+    const { id, name, description } = this.props;
     return (
       <tr>
-        <td className="forum">
+        <td className=" text-center">
+          <img src="/img/forum6.png" alt="forum" />
+        </td>
+        <td className="forum text-center">
           <div className="forum-item">
-            <img src="/img/forum6.png" alt="forum" />
             <div className="content">
-              <a href="#" className="h6 title">
-                web development
-              </a>
-              <p className="text">
-                Talk about dinner parties, reunions and more!
-              </p>
+              <Link to="forum/category" className="h6 title">
+                {name}
+              </Link>
+              <p className="text">{description}</p>
             </div>
           </div>
         </td>
-        <td className="topics">
-          <a href="#" className="h6 count">
-            11
-          </a>
-        </td>
-        <td className="posts">
-          <a href="#" className="h6 count">
-            36
-          </a>
-        </td>
-        <td className="freshness">
-          <div className="author-freshness">
-            <div className="author-thumb">
-              <img src="/img/avatar40-sm.jpg" alt="author" />
-            </div>
-            <a href="#" className="h6 title">
-              Mathilda Brinker
-            </a>
-            <time className="entry-date updated" dateTime="2017-06-24T18:18">
-              13 hours, 58 minutes ago
-            </time>
-          </div>
+        <td className=" text-center">
+          <img src="/img/forum6.png" alt="forum" />
         </td>
       </tr>
     );

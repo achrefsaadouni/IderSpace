@@ -2,6 +2,7 @@ const Filter = require("bad-words");
 const Question = require("../models/Question");
 const BadWord = require("../models/BadWord");
 const User = require("../models/user");
+const mongoose = require("mongoose");
 
 filter = new Filter();
 
@@ -164,6 +165,35 @@ exports.getQuestions = (req, res, next) => {
         message: "Questions fetched successfully!",
         questions: fetchedQuestions,
         maxQuestions: count
+      });
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).json({
+        message: "Fetching Questions failed!"
+      });
+    });
+};
+
+exports.getQuestionsByCategory = (req, res, next) => {
+  const pageSize = +req.query.pageSize; //number of questions
+  const currentPage = +req.query.currentPage; //number of page
+  const questionQuery = Question.find({ category: req.params.id });
+  let fetchedQuestions;
+  if (pageSize && currentPage) {
+    questionQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);
+  }
+  questionQuery
+    .then(documents => {
+      fetchedQuestions = documents;
+      return Question.find({ category: req.params.id })
+        .distinct("comments")
+        .count();
+    })
+    .then(count => {
+      res.status(200).json({
+        questions: fetchedQuestions,
+        max: count
       });
     })
     .catch(error => {
@@ -345,24 +375,38 @@ exports.bestCommentQuestion = (req, res, next) => {
 };
 
 exports.getAllCommentsQuestions = (req, res, next) => {
-  const questionQuery = Question.findById(req.params.id).distinct("comments"); // get all comments
+  const pageSize = +req.query.pageSize; //number of questions
+  const currentPage = +req.query.currentPage; //number of page
+  //get list of comments for this comment
+  const questionQuery = Question.aggregate([
+    { $match: { _id: mongoose.Types.ObjectId(req.params.id) } },
+    {
+      $unwind: "$comments"
+    },
+    { $project: { comment: "$comments" } },
+    { $skip: pageSize * (currentPage - 1) },
+    { $limit: pageSize },
+    { $sort: { date: 1 } }
+  ]);
   let fetcheDoc;
   questionQuery
     .then(documents => {
       fetcheDoc = documents;
-      return fetcheDoc.length;
+      // get nbr max comments
+      return Question.findById(req.params.id)
+        .distinct("comments")
+        .then(result => result.length);
     })
     .then(count => {
       res.status(200).json({
-        message: "Comments fetched successfully!",
         comments: fetcheDoc,
-        maxComments: count
+        max: count
       });
     })
     .catch(error => {
       console.log(error);
       res.status(500).json({
-        message: "Fetching Questions failed!"
+        message: "Fetching comments failed!"
       });
     });
 };

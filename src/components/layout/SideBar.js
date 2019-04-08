@@ -27,13 +27,27 @@ class SideBar extends Component {
                     </svg>
                   </Link>
                 </li>
+                {/* profile link */}
                 <li>
-                  <Link to="/">
+                  <Link to="/profile">
+                    <svg
+                      className="olymp-happy-faces-icon left-menu-icon"
+                      data-toggle="tooltip"
+                      data-placement="right"
+                      data-original-title="YOUR PROFILE"
+                    >
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-happy-faces-icon" />
+                    </svg>
+                  </Link>
+                </li>
+                {/* Q/A Forum */}
+                <li>
+                  <Link to="/forum">
                     <svg
                       className="olymp-newsfeed-icon left-menu-icon"
                       data-toggle="tooltip"
                       data-placement="right"
-                      data-original-title="NEWSFEED"
+                      data-original-title="Q/A Forum"
                     >
                       <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-newsfeed-icon" />
                     </svg>
@@ -48,18 +62,6 @@ class SideBar extends Component {
                       data-original-title="FAV PAGE"
                     >
                       <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-star-icon" />
-                    </svg>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/">
-                    <svg
-                      className="olymp-happy-faces-icon left-menu-icon"
-                      data-toggle="tooltip"
-                      data-placement="right"
-                      data-original-title="FRIEND GROUPS"
-                    >
-                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-happy-faces-icon" />
                     </svg>
                   </Link>
                 </li>
@@ -166,6 +168,7 @@ class SideBar extends Component {
 
             <div className="mCustomScrollbar" data-mcs-theme="dark">
               <ul className="left-menu">
+                {/* close menu */}
                 <li>
                   <Link to="/" className="js-sidebar-open">
                     <svg className="olymp-close-icon left-menu-icon">
@@ -174,17 +177,32 @@ class SideBar extends Component {
                     <span className="left-menu-title">Collapse Menu</span>
                   </Link>
                 </li>
+                {/* profile link */}
                 <li>
-                  <Link to="/">
+                  <Link to="/profile">
+                    <svg
+                      className="olymp-happy-faces-icon left-menu-icon"
+                      data-toggle="tooltip"
+                      data-placement="right"
+                      data-original-title="YOUR PROFILE"
+                    >
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-happy-faces-icon" />
+                    </svg>
+                    <span className="left-menu-title">Your Profile</span>
+                  </Link>
+                </li>
+                {/* Q/A Forum */}
+                <li>
+                  <Link to="/forum">
                     <svg
                       className="olymp-newsfeed-icon left-menu-icon"
                       data-toggle="tooltip"
                       data-placement="right"
-                      data-original-title="NEWSFEED"
+                      data-original-title="Q/A Forum"
                     >
                       <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-newsfeed-icon" />
                     </svg>
-                    <span className="left-menu-title">Newsfeed</span>
+                    <span className="left-menu-title">Q/A Forum</span>
                   </Link>
                 </li>
                 <li>
@@ -200,19 +218,7 @@ class SideBar extends Component {
                     <span className="left-menu-title">Fav Pages Feed</span>
                   </Link>
                 </li>
-                <li>
-                  <Link to="/">
-                    <svg
-                      className="olymp-happy-faces-icon left-menu-icon"
-                      data-toggle="tooltip"
-                      data-placement="right"
-                      data-original-title="FRIEND GROUPS"
-                    >
-                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-happy-faces-icon" />
-                    </svg>
-                    <span className="left-menu-title">Friend Groups</span>
-                  </Link>
-                </li>
+
                 <li>
                   <Link to="/">
                     <svg

@@ -16,6 +16,7 @@ import {
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import Error from "./common/Error";
 
 const PrivateRoute = ({ component: Component, isAuth, ...rest }) => (
   <Route
@@ -87,6 +88,7 @@ class root extends Component {
               path="/login"
               render={props => <Login {...props} isAuth={this.props.isAuth} />}
             />
+            <Route exact path="*" component={Error} />
           </Switch>
           {isAuthenticated ? (
             <Link className="back-to-top" to="#">
@@ -106,6 +108,10 @@ const mapStateToProps = (state, ownProps) => {
   return {
     isAuth: state.auth.isAuthenticated
   };
+};
+
+root.propTypes = {
+  isAuth: PropTypes.bool.isRequired
 };
 
 export default connect(mapStateToProps)(root);
