@@ -9,25 +9,57 @@ class Index extends Component {
   componentDidMount() {
     this.props.getCurrentProfile();
   }
+
   render() {
     const { profile, loading } = this.props.profile;
 
     if (profile === null || loading) {
       return <Spinner />;
     }
-    console.log(profile.Resume.Skills);
-    const skills = profile.Resume.Skills.map(item => item.name + ", ");
-    const languages = profile.Resume.languages.map(item => item + ", ");
-    const hobbies = profile.Resume.hobbies.map(item => item + ", ");
-    const experiences = profile.Resume.experiences.map(item => (
-      <React.Fragment>
-        {item.name} <br />
-        {item.description} <br />
-        {item.start_date} <br />
-        {item.end_date} <br />
-        {item.end_date}
-      </React.Fragment>
-    ));
+    let skills;
+    let languages;
+    let hobbies;
+    let experiences;
+    let about;
+
+    try {
+      about = profile.Resume.about;
+    } catch (err) {
+      about = "no data";
+    }
+
+    try {
+      skills = profile.Resume.Skills.map(item => item.name + ", ");
+    } catch (err) {
+      skills = "no skills";
+    }
+
+    try {
+      languages = profile.Resume.languages.map(item => item + ", ");
+    } catch (err) {
+      languages = "no languages";
+    }
+
+    try {
+      hobbies = profile.Resume.hobbies.map(item => item + ", ");
+    } catch (err) {
+      hobbies = "no hobbies";
+    }
+
+    try {
+      experiences = profile.Resume.experiences.map(item => (
+        <React.Fragment>
+          {item.name} <br />
+          {item.description} <br />
+          {item.start_date} <br />
+          {item.end_date} <br />
+          {item.end_date}
+        </React.Fragment>
+      ));
+    } catch (err) {
+      experiences = "no experiences";
+    }
+
     return (
       <React.Fragment>
         <div className="header-spacer" />
@@ -306,7 +338,7 @@ class Index extends Component {
                   <ul className="widget w-personal-info item-block">
                     <li>
                       <span className="title">About Me:</span>
-                      <span className="text">{profile.Resume.about}</span>
+                      <span className="text">{about}</span>
                     </li>
                     <li>
                       <span className="title">Skills:</span>
@@ -318,25 +350,40 @@ class Index extends Component {
                     </li>
                   </ul>
 
-                  <div className="widget w-socials">
-                    <h6 className="title">Other Social Networks:</h6>
-                    <Link
-                      to={profile.linkedin}
-                      className="social-item"
-                      style={{ backgroundColor: "#006097" }}
-                    >
-                      <i className="fab fa-linkedin" aria-hidden="true" />
-                      linkedin
-                    </Link>
-                    <Link
-                      to={profile.github}
-                      className="social-item"
-                      style={{ backgroundColor: "#24292e" }}
-                    >
-                      <i className="fab fa-github" aria-hidden="true" />
-                      github
-                    </Link>
-                  </div>
+                  {/* show social links if exist */}
+                  {profile.linkedin || profile.github ? (
+                    <div className="widget w-socials">
+                      <h6 className="title">Other Social Networks:</h6>
+
+                      {profile.linkedin ? (
+                        <Link
+                          to={profile.linkedin}
+                          className="social-item"
+                          style={{ backgroundColor: "#006097" }}
+                        >
+                          <i className="fab fa-linkedin" aria-hidden="true" />
+                          linkedin
+                        </Link>
+                      ) : (
+                        ""
+                      )}
+
+                      {profile.github ? (
+                        <Link
+                          to={profile.github}
+                          className="social-item"
+                          style={{ backgroundColor: "#24292e" }}
+                        >
+                          <i className="fab fa-github" aria-hidden="true" />
+                          github
+                        </Link>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
             </div>

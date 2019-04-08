@@ -1,26 +1,58 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-
+import { getCurrentProfile } from "../../store/actions/profileActions";
+import Spinner from "../common/Spinner";
+import isEmpty from "../../validation/is-empty";
 class EditProfile extends Component {
-  state = {
-    email: "",
-    firstname: "",
-    lastname: "",
-    linkedin: "",
-    github: ""
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: "",
+      class: "",
+      email: "",
+      firstname: "",
+      lastname: "",
+      linkedin: "",
+      github: "",
+      errors: {}
+    };
 
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
   componentDidMount() {
-    const { email, firstname, lastname, linkedin, github } = this.props.user;
-    console.log("ggg " + this.props.user);
-    this.setState({
-      email,
-      firstname,
-      lastname,
-      linkedin,
-      github
-    });
+    this.props.getCurrentProfile();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
+
+    if (nextProps.profile.profile) {
+      const profile = nextProps.profile.profile;
+
+      // If profile field doesnt exist, make empty string
+      profile.username = !isEmpty(profile.username) ? profile.username : "";
+      profile.class = !isEmpty(profile.class) ? profile.class : "";
+      profile.email = !isEmpty(profile.email) ? profile.email : "";
+      profile.firstname = !isEmpty(profile.firstname) ? profile.firstname : "";
+      profile.lastname = !isEmpty(profile.lastname) ? profile.lastname : "";
+      profile.linkedin = !isEmpty(profile.linkedin) ? profile.linkedin : {};
+      profile.github = !isEmpty(profile.github) ? profile.github : "";
+
+      // Set component fields state
+      this.setState({
+        username: profile.username,
+        class: profile.class,
+        email: profile.email,
+        firstname: profile.firstname,
+        lastname: profile.lastname,
+        linkedin: profile.linkedin,
+        github: profile.github
+      });
+    }
   }
 
   onSubmit = e => {
@@ -28,41 +60,30 @@ class EditProfile extends Component {
 
     const { email, firstname, lastname, linkedin, github } = this.state;
 
-    if (
-      email === "" ||
-      firstname === "" ||
-      lastname === "" ||
-      linkedin === "" ||
-      github === ""
-    ) {
-      return;
-    }
-
-    const { user } = this.props;
-
     // Updated Profile
     const updProfile = {
-      id: user.id,
+      id: "id",
       email,
       firstname,
       lastname,
       linkedin,
-      github
+      github,
+      class: this.state.class
     };
 
-    // Update profile
-    this.props.updateProfile(updProfile);
-    console.log("submited");
-
-    this.props.history.push("/profile");
+    /* this.props.history.push("/profile"); */
   };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
   render() {
     const { email, firstname, lastname, linkedin, github } = this.state;
+    const { profile, loading } = this.props.profile;
 
-    const { user } = this.props;
+    if (profile === null || loading) {
+      return <Spinner />;
+    }
+
     return (
       <React.Fragment>
         {/* ... end Responsive Header-BP */}
@@ -161,7 +182,7 @@ class EditProfile extends Component {
                             className="form-control"
                             type="text"
                             ref={this.classInput}
-                            value={user.class}
+                            value={this.state.class}
                           />
                         </div>
                         <div className="form-group label-floating">
@@ -415,10 +436,22 @@ class EditProfile extends Component {
   }
 }
 
+EditProfile.propTypes = {
+  profile: PropTypes.object.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+};
+
 const mapStateToProps = (state, ownProps) => {
   return {
-    user: state.auth.profile
+    auth: state.auth,
+    profile: state.profile,
+    errors: state.errors
   };
 };
 
-export default connect(mapStateToProps)(EditProfile);
+export default connect(
+  mapStateToProps,
+  { getCurrentProfile }
+)(EditProfile);

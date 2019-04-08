@@ -15,7 +15,7 @@ class index extends Component {
     if (forum === undefined || loading) {
       return <Spinner />;
     }
-    console.log(forum);
+
     const categories = forum.map(item => (
       <Category
         key={item._id}

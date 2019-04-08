@@ -304,21 +304,20 @@ exports.getExperiences = async (req, res, next) => {
 };
 
 function getAllConcernedUsers(classe) {
-    return new Promise(resolve => {
-        let listUser = [];
-        User.find().then(async user => {
-            //
-            if (classe !== false) {
-                for (t of user) {
-                    if (t.class == classe) {
-                        listUser.push(t);
-                    }
-                }
-                return resolve(listUser);
-            } else {
-                return resolve(user);
-            }
-        });
+  return new Promise(resolve => {
+    let listUser = [];
+    User.find().then(async user => {
+      //
+      if (classe !== false) {
+        for (t of user) {
+          if (t.class == classe) {
+            listUser.push(t);
+          }
+        }
+        return resolve(listUser);
+      } else {
+        return resolve(user);
+      }
     });
   });
 }
@@ -502,93 +501,92 @@ exports.removeExperience = (req, res, next) => {
 };
 
 exports.getRecommendation = async (req, res, next) => {
-    const reqSkills = req.body.reqSkills;
-    const data = [];
-    const classe = req.body.classe;
-    let users;
-    if (typeof classe !== "undefined") {
-        users = await getAllConcernedUsers(classe);
+  const reqSkills = req.body.reqSkills;
+  const data = [];
+  const classe = req.body.classe;
+  let users;
+  if (typeof classe !== "undefined") {
+    users = await getAllConcernedUsers(classe);
+  } else {
+    users = await getAllConcernedUsers(false);
+  }
+  let people = {};
+  for (const user of users) {
+    const skill = await getSkillsForCollectData(user);
+    const experience = await getExperiencesForCollectData(user);
+    const concernedScore = await getSkillsConcerned(user, reqSkills);
+    let prototype = {
+      user: user.id,
+      skills: skill,
+      Experiences: experience,
+      ApprovedAnswer: user.nbrBestAnswer,
+      concernedScore: concernedScore
+    };
+    people = Object.assign(prototype);
+    data.push(people);
+  }
+  let vectors = [];
+  let vectors2 = [];
+  let vector3 = [];
+  for (let i = 0; i < data.length; i++) {
+    vectors2[i] = [
+      data[i]["skills"],
+      data[i]["Experiences"],
+      data[i]["ApprovedAnswer"]
+    ];
+  }
+  for (let i = 0; i < data.length; i++) {
+    let x = 0;
+    let y = 0;
+    for (let j = 0; j < vectors2[i].length; j++) {
+      x += vectors2[i][j];
+      y++;
+    }
+    vector3[i] = x / y;
+    x = 0;
+    y = 0;
+    vectors[i] = [data[i]["concernedScore"], vector3[i]];
+  }
+  let listUsers = [];
+  let iteration = 0;
+  while (iteration < 10) {
+    let response = await getidWithRecommendation(vectors);
+    iteration = iteration + 1;
+    for (const t of response) {
+      listUsers.push(t);
+    }
+  }
+  let uniqueId = [];
+  let bestRecommendation = [];
+  let mayBeRecommended = [];
+  for (const t of listUsers) {
+    let status = false;
+    for (const f of uniqueId) {
+      if (t === f) {
+        status = true;
+      }
+    }
+    if (status === false) {
+      uniqueId.push(t);
+    }
+  }
+  for (let t = 0; t < uniqueId.length; t++) {
+    let nombreiteration = 0;
+    for (let f = 0; f < listUsers.length; f++) {
+      if (uniqueId[t] === listUsers[f]) {
+        nombreiteration = nombreiteration + 1;
+      }
+    }
+    if (nombreiteration > 7) {
+      bestRecommendation.push(users[uniqueId[t]]);
     } else {
-        users = await getAllConcernedUsers(false);
+      mayBeRecommended.push(users[uniqueId[t]]);
     }
-    let people = {};
-    for (const user of users) {
-        const skill = await getSkillsForCollectData(user);
-        const experience = await getExperiencesForCollectData(user);
-        const concernedScore = await getSkillsConcerned(user, reqSkills);
-        let prototype = {
-            user: user.id,
-            skills: skill,
-            Experiences: experience,
-            ApprovedAnswer: user.nbrBestAnswer,
-            concernedScore: concernedScore
-        };
-        people = Object.assign(prototype);
-        data.push(people);
-    }
-    let vectors = [];
-    let vectors2 = [];
-    let vector3 = [];
-    for (let i = 0; i < data.length; i++) {
-        vectors2[i] = [
-            data[i]["skills"],
-            data[i]["Experiences"],
-            data[i]["ApprovedAnswer"]
-        ];
-    }
-    for (let i = 0; i < data.length; i++) {
-        let x = 0;
-        let y = 0;
-        for (let j = 0; j < vectors2[i].length; j++) {
-            x += vectors2[i][j];
-            y++;
-        }
-        vector3[i] = x / y;
-        x = 0;
-        y = 0;
-        vectors[i] = [data[i]["concernedScore"], vector3[i]];
-    }
-    let listUsers = [];
-    let iteration = 0;
-    while (iteration < 10) {
-        let response = await getidWithRecommendation(vectors);
-        iteration = iteration + 1;
-        for (const t of response) {
-            listUsers.push(t);
-        }
-    }
-    let uniqueId = [];
-    let bestRecommendation = [];
-    let mayBeRecommended = [];
-    for (const t of listUsers) {
-        let status = false;
-        for (const f of uniqueId) {
-            if (t === f) {
-                status = true;
-            }
-        }
-        if (status === false) {
-            uniqueId.push(t);
-        }
-    }
-    for (let t = 0; t < uniqueId.length; t++) {
-        let nombreiteration = 0;
-        for (let f = 0; f < listUsers.length; f++) {
-            if (uniqueId[t] === listUsers[f]) {
-                nombreiteration = nombreiteration + 1;
-            }
-        }
-        if (nombreiteration > 7) {
-            bestRecommendation.push(users[uniqueId[t]]);
-        } else {
-            mayBeRecommended.push(users[uniqueId[t]]);
-        }
-
-    }
-    return res.status(200).json({
-        Recommended: bestRecommendation,
-        MayBeRecommended: mayBeRecommended
-    });
+  }
+  return res.status(200).json({
+    Recommended: bestRecommendation,
+    MayBeRecommended: mayBeRecommended
+  });
 };
 
 async function getSkillsConcerned(user, reqSkills) {
