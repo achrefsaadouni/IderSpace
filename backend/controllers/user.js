@@ -303,10 +303,21 @@ exports.getExperiences = async (req, res, next) => {
     });
 };
 
-function getAllConcernedUsers() {
+function getAllConcernedUsers(classe) {
     return new Promise(resolve => {
+        let listUser = [];
         User.find().then(async user => {
-            return resolve(user);
+            //
+            if (classe !== false) {
+                for (t of user) {
+                    if (t.class == classe) {
+                        listUser.push(t);
+                    }
+                }
+                return resolve(listUser);
+            } else {
+                return resolve(user);
+            }
         });
     });
 }
@@ -492,7 +503,13 @@ exports.removeExperience = (req, res, next) => {
 exports.getRecommendation = async (req, res, next) => {
     const reqSkills = req.body.reqSkills;
     const data = [];
-    let users = await getAllConcernedUsers();
+    const classe = req.body.classe;
+    let users;
+    if (typeof classe !== "undefined") {
+        users = await getAllConcernedUsers(classe);
+    } else {
+        users = await getAllConcernedUsers(false);
+    }
     let people = {};
     for (const user of users) {
         const skill = await getSkillsForCollectData(user);
@@ -530,12 +547,47 @@ exports.getRecommendation = async (req, res, next) => {
         y = 0;
         vectors[i] = [data[i]["concernedScore"], vector3[i]];
     }
-    let response = await getidWithRecommendation(vectors);
     let listUsers = [];
-    for (const t of response) {
-        listUsers.push(users[t]);
+    let iteration = 0;
+    while (iteration < 10) {
+        let response = await getidWithRecommendation(vectors);
+        iteration = iteration + 1;
+        for (const t of response) {
+            listUsers.push(t);
+        }
     }
-    return res.status(200).json(listUsers);
+    let uniqueId = [];
+    let bestRecommendation = [];
+    let mayBeRecommended = [];
+    for (const t of listUsers) {
+        let status = false;
+        for (const f of uniqueId) {
+            if (t === f) {
+                status = true;
+            }
+        }
+        if (status === false) {
+            uniqueId.push(t);
+        }
+    }
+    for (let t = 0; t < uniqueId.length; t++) {
+        let nombreiteration = 0;
+        for (let f = 0; f < listUsers.length; f++) {
+            if (uniqueId[t] === listUsers[f]) {
+                nombreiteration = nombreiteration + 1;
+            }
+        }
+        if (nombreiteration > 7) {
+            bestRecommendation.push(users[uniqueId[t]]);
+        } else {
+            mayBeRecommended.push(users[uniqueId[t]]);
+        }
+
+    }
+    return res.status(200).json({
+        Recommended: bestRecommendation,
+        MayBeRecommended: mayBeRecommended
+    });
 };
 
 async function getSkillsConcerned(user, reqSkills) {
