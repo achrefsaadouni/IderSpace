@@ -1,39 +1,23 @@
 import React, { Component } from "react";
-//import { PrivateRoute } from "../components/PrivateRoute";
 import Header from "./layout/Header";
 import SideBar from "./layout/SideBar";
 import Login from "./pages/Login";
 import Profile from "./account/Index";
 import EditProfile from "./account/editProfile";
 import Forum from "./forum/index";
-import Category from "./forum/category/index";
+import Category from "./category/index";
+import Question from "./question/Index";
 import {
   BrowserRouter as Router,
   Route,
   Switch,
+  Link,
   Redirect
 } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-
-const PrivateRoute = ({ component: Component, isAuth, ...rest }) => (
-  <Route
-    {...rest}
-    render={props =>
-      isAuth === true ? (
-        <Component {...props} />
-      ) : (
-        <Redirect
-          to={{
-            pathname: "/login",
-            state: { from: props.location }
-          }}
-        />
-      )
-    }
-  />
-);
+import Error from "./common/Error";
+import PrivateRoute from "./common/PrivateRoute";
 
 class root extends Component {
   state = {
@@ -58,36 +42,29 @@ class root extends Component {
         <React.Fragment>
           {isAuthenticated ? [<SideBar key={1} />, <Header key={2} />] : null}
           <Switch>
+            <PrivateRoute exact path="/forum" component={Forum} />
+
             <PrivateRoute
-              isAuth={this.props.isAuth}
-              exact
-              path="/forum"
-              component={Forum}
-            />
-            <PrivateRoute
-              isAuth={this.props.isAuth}
-              path="/forum/category"
+              path="/forum/:category_id"
               exact
               component={Category}
             />
+
             <PrivateRoute
-              isAuth={this.props.isAuth}
               exact
-              path="/profile"
-              component={Profile}
+              path="/forum/:category_id/question/:question_id"
+              component={Question}
             />
-            <PrivateRoute
-              isAuth={this.props.isAuth}
-              exact
-              path="/edit-profile"
-              component={EditProfile}
-            />
-            <Route
-              exact
-              path="/login"
-              render={props => <Login {...props} isAuth={this.props.isAuth} />}
-            />
+
+            <PrivateRoute exact path="/profile" component={Profile} />
+
+            <PrivateRoute exact path="/edit-profile" component={EditProfile} />
+
+            <Route exact path="/login" component={Login} />
+
+            <Route exact path="*" component={Error} />
           </Switch>
+
           {isAuthenticated ? (
             <Link className="back-to-top" to="#">
               <img
@@ -106,6 +83,10 @@ const mapStateToProps = (state, ownProps) => {
   return {
     isAuth: state.auth.isAuthenticated
   };
+};
+
+root.propTypes = {
+  isAuth: PropTypes.bool.isRequired
 };
 
 export default connect(mapStateToProps)(root);

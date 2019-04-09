@@ -2,7 +2,7 @@ import axios from "axios";
 import setAuthToken from "../../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 
-import { GET_ERRORS, SET_CURRENT_USER } from "./types";
+import { GET_ERRORS, SET_CURRENT_USER, GET_USER_INFO } from "./types";
 
 // Login - Get User Token
 export const loginUser = userData => dispatch => {
@@ -34,6 +34,24 @@ export const setCurrentUser = decoded => {
     type: SET_CURRENT_USER,
     payload: decoded
   };
+};
+
+// Get user info
+export const getUserInfo = id => dispatch => {
+  axios
+    .get(`http://localhost:2500/api/user/some-info/${id}`)
+    .then(res =>
+      dispatch({
+        type: GET_USER_INFO,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_USER_INFO,
+        payload: {}
+      })
+    );
 };
 
 // Log user out

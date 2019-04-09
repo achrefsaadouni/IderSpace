@@ -1,8 +1,65 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { getCurrentProfile } from "../../store/actions/profileActions";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import Spinner from "../common/Spinner";
 
 class Index extends Component {
+  componentDidMount() {
+    this.props.getCurrentProfile();
+  }
+
   render() {
+    const { profile, loading } = this.props.profile;
+
+    if (profile === null || loading) {
+      return <Spinner />;
+    }
+    let skills;
+    let languages;
+    let hobbies;
+    let experiences;
+    let about;
+
+    try {
+      about = profile.Resume.about;
+    } catch (err) {
+      about = "no data";
+    }
+
+    try {
+      skills = profile.Resume.Skills.map(item => item.name + ", ");
+    } catch (err) {
+      skills = "no skills";
+    }
+
+    try {
+      languages = profile.Resume.languages.map(item => item + ", ");
+    } catch (err) {
+      languages = "no languages";
+    }
+
+    try {
+      hobbies = profile.Resume.hobbies.map(item => item + ", ");
+    } catch (err) {
+      hobbies = "no hobbies";
+    }
+
+    try {
+      experiences = profile.Resume.experiences.map(item => (
+        <React.Fragment>
+          {item.name} <br />
+          {item.description} <br />
+          {item.start_date} <br />
+          {item.end_date} <br />
+          {item.end_date}
+        </React.Fragment>
+      ));
+    } catch (err) {
+      experiences = "no experiences";
+    }
+
     return (
       <React.Fragment>
         <div className="header-spacer" />
@@ -112,10 +169,9 @@ class Index extends Component {
                       <img src="/img/author-main1.jpg" alt="author" />
                     </Link>
                     <div className="author-content">
-                      <Link to="02-ProfilePage.html" className="h4 author-name">
-                        James Spiegel
+                      <Link to="02-ProfilePage.html" className="h5 author-name">
+                        {profile.firstname} {profile.lastname}
                       </Link>
-                      <div className="country">San Francisco, CA</div>
                     </div>
                   </div>
                 </div>
@@ -137,7 +193,7 @@ class Index extends Component {
                           className="h6 post__author-name fn"
                           to="02-ProfilePage.html"
                         >
-                          James Spiegel
+                          {profile.firstname} {profile.lastname}
                         </Link>
                         <div className="post__date">
                           <time
@@ -282,114 +338,62 @@ class Index extends Component {
                   <ul className="widget w-personal-info item-block">
                     <li>
                       <span className="title">About Me:</span>
-                      <span className="text">
-                        Hi, I’m James, I’m 36 and I work as a Digital Designer
-                        for the “Daydreams” Agency in Pier 56.
-                      </span>
+                      <span className="text">{about}</span>
                     </li>
                     <li>
-                      <span className="title">Favourite TV Shows:</span>
-                      <span className="text">
-                        Breaking Good, RedDevil, People of Interest, The Running
-                        Dead, Found, American Guy.
-                      </span>
+                      <span className="title">Skills:</span>
+                      <span className="text">{skills}</span>
                     </li>
                     <li>
-                      <span className="title">
-                        Favourite Music Bands / Artists:
-                      </span>
-                      <span className="text">
-                        Iron Maid, DC/AC, Megablow, The Ill, Kung Fighters,
-                        System of a Revenge.
-                      </span>
+                      <span className="title">Hobbies:</span>
+                      <span className="text">{hobbies}</span>
                     </li>
                   </ul>
 
-                  <div className="widget w-socials">
-                    <h6 className="title">Other Social Networks:</h6>
-                    <Link to="/" className="social-item bg-facebook">
-                      <i className="fab fa-facebook-f" aria-hidden="true" />
-                      Facebook
-                    </Link>
-                    <Link to="/" className="social-item bg-twitter">
-                      <i className="fab fa-twitter" aria-hidden="true" />
-                      Twitter
-                    </Link>
-                    <Link to="/" className="social-item bg-dribbble">
-                      <i className="fab fa-dribbble" aria-hidden="true" />
-                      Dribbble
-                    </Link>
-                  </div>
+                  {/* show social links if exist */}
+                  {profile.linkedin || profile.github ? (
+                    <div className="widget w-socials">
+                      <h6 className="title">Other Social Networks:</h6>
+
+                      {profile.linkedin ? (
+                        <Link
+                          to={profile.linkedin}
+                          className="social-item"
+                          style={{ backgroundColor: "#006097" }}
+                        >
+                          <i className="fab fa-linkedin" aria-hidden="true" />
+                          linkedin
+                        </Link>
+                      ) : (
+                        ""
+                      )}
+
+                      {profile.github ? (
+                        <Link
+                          to={profile.github}
+                          className="social-item"
+                          style={{ backgroundColor: "#24292e" }}
+                        >
+                          <i className="fab fa-github" aria-hidden="true" />
+                          github
+                        </Link>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
             </div>
             <div className="col col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-12 col-12">
               <div className="ui-block">
                 <div className="ui-block-title">
-                  <h6 className="title">Friends (86)</h6>
+                  <h6 className="title">Friends</h6>
                 </div>
                 <div className="ui-block-content">
                   <ul className="widget w-faved-page js-zoom-gallery">
-                    <li>
-                      <Link to="/">
-                        <img src="/img/avatar38-sm.jpg" alt="author" />
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/">
-                        <img src="/img/avatar24-sm.jpg" alt="user" />
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/">
-                        <img src="/img/avatar36-sm.jpg" alt="author" />
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/">
-                        <img src="/img/avatar35-sm.jpg" alt="user" />
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/">
-                        <img src="/img/avatar34-sm.jpg" alt="author" />
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/">
-                        <img src="/img/avatar33-sm.jpg" alt="author" />
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/">
-                        <img src="/img/avatar32-sm.jpg" alt="user" />
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/">
-                        <img src="/img/avatar31-sm.jpg" alt="author" />
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/">
-                        <img src="/img/avatar30-sm.jpg" alt="author" />
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/">
-                        <img src="/img/avatar29-sm.jpg" alt="user" />
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/">
-                        <img src="/img/avatar28-sm.jpg" alt="user" />
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/">
-                        <img src="/img/avatar27-sm.jpg" alt="user" />
-                      </Link>
-                    </li>
                     <li>
                       <Link to="/">
                         <img src="/img/avatar26-sm.jpg" alt="user" />
@@ -399,9 +403,6 @@ class Index extends Component {
                       <Link to="/">
                         <img src="/img/avatar25-sm.jpg" alt="user" />
                       </Link>
-                    </li>
-                    <li className="all-users">
-                      <Link to="/">+74</Link>
                     </li>
                   </ul>
                 </div>
@@ -414,4 +415,20 @@ class Index extends Component {
   }
 }
 
-export default Index;
+Index.propTypes = {
+  profile: PropTypes.object.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    auth: state.auth,
+    profile: state.profile
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { getCurrentProfile }
+)(Index);

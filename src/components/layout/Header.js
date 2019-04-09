@@ -1398,7 +1398,8 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 Header.propTypes = {
-  logoutUser: PropTypes.func.isRequired
+  logoutUser: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired
 };
 
 export default connect(

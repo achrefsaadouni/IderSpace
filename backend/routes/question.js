@@ -13,6 +13,9 @@ router.get("/:id", authCheck, QuestionController.getQuestion);
 
 router.get("/", authCheck, QuestionController.getQuestions);
 
+router.get("/forum/:id", authCheck, QuestionController.getQuestionsByCategory);
+//"category": ObjectId("5caa1f12ff6f1827b83b6464"),
+
 router.put("/:id", authCheck, QuestionController.updateQuestion);
 
 router.post("/like/:id", authCheck, QuestionController.likeQuestion);

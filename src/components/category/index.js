@@ -2,9 +2,41 @@ import React, { Component } from "react";
 import Question from "./question";
 import PopularQuestions from "./popularQuestions";
 import RecentQuestion from "./recentQuestion";
+import { getQuestions } from "../../store/actions/forumActions";
+import Spinner from "../common/Spinner";
+import { connect } from "react-redux";
 
-export default class index extends Component {
+class index extends Component {
+  componentDidMount() {
+    if (this.props.match.params.category_id) {
+      this.props.getQuestions(this.props.match.params.category_id, 5, 1);
+    }
+  }
+
   render() {
+    const { questions, loading } = this.props.forum;
+
+    if (questions === null || loading) {
+      return <Spinner />;
+    }
+    const isAprouved = comments => {
+      const a = comments.filter(c => c.approved === true);
+      if (a.length > 0) return true;
+      return false;
+    };
+    const allQuestions = questions.questions.map(item => (
+      <Question
+        category_id={this.props.match.params.category_id}
+        id={item._id}
+        title={item.subject}
+        content={item.content}
+        nbrComments={item.comments.length}
+        userId={item.author}
+        approuved={isAprouved(item.comments)}
+        likes={item.likes.length}
+      />
+    ));
+
     return (
       <React.Fragment>
         <div className="header-spacer header-spacer-small" />
@@ -79,26 +111,7 @@ export default class index extends Component {
                       <th className="freshness">Freshness</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <Question
-                      id="id"
-                      title="web development"
-                      subject="Talk about dinner parties, reunions and more.."
-                      nbrComments="7"
-                      userId="id"
-                      approuved={true}
-                      likes="12"
-                    />
-                    <Question
-                      id="id"
-                      title="web development"
-                      subject="Talk about dinner parties, reunions and more.."
-                      nbrComments="7"
-                      userId="id"
-                      approuved={false}
-                      likes="12"
-                    />
-                  </tbody>
+                  <tbody>{allQuestions}</tbody>
                 </table>
                 {/* ... end Forums Table */}
               </div>
@@ -114,3 +127,14 @@ export default class index extends Component {
     );
   }
 }
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    forum: state.forum
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { getQuestions }
+)(index);
