@@ -12,7 +12,7 @@ export default class category extends Component {
         <td className="forum text-center">
           <div className="forum-item">
             <div className="content">
-              <Link to="forum/category" className="h6 title">
+              <Link to={"forum/" + id} className="h6 title">
                 {name}
               </Link>
               <p className="text">{description}</p>

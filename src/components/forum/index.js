@@ -12,7 +12,7 @@ class index extends Component {
   render() {
     const { forum, loading } = this.props.forum;
 
-    if (forum === undefined || loading) {
+    if (forum === null || loading) {
       return <Spinner />;
     }
 
@@ -111,7 +111,8 @@ index.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  forum: state.forum
+  forum: state.forum,
+  auth: state.auth
 });
 
 export default connect(

@@ -9,9 +9,10 @@ import {
 } from "../actions/types";
 
 const initialState = {
-  questions: [],
-  question: {},
-  forum: {},
+  questions: null,
+  question: null,
+  forum: null,
+  comments: null,
   loading: true
 };
 
@@ -37,7 +38,7 @@ export default function(state = initialState, action) {
     case GET_COMMENTS:
       return {
         ...state,
-        question: action.payload,
+        comments: action.payload,
         loading: false
       };
     case GET_QUESTION:

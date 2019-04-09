@@ -739,3 +739,21 @@ exports.getAllProfiles = (req, res, next) => {
       });
     });
 };
+
+exports.getSomeInfoUser = (req, res, next) => {
+  User.findById(req.params.id, ["username", "firstname", "lastname"])
+    .then(result => {
+      if (!result) {
+        return res.status(401).json({
+          message: "not found"
+        });
+      }
+      return res.status(200).json(result);
+    })
+    .catch(err => {
+      console.log(err);
+      return res.status(401).json({
+        message: "Fetching users failed!"
+      });
+    });
+};

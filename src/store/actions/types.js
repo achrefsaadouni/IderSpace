@@ -12,3 +12,4 @@ export const GET_QUESTION = "GET_QUESTION";
 export const GET_COMMENTS = "GET_COMMENTS";
 export const ADD_QUESTION = "ADD_QUESTION";
 export const DELETE_QUESTION = "DELETE_QUESTION";
+export const GET_USER_INFO = "GET_USER_INFO";

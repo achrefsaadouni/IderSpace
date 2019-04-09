@@ -66,13 +66,13 @@ export const getQuestion = id => dispatch => {
     .catch(err =>
       dispatch({
         type: GET_QUESTION,
-        payload: {}
+        payload: null
       })
     );
 };
 
 // Get comments
-export const getCommenst = (id, page, current) => dispatch => {
+export const getComments = (id, page, current) => dispatch => {
   dispatch(setForumLoading());
   axios
     .get(
@@ -87,7 +87,7 @@ export const getCommenst = (id, page, current) => dispatch => {
     .catch(err =>
       dispatch({
         type: GET_COMMENTS,
-        payload: {}
+        payload: null
       })
     );
 };
@@ -144,7 +144,7 @@ export const updateQuestion = (id, question) => dispatch => {
     .catch(err =>
       dispatch({
         type: DELETE_QUESTION,
-        payload: {}
+        payload: null
       })
     );
 };
@@ -163,7 +163,7 @@ export const deleteQuestion = id => dispatch => {
     .catch(err =>
       dispatch({
         type: DELETE_QUESTION,
-        payload: {}
+        payload: null
       })
     );
 };
@@ -182,7 +182,7 @@ export const deleteComment = (id, id_comment) => dispatch => {
     .catch(err =>
       dispatch({
         type: GET_QUESTION,
-        payload: {}
+        payload: null
       })
     );
 };
@@ -201,7 +201,7 @@ export const bestComment = (id, id_comment) => dispatch => {
     .catch(err =>
       dispatch({
         type: GET_QUESTION,
-        payload: {}
+        payload: null
       })
     );
 };

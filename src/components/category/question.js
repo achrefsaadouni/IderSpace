@@ -1,14 +1,22 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { getUserInfo } from "../../store/actions/authActions";
+import { Link } from "react-router-dom";
 class question extends Component {
+  componentWillMount() {
+    this.props.getUserInfo(this.props.userId);
+  }
+
   render() {
     const {
       title,
-      subject,
+      content,
       id,
       nbrComments,
-      userId,
       approuved,
-      likes
+      likes,
+      category_id
     } = this.props;
     return (
       <tr>
@@ -16,10 +24,13 @@ class question extends Component {
           <div className="forum-item">
             <img src="/img/forum6.png" alt="forum" />
             <div className="content">
-              <a href="#" className="h6 title">
+              <Link
+                to={"/forum/" + category_id + "/question/" + id}
+                className="h6 title"
+              >
                 {title}
-              </a>
-              <p className="text">{subject}</p>
+              </Link>
+              <p className="text">{content}</p>
             </div>
           </div>
         </td>
@@ -46,11 +57,11 @@ class question extends Component {
               <img src="/img/avatar40-sm.jpg" alt="author" />
             </div>
             <a href="#" className="h6 title">
-              Mathilda Brinker
+              {this.props.auth.userInfo.username}
             </a>
-            <time className="entry-date updated" dateTime="2017-06-24T18:18">
-              13 hours, 58 minutes ago
-            </time>
+            {/*<time className="entry-date updated" dateTime="2017-06-24T18:18">
+              set time here
+            </time> */}
           </div>
         </td>
       </tr>
@@ -58,4 +69,18 @@ class question extends Component {
   }
 }
 
-export default question;
+question.proTypes = {
+  getUserInfo: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    auth: state.auth
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { getUserInfo }
+)(question);

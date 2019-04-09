@@ -15,6 +15,8 @@ router.post("/addLinkedIn", UserController.addlinkedIn);
 
 router.put("/:d", UserController.updateUser);
 
+router.get("/some-info/:id", UserController.getSomeInfoUser);
+
 router.get("/getSkills/:id", UserController.getSkills);
 
 router.post("/addSkills", authCheck, UserController.addSkills);

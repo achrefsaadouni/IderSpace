@@ -5,7 +5,8 @@ import Login from "./pages/Login";
 import Profile from "./account/Index";
 import EditProfile from "./account/editProfile";
 import Forum from "./forum/index";
-import Category from "./forum/category/index";
+import Category from "./category/index";
+import Question from "./question/Index";
 import {
   BrowserRouter as Router,
   Route,
@@ -43,7 +44,17 @@ class root extends Component {
           <Switch>
             <PrivateRoute exact path="/forum" component={Forum} />
 
-            <PrivateRoute path="/forum/category" exact component={Category} />
+            <PrivateRoute
+              path="/forum/:category_id"
+              exact
+              component={Category}
+            />
+
+            <PrivateRoute
+              exact
+              path="/forum/:category_id/question/:question_id"
+              component={Question}
+            />
 
             <PrivateRoute exact path="/profile" component={Profile} />
 
