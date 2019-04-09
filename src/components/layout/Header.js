@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../store/actions/authActions";
-
+import ChatBot from '../ChatBot/ChatBot';
 class Header extends Component {
   render() {
     const { user } = this.props;
