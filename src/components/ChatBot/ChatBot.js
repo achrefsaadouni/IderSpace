@@ -4,10 +4,16 @@ import {Launcher} from 'react-chat-window'
 class ChatBot extends Component {
 
     constructor() {
+
         super();
+
         this.state = {
-            messageList: []
+                messageList: [ {type: 'text', author: "them", data: { text: "Welcome To IderSpace Platform"} },
+                    {type: 'text', author: "them", data: { text: "I'am IderSpace chat bot my only job is to assist you while you are here"} },
+                    {type: 'text', author: "them", data: { text: "Just ask me what you need"}}
+                ],
         };
+
     }
 
     _onMessageWasSent(message) {
@@ -29,16 +35,20 @@ class ChatBot extends Component {
     }
 
     render() {
+
         return (<div>
             <Launcher
                 agentProfile={{
-                    teamName: 'IderBot',
-                    imageUrl: 'https://symphony.com/images/web/icon/apps/chat-bot_1024.png'
+                    teamName: 'IderSpace ChatBot',
+                    imageUrl: process.env.PUBLIC_URL + '/img/chatBot.png',
+
                 }}
                 onMessageWasSent={this._onMessageWasSent.bind(this)}
                 messageList={this.state.messageList}
+                showEmoji
             />
-        </div>)
+        </div>
+        )
     }
 }
 export default ChatBot;
