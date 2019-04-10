@@ -7,6 +7,7 @@ import EditProfile from "./account/editProfile";
 import Forum from "./forum/index";
 import Category from "./category/index";
 import Question from "./question/Index";
+import ChatBot from "./ChatBot/ChatBot";
 import {
   BrowserRouter as Router,
   Route,
@@ -36,11 +37,10 @@ class root extends Component {
 
   render() {
     const { isAuthenticated } = this.state;
-
     return (
       <Router>
         <React.Fragment>
-          {isAuthenticated ? [<SideBar key={1} />, <Header key={2} />] : null}
+          {isAuthenticated ? [<SideBar key={1} />, <Header key={2} /> , <ChatBot key={3} />] : null}
           <Switch>
             <PrivateRoute exact path="/forum" component={Forum} />
 

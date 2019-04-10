@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../store/actions/authActions";
-
 class Header extends Component {
   render() {
     const { user } = this.props;
