@@ -12,12 +12,14 @@ import Spinner from "../common/Spinner";
 import Comment from "./Comment";
 import Moment from "react-moment";
 import Pagination from "react-js-pagination";
+import axios from "axios";
 
 class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activePage: 1
+      activePage: 1,
+      user: {}
     };
   }
 
@@ -39,6 +41,16 @@ class Index extends Component {
     if (comments == null || question == null || loading) return <Spinner />;
 
     const { createdAt, subject, content, likes } = question;
+
+    axios
+      .get(
+        `http://localhost:2500/api/user/some-info/${
+          this.props.forum.question.author
+        }`
+      )
+      .then(res => {
+        this.setState({ user: res.data });
+      });
 
     const getComments = comments.comments.map(item => (
       <Comment
@@ -138,9 +150,10 @@ class Index extends Component {
                             href="02-ProfilePage.html"
                             className="h6 author-name"
                           >
-                            user info
+                            {this.state.user.username
+                              ? this.state.user.username
+                              : "undefined"}
                           </a>
-                          <div className="country">Long Island, NY</div>
                         </div>
                       </td>
                       <td className="posts">
@@ -153,23 +166,27 @@ class Index extends Component {
                 {/* ... end Open Topic Table */}
               </div>
               {/* Pagination */}
-              <nav aria-label="Page navigation">
-                <Pagination
-                  activePage={this.state.activePage}
-                  itemsCountPerPage={3}
-                  totalItemsCount={comments.max}
-                  pageRangeDisplayed={5}
-                  onChange={this.handlePageChange}
-                  innerClass="pagination justify-content-center"
-                  activeClass="page-item"
-                  activeLinkClass="page-link active"
-                  linkClass="page-link"
-                  prevPageText="Previous"
-                  nextPageText="Next"
-                  disabledClass="page-item disabled"
-                  hideFirstLastPages
-                />
-              </nav>
+              {comments.max > 3 ? (
+                <nav aria-label="Page navigation">
+                  <Pagination
+                    activePage={this.state.activePage}
+                    itemsCountPerPage={3}
+                    totalItemsCount={comments.max}
+                    pageRangeDisplayed={5}
+                    onChange={this.handlePageChange}
+                    innerClass="pagination justify-content-center"
+                    activeClass="page-item"
+                    activeLinkClass="page-link active"
+                    linkClass="page-link"
+                    prevPageText="Previous"
+                    nextPageText="Next"
+                    disabledClass="page-item disabled"
+                    hideFirstLastPages
+                  />
+                </nav>
+              ) : (
+                ""
+              )}
 
               {/* ... end Pagination */}
             </div>

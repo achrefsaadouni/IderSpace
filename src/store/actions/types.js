@@ -13,4 +13,7 @@ export const GET_COMMENTS = "GET_COMMENTS";
 export const ADD_QUESTION = "ADD_QUESTION";
 export const DELETE_QUESTION = "DELETE_QUESTION";
 export const GET_USER_INFO = "GET_USER_INFO";
+export const GET_UNANSWERED_QUESTIONS = "GET_UNANSWERED_QUESTIONS";
+export const CHATBOT = "CHATBOT";
+export const GET_ACTIVITIES = "GET_ACTIVITIES";
 export const GET_Recommandation = "GET_Recommandation";
