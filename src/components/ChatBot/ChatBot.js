@@ -1,3 +1,4 @@
+import {ask} from '../../store/actions/chatBotActions';
 import React, {Component} from 'react'
 import {Launcher} from 'react-chat-window'
 
@@ -12,19 +13,22 @@ class ChatBot extends Component {
                     {type: 'text', author: "them", data: { text: "I'am IderSpace chat bot my only job is to assist you while you are here"} },
                     {type: 'text', author: "them", data: { text: "Just ask me what you need"}}
                 ],
+            newMessagesCount: 0,
         };
 
     }
 
-    _onMessageWasSent(message) {
+    _handleClick() {
         this.setState({
-            messageList: [...this.state.messageList, message]
+            isOpen: !this.state.isOpen,
+            newMessagesCount: 0
         })
     }
 
     _sendMessage(text) {
-        if (text.length > 0) {
+        const newMessagesCount = this.state.isOpen ? this.state.newMessagesCount : this.state.newMessagesCount + 1
             this.setState({
+                newMessagesCount: newMessagesCount,
                 messageList: [...this.state.messageList, {
                     author: 'them',
                     type: 'text',
@@ -32,7 +36,22 @@ class ChatBot extends Component {
                 }]
             })
         }
+
+
+   async  _onMessageWasSent(message) {
+
+        this.setState({
+            messageList: [...this.state.messageList, message]
+        });
+        var Question = {
+            "question" : message.data.text
+        };
+        await ask(Question).then(e => {
+            this._sendMessage(e.data)
+        })
+
     }
+
 
     render() {
 
@@ -41,10 +60,12 @@ class ChatBot extends Component {
                 agentProfile={{
                     teamName: 'IderSpace ChatBot',
                     imageUrl: process.env.PUBLIC_URL + '/img/chatBot.png',
-
                 }}
                 onMessageWasSent={this._onMessageWasSent.bind(this)}
                 messageList={this.state.messageList}
+                newMessagesCount={this.state.newMessagesCount}
+                handleClick={this._handleClick.bind(this)}
+                isOpen={this.state.isOpen}
                 showEmoji
             />
         </div>
