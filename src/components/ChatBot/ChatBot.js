@@ -13,32 +13,23 @@ class ChatBot extends Component {
                     {type: 'text', author: "them", data: { text: "I'am IderSpace chat bot my only job is to assist you while you are here"} },
                     {type: 'text', author: "them", data: { text: "Just ask me what you need"}}
                 ],
-            newMessagesCount: 0,
         };
 
     }
 
-    _handleClick() {
+
+    _sendMessage(text) {
         this.setState({
-            isOpen: !this.state.isOpen,
-            newMessagesCount: 0
+            messageList: [...this.state.messageList, {
+                author: 'them',
+                type: 'text',
+                data: { text }
+            }]
         })
     }
 
-    _sendMessage(text) {
-        const newMessagesCount = this.state.isOpen ? this.state.newMessagesCount : this.state.newMessagesCount + 1
-            this.setState({
-                newMessagesCount: newMessagesCount,
-                messageList: [...this.state.messageList, {
-                    author: 'them',
-                    type: 'text',
-                    data: { text }
-                }]
-            })
-        }
 
-
-   async  _onMessageWasSent(message) {
+    async  _onMessageWasSent(message) {
 
         this.setState({
             messageList: [...this.state.messageList, message]
@@ -63,9 +54,6 @@ class ChatBot extends Component {
                 }}
                 onMessageWasSent={this._onMessageWasSent.bind(this)}
                 messageList={this.state.messageList}
-                newMessagesCount={this.state.newMessagesCount}
-                handleClick={this._handleClick.bind(this)}
-                isOpen={this.state.isOpen}
                 showEmoji
             />
         </div>
