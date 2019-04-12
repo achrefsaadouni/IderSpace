@@ -2,10 +2,26 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Moment from "react-moment";
+import axios from "axios";
 
 class Comment extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: {}
+    };
+  }
+
+  componentDidMount() {
+    //get comment author
+    axios
+      .get(`http://localhost:2500/api/user/some-info/${this.props.user}`)
+      .then(res => {
+        this.setState({ user: res.data });
+      });
+  }
   render() {
-    const { question_id, approuved, content, user, date, id } = this.props;
+    const { question_id, approuved, content, date, id } = this.props;
     return (
       <React.Fragment>
         <tr>
@@ -20,7 +36,7 @@ class Comment extends Component {
             </div>
             <div className="author-content">
               <a href="02-ProfilePage.html" className="h6 author-name">
-                user
+                {this.state.user.username}
               </a>
             </div>
           </td>
