@@ -19,6 +19,8 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Error from "./common/Error";
 import PrivateRoute from "./common/PrivateRoute";
+import Recommandation from "./recommandation/recommandation";
+import ListRecommanded from "./recommandation/listRecommanded";
 
 class root extends Component {
   state = {
@@ -54,6 +56,17 @@ class root extends Component {
               exact
               path="/forum/:category_id/question/:question_id"
               component={Question}
+            />
+
+            <PrivateRoute
+                exact
+                path="/getReco"
+                component={Recommandation}
+            />
+            <PrivateRoute
+                exact
+                path="/listReco"
+                component={ListRecommanded}
             />
 
             <PrivateRoute exact path="/profile" component={Profile} />
