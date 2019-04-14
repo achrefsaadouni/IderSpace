@@ -1,24 +1,44 @@
 import axios from "axios";
 
 import {
-    GET_Recommandation, LOADING,
-    SET_CURRENT_USER
+    GET_RECOMMANDATION, LOADING, GET_ALLSKILLS,
+    SET_CURRENT_USER, GET_PROFILE
 } from "./types";
+import {setProfileLoading} from "./profileActions";
 
-// Get current forum
+// Get recommandation
 export const getRecommandation = tab => dispatch => {
     dispatch(setRecommandationLoading());
     axios
         .post("http://127.0.0.1:2500/api/user/getRecommendation", {reqSkills: tab},{headers:{'Content-Type': 'application/json'}})
         .then(res => {
             dispatch({
-                type: GET_Recommandation,
+                type: GET_RECOMMANDATION,
                 payload: res.data
             })
         })
         .catch(err =>
             dispatch({
-                type: GET_Recommandation,
+                type: GET_RECOMMANDATION,
+                payload: {}
+            })
+        );
+};
+
+// GET all skills
+export const getAllSkills = () => dispatch => {
+    dispatch(setRecommandationLoading());
+    axios
+        .get("api/user/getAllSkills")
+        .then(res =>
+            dispatch({
+                type: GET_ALLSKILLS,
+                payload: res.data
+            })
+        )
+        .catch(err =>
+            dispatch({
+                type: GET_ALLSKILLS,
                 payload: {}
             })
         );
@@ -36,7 +56,7 @@ export const setRecommandationLoading = () => {
 // Set loading state
 export const setRec = decoded => {
     return {
-        type: GET_Recommandation,
+        type: GET_RECOMMANDATION,
         payload: decoded
     };
 };

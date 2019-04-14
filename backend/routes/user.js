@@ -19,6 +19,8 @@ router.get("/some-info/:id", UserController.getSomeInfoUser);
 
 router.get("/getSkills/:id", UserController.getSkills);
 
+router.get("/getAllSkills", UserController.getAllSkills);
+
 router.post("/addSkills", authCheck, UserController.addSkills);
 
 router.post("/addExperience", authCheck, UserController.addExperience);

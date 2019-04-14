@@ -16,4 +16,5 @@ export const GET_USER_INFO = "GET_USER_INFO";
 export const GET_UNANSWERED_QUESTIONS = "GET_UNANSWERED_QUESTIONS";
 export const CHATBOT = "CHATBOT";
 export const GET_ACTIVITIES = "GET_ACTIVITIES";
-export const GET_Recommandation = "GET_Recommandation";
+export const GET_RECOMMANDATION = "GET_RECOMMANDATION";
+export const GET_ALLSKILLS = "GET_ALLSKILLS";
