@@ -12,5 +12,5 @@ export default combineReducers({
     profile: profileReducer,
     forum: forumReducer,
     activity: activityReducer,
-  recommandation: recommandationReducer
+    recommandation: recommandationReducer
 });
