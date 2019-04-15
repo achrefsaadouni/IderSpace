@@ -1,12 +1,13 @@
 import axios from "axios";
 
 import {
-  GET_PROFILE,
-  GET_PROFILES,
-  LOADING,
-  CLEAR_CURRENT_PROFILE,
-  GET_ERRORS
+    GET_PROFILE,
+    GET_PROFILES,
+    LOADING,
+    CLEAR_CURRENT_PROFILE,
+    GET_ERRORS, SET_RESUME
 } from "./types";
+import {setRecommandationLoading} from "./recommandationAction";
 
 // Get current profile
 export const getCurrentProfile = () => dispatch => {
@@ -41,10 +42,16 @@ export const addExperience = (expData, history) => dispatch => {
 };
 
 // Add resume
-export const addResume = (resumeData, history) => dispatch => {
+export const addResume = (hobbies, about , languages) => dispatch => {
+    dispatch(setProfileLoading());
   axios
-    .post("http://localhost:2500/api/user/addResume", resumeData)
-    .then(res => history.push("/profile"))
+    .post("http://localhost:2500/api/user/addResume", {hobbies: hobbies , about:about , languages:languages},{headers:{'Content-Type': 'application/json'}})
+      .then(res => {
+          dispatch({
+              type: SET_RESUME,
+              payload: res.data
+          })
+      })
     .catch(err =>
       dispatch({
         type: GET_ERRORS,

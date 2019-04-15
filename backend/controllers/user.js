@@ -143,7 +143,7 @@ exports.addResume = (req, res, next) => {
 exports.addlinkedIn = (req, res, next) => {
     const url = req.body.url;
     let fetchedUser;
-    User.findById({_id: req.body.id})
+    User.findById({_id: req.userData.userId})
         .then(user => {
             if (!user) {
                 return res.status(401).json({
