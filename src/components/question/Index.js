@@ -13,6 +13,7 @@ import Comment from "./Comment";
 import Moment from "react-moment";
 import Pagination from "react-js-pagination";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 class Index extends Component {
   constructor(props) {
@@ -135,9 +136,21 @@ class Index extends Component {
                         <Moment format="dddd MM, YYYY \at HH:mm">
                           {createdAt}
                         </Moment>
-                        <a href="#" className="reply-topic">
+                        <Link to="#" className="reply-topic">
+                          {" "}
                           Reply
-                        </a>
+                        </Link>
+                        <Link
+                          to={
+                            "/forum/" +
+                            this.props.match.params.category_id +
+                            "/edit-question/" +
+                            this.props.match.params.question_id
+                          }
+                          className="reply-topic"
+                        >
+                          Edit |{" "}
+                        </Link>
                       </td>
                     </tr>
                     <tr>

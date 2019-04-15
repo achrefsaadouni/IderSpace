@@ -4,6 +4,9 @@ const BadWord = require("../models/BadWord");
 const User = require("../models/user");
 const mongoose = require("mongoose");
 
+// Load Input Validation
+const validateQuestionInput = require("../validation/addQuestion");
+
 filter = new Filter();
 
 exports.addBadWord = (req, res, next) => {
@@ -54,6 +57,11 @@ exports.getAllBadWords = (req, res, next) => {
 };
 
 exports.createQuestion = (req, res, next) => {
+  const { errors, isValid } = validateQuestionInput(req.body);
+  // Check Validation
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
   const url = req.protocol + "://" + req.get("host");
 
   //adding bad words
@@ -102,6 +110,12 @@ exports.createQuestion = (req, res, next) => {
 };
 
 exports.updateQuestion = (req, res, next) => {
+  const { errors, isValid } = validateQuestionInput(req.body);
+  // Check Validation
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   //adding bad words
   let badwords = [];
   BadWord.find()
@@ -115,7 +129,8 @@ exports.updateQuestion = (req, res, next) => {
       console.log(badwords);
       const question = {
         subject: req.body.subject,
-        content: req.body.content
+        content: req.body.content,
+        category: req.body.category
       };
       Question.findOne({ _id: req.params.id, author: req.userData.userId })
         .then(result => {
@@ -134,7 +149,8 @@ exports.updateQuestion = (req, res, next) => {
             }
             return res.status(200).json({
               badword: false,
-              message: "Update successful!"
+              message: "Update successful!",
+              question: result
             });
           });
         })

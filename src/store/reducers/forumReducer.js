@@ -13,6 +13,7 @@ const initialState = {
   question: null,
   forum: null,
   comments: null,
+  newquestion: null,
   loading: true
 };
 
@@ -50,7 +51,8 @@ export default function(state = initialState, action) {
     case ADD_QUESTION:
       return {
         ...state,
-        questions: [action.payload, ...state.posts]
+        questions: [action.payload, ...state.posts],
+        newquestion: action.payload
       };
     case DELETE_QUESTION:
       return {

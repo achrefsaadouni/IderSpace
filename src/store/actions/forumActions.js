@@ -93,27 +93,30 @@ export const getComments = (id, page, current) => dispatch => {
 };
 
 // Add Question
-export const addGuestion = question => dispatch => {
-  dispatch(setForumLoading());
+export const addQuestion = (question, history) => dispatch => {
+  dispatch(clearErrors());
   axios
     .post("http://localhost:2500/api/question", question)
     .then(res =>
-      dispatch({
-        type: ADD_QUESTION,
-        payload: res.data
-      })
+      history.push(
+        "/forum/" +
+          res.data.question.category +
+          "/question/" +
+          res.data.question._id
+      )
     )
-    .catch(err =>
+    .catch(err => {
+      console.log(err);
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
-      })
-    );
+      });
+    });
 };
 
 // Add comment
 export const addComment = (id, comment) => dispatch => {
-  dispatch(setForumLoading());
+  dispatch(clearErrors());
   axios
     .post(`http://localhost:2500/api/question/comment/${id}`, comment)
     .then(res =>
@@ -131,20 +134,22 @@ export const addComment = (id, comment) => dispatch => {
 };
 
 // Update question
-export const updateQuestion = (id, question) => dispatch => {
-  dispatch(setForumLoading());
+export const updateQuestion = (id, question, history) => dispatch => {
+  dispatch(clearErrors());
   axios
     .put(`http://localhost:2500/api/question/${id}`, question)
     .then(res =>
-      dispatch({
-        type: DELETE_QUESTION,
-        payload: res.data
-      })
+      history.push(
+        "/forum/" +
+          res.data.question.category +
+          "/question/" +
+          res.data.question._id
+      )
     )
     .catch(err =>
       dispatch({
-        type: DELETE_QUESTION,
-        payload: null
+        type: GET_ERRORS,
+        payload: err.response.data
       })
     );
 };
