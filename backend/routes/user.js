@@ -11,13 +11,15 @@ router.post("/login", UserController.userLogin);
 
 router.post("/addResume", authCheck, UserController.addResume);
 
-router.post("/addLinkedIn", UserController.addlinkedIn);
+router.post("/addLinkedIn",authCheck, UserController.addlinkedIn);
 
 router.put("/:d", UserController.updateUser);
 
 router.get("/some-info/:id", UserController.getSomeInfoUser);
 
 router.get("/getSkills/:id", UserController.getSkills);
+
+router.get("/getAllSkills", UserController.getAllSkills);
 
 router.post("/addSkills", authCheck, UserController.addSkills);
 

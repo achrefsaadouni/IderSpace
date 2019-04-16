@@ -13,7 +13,7 @@ exports.ask = (req, res, next) => {
         timezone: "America/New_York"
     })
         .then((r) => {
-           res.send(r.data.result.fulfillment.messages);
+           res.send(r.data.result.fulfillment.messages[0].speech);
         })
         .catch((error) => {
             console.error(error)

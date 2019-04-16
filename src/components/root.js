@@ -19,6 +19,10 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Error from "./common/Error";
 import PrivateRoute from "./common/PrivateRoute";
+import Recommandation from "./recommandation/recommandation";
+import ListRecommanded from "./recommandation/listRecommanded";
+import AddQuestion from "./question/AddQuestion";
+import EditQuestion from "./question/EditQuestion";
 import Activity from "./activity/index"
 
 class root extends Component {
@@ -41,7 +45,9 @@ class root extends Component {
     return (
       <Router>
         <React.Fragment>
-          {isAuthenticated ? [<SideBar key={1} />, <Header key={2} /> , <ChatBot key={3} />] : null}
+          {isAuthenticated
+            ? [<SideBar key={1} />, <Header key={2} />, <ChatBot key={3} />]
+            : null}
           <Switch>
             <PrivateRoute exact path="/forum" component={Forum} />
 
@@ -56,6 +62,22 @@ class root extends Component {
               path="/forum/:category_id/question/:question_id"
               component={Question}
             />
+
+            <PrivateRoute
+              exact
+              path="/forum/:category_id/add-question"
+              component={AddQuestion}
+            />
+
+            <PrivateRoute
+              exact
+              path="/forum/:category_id/edit-question/:question_id"
+              component={EditQuestion}
+            />
+
+            <PrivateRoute exact path="/getReco" component={Recommandation} />
+
+            <PrivateRoute exact path="/listReco" component={ListRecommanded} />
 
             <PrivateRoute exact path="/profile" component={Profile} />
 

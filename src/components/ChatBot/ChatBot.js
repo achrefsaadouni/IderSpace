@@ -1,3 +1,4 @@
+import {ask} from '../../store/actions/chatBotActions';
 import React, {Component} from 'react'
 import {Launcher} from 'react-chat-window'
 
@@ -16,23 +17,32 @@ class ChatBot extends Component {
 
     }
 
-    _onMessageWasSent(message) {
+
+    _sendMessage(text) {
         this.setState({
-            messageList: [...this.state.messageList, message]
+            messageList: [...this.state.messageList, {
+                author: 'them',
+                type: 'text',
+                data: { text }
+            }]
         })
     }
 
-    _sendMessage(text) {
-        if (text.length > 0) {
-            this.setState({
-                messageList: [...this.state.messageList, {
-                    author: 'them',
-                    type: 'text',
-                    data: { text }
-                }]
-            })
-        }
+
+    async  _onMessageWasSent(message) {
+
+        this.setState({
+            messageList: [...this.state.messageList, message]
+        });
+        var Question = {
+            "question" : message.data.text
+        };
+        await ask(Question).then(e => {
+            this._sendMessage(e.data)
+        })
+
     }
+
 
     render() {
 
@@ -41,7 +51,6 @@ class ChatBot extends Component {
                 agentProfile={{
                     teamName: 'IderSpace ChatBot',
                     imageUrl: process.env.PUBLIC_URL + '/img/chatBot.png',
-
                 }}
                 onMessageWasSent={this._onMessageWasSent.bind(this)}
                 messageList={this.state.messageList}
