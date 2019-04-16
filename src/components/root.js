@@ -19,6 +19,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Error from "./common/Error";
 import PrivateRoute from "./common/PrivateRoute";
+import Activity from "./activity/index"
 
 class root extends Component {
   state = {
@@ -59,6 +60,8 @@ class root extends Component {
             <PrivateRoute exact path="/profile" component={Profile} />
 
             <PrivateRoute exact path="/edit-profile" component={EditProfile} />
+
+            <PrivateRoute exact path="/activity" component={Activity} />
 
             <Route exact path="/login" component={Login} />
 

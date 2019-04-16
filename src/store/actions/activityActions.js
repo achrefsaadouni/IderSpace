@@ -13,14 +13,14 @@ export const getActivities = () => dispatch => {
         .get(
             `http://localhost:2500/api/activity/getAllCreatedActivities`
         )
-        .then(res =>
+        .then(res => {
             dispatch({
                 type: GET_ACTIVITIES,
                 payload: res.data
             })
-            ,
-            console.log(res)
-        )
+
+                console.log(res)
+        })
         .catch(err =>
             dispatch({
                 type: GET_ACTIVITIES,
