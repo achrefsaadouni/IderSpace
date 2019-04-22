@@ -54,6 +54,18 @@ class SideBar extends Component {
                   </Link>
                 </li>
                 <li>
+                  <Link to="/botQuestion">
+                    <svg
+                      className="olymp-star-icon left-menu-icon"
+                      data-toggle="tooltip"
+                      data-placement="right"
+                      data-original-title="ChatBot Unanswered Question"
+                    >
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-manage-widgets-icon" />
+                    </svg>
+                  </Link>
+                </li>
+                 <li>
                   <Link to="/activity">
                     <svg
                       className="olymp-star-icon left-menu-icon"
@@ -62,18 +74,6 @@ class SideBar extends Component {
                       data-original-title="YOUR ACTIVITIES"
                     >
                       <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-star-icon" />
-                    </svg>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/">
-                    <svg
-                      className="olymp-headphones-icon left-menu-icon"
-                      data-toggle="tooltip"
-                      data-placement="right"
-                      data-original-title="MUSIC&PLAYLISTS"
-                    >
-                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-headphones-icon" />
                     </svg>
                   </Link>
                 </li>
@@ -207,16 +207,16 @@ class SideBar extends Component {
                 </li>
                   {/* CREATED ACTIVITIES */}
                 <li>
-                  <Link to="/activity">
+                  <Link to="/botQuestion">
                     <svg
                       className="olymp-star-icon left-menu-icon"
                       data-toggle="tooltip"
                       data-placement="right"
-                      data-original-title="YOUR ACTIVITIES"
+                      data-original-title="ChatBot Unanswered Question"
                     >
-                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-star-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-manage-widgets-icon" />
                     </svg>
-                    <span className="left-menu-title">Your Activities</span>
+                    <span className="left-menu-title">ChatBot Unanswered Question</span>
                   </Link>
                 </li>
 
