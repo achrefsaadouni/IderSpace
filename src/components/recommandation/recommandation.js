@@ -335,7 +335,6 @@ const mapStateToProps = state => ({
     errors: state.errors,
     recommandation: state.recommandation
 });
-
 export default connect(
     mapStateToProps,
     {getRecommandation, getAllSkills}

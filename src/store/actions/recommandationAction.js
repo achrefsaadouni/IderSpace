@@ -10,12 +10,13 @@ import {setProfileLoading} from "./profileActions";
 export const getRecommandation = tab => dispatch => {
     dispatch(setRecommandationLoading());
     axios
-        .post("http://127.0.0.1:2500/api/user/getRecommendation", {reqSkills: tab},{headers:{'Content-Type': 'application/json'}})
+        .post("http://localhost:2500/api/user/getRecommendation", {reqSkills: tab},{headers:{'Content-Type': 'application/json'}})
         .then(res => {
             dispatch({
                 type: GET_RECOMMANDATION,
                 payload: res.data
             })
+            console.log("appel",res.data)
         })
         .catch(err =>
             dispatch({
@@ -29,7 +30,7 @@ export const getRecommandation = tab => dispatch => {
 export const getAllSkills = () => dispatch => {
     dispatch(setRecommandationLoading());
     axios
-        .get("api/user/getAllSkills")
+        .get("http://localhost:2500/api/user/getAllSkills")
         .then(res =>
             dispatch({
                 type: GET_ALLSKILLS,

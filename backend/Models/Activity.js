@@ -11,8 +11,9 @@ const ActivitySchema = mongoose.Schema({
     techs: [{type: String}],
     type: {type: String, required: true},
     generalProgress: {type: Number},
+    createdAt: {type: Date},
     creator: {type: Schema.ObjectId, ref: 'User'},
-    supervisor: [{type: Schema.ObjectId, ref: 'User'}],
+    supervisor: {type: Schema.ObjectId, ref: 'User'},
     members: [{type: Schema.ObjectId, ref: 'User'}]
 });
 module.exports = mongoose.model("Activity", ActivitySchema);

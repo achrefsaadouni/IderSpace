@@ -417,12 +417,12 @@ var j = schedule.scheduleJob('* * * * *', function () {
 exports.getAllCreatedActivities = (req, res, next) => {
     if (req.userData.role === "teacher") {
         activity.find().where("creator").equals(req.userData.userId).then(result => {
-            console.log(result)
             return result
         }).then(x => {
             res.status(200).json({
                 message: "All of your created activities!",
-                resultat: x
+                resultat: x,
+                creator:req.userData
             });
         })
             .catch(err => {
@@ -611,7 +611,7 @@ var sch = schedule.scheduleJob('* * * * *', function () {
 })
 exports.enrichCv = () => {
     var j = schedule.scheduleJob('* * * * *', function () {
-        console.log("here")
+        //console.log("here")
         const skills = mongoose.model("skills", Skills);
         activity.find({generalProgress: {$eq: 100}}).then(finished => {
             finished.map(e => {
@@ -678,4 +678,70 @@ exports.deleteToDo=(req,res,next)=>{
             error: err
         })
     });
+};
+exports.getAllSupervisors=(req,res,next)=>{
+    User.find({role: {$eq: "teacher"}}).then(re => {
+
+            res.status(200).json({
+                message: "allSupervisors ",
+                result: re,
+                count :0
+            })
+
+    }).catch(err => {
+        console.log(err);
+        res.status(500).json({
+            error: err
+        })
+    })
 }
+
+exports.getAllMembers=(req,res,next)=>{
+
+       User.find({ _id : { $in : req.body.members } }).then(re => {
+
+        res.status(200).json({
+            message: "allMembers ",
+            result: re,
+            count :re.length
+        })
+
+    }).catch(err => {
+        console.log(err);
+        res.status(500).json({
+            error: err
+        })
+    })
+}
+
+exports.create=(req,res,next)=>{
+
+    const act = new activity({
+        title: req.body.values.title,
+        description: req.body.values.description,
+        descriptionDocument: req.body.values.descriptionDocument,
+        type: req.body.values.type,
+        creator: req.userData.userId,
+        supervisor: req.body.values.supervisor,
+        techs:req.body.values.techs,
+        createdAt:new Date(),
+        members:req.body.values.members,
+    })
+    act.save()
+        .then(result => {
+            console.log("success");
+            timeLog("created activity")
+            res.status(200).json({
+                message: "activity first step created!",
+                result: result
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            })
+        });
+}
+
+
