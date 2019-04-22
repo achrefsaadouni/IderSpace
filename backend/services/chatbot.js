@@ -101,11 +101,11 @@ async function addBotQuestion(content) {
     const question = new BotQuestion({
         createdAt: new Date(),
         content: content,
-        author: '5c9cbff3d36f4828c0bac721'
     });
     let v = await question
         .save()
         .catch(error => {
+            console.log(error)
             return  false;
         })
         .then(e => {

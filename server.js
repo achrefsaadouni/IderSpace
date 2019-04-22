@@ -1,8 +1,6 @@
 const http = require("http");
 const debug = require("debug")("node:server");
 const app = require("./backend/app");
-var socket = require("socket.io");
-var ServiceChatbot = require("./backend/services/chatbot");
 
 const normalizePort = val => {
   const port = parseInt(val, 10);

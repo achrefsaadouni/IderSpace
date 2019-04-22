@@ -54,14 +54,14 @@ class SideBar extends Component {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/">
+                  <Link to="/botQuestion">
                     <svg
                       className="olymp-star-icon left-menu-icon"
                       data-toggle="tooltip"
                       data-placement="right"
-                      data-original-title="FAV PAGE"
+                      data-original-title="ChatBot Unanswered Question"
                     >
-                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-star-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-manage-widgets-icon" />
                     </svg>
                   </Link>
                 </li>
@@ -206,16 +206,16 @@ class SideBar extends Component {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/">
+                  <Link to="/botQuestion">
                     <svg
                       className="olymp-star-icon left-menu-icon"
                       data-toggle="tooltip"
                       data-placement="right"
-                      data-original-title="FAV PAGE"
+                      data-original-title="ChatBot Unanswered Question"
                     >
-                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-star-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-manage-widgets-icon" />
                     </svg>
-                    <span className="left-menu-title">Fav Pages Feed</span>
+                    <span className="left-menu-title">ChatBot Unanswered Question</span>
                   </Link>
                 </li>
 

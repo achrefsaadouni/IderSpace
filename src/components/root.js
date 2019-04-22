@@ -24,6 +24,7 @@ import ListRecommanded from "./recommandation/listRecommanded";
 import AddQuestion from "./question/AddQuestion";
 import EditQuestion from "./question/EditQuestion";
 import Activity from "./activity/index"
+import index from "./ChatBot/BotQuestions";
 
 class root extends Component {
   state = {
@@ -46,7 +47,7 @@ class root extends Component {
       <Router>
         <React.Fragment>
           {isAuthenticated
-            ? [<SideBar key={1} />, <Header key={2} />, <ChatBot key={3} />]
+            ? [<SideBar key={1} />, <Header key={2} />, ]
             : null}
           <Switch>
             <PrivateRoute exact path="/forum" component={Forum} />
@@ -85,19 +86,28 @@ class root extends Component {
 
             <PrivateRoute exact path="/activity" component={Activity} />
 
+            <PrivateRoute exact path="/botQuestion" component={index} />
+
             <Route exact path="/login" component={Login} />
+
+
+
 
             <Route exact path="*" component={Error} />
           </Switch>
 
           {isAuthenticated ? (
+              <div>
+                <ChatBot/>
             <Link className="back-to-top" to="#">
+
               <img
                 src="/svg-icons/back-to-top.svg"
                 alt="arrow"
                 className="back-icon"
               />
             </Link>
+              </div>
           ) : null}
         </React.Fragment>
       </Router>

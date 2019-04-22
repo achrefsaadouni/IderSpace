@@ -4,7 +4,7 @@ const fs = require('fs');
 var currentActivity = null;
 exports.chat = async (req, res, next) => {
 
- console.log("here 1")
+
  //Add A  Request
 if (req.body.queryResult.intent.displayName=="Add_Question_Forum")
 {
@@ -54,7 +54,6 @@ if(req.body.queryResult.intent.displayName=="Add_Activity")
   }
  }
  else {
-  console.log("here 2")
  var mot  = '.*'+req.body.queryResult.queryText+'.*';
  Question.findOne({ 'subject': {$regex : mot,$options : 'i'}  },'comments',function(err,answer){
   if(err)
