@@ -3,7 +3,11 @@ const crawl = require('./crawler')
 
 
 
-module.exports = function scrapping(config) {
-  scrapedin(config)
-      .then((profileScraper) => crawl(config,profileScraper, config.rootProfiles))
-}
+
+  module.exports = async (config) => new Promise((resolve => {
+    console.log(config)
+      scrapedin(config)
+        .then((profileScraper) => crawl(config,profileScraper, config.rootProfiles).then(res=>resolve( res)))
+
+  }))
+

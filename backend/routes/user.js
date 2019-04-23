@@ -2,6 +2,7 @@ const express = require("express");
 
 const UserController = require("../controllers/user");
 const authCheck = require("../middleware/check-auth");
+const upload = require('../handler/multer');
 
 const router = express.Router();
 
@@ -36,6 +37,8 @@ router.post("/checkData", UserController.checkData);
 router.post("/getRecommendation", UserController.getRecommendation);
 
 router.post("/updateSkill", UserController.updateSkill);
+
+router.post("/changeProfilImage",authCheck ,upload.single('image') , UserController.changeProfilImage);
 
 router.get("/profile", authCheck, UserController.getProfileForConnectedUser);
 
