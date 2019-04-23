@@ -4,6 +4,8 @@ import {connect} from "react-redux";
 import Spinner from "../common/Spinner";
 import PropTypes from "prop-types";
 import ProgressBar from "react-bootstrap/ProgressBar";
+import {ToggleButton} from 'primereact/togglebutton';
+import StyleLinks from "./StyleLinks";
 
 
 
@@ -28,11 +30,9 @@ class step3 extends Component {
         this.props.getSupervisors();
     }
 
-    constructor() {
-        super()
-        this.state = {
-            tab: []
-        }
+    constructor(props) {
+        super(props)
+        console.log(props)
     }
 
 
@@ -54,20 +54,24 @@ class step3 extends Component {
                     <span className="chat-message-item">Mutual Friend: Sarah Hetfield</span>
                 </div>
                 <span className="notification-icon">
-											<button onClick={handleChange('supervisor')} className="accept-request">
+											<button onClick={handleChange('supervisor')} className="accept-request" value={e._id} hidden={values.replaceButton}>
 												<span className="icon-add">
 													<svg className="olymp-happy-face-icon"><use
                                                         xlinkHref="#olymp-happy-face-icon"></use></svg>
 												</span>
-												Pick him
+												send request
 											</button>
 
-											<a href="#" className="accept-request request-del">
+
+											<button onClick={handleChange('delete')} className="accept-request request-del"
+                                                    hidden={!values.replaceButton}>
+
 												<span className="icon-minus">
 													<svg className="olymp-happy-face-icon"><use
                                                         xlinkHref="#olymp-happy-face-icon"></use></svg>
 												</span>
-											</a>
+                                                delete request
+											</button>
 
 										</span>
 
@@ -135,7 +139,7 @@ class step3 extends Component {
                                     <button onClick={this.back} className="btn btn-secondary btn-lg full-width">Previous</button>
                                 </div>
                                 <div className="col col-lg-6 col-md-6 col-sm-12 col-12">
-                                    <button   onClick={this.continue} className="btn btn-primary btn-lg full-width">Continue</button>
+                                    <button   onClick={this.continue} className="btn btn-primary btn-lg full-width" disabled={!values.replaceButton}>Continue</button>
 
                                 </div>
                                 </div>

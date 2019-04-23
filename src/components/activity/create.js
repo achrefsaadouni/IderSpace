@@ -4,14 +4,12 @@ import Step2 from "./step2"
 import Step3 from "./step3"
 import Confirm from "./confirm"
 import Success from "./success"
+import swal from "sweetalert";
 
 export default class create extends Component {
-    constructor(){
-        super()
-        this.changeRouteToList = this.changeRouteToList.bind(this);
-    }
     state = {
         shown: false,
+        replaceButton: false,
         step: 1,
         title: '',
         modules: [],
@@ -24,6 +22,13 @@ export default class create extends Component {
         creator: '',
         supervisor: "",
         members: []
+    };
+    // Proceed to next step
+    goStep = (x) => {
+
+        this.setState({
+            step: x
+        });
     };
     // Proceed to next step
     nextStep = () => {
@@ -39,34 +44,80 @@ export default class create extends Component {
             step: step - 1
         });
     };
-    changeRouteToList(){
-        this.props.history.push("/activity")
-    }
+    membersChange = (input, val) => e => {
+        return val !== "";
 
+
+    };
+    disabledButton = (e) => {
+
+        if (this.state.members!==[])
+        {
+            return this.state.members.includes(e);
+        }
+        else{
+        return false
+        }
+    };
     // Handle fields change
     handleChange = input => e => {
+        if (input === "delMember") {
+            this.state.members.splice(this.state.members.indexOf(e.target.value), 1)
+            var el = document.getElementById("del"+e.target.value);
+            el.hidden=true
+            var el1 = document.getElementById(e.target.value);
+            el1.hidden=false
+            swal("Oops!", "Request invitation for this member was canceled!", "success");
+        }
+        if (input === "delete") {
+            this.setState({["supervisor"]: ""});
+            this.setState({replaceButton: false});
 
-        if(input==="members"){
-               this.state.members.push(e.target.value)
+            swal("Oops!", "Request invitation for this supervisor was canceled!", "success");
 
         }
-       else if(input==="shown"){
-            this.state.shown=true
+        if (input === "supervisor") {
+            this.setState({[input]: e.target.value});
+            this.setState({replaceButton: true});
+            swal("Great!", "Request invitation for this supervisor was sent!", "success");
+
+        }
+        if (input === "members") {
+            var el = document.getElementById(e.target.value);
+            el.hidden=true
+            var el1 = document.getElementById("del"+e.target.value);
+            el1.hidden=false
+
+        this.state.members.push(e.target.value)
+
+            swal("Great!", "Request invitation for this member was sent!", "success");
+        }
+        else if (input === "shown") {
+            this.state.shown = true
         }
 
-    else {
-        this.setState({[input]: e.target.value});
+        else {
+            this.setState({[input]: e.target.value});
         }
 
-       /* let files = e.target.files;
-        let reader = new FileReader();
-        reader.readAsDataURL(files[0])
-        reader.onload = (e) => {
+        /* let files = e.target.files;
+         let reader = new FileReader();
+         reader.readAsDataURL(files[0])
+         reader.onload = (e) => {
 
-            this.state.descriptionDocument = e.target.result
-            console.log(this.state.descriptionDocument)
-        }*/
+             this.state.descriptionDocument = e.target.result
+             console.log(this.state.descriptionDocument)
+         }*/
     };
+
+    constructor() {
+        super()
+        this.changeRouteToList = this.changeRouteToList.bind(this);
+    }
+
+    changeRouteToList() {
+        this.props.history.push("/activity")
+    }
 
     onchange(e) {
         let files = e.target.files;
@@ -85,6 +136,7 @@ export default class create extends Component {
         const {
             title,
             shown,
+            replaceButton,
             modules,
             description,
             EstimatedTime,
@@ -96,8 +148,10 @@ export default class create extends Component {
             supervisor,
             members
         } = this.state;
-        const values = {title,
+        const values = {
+            title,
             shown,
+            replaceButton,
             modules,
             description,
             EstimatedTime,
@@ -107,7 +161,8 @@ export default class create extends Component {
             generalProgress,
             creator,
             supervisor,
-            members};
+            members
+        };
         switch (step) {
             case 1:
                 return (
@@ -124,7 +179,9 @@ export default class create extends Component {
                         prevStep={this.prevStep}
                         handleChange={this.handleChange}
                         values={values}
-                        onload={console.log(values)}
+                        disabledButton={this.disabledButton}
+                        goStep={this.goStep}
+
                     />
                 );
             case 3:
@@ -137,14 +194,15 @@ export default class create extends Component {
                     />
                 );
             case 4:
-                return(<Confirm
+                return (<Confirm
                     nextStep={this.nextStep}
                     prevStep={this.prevStep}
                     handleChange={this.handleChange}
                     values={values}
+
                 />);
             case 5:
-                return(<Success
+                return (<Success
                     changeRouteToList={this.changeRouteToList}
                     values={values}
                 />);

@@ -4,6 +4,7 @@ import {PropTypes} from "prop-types";
 import {getActivities} from "../../store/actions/activityActions";
 import Spinner from "../common/Spinner";
 import Moment from "react-moment";
+import InfiniteLoader from 'react-infinite-loader';
 
 class index extends Component {
     constructor() {

@@ -161,9 +161,6 @@ class confirm extends Component {
                                 <br/>
                                 <br/>
                                 <br/>
-                                <br/>
-                                <br/>
-                                <br/>
 
                                 <section
                                     className="align-right pt160 pb80 section-move-bg call-to-action-animation scrollme">

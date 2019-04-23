@@ -12,12 +12,7 @@ import ProgressBar from "react-bootstrap/ProgressBar";
 
 
 class step2 extends Component {
-    disabledButton=(e)=>{
-        if(this.props.values.members.length!==0)
-            return this.props.values.members.includes(e);
-        else
-            return false
-    }
+
     continue = e => {
         e.preventDefault();
         // this.props.getRecommandation(e);
@@ -50,7 +45,7 @@ class step2 extends Component {
 
     render() {
         const {loading, recommandation} = this.props.recommandation
-        const { values, handleChange } = this.props;
+        const { values, handleChange,disabledButton,goStep } = this.props;
         if (recommandation === null && loading) {
             return <Spinner/>;
         }
@@ -60,10 +55,10 @@ class step2 extends Component {
         var MayBeRecommandedInterface;
         if (!loading && recommandation!=null) {
             BestUser = this.props.recommandation.recommandation.Recommended.map(user => (
-                <RecommandedUser disabledButton={this.disabledButton} handleChange={handleChange} key={user._id} user={user}/>
+                <RecommandedUser disabledButton={disabledButton} goStep={goStep} handleChange={handleChange} key={user._id} user={user}/>
             ));
             MayBeRecommandedUser = this.props.recommandation.recommandation.MayBeRecommended.map(user => (
-                <RecommandedUser disabledButton={this.disabledButton} handleChange={handleChange} key={user._id} user={user}/>
+                <RecommandedUser disabledButton={disabledButton}  handleChange={handleChange} key={user._id} user={user}/>
             ));
         }
         if (this.props.recommandation.recommandation.Recommended!==null) {
