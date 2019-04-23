@@ -5,6 +5,7 @@ import RecentQuestion from "./recentQuestion";
 import { getQuestions } from "../../store/actions/forumActions";
 import Spinner from "../common/Spinner";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 class index extends Component {
   componentDidMount() {
@@ -26,6 +27,7 @@ class index extends Component {
     };
     const allQuestions = questions.questions.map(item => (
       <Question
+        key={item._id}
         category_id={this.props.match.params.category_id}
         id={item._id}
         title={item.subject}
@@ -86,9 +88,16 @@ class index extends Component {
                         </button>
                       </div>
                     </form>
-                    <a href="#" className="btn btn-blue btn-md">
+                    <Link
+                      to={
+                        "/forum/" +
+                        this.props.match.params.category_id +
+                        "/add-question"
+                      }
+                      className="btn btn-blue btn-md"
+                    >
                       Create New Question
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>

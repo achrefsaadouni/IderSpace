@@ -54,26 +54,26 @@ class SideBar extends Component {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/">
+                  <Link to="/botQuestion">
                     <svg
                       className="olymp-star-icon left-menu-icon"
                       data-toggle="tooltip"
                       data-placement="right"
-                      data-original-title="FAV PAGE"
+                      data-original-title="ChatBot Unanswered Question"
                     >
-                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-star-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-manage-widgets-icon" />
                     </svg>
                   </Link>
                 </li>
-                <li>
-                  <Link to="/">
+                 <li>
+                  <Link to="/activity">
                     <svg
-                      className="olymp-headphones-icon left-menu-icon"
+                      className="olymp-star-icon left-menu-icon"
                       data-toggle="tooltip"
                       data-placement="right"
-                      data-original-title="MUSIC&PLAYLISTS"
+                      data-original-title="YOUR ACTIVITIES"
                     >
-                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-headphones-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-star-icon" />
                     </svg>
                   </Link>
                 </li>
@@ -205,17 +205,18 @@ class SideBar extends Component {
                     <span className="left-menu-title">Q/A Forum</span>
                   </Link>
                 </li>
+                  {/* CREATED ACTIVITIES */}
                 <li>
-                  <Link to="/">
+                  <Link to="/botQuestion">
                     <svg
                       className="olymp-star-icon left-menu-icon"
                       data-toggle="tooltip"
                       data-placement="right"
-                      data-original-title="FAV PAGE"
+                      data-original-title="ChatBot Unanswered Question"
                     >
-                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-star-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-manage-widgets-icon" />
                     </svg>
-                    <span className="left-menu-title">Fav Pages Feed</span>
+                    <span className="left-menu-title">ChatBot Unanswered Question</span>
                   </Link>
                 </li>
 

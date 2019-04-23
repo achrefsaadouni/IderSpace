@@ -32,7 +32,7 @@ class ListRecommanded extends Component {
         var MayBeRecommandedInterface;
         if (!loading) {
             BestUser = this.props.recommandation.recommandation.Recommended.map(user => (
-                <RecommandedUser key={user._id} user={user}/>
+                <RecommandedUser enabled={true} key={user._id} user={user}/>
             ));
             MayBeRecommandedUser = this.props.recommandation.recommandation.MayBeRecommended.map(user => (
                 <RecommandedUser key={user._id} user={user}/>

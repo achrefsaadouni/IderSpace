@@ -21,6 +21,12 @@ import Error from "./common/Error";
 import PrivateRoute from "./common/PrivateRoute";
 import Recommandation from "./recommandation/recommandation";
 import ListRecommanded from "./recommandation/listRecommanded";
+import AddQuestion from "./question/AddQuestion";
+import EditQuestion from "./question/EditQuestion";
+import Activity from "./activity/index"
+import create from "./activity/create";
+import step1 from "./activity/step1";
+import index from "./ChatBot/BotQuestions";
 
 class root extends Component {
   state = {
@@ -42,7 +48,9 @@ class root extends Component {
     return (
       <Router>
         <React.Fragment>
-          {isAuthenticated ? [<SideBar key={1} />, <Header key={2} /> , <ChatBot key={3} />] : null}
+          {isAuthenticated
+            ? [<SideBar key={1} />, <Header key={2} />, ]
+            : null}
           <Switch>
             <PrivateRoute exact path="/forum" component={Forum} />
 
@@ -59,33 +67,50 @@ class root extends Component {
             />
 
             <PrivateRoute
-                exact
-                path="/getReco"
-                component={Recommandation}
+              exact
+              path="/forum/:category_id/add-question"
+              component={AddQuestion}
             />
+
             <PrivateRoute
-                exact
-                path="/listReco"
-                component={ListRecommanded}
+              exact
+              path="/forum/:category_id/edit-question/:question_id"
+              component={EditQuestion}
             />
+
+            <PrivateRoute exact path="/getReco" component={Recommandation} />
+
+            <PrivateRoute exact path="/listReco" component={ListRecommanded} />
 
             <PrivateRoute exact path="/profile" component={Profile} />
 
             <PrivateRoute exact path="/edit-profile" component={EditProfile} />
 
+            <PrivateRoute exact path="/activity" component={Activity} />
+            <PrivateRoute exact path="/activity/create" component={create} />
+
+            <PrivateRoute exact path="/botQuestion" component={index} />
+
             <Route exact path="/login" component={Login} />
+
+
+
 
             <Route exact path="*" component={Error} />
           </Switch>
 
           {isAuthenticated ? (
+              <div>
+                <ChatBot/>
             <Link className="back-to-top" to="#">
+
               <img
                 src="/svg-icons/back-to-top.svg"
                 alt="arrow"
                 className="back-icon"
               />
             </Link>
+              </div>
           ) : null}
         </React.Fragment>
       </Router>
