@@ -19,7 +19,10 @@ exports.ask = (req, res, next) => {
             console.error(error)
         });
 };
-
+exports.delete = async (req, res, next) => {
+    const v = await chatbot.deleteBotQuestion(req.body.question);
+    res.send(v);
+};
 
 exports.getAll = async (req, res, next) => {
     const v = await chatbot.GetAllBotQuestion();

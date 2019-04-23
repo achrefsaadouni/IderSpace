@@ -37,6 +37,7 @@
     "redux-thunk": "^2.3.0",
     "scrapedin": "^1.0.1",
     "socket.io": "^2.2.0",
+    "sweetalert2": "^8.8.7",
     "validator": "^10.11.0",
     "xoauth2": "^1.2.0"
   },

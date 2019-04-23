@@ -23,6 +23,25 @@ export  const ask = async question  => {
     });
 };
 
+export  const deleteQuestion = async question  => {
+    return new Promise (resolve =>{
+
+        axios
+            .delete("http://localhost:2500/api/chat", {data:{question:question}})
+            .then(res =>
+                {
+                    return resolve(res);
+                }
+            )
+            .catch(err =>
+                {
+                    return resolve(err);}
+            );
+    });
+};
+
+
+
 export const getQuestions = () => dispatch => {
     dispatch(setForumLoading());
     axios
@@ -34,8 +53,6 @@ export const getQuestions = () => dispatch => {
                 type: GET_CHATBOTQUESTION,
                 payload: res.data
             })
-
-            console.log(res)
         })
         .catch(err =>
             dispatch({

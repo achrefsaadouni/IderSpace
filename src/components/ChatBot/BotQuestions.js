@@ -7,7 +7,10 @@ import Question from "./Question"
 class index extends Component {
     constructor(props){
         super(props);
-        console.log(props)
+        this.handler = this.handler.bind(this)
+    }
+    handler() {
+       this.render();
     }
     componentDidMount() {
         this.props.getQuestions()
@@ -21,7 +24,7 @@ class index extends Component {
                         return <Spinner/>
                     }
         const item = questionBots.map(e =>
-            <Question key = {e._id} question =  {e} />
+            <Question key = {e._id} question =  {e} handler = {this.handler} />
         );
 
         return (
