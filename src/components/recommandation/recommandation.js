@@ -57,7 +57,8 @@ class Recommandation extends Component {
     }
 
     render() {
-        const {loading, recommandation} = this.props.recommandation
+        const {allSkills} = this.state;
+        const {loading, recommandation } = this.props.recommandation
 
         if (this.props.recommandation.allSkills === null || loading) {
             return <Spinner/>;
@@ -335,7 +336,6 @@ const mapStateToProps = state => ({
     errors: state.errors,
     recommandation: state.recommandation
 });
-
 export default connect(
     mapStateToProps,
     {getRecommandation, getAllSkills}

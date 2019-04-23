@@ -24,6 +24,8 @@ import ListRecommanded from "./recommandation/listRecommanded";
 import AddQuestion from "./question/AddQuestion";
 import EditQuestion from "./question/EditQuestion";
 import Activity from "./activity/index"
+import create from "./activity/create";
+import step1 from "./activity/step1";
 import index from "./ChatBot/BotQuestions";
 
 class root extends Component {
@@ -85,6 +87,7 @@ class root extends Component {
             <PrivateRoute exact path="/edit-profile" component={EditProfile} />
 
             <PrivateRoute exact path="/activity" component={Activity} />
+            <PrivateRoute exact path="/activity/create" component={create} />
 
             <PrivateRoute exact path="/botQuestion" component={index} />
 

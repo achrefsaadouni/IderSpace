@@ -1,10 +1,10 @@
 import React, {Component, setState} from "react";
 
-export default class RecommandedUser extends Component {
-constructor(){
-    super()
+export default class recUser extends Component {
+    constructor(){
+        super()
 
-}
+    }
 
     render() {
         const user = this.props.user;

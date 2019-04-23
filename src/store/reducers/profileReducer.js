@@ -3,7 +3,7 @@ import {
   GET_PROFILES,
   LOADING,
   CLEAR_CURRENT_PROFILE,
-  SET_RESUME
+  SET_RESUME,SET_LINKEDIN,UPDATE_PHOTO
 } from "../actions/types";
 
 const initialState = {
@@ -12,7 +12,8 @@ const initialState = {
   loading: false,
   hobbies: null,
   about: null,
-  languages: null
+  languages: null,
+  url:null
 
 };
 
@@ -40,12 +41,23 @@ export default function(state = initialState, action) {
         ...state,
         profile: null
       };
+    case UPDATE_PHOTO:
+      return {
+        ...state,
+        profile: action.payload
+      }
     case SET_RESUME:
       return {
         ...state,
         hobbies: action.payload,
         about: action.payload,
         languages: action.payload,
+        loading: false
+      };
+    case SET_LINKEDIN:
+      return {
+        ...state,
+        url: action.payload,
         loading: false
       };
     default:

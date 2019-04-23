@@ -1,434 +1,257 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { getCurrentProfile } from "../../store/actions/profileActions";
+import React, {Component} from "react";
+import {Link} from "react-router-dom";
+import {getCurrentProfile , addResume , setLinkedIn} from "../../store/actions/profileActions";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import {connect} from "react-redux";
 import Spinner from "../common/Spinner";
+import ListSkills from "../recommandation/listSkills";
+import Profile from "./profile";
+import {Line, Circle} from 'rc-progress';
+import Modal from 'react-responsive-modal';
+import SetLanguage from './setLanguage';
+import SetHobbies from './setHobbies';
+import SetInformation from './setInformation';
+import Finish from './finishing';
+
+
+async function verifyExistanceBool(tab, val) {
+    return new Promise((resolve) => {
+        var etat = false;
+        for (const element of tab) {
+            if (element === val) {
+                etat = true
+            }
+        }
+        return resolve(etat);
+    });
+}
 
 class Index extends Component {
-  componentDidMount() {
-    this.props.getCurrentProfile();
-  }
-
-  render() {
-    const { profile, loading } = this.props.profile;
-
-    if (profile === null || loading) {
-      return <Spinner />;
-    }
-    let skills;
-    let languages;
-    let hobbies;
-    let experiences;
-    let about;
-
-    try {
-      about = profile.Resume.about;
-    } catch (err) {
-      about = "no data";
+    constructor(props) {
+        super(props);
+        this.state = {
+            pourcentage: 0,
+            open: false,
+            idHobbie:[],
+            language:[],
+            hobbie:'',
+            about:'',
+            urlLinkedIn:'',
+            urlFacebook:'',
+            firstlogin:this.props.profile.firstlogin,
+            responseService:''
+        };
+        this.onClick = this.onClick.bind(this);
     }
 
-    try {
-      skills = profile.Resume.Skills.map(item => item.name + ", ");
-    } catch (err) {
-      skills = "no skills";
+    componentDidMount() {
+        this.props.getCurrentProfile();
     }
 
-    try {
-      languages = profile.Resume.languages.map(item => item + ", ");
-    } catch (err) {
-      languages = "no languages";
+    onOpenModal = () => {
+        this.setState({open: true});
+    };
+
+    onCloseModal = () => {
+        this.setState({open: false});
+    };
+
+    onChange = e => {
+
+    };
+    onClick = e => {
+        this.setState({pourcentage: e});
+
+    };
+    onAddIdToList = e => {
+        this.setState({idHobbie:[...this.state.idHobbie,e]})
+    };
+    onAddIdToListLanguage = async e => {
+        var etat = await verifyExistanceBool(this.state.language, e);
+        if (etat === false){
+        this.setState({language: [...this.state.language, e]})}
+        else{
+            const newListLanguage = this.state.language.filter(langue => langue !== e);
+            this.setState({language: newListLanguage})
+
+        }
+
+    };
+    OnAddAbout = e => {
+        this.setState({about: e})
+    };
+    OnAddLinkedIn = e => {
+        this.setState({urlLinkedIn : e})
+    };
+    OnAddFacebook = e => {
+        this.setState({urlFacebook : e})
+    };
+    onClickFinish = e => {
+        var {profile} = this.props.profile;
+        console.log('clicked finish');
+        this.props.addResume(this.state.idHobbie,this.state.about ,this.state.language);
+        this.setState({firstlogin : true});
+        
+        setTimeout(()=> {this.props.setLinkedIn(this.state.urlLinkedIn)},300);
+        if(this.state.firstlogin === true || profile.firstLogin === true){
+            this.props.getCurrentProfile();
+            console.log('dkhalt wlh')
+        }
+
     }
 
-    try {
-      hobbies = profile.Resume.hobbies.map(item => item + ", ");
-    } catch (err) {
-      hobbies = "no hobbies";
-    }
 
-    try {
-      experiences = profile.Resume.experiences.map(item => (
-        <React.Fragment>
-          {item.name} <br />
-          {item.description} <br />
-          {item.start_date} <br />
-          {item.end_date} <br />
-          {item.end_date}
-        </React.Fragment>
-      ));
-    } catch (err) {
-      experiences = "no experiences";
-    }
+    render() {
 
-    return (
-      <React.Fragment>
-        <div className="header-spacer" />
-        <div className="container">
-          <div className="row">
-            <div className="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-              <div className="ui-block">
-                <div className="top-header">
-                  <div className="top-header-thumb">
-                    <img src="/img/top-header1.jpg" alt="nature" />
-                  </div>
-                  <div className="profile-section">
-                    <div className="row">
-                      <div className="col col-lg-5 col-md-5 col-sm-12 col-12">
-                        <ul className="profile-menu">
-                          <li>
-                            <Link to="02-ProfilePage.html" className="active">
-                              Timeline
-                            </Link>
-                          </li>
-                          <li>
-                            <Link to="05-ProfilePage-About.html">About</Link>
-                          </li>
-                          <li>
-                            <Link to="06-ProfilePage.html">Friends</Link>
-                          </li>
-                        </ul>
-                      </div>
-                      <div className="col col-lg-5 ml-auto col-md-5 col-sm-12 col-12">
-                        <ul className="profile-menu">
-                          <li>
-                            <Link to="07-ProfilePage-Photos.html">Photos</Link>
-                          </li>
-                          <li>
-                            <Link to="09-ProfilePage-Videos.html">Videos</Link>
-                          </li>
-                          <li>
-                            <div className="more">
-                              <svg className="olymp-three-dots-icon">
-                                <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
-                              </svg>
-                              <ul className="more-dropdown more-with-triangle">
-                                <li>
-                                  <Link to="/">Report Profile</Link>
-                                </li>
-                                <li>
-                                  <Link to="/">Block Profile</Link>
-                                </li>
-                              </ul>
+        if(this.props.profile.url === null && this.state.firstlogin === true){
+            return <Spinner/>;
+
+        }
+
+        const {profile, loading} = this.props.profile;
+        const {url} = this.props;
+        const {hobbie} = this.state;
+        console.log(this.props.profile);
+
+
+        if (profile === null || loading) {
+            return <Spinner/>;
+        }
+
+        console.log('-'+profile.firstLogin);
+        let skills;
+        let languages;
+        let hobbies;
+        let experiences;
+        let about;
+
+        try {
+            about = profile.Resume.about;
+        } catch (err) {
+            about = "no data";
+        }
+
+        try {
+            skills = profile.Resume.Skills.map(item => item.name + ", ");
+        } catch (err) {
+            skills = "no skills";
+        }
+
+        try {
+            languages = profile.Resume.languages.map(item => item + ", ");
+        } catch (err) {
+            languages = "no languages";
+        }
+
+        try {
+            hobbies = profile.Resume.hobbies.map(item => item + ", ");
+        } catch (err) {
+            hobbies = "no hobbies";
+        }
+
+        try {
+            experiences = profile.Resume.experiences.map(item => (
+                <React.Fragment>
+                    {item.name} <br/>
+                    {item.description} <br/>
+                    {item.start_date} <br/>
+                    {item.end_date} <br/>
+                    {item.end_date}
+                </React.Fragment>
+            ));
+        } catch (err) {
+            experiences = "no experiences";
+        }
+        let Interface = [];
+        if (this.state.pourcentage === 0) {
+            Interface = <SetLanguage key={this.state.pourcentage} pourcentage={this.state.pourcentage}
+                   listLanguages={this.state.language}               addToListLangue={this.onAddIdToListLanguage.bind(this)}   onClick={this.onClick.bind(this)} onChange={this.onChange.bind(this)}/>
+        } else if (this.state.pourcentage === 35) {
+            Interface =
+                <SetHobbies onClick={this.onClick.bind(this)} addIdToList={this.onAddIdToList.bind(this)} getIdHobbies={this.state.idHobbie}/>
+        }else if (this.state.pourcentage === 60){
+            console.log('dkhal lel 60');
+           Interface = <SetInformation  onClick={this.onClick.bind(this)} onaddFb={this.OnAddFacebook.bind(this)} onaddAbout={this.OnAddAbout.bind(this)} linkedIn={this.state.urlLinkedIn} fb={this.state.urlFacebook} about={this.state.about} onaddLinkedIn={this.OnAddLinkedIn.bind(this)}/>
+        }else{
+            Interface = <Finish onClick={this.onClickFinish.bind(this)}/>
+        }
+
+
+        if (this.state.firstlogin === true || profile.firstLogin === true) {
+
+            return (
+                <React.Fragment>
+                    <div className="header-spacer"/>
+                    <Profile key={profile.id} profile={profile} about={about} skills={skills} hobbies={hobbies}/>
+                </React.Fragment>
+            );
+        } else {
+            return (
+                <React.Fragment>
+                    <div className="main-header">
+                        <div className="content-bg-wrap bg-badges"/>
+                        <div className="container">
+                            <div className="row">
+                                <div className="col col-lg-8 m-auto col-md-8 col-sm-12 col-12">
+                                    <div className="main-header-content">
+                                        <h1>Welcome to IderSpace!</h1>
+                                        <p><br/><br/></p>
+                                    </div>
+                                </div>
                             </div>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-
-                    <div className="control-block-button">
-                      <Link
-                        to="35-YourAccount-FriendsRequests.html"
-                        className="btn btn-control bg-blue"
-                      >
-                        <svg className="olymp-happy-face-icon">
-                          <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-happy-face-icon" />
-                        </svg>
-                      </Link>
-
-                      <Link to="/" className="btn btn-control bg-purple">
-                        <svg className="olymp-chat---messages-icon">
-                          <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-chat---messages-icon" />
-                        </svg>
-                      </Link>
-
-                      <div className="btn btn-control bg-primary more">
-                        <svg className="olymp-settings-icon">
-                          <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-settings-icon" />
-                        </svg>
-
-                        <ul className="more-dropdown more-with-triangle triangle-bottom-right">
-                          <li>
-                            <Link
-                              to="/"
-                              data-toggle="modal"
-                              data-target="#update-header-photo"
-                            >
-                              Update Profile Photo
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              to="/"
-                              data-toggle="modal"
-                              data-target="#update-header-photo"
-                            >
-                              Update Header Photo
-                            </Link>
-                          </li>
-                          <li>
-                            <Link to="29-YourAccount-AccountSettings.html">
-                              Account Settings
-                            </Link>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="top-header-author">
-                    <Link to="02-ProfilePage.html" className="author-thumb">
-                      <img src="/img/author-main1.jpg" alt="author" />
-                    </Link>
-                    <div className="author-content">
-                      <Link to="02-ProfilePage.html" className="h5 author-name">
-                        {profile.firstname} {profile.lastname}
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="container">
-          <div className="row">
-            <div className="col col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-12">
-              <div id="newsfeed-items-grid">
-                <div className="ui-block">
-                  <article className="hentry post">
-                    <div className="post__author author vcard inline-items">
-                      <img src="/img/author-page.jpg" alt="author" />
-
-                      <div className="author-date">
-                        <Link
-                          className="h6 post__author-name fn"
-                          to="02-ProfilePage.html"
-                        >
-                          {profile.firstname} {profile.lastname}
-                        </Link>
-                        <div className="post__date">
-                          <time
-                            className="published"
-                            dateTime="2017-03-24T18:18"
-                          >
-                            19 hours ago
-                          </time>
                         </div>
-                      </div>
 
-                      <div className="more">
-                        <svg className="olymp-three-dots-icon">
-                          <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-three-dots-icon" />
-                        </svg>
-                        <ul className="more-dropdown">
-                          <li>
-                            <Link to="/">Edit Post</Link>
-                          </li>
-                          <li>
-                            <Link to="/">Delete Post</Link>
-                          </li>
-                          <li>
-                            <Link to="/">Turn Off Notifications</Link>
-                          </li>
-                          <li>
-                            <Link to="/">Select as Featured</Link>
-                          </li>
-                        </ul>
-                      </div>
+                        <img className="img-bottom" src="img/badges-bottom.png" alt="friends"/>
+                    </div>
+                    <div className="container mb60">
+                        <div className="row">
+                            <div className="col col-xl-8 m-auto col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div className="ui-block">
+                                    <article className="hentry blog-post single-post single-post-v1">
+                                        <center><h1 className="post-title">Get Started With Iderspace!</h1></center>
+                                        <Line percent={this.state.pourcentage} strokeWidth="4" strokeColor="#00BFFF"/>
+                                        <nav aria-label="Page navigation">
+                                            {Interface}
+
+                                        </nav>
+                                    </article>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <p>
-                      Duis aute irure dolor in reprehenderit in voluptate velit
-                      esse cillum dolore eu fugiat nulla pariatur. Excepteur
-                      sint occaecat cupidatat non proident, sunt in culpa qui
-                      officia deserunt mollit anim id est laborum. Sed ut
-                      perspiciatis unde omnis iste natus error sit voluptatem
-                      accusantium doloremque.
-                    </p>
 
-                    <div className="post-additional-info inline-items">
-                      <Link to="/" className="post-add-icon inline-items">
-                        <svg className="olymp-heart-icon">
-                          <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-heart-icon" />
-                        </svg>
-                        <span>8</span>
-                      </Link>
+                    <Modal open={this.state.open} onClose={this.onCloseModal} center>
+                        <div className="modal-content">
+                            <a href="#" className="close icon-close" data-dismiss="modal" aria-label="Close">
+                                <svg className="olymp-close-icon">
+                                    <use href="#olymp-close-icon"/>
+                                </svg>
+                            </a>
 
-                      <ul className="friends-harmonic">
-                        <li>
-                          <Link to="/">
-                            <img src="/img/friend-harmonic7.jpg" alt="friend" />
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to="/">
-                            <img src="/img/friend-harmonic8.jpg" alt="friend" />
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to="/">
-                            <img src="/img/friend-harmonic9.jpg" alt="friend" />
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to="/">
-                            <img
-                              src="/img/friend-harmonic10.jpg"
-                              alt="friend"
-                            />
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to="/">
-                            <img
-                              src="/img/friend-harmonic11.jpg"
-                              alt="friend"
-                            />
-                          </Link>
-                        </li>
-                      </ul>
 
-                      <div className="names-people-likes">
-                        <Link to="/">Jenny</Link>, <Link to="/">Robert</Link>{" "}
-                        and
-                        <br />6 more liked this
-                      </div>
-
-                      <div className="comments-shared">
-                        <Link to="/" className="post-add-icon inline-items">
-                          <svg className="olymp-speech-balloon-icon">
-                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-speech-balloon-icon" />
-                          </svg>
-                          <span>17</span>
-                        </Link>
-
-                        <Link to="/" className="post-add-icon inline-items">
-                          <svg className="olymp-share-icon">
-                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-share-icon" />
-                          </svg>
-                          <span>24</span>
-                        </Link>
-                      </div>
-                    </div>
-
-                    <div className="control-block-button post-control-button">
-                      <Link to="/" className="btn btn-control featured-post">
-                        <svg className="olymp-trophy-icon">
-                          <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-trophy-icon" />
-                        </svg>
-                      </Link>
-
-                      <Link to="/" className="btn btn-control">
-                        <svg className="olymp-like-post-icon">
-                          <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-like-post-icon" />
-                        </svg>
-                      </Link>
-
-                      <Link to="/" className="btn btn-control">
-                        <svg className="olymp-comments-post-icon">
-                          <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-comments-post-icon" />
-                        </svg>
-                      </Link>
-
-                      <Link to="/" className="btn btn-control">
-                        <svg className="olymp-share-icon">
-                          <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-share-icon" />
-                        </svg>
-                      </Link>
-                    </div>
-                  </article>
-                </div>
-              </div>
-            </div>
-            <div className="col col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-12 col-12">
-              <div className="ui-block">
-                <div className="ui-block-title">
-                  <h6 className="title">Profile Intro</h6>
-                </div>
-                <div className="ui-block-content">
-                  <ul className="widget w-personal-info item-block">
-                    <li>
-                      <span className="title">About Me:</span>
-                      <span className="text">{about}</span>
-                    </li>
-                    <li>
-                      <span className="title">Skills:</span>
-                      <span className="text">{skills}</span>
-                    </li>
-                    <li>
-                      <span className="title">Hobbies:</span>
-                      <span className="text">{hobbies}</span>
-                    </li>
-                  </ul>
-
-                  {/* show social links if exist */}
-                  {profile.linkedin || profile.github ? (
-                    <div className="widget w-socials">
-                      <h6 className="title">Other Social Networks:</h6>
-
-                      {profile.linkedin ? (
-                        <Link
-                          to={profile.linkedin}
-                          className="social-item"
-                          style={{ backgroundColor: "#006097" }}
-                        >
-                          <i className="fab fa-linkedin" aria-hidden="true" />
-                          linkedin
-                        </Link>
-                      ) : (
-                        ""
-                      )}
-
-                      {profile.github ? (
-                        <Link
-                          to={profile.github}
-                          className="social-item"
-                          style={{ backgroundColor: "#24292e" }}
-                        >
-                          <i className="fab fa-github" aria-hidden="true" />
-                          github
-                        </Link>
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                  ) : (
-                    ""
-                  )}
-                </div>
-              </div>
-            </div>
-            <div className="col col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-12 col-12">
-              <div className="ui-block">
-                <div className="ui-block-title">
-                  <h6 className="title">Friends</h6>
-                </div>
-                <div className="ui-block-content">
-                  <ul className="widget w-faved-page js-zoom-gallery">
-                    <li>
-                      <Link to="/">
-                        <img src="/img/avatar26-sm.jpg" alt="user" />
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/">
-                        <img src="/img/avatar25-sm.jpg" alt="user" />
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </React.Fragment>
-    );
-  }
+                        </div>
+                    </Modal>
+                </React.Fragment>
+            );
+        }
+    }
 }
 
 Index.propTypes = {
-  profile: PropTypes.object.isRequired,
-  getCurrentProfile: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+    profile: PropTypes.object.isRequired,
+    getCurrentProfile: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => {
-  return {
-    auth: state.auth,
-    profile: state.profile
-  };
+    return {
+        auth: state.auth,
+        profile: state.profile
+    };
 };
 
 export default connect(
-  mapStateToProps,
-  { getCurrentProfile }
+    mapStateToProps,
+    {getCurrentProfile , addResume , setLinkedIn}
 )(Index);

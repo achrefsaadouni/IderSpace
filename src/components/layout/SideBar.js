@@ -65,15 +65,15 @@ class SideBar extends Component {
                     </svg>
                   </Link>
                 </li>
-                <li>
-                  <Link to="/">
+                 <li>
+                  <Link to="/activity">
                     <svg
-                      className="olymp-headphones-icon left-menu-icon"
+                      className="olymp-star-icon left-menu-icon"
                       data-toggle="tooltip"
                       data-placement="right"
-                      data-original-title="MUSIC&PLAYLISTS"
+                      data-original-title="YOUR ACTIVITIES"
                     >
-                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-headphones-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-star-icon" />
                     </svg>
                   </Link>
                 </li>
@@ -205,6 +205,7 @@ class SideBar extends Component {
                     <span className="left-menu-title">Q/A Forum</span>
                   </Link>
                 </li>
+                  {/* CREATED ACTIVITIES */}
                 <li>
                   <Link to="/botQuestion">
                     <svg

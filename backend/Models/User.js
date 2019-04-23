@@ -14,7 +14,11 @@ const userSchema = mongoose.Schema({
   class: { type: String },
   type: { type: String },
   Resume: Resume,
-  nbrBestAnswer: { type: Number, default: 0 }
+  nbrBestAnswer: { type: Number, default: 0 },
+  firstLogin: {type: Boolean , default: false},
+  profileImage:{type:String , default:'https://res.cloudinary.com/pi-dev/image/upload/v1555884886/bjce0bnez3w7oqbykqre.png'},
+  oldPhoto: [{type:String}],
+  coverPhoto: {type:String}
 });
 
 userSchema.plugin(uniqueValidator);
