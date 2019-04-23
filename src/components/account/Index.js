@@ -91,6 +91,7 @@ class Index extends Component {
         console.log('clicked finish');
         this.props.addResume(this.state.idHobbie,this.state.about ,this.state.language);
         this.setState({firstlogin : true});
+        
         setTimeout(()=> {this.props.setLinkedIn(this.state.urlLinkedIn)},300);
         if(this.state.firstlogin === true || profile.firstLogin === true){
             this.props.getCurrentProfile();

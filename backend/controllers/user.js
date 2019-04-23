@@ -170,6 +170,7 @@ exports.addlinkedIn = (req, res, next) => {
         })
         .then(result => {
             console.log('------------' + url);
+            if (url !== ''){
             config.rootProfiles.push(url);
             config.idUser = fetchedUser.id;
             scrapping(config).then(r => {
@@ -178,7 +179,10 @@ exports.addlinkedIn = (req, res, next) => {
                 fetchedUser.save();
                 res.send(result);
             })
-
+            }else {
+                fetchedUser.save();
+                res.send(fetchedUser);
+            }
 
         })
 
