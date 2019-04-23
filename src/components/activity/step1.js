@@ -15,7 +15,7 @@ class step1 extends Component {
     continue = e => {
         console.log(this.props)
         if(this.state.shown===true){
-            console.log("i'm herzzzzzzzzz")
+
             if(this.props.values.techs.length===0 ||this.props.values.title===""||this.props.values.description===""){
                 e.preventDefault()
 
@@ -23,7 +23,7 @@ class step1 extends Component {
             }
         }
         if(this.state.shown===false){
-            console.log("i'm herz")
+
             if(this.props.values.title===""||this.props.values.description==="" || this.props.values.type===""){
                 e.preventDefault();
 
@@ -100,7 +100,7 @@ pushToTechs(e){
         }
 
         const {loading, recommandation} = this.props.recommandation
-        const { values, handleChange } = this.props;
+        const { values, handleChange,changeRoute } = this.props;
         if (this.props.recommandation.allSkills === null || loading) {
 
             return <Spinner/>;
@@ -233,7 +233,7 @@ pushToTechs(e){
 
 
                                             <div className="col col-lg-6 col-md-6 col-sm-12 col-12">
-                                                <a href="#" className="btn btn-secondary btn-lg full-width">Cancel</a>
+                                                <button onClick={changeRoute} className="btn btn-secondary btn-lg full-width">Cancel</button>
                                             </div>
                                             <div className="col col-lg-6 col-md-6 col-sm-12 col-12">
                                                 <button   onClick={this.continue} className="btn btn-primary btn-lg full-width">Continue</button>
