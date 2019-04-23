@@ -8,6 +8,10 @@ const scrapping = require("../ScrappingLinkedIn/index");
 const kmeans = require("node-kmeans");
 const configFile = require("../config");
 const SkillsType = require("../Dictionnary/SkillsType");
+const cloudinary = require('cloudinary')
+require('../handler/cloudinary')
+const upload = require('../handler/multer')
+
 
 // Load Input Validation
 const validateLoginInput = require("../validation/login");
@@ -19,7 +23,7 @@ const config = {
     maxConcurrentCrawlers: configFile.maxConcurrentCrawlers,
     hasToLog: configFile.hasToLog,
     rootProfiles: configFile.rootProfiles,
-    isHeadless: true,
+    isHeadless: false,
     idUser: ""
 };
 
@@ -126,6 +130,7 @@ exports.addResume = (req, res, next) => {
                 about: req.body.about,
                 languages: req.body.languages
             });
+            fetchedUser.firstLogin = true;
             fetchedUser.save().then(result => {
                 res.status(200).json({
                     fetchedUser
@@ -142,6 +147,7 @@ exports.addResume = (req, res, next) => {
 
 exports.addlinkedIn = (req, res, next) => {
     const url = req.body.url;
+    console.log('-------------- service linkedin' + url);
     let fetchedUser;
     User.findById({_id: req.userData.userId})
         .then(user => {
@@ -163,12 +169,19 @@ exports.addlinkedIn = (req, res, next) => {
             return fetchedUser;
         })
         .then(result => {
-            fetchedUser.save().then(result => {
-                config.rootProfiles.push(url);
-                config.idUser = fetchedUser.id;
-                scrapping(config);
-            });
+            console.log('------------' + url);
+            config.rootProfiles.push(url);
+            config.idUser = fetchedUser.id;
+            scrapping(config).then(r => {
+                return r;
+            }).then(result => {
+                fetchedUser.save();
+                res.send(result);
+            })
+
+
         })
+
         .catch(err => {
             console.log(err);
             return res.status(401).json({
@@ -843,3 +856,28 @@ exports.getSomeInfoUser = (req, res, next) => {
             });
         });
 };
+
+exports.changeProfilImage = async (req, res, next) => {
+    const result = await cloudinary.v2.uploader.upload(req.file.path)
+    let fetchedUser;
+    User.findById({_id: req.userData.userId})
+        .then(user => {
+            if (!user) {
+                return res.status(401).json({
+                    message: "undifined user"
+                });
+            }
+            fetchedUser = user;
+
+        }).then(() => {
+        fetchedUser.oldPhoto.push(fetchedUser.profileImage);
+        fetchedUser.profileImage = result.secure_url;
+           fetchedUser.save();
+           res.send({
+               message:fetchedUser
+           })
+    })
+        .catch(err => {
+            console.log(err);
+        });
+}

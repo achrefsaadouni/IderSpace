@@ -23,7 +23,7 @@ module.exports = async (config,profileScraper, profileUrl, injection) => {
     await saveProfile(fullProfile)
 
     const related = await extractRelatedProfiles(profile, profileId)
-    return related
+    return [related,fullProfile]
   } catch (e) {
     logger.error(`error on crawling profile: ${profileUrl} \n ${e}`)
   }

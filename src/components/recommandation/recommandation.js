@@ -57,7 +57,8 @@ class Recommandation extends Component {
     }
 
     render() {
-        const {loading, recommandation} = this.props.recommandation
+        const {allSkills} = this.state;
+        const {loading, recommandation } = this.props.recommandation
 
         if (this.props.recommandation.allSkills === null || loading) {
             return <Spinner/>;

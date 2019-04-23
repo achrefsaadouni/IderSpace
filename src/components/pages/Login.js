@@ -50,7 +50,7 @@ class Login extends Component {
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
   render() {
-    const { from } = this.props.location.state || { from: { pathname: "/" } };
+    const { from } = this.props.location.state || { from: { pathname: "/profile" } };
     const { auth } = this.props;
 
     if (auth.isAuthenticated === true) {
