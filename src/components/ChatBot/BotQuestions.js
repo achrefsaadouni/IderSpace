@@ -1,31 +1,99 @@
 import React, { Component } from "react";
 import {connect} from "react-redux";
-import {getQuestions} from "../../store/actions/chatBotActions"
+import {deleteQuestion, getQuestions} from "../../store/actions/chatBotActions"
 import Spinner from "../common/Spinner";
 import Question from "./Question"
-
+import Modal from "./modal";
+const Swal = require('sweetalert2');
 class index extends Component {
     constructor(props){
         super(props);
-        this.handler = this.handler.bind(this)
+        this.state = {
+            questions : this.props.questionBots.questionBots,
+            etat : false,
+            question : null
+        };
     }
-    handler() {
-       this.render();
-    }
+
     componentDidMount() {
         this.props.getQuestions()
+
+
+    }
+    onDeleteParent = e => {
+        if (!this.state.etat)
+        {
+            this.setState ({
+                questions : this.props.questionBots.questionBots,
+                etat : true,
+            });
+        }
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You will not be able to recover this Data !',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, keep it'
+        }).then((result) => {
+            if (result.value) {
+                deleteQuestion(e);
+                Swal.fire({
+                    type: 'success',
+                    title: 'The Question has been deleted',
+                    showConfirmButton: false,
+                    timer: 1000,
+                }).then(() => {
+                    var newQuestion = this.state.questions.filter(
+                        e1 => e1._id!=e._id)
+                    this.setState ({
+                        questions : newQuestion,
+                        etat : true
+                    })
+                })
+
+
+
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                Swal.fire(
+                    'Cancelled',
+                    'Your Data  is safe :)',
+                    'error'
+                )
+            }
+        })
+
+    };
+
+
+    OnModalParent = e =>
+    {
+        this.setState(
+            {
+                question : e
+            }
+        )
     }
 
     render() {
 
-                const {loading,questionBots} =this.props.questionBots
+                const {loading,questionBots} =this.props.questionBots;
 
-                    if(loading){
+                    if(loading  || questionBots === null){
                         return <Spinner/>
                     }
-        const item = questionBots.map(e =>
-            <Question key = {e._id} question =  {e} handler = {this.handler} />
-        );
+        var item = null;
+        if (!this.state.etat) {
+             this.item = questionBots.map(e =>
+                <Question ondelete={this.onDeleteParent.bind(this)} key={e._id} question={e} onModal = {this.OnModalParent.bind(this)}/>
+            );
+
+        }else{
+             this.item = this.state.questions.map(e =>
+                <Question ondelete={this.onDeleteParent.bind(this)} key={e._id} question={e} onModal = {this.OnModalParent.bind(this)}/>
+            );
+        }
 
         return (
                     <React.Fragment>
@@ -59,7 +127,7 @@ class index extends Component {
 
 
 
-                                            { item }
+                                            { this.item }
 
 
                                         </ul>
@@ -68,109 +136,7 @@ class index extends Component {
                                 </div>
                             </div>
                         </section>
-                        <div className="modal fade show" id="edit-my-poll-popup" tabIndex="-1" role="dialog"
-                             aria-labelledby="edit-my-poll-popup" >
-                            <div className="modal-dialog window-popup edit-my-poll-popup" role="document">
-                                <div className="modal-content">
-                                    <a href="#" className="close icon-close" data-dismiss="modal" aria-label="Close">
-                                        <svg className="olymp-close-icon">
-                                            <use xlinkHref="#olymp-close-icon"/>
-                                        </svg>
-                                    </a>
-                                    <div className="modal-body">
-                                        <div className="control-block-button post-control-button">
-
-
-                                        </div>
-
-                                        <div className="edit-my-poll-head bg-primary">
-                                            <div className="head-content">
-                                                <h2 className="title">Senior Developer</h2>
-                                                <div className="place inline-items">
-                                                    <span>SAN FRANCISCO, CA</span>
-                                                    <span>FULL TIME</span>
-                                                </div>
-                                            </div>
-
-                                            <img className="poll-img" src="img/poll.png" alt="screen"></img>
-                                        </div>
-
-                                        <div className="edit-my-poll-content">
-                                            <h3>Job Description</h3>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                                incididunt ut labore et
-                                                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                                                laboris nisi ut aliquip
-                                                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                                                velit esse cillum dolore eu
-                                                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                                                culpa qui officia deserunt
-                                                mollit anim id est laborum.
-                                            </p>
-                                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-                                                doloremque laudantium, totam
-                                                rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto
-                                                beatae vitae dicta sunt
-                                                explicabo.
-                                            </p>
-
-                                            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                                                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident:</p>
-
-
-                                            <h3>Benefits</h3>
-                                            <ul className="list--styled small-icon">
-                                                <li>
-                                                    <svg className="svg-inline--fa fa-check fa-w-16" aria-hidden="true"
-                                                         data-prefix="fa" data-icon="check" role="img"
-                                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
-                                                         data-fa-i2svg="">
-                                                        <path fill="currentColor"
-                                                              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
-                                                    </svg>
-                                                    Competitive basic salary.
-                                                </li>
-                                                <li>
-                                                    <svg className="svg-inline--fa fa-check fa-w-16" aria-hidden="true"
-                                                         data-prefix="fa" data-icon="check" role="img"
-                                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
-                                                         data-fa-i2svg="">
-                                                        <path fill="currentColor"
-                                                              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
-                                                    </svg>
-
-                                                    Generous dental and health plans.
-                                                </li>
-                                                <li>
-                                                    <svg className="svg-inline--fa fa-check fa-w-16" aria-hidden="true"
-                                                         data-prefix="fa" data-icon="check" role="img"
-                                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
-                                                         data-fa-i2svg="">
-                                                        <path fill="currentColor"
-                                                              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
-                                                    </svg>
-
-                                                    Accruing vacation and sick days.
-                                                </li>
-                                            </ul>
-
-                                            <form className="resume-form">
-                                                <h3>Submit Application</h3>
-                                                <div className="row">
-
-
-                                                    <div className="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
-
-                                                        <a href="#" className="btn btn-primary btn-lg full-width">Submit
-                                                            Application</a>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <Modal question = {this.state.question} />
                     </React.Fragment>
                 );
 

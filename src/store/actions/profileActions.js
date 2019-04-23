@@ -7,7 +7,7 @@ import {
     CLEAR_CURRENT_PROFILE,
     GET_ERRORS, SET_RESUME, SET_LINKEDIN,UPDATE_PHOTO
 } from "./types";
-import {setRecommandationLoading} from "./recommandationAction";
+
 
 // Get current profile
 export const getCurrentProfile = () => dispatch => {
