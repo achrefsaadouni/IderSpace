@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import Spinner from "../common/Spinner";
 import {loginUser} from "../../store/actions/authActions";
 import PropTypes from "prop-types";
-import RecommandedUser from "../recommandation/recommandedUser";
+import RecUser from "./recUser";
 import StyleLinks from "./StyleLinks";
 import {AutoComplete} from "primereact/autocomplete";
 import ProgressBar from "react-bootstrap/ProgressBar";
@@ -55,10 +55,10 @@ class step2 extends Component {
         var MayBeRecommandedInterface;
         if (!loading && recommandation!=null) {
             BestUser = this.props.recommandation.recommandation.Recommended.map(user => (
-                <RecommandedUser disabledButton={disabledButton} goStep={goStep} handleChange={handleChange} key={user._id} user={user}/>
+                <RecUser disabledButton={disabledButton} goStep={goStep} handleChange={handleChange} key={user._id} user={user}/>
             ));
             MayBeRecommandedUser = this.props.recommandation.recommandation.MayBeRecommended.map(user => (
-                <RecommandedUser disabledButton={disabledButton}  handleChange={handleChange} key={user._id} user={user}/>
+                <RecUser disabledButton={disabledButton}  handleChange={handleChange} key={user._id} user={user}/>
             ));
         }
         if (this.props.recommandation.recommandation.Recommended!==null) {

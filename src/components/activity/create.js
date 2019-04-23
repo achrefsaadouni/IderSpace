@@ -170,6 +170,7 @@ export default class create extends Component {
                         nextStep={this.nextStep}
                         handleChange={this.handleChange}
                         values={values}
+                        changeRoute={this.changeRouteToList}
                     />
                 );
             case 2:
