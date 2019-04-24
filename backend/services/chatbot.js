@@ -9,6 +9,7 @@ exports.addBotQuestion = addBotQuestion;
 exports.GetAllBotQuestion = GetAllBotQuestion;
 exports.addActivity = addActivity;
 exports.AddModule = AddModule;
+exports.deleteBotQuestion = deleteBotQuestion;
 function createTextResponse(textResponse){
     let response = {
         "fulfillmentText": "This is a text response",
@@ -113,6 +114,20 @@ async function addBotQuestion(content) {
         });
     return v ;
 }
+
+async function deleteBotQuestion(question) {
+    BotQuestion.deleteOne({ _id: question._id })
+        .then(result => {
+            return true;
+        })
+        .catch(error => {
+        return false;
+        });
+}
+
+
+
+
 
 function GetAllBotQuestion() {
     return new Promise (resolve =>{
