@@ -1,7 +1,7 @@
 import {ask} from '../../store/actions/chatBotActions';
 import React, {Component} from 'react'
 import {Launcher} from 'react-chat-window'
-
+import './chatBot.css';
 class ChatBot extends Component {
 
     constructor() {
@@ -23,16 +23,17 @@ class ChatBot extends Component {
             messageList: [...this.state.messageList, {
                 author: 'them',
                 type: 'text',
-                data: { text }
+                data: { text },
+
             }]
         })
     }
 
 
     async  _onMessageWasSent(message) {
-
         this.setState({
-            messageList: [...this.state.messageList, message]
+            messageList: [...this.state.messageList, message],
+
         });
         var Question = {
             "question" : message.data.text
@@ -54,7 +55,7 @@ class ChatBot extends Component {
                 }}
                 onMessageWasSent={this._onMessageWasSent.bind(this)}
                 messageList={this.state.messageList}
-                showEmoji
+                showEmoji = {false}
             />
         </div>
         )

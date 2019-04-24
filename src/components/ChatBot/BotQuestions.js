@@ -17,8 +17,6 @@ class index extends Component {
 
     componentDidMount() {
         this.props.getQuestions()
-
-
     }
     onDeleteParent = e => {
         if (!this.state.etat)
@@ -136,7 +134,8 @@ class index extends Component {
                                 </div>
                             </div>
                         </section>
-                        <Modal question = {this.state.question} />
+                        {this.state.question != null ? ( <Modal  key={this.state.question._id} question = {this.state.question} />) : <span></span>}
+
                     </React.Fragment>
                 );
 
