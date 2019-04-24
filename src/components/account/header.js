@@ -1,0 +1,137 @@
+import React, {Component} from 'react';
+import {Link} from "react-router-dom";
+
+class Header extends Component {
+
+
+    makeInterface = e => {
+        this.props.setInterface('about');
+    }
+    render() {
+        return (
+            <div>
+                <div className="container">
+                    <div className="row">
+                        <div className="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div className="ui-block">
+                                <div className="top-header">
+                                    <div className="top-header-thumb">
+                                        <img src="/img/top-header1.jpg" alt="nature"/>
+                                    </div>
+                                    <div className="profile-section">
+                                        <div className="row">
+                                            <div className="col col-lg-5 col-md-5 col-sm-12 col-12">
+                                                <ul className="profile-menu">
+                                                    <li>
+                                                        <Link to="02-ProfilePage.html" className="active">
+                                                            Timeline
+                                                        </Link>
+                                                    </li>
+                                                    <li>
+                                                        <a onClick={this.makeInterface.bind(this)}>About</a>
+                                                    </li>
+                                                    <li>
+                                                        <Link to="06-ProfilePage.html">Friends</Link>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div className="col col-lg-5 ml-auto col-md-5 col-sm-12 col-12">
+                                                <ul className="profile-menu">
+                                                    <li>
+                                                        <Link to="07-ProfilePage-Photos.html">Photos</Link>
+                                                    </li>
+                                                    <li>
+                                                        <Link to="09-ProfilePage-Videos.html">Videos</Link>
+                                                    </li>
+                                                    <li>
+                                                        <div className="more">
+                                                            <svg className="olymp-three-dots-icon">
+                                                                <use
+                                                                    xlinkHref="/svg-icons/sprites/icons.svg#olymp-three-dots-icon"/>
+                                                            </svg>
+                                                            <ul className="more-dropdown more-with-triangle">
+                                                                <li>
+                                                                    <Link to="/">Report Profile</Link>
+                                                                </li>
+                                                                <li>
+                                                                    <Link to="/">Block Profile</Link>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div className="control-block-button">
+                                            <Link
+                                                to="35-YourAccount-FriendsRequests.html"
+                                                className="btn btn-control bg-blue"
+                                            >
+                                                <svg className="olymp-happy-face-icon">
+                                                    <use
+                                                        xlinkHref="/svg-icons/sprites/icons.svg#olymp-happy-face-icon"/>
+                                                </svg>
+                                            </Link>
+
+                                            <Link to="/" className="btn btn-control bg-purple">
+                                                <svg className="olymp-chat---messages-icon">
+                                                    <use
+                                                        xlinkHref="/svg-icons/sprites/icons.svg#olymp-chat---messages-icon"/>
+                                                </svg>
+                                            </Link>
+
+                                            <div className="btn btn-control bg-primary more">
+                                                <svg className="olymp-settings-icon">
+                                                    <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-settings-icon"/>
+                                                </svg>
+
+                                                <ul className="more-dropdown more-with-triangle triangle-bottom-right">
+                                                    <li>
+                                                        <a href=''
+                                                           data-toggle="modal"
+                                                           data-target="#update-header-photo"
+                                                        ><span>
+                                                            Update Profile Photo
+                                                        </span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <Link
+                                                            to="/"
+                                                            data-toggle="modal"
+                                                            data-target="#update-header-photo"
+                                                        >
+                                                            Update Header Photo
+                                                        </Link>
+                                                    </li>
+                                                    <li>
+                                                        <Link to="29-YourAccount-AccountSettings.html">
+                                                            Account Settings
+                                                        </Link>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="top-header-author">
+                                        <Link to="02-ProfilePage.html" className="author-thumb">
+                                            <img src={this.props.image} style={{width: '120px'}} alt="author"/>
+                                        </Link>
+                                        <div className="author-content">
+                                            <Link to="02-ProfilePage.html" className="h5 author-name">
+                                                {this.props.profile.firstname} {this.props.profile.lastname}
+                                            </Link>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}
+
+export default Header;

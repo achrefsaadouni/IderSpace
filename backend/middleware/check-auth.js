@@ -9,7 +9,8 @@ module.exports = (req, res, next) => {
             userId: decodedToken.userId,
             username: decodedToken.username,
             role: decodedToken.role,
-            type: decodedToken.type
+            type: decodedToken.type,
+            profileImage: decodedToken.profileImage
         };
         next();
     } catch (error) {

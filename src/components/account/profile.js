@@ -12,6 +12,7 @@ class Profile extends Component {
         super(props);
         this.state = {
             user : this.props.profile,
+            auth: this.props.auth
         };
         this.handleClick = this.handleClick.bind(this);
     }
@@ -21,17 +22,21 @@ class Profile extends Component {
     }
 
     handleChange(e) {
-        const {user} = this.state;
+        const {user , auth} = this.state;
         const data = new FormData();
         const file = e.target.files[0];
         data.append("image", file);
+
+
         axios({
             method: 'post',
             url: 'http://localhost:2500/api/user/changeProfilImage',
             data: data,
             config: { headers: { 'Content-Type': 'multipart/form-data' } }
         }).then(result => {
-            this.setState({
+            this.props.onchangePhotoProfile ( result.data.message.profileImage);
+            if (this.state.user.profileImage !== 'https://res.cloudinary.com/pi-dev/image/upload/v1555884886/bjce0bnez3w7oqbykqre.png'){
+                this.setState({
                 user: {
                     ...user,
                     oldPhoto:[...this.state.user.oldPhoto ,this.state.user.profileImage],
@@ -39,9 +44,28 @@ class Profile extends Component {
 
                 },
 
-            })
+
+            });}else{
+                this.setState({
+                    user: {
+                        ...user,
+                        oldPhoto:[...this.state.user.oldPhoto],
+                        profileImage: result.data.message.profileImage,
+
+                    },
+
+
+                })
+            }
+
         })
 
+        document.getElementById("update-header-photo").click();
+
+    }
+
+    triggerInput(e){
+        document.getElementById("imageUpload").click();
     }
 
 
@@ -60,125 +84,7 @@ class Profile extends Component {
         }
         return (
             <div>
-                <div className="container">
-                    <div className="row">
-                        <div className="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <div className="ui-block">
-                                <div className="top-header">
-                                    <div className="top-header-thumb">
-                                        <img src="/img/top-header1.jpg" alt="nature"/>
-                                    </div>
-                                    <div className="profile-section">
-                                        <div className="row">
-                                            <div className="col col-lg-5 col-md-5 col-sm-12 col-12">
-                                                <ul className="profile-menu">
-                                                    <li>
-                                                        <Link to="02-ProfilePage.html" className="active">
-                                                            Timeline
-                                                        </Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link to="05-ProfilePage-About.html">About</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link to="06-ProfilePage.html">Friends</Link>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div className="col col-lg-5 ml-auto col-md-5 col-sm-12 col-12">
-                                                <ul className="profile-menu">
-                                                    <li>
-                                                        <Link to="07-ProfilePage-Photos.html">Photos</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link to="09-ProfilePage-Videos.html">Videos</Link>
-                                                    </li>
-                                                    <li>
-                                                        <div className="more">
-                                                            <svg className="olymp-three-dots-icon">
-                                                                <use
-                                                                    xlinkHref="/svg-icons/sprites/icons.svg#olymp-three-dots-icon"/>
-                                                            </svg>
-                                                            <ul className="more-dropdown more-with-triangle">
-                                                                <li>
-                                                                    <Link to="/">Report Profile</Link>
-                                                                </li>
-                                                                <li>
-                                                                    <Link to="/">Block Profile</Link>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
 
-                                        <div className="control-block-button">
-                                            <Link
-                                                to="35-YourAccount-FriendsRequests.html"
-                                                className="btn btn-control bg-blue"
-                                            >
-                                                <svg className="olymp-happy-face-icon">
-                                                    <use
-                                                        xlinkHref="/svg-icons/sprites/icons.svg#olymp-happy-face-icon"/>
-                                                </svg>
-                                            </Link>
-
-                                            <Link to="/" className="btn btn-control bg-purple">
-                                                <svg className="olymp-chat---messages-icon">
-                                                    <use
-                                                        xlinkHref="/svg-icons/sprites/icons.svg#olymp-chat---messages-icon"/>
-                                                </svg>
-                                            </Link>
-
-                                            <div className="btn btn-control bg-primary more">
-                                                <svg className="olymp-settings-icon">
-                                                    <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-settings-icon"/>
-                                                </svg>
-
-                                                <ul className="more-dropdown more-with-triangle triangle-bottom-right">
-                                                    <li>
-                                                        <a href=''
-                                                           data-toggle="modal"
-                                                           data-target="#update-header-photo"
-                                                        ><span>
-                                                            Update Profile Photo
-                                                        </span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <Link
-                                                            to="/"
-                                                            data-toggle="modal"
-                                                            data-target="#update-header-photo"
-                                                        >
-                                                            Update Header Photo
-                                                        </Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link to="29-YourAccount-AccountSettings.html">
-                                                            Account Settings
-                                                        </Link>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="top-header-author">
-                                        <Link to="02-ProfilePage.html" className="author-thumb">
-                                            <img src={this.state.user.profileImage} style={{width: '120px'}} alt="author"/>
-                                        </Link>
-                                        <div className="author-content">
-                                            <Link to="02-ProfilePage.html" className="h5 author-name">
-                                                {profile.firstname} {profile.lastname}
-                                            </Link>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div className="container">
                     <div className="row">
                         <div className="col col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-12">
@@ -186,7 +92,7 @@ class Profile extends Component {
                                 <div className="ui-block">
                                     <article className="hentry post">
                                         <div className="post__author author vcard inline-items">
-                                            <img src={profile.profileImage} style={{width: '40px'}} alt="author"/>
+                                            <img src={this.state.user.profileImage} style={{width: '40px'}} alt="author"/>
 
                                             <div className="author-date">
                                                 <Link
@@ -344,18 +250,26 @@ class Profile extends Component {
                                             <span className="text">{about}</span>
                                         </li>
                                         <li>
-                                            <span className="title">Skills:</span>
-                                            <span className="text">{skills}</span>
+                                            <span className="title">Email:</span>
+                                            <span className="text">{profile.email}</span>
                                         </li>
                                         <li>
-                                            <span className="title">Hobbies:</span>
-                                            <span className="text">{hobbies}</span>
+                                            <span className="title">Sexe:</span>
+                                            <span className="text">{profile.sexe}</span>
+                                        </li>
+                                        <li>
+                                            <span className="title">Adresse:</span>
+                                            <span className="text">{profile.adresse}</span>
+                                        </li>
+                                        <li>
+                                            <span className="title">birthday:</span>
+                                            <span className="text">{profile.birthday}</span>
                                         </li>
                                     </ul>
 
 
                                     {/* show social links if exist */}
-                                    {profile.linkedin || profile.github ? (
+                                    {profile.linkedin || profile.github || profile.facebook ? (
                                         <div className="widget w-socials">
                                             <h6 className="title">Other Social Networks:</h6>
 
@@ -380,6 +294,20 @@ class Profile extends Component {
                                                 >
                                                     <i className="fab fa-github" aria-hidden="true"/>
                                                     github
+                                                </Link>
+                                            ) : (
+                                                ""
+                                            )}
+
+
+                                            {profile.facebook ? (
+                                                <Link
+                                                    to={profile.facebook}
+                                                    className="social-item"
+                                                    style={{backgroundColor: "#3C5A99"}}
+                                                >
+                                                    <i className="fab fa-facebook" aria-hidden="true"/>
+                                                    facebook
                                                 </Link>
                                             ) : (
                                                 ""
@@ -442,14 +370,15 @@ class Profile extends Component {
                             </div>
 
                             <div className="modal-body">
-                                <a href="#" className="upload-photo-item">
+                                <a type="file" onClick={this.triggerInput.bind(this)} href="#" className="upload-photo-item">
                                     <svg className="olymp-computer-icon">
                                         <use xlinkHref="#olymp-computer-icon"></use>
                                     </svg>
 
                                     <h6>Upload Photo</h6>
+                                    <span>Browse your computer</span>
                                     <input type="file" name="image" onChange={this.handleChange.bind(this)}
-                                           id="imageUpload" className="hide"/>
+                                           id="imageUpload" className="hide" style={{display: 'none'}}/>
                                 </a>
 
                                 <a href="#" className="upload-photo-item" data-toggle="modal"
@@ -473,7 +402,13 @@ class Profile extends Component {
     }
 }
 
+const mapStateToProps = (state, ownProps) => {
+    return {
+        auth: state.auth,
 
-export default connect(null, {
+    };
+};
+
+export default connect(mapStateToProps, {
     updatePhoto
 })(Profile);

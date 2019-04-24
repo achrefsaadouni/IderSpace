@@ -6,7 +6,7 @@ class LastPhotos extends Component {
         return (
             <li>
                 <a href={photo}>
-                    <img src={photo}  style={{width:'78.33px'}} alt="photo"/>
+                    <img src={photo}  style={{width:'78.33px' , height:'78.33px'}} alt="photo"/>
                 </a>
             </li>
         );

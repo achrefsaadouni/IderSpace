@@ -38,7 +38,10 @@ exports.createUser = (req, res, next) => {
             github: req.body.github,
             linkedin: req.body.linkedin,
             class: req.body.class,
-            password: hash
+            password: hash,
+            adresse: req.body.adresse,
+            sexe: req.body.sexe,
+            birthday: req.body.birthday
         });
         user
             .save()
@@ -88,7 +91,8 @@ exports.userLogin = (req, res, next) => {
                     email: fetchedUser.email,
                     userId: fetchedUser._id,
                     username: fetchedUser.username,
-                    role: fetchedUser.role
+                    role: fetchedUser.role,
+                    profileImage: fetchedUser.profileImage
                 },
                 "secret_this_should_be_longer",
                 {expiresIn: "1h"}
@@ -131,6 +135,7 @@ exports.addResume = (req, res, next) => {
                 languages: req.body.languages
             });
             fetchedUser.firstLogin = true;
+            fetchedUser.facebook = req.body.facebook;
             fetchedUser.save().then(result => {
                 res.status(200).json({
                     fetchedUser
@@ -170,16 +175,17 @@ exports.addlinkedIn = (req, res, next) => {
         })
         .then(result => {
             console.log('------------' + url);
-            if (url !== ''){
-            config.rootProfiles.push(url);
-            config.idUser = fetchedUser.id;
-            scrapping(config).then(r => {
-                return r;
-            }).then(result => {
-                fetchedUser.save();
-                res.send(result);
-            })
-            }else {
+            if (result.linkedin !== '') {
+                console.log('dkhal lel if')
+                config.rootProfiles.push(url);
+                config.idUser = fetchedUser.id;
+                scrapping(config).then(r => {
+                    return r;
+                }).then(result => {
+                    fetchedUser.save();
+                    res.send(result);
+                })
+            } else {
                 fetchedUser.save();
                 res.send(fetchedUser);
             }
@@ -874,12 +880,14 @@ exports.changeProfilImage = async (req, res, next) => {
             fetchedUser = user;
 
         }).then(() => {
-        fetchedUser.oldPhoto.push(fetchedUser.profileImage);
+        if (fetchedUser.profileImage !== 'https://res.cloudinary.com/pi-dev/image/upload/v1555884886/bjce0bnez3w7oqbykqre.png') {
+            fetchedUser.oldPhoto.push(fetchedUser.profileImage);
+        }
         fetchedUser.profileImage = result.secure_url;
-           fetchedUser.save();
-           res.send({
-               message:fetchedUser
-           })
+        fetchedUser.save();
+        res.send({
+            message: fetchedUser
+        })
     })
         .catch(err => {
             console.log(err);

@@ -1,4 +1,4 @@
-const scrapedin = require('scrapedin')
+const scrapedin = require('./scrapedin/scrapedin')
 const crawl = require('./crawler')
 
 
