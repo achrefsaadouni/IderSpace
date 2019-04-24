@@ -42,13 +42,14 @@ export const addExperience = (expData, history) => dispatch => {
 };
 
 // Add resume
-export const addResume = (hobbies, about, languages) => dispatch => {
+export const addResume = (hobbies, about, languages , facebook) => dispatch => {
     dispatch(setProfileLoading());
     axios
         .post("http://localhost:2500/api/user/addResume", {
             hobbies: hobbies,
             about: about,
-            languages: languages
+            languages: languages,
+            facebook: facebook
         }, {headers: {'Content-Type': 'application/json'}})
         .then(res => {
             dispatch({

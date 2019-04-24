@@ -678,9 +678,9 @@ class Header extends Component {
 
               <div className="author-page author vcard inline-items more">
                 <div className="author-thumb">
-                  <img
+                  <img style={{width:'36px'}}
                     alt="author"
-                    src={process.env.PUBLIC_URL + "/img/author-page.jpg"}
+                    src={user.profileImage}
                     className="avatar"
                   />
                   <span className="icon-status online" />

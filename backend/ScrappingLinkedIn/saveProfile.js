@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Skills = require('../Models/Skills.js');
 const Experience = require('../Models/Experience.js');
+const Education = require('../Models/Education.js');
 const SkillsType = require('../Dictionnary/SkillsType');
 const User = require("../models/user");
 const dependencies = {
@@ -9,9 +10,8 @@ const dependencies = {
 };
 const skills = mongoose.model('skills', Skills);
 const experiences = mongoose.model('Experience',Experience);
-
+const educations = mongoose.model('Education',Education);
 module.exports = (content) => {
-    console.log(content.idUser);
     User.findById(content.idUser)
         .then(user => {
             if (!user) {
@@ -38,6 +38,16 @@ module.exports = (content) => {
                     address: experienc.companyName
                 });
                 user.Resume.experiences.push(exper)
+            }
+            for (const educat of content.educations){
+                console.log(educat.degree);
+                let education = new educations({
+                    ecole : educat.title,
+                    degree: educat.degree,
+                    date1: educat.date1,
+                    date2: educat.date2
+                });
+                user.Resume.educations.push(education);
             }
             user.save()/*.then(result => {
                 res.status(200).json({
