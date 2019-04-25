@@ -6,7 +6,17 @@ class Header extends Component {
 
     makeInterface = e => {
         this.props.setInterface('about');
-    }
+    };
+    makeInterfaceAccueil = e => {
+        this.props.setInterface('');
+    };
+    makeinterfaceActivities = e => {
+        this.props.setInterface('activities');
+    };
+    makeinterfaceVideo = e => {
+        this.props.setInterface('video');
+    };
+
     render() {
         return (
             <div>
@@ -22,13 +32,15 @@ class Header extends Component {
                                         <div className="row">
                                             <div className="col col-lg-5 col-md-5 col-sm-12 col-12">
                                                 <ul className="profile-menu">
-                                                    <li>
-                                                        <Link to="02-ProfilePage.html" className="active">
+                                                    <li style={{cursor: 'pointer'}}
+                                                        onClick={this.makeInterfaceAccueil.bind(this)}>
+                                                        <a className="active">
                                                             Timeline
-                                                        </Link>
+                                                        </a>
                                                     </li>
-                                                    <li>
-                                                        <a onClick={this.makeInterface.bind(this)}>About</a>
+                                                    <li onClick={this.makeInterface.bind(this)}
+                                                        style={{cursor: 'pointer'}}>
+                                                        <a>About</a>
                                                     </li>
                                                     <li>
                                                         <Link to="06-ProfilePage.html">Friends</Link>
@@ -40,8 +52,9 @@ class Header extends Component {
                                                     <li>
                                                         <Link to="07-ProfilePage-Photos.html">Photos</Link>
                                                     </li>
-                                                    <li>
-                                                        <Link to="09-ProfilePage-Videos.html">Videos</Link>
+                                                    <li onClick={this.makeinterfaceVideo.bind(this)}
+                                                        style={{cursor: 'pointer'}}>
+                                                        <a>Videos</a>
                                                     </li>
                                                     <li>
                                                         <div className="more">
@@ -64,15 +77,16 @@ class Header extends Component {
                                         </div>
 
                                         <div className="control-block-button">
-                                            <Link
-                                                to="35-YourAccount-FriendsRequests.html"
-                                                className="btn btn-control bg-blue"
+                                            <a onClick={this.makeinterfaceActivities.bind(this)}
+                                               style={{cursor: 'pointer'}}
+
+                                               className="btn btn-control bg-blue"
                                             >
                                                 <svg className="olymp-happy-face-icon">
                                                     <use
                                                         xlinkHref="/svg-icons/sprites/icons.svg#olymp-happy-face-icon"/>
                                                 </svg>
-                                            </Link>
+                                            </a>
 
                                             <Link to="/" className="btn btn-control bg-purple">
                                                 <svg className="olymp-chat---messages-icon">

@@ -2,15 +2,16 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
+const Activity = require("../Models/Activity");
 const Resume = require("../Models/Resume");
 const Skills = require("../Models/Skills");
 const scrapping = require("../ScrappingLinkedIn/index");
 const kmeans = require("node-kmeans");
 const configFile = require("../config");
 const SkillsType = require("../Dictionnary/SkillsType");
-const cloudinary = require('cloudinary')
-require('../handler/cloudinary')
-const upload = require('../handler/multer')
+const cloudinary = require('cloudinary');
+require('../handler/cloudinary');
+const upload = require('../handler/multer');
 
 
 // Load Input Validation
@@ -41,7 +42,8 @@ exports.createUser = (req, res, next) => {
             password: hash,
             adresse: req.body.adresse,
             sexe: req.body.sexe,
-            birthday: req.body.birthday
+            birthday: req.body.birthday,
+            activityRequest: []
         });
         user
             .save()
@@ -152,7 +154,6 @@ exports.addResume = (req, res, next) => {
 
 exports.addlinkedIn = (req, res, next) => {
     const url = req.body.url;
-    console.log('-------------- service linkedin' + url);
     let fetchedUser;
     User.findById({_id: req.userData.userId})
         .then(user => {
@@ -176,7 +177,6 @@ exports.addlinkedIn = (req, res, next) => {
         .then(result => {
             console.log('------------' + url);
             if (result.linkedin !== '') {
-                console.log('dkhal lel if')
                 config.rootProfiles.push(url);
                 config.idUser = fetchedUser.id;
                 scrapping(config).then(r => {
@@ -419,7 +419,7 @@ function getAllConcernedUsers(classe) {
             //
             if (classe !== false) {
                 for (t of user) {
-                    if (t.class == classe) {
+                    if (t.class === classe) {
                         listUser.push(t);
                     }
                 }
@@ -867,8 +867,27 @@ exports.getSomeInfoUser = (req, res, next) => {
         });
 };
 
+
+exports.getActivityByUser = (req, res, next) => {
+    User.findById({_id: req.userData.userId})
+        .then(result => {
+            if (!result) {
+                return res.status(401).json({
+                    message: "not found"
+                });
+            }
+            return res.status(200).json(result.activityRequest);
+        })
+        .catch(err => {
+            console.log(err);
+            return res.status(401).json({
+                message: "Fetching users failed!"
+            });
+        });
+};
+
 exports.changeProfilImage = async (req, res, next) => {
-    const result = await cloudinary.v2.uploader.upload(req.file.path)
+    const result = await cloudinary.v2.uploader.upload(req.file.path);
     let fetchedUser;
     User.findById({_id: req.userData.userId})
         .then(user => {
@@ -888,6 +907,89 @@ exports.changeProfilImage = async (req, res, next) => {
         res.send({
             message: fetchedUser
         })
+    })
+        .catch(err => {
+            console.log(err);
+        });
+};
+
+
+exports.manageActivityRequest = async (req, res, next) => {
+    let idActiv='';
+    let repUser;
+    idActiv = req.body.idActiv;
+    repUser = req.body.repUser;
+    console.log('--'+idActiv+'--'+repUser);
+    let fetchedUser;
+    let fetchedActivity;
+    User.findById({_id: req.userData.userId})
+        .then(user => {
+            if (!user) {
+                return res.status(401).json({
+                    message: "undifined user"
+                });
+            }
+            fetchedUser = user;
+
+        }).then(async () => {
+            console.log('1');
+        const index = await getIndexActivityForUser(fetchedUser.activityRequest, idActiv);
+        console.log('index : '+index);
+        if (repUser === true) {
+            console.log('2');
+            fetchedUser.activityRequest[index].stat = 'accepted';
+            await addMemberToActivity(fetchedUser.id, idActiv);
+        }else{
+            fetchedUser.activityRequest[index].stat = 'refused';
+        }
+
+
+
+    }).then(() =>{
+        fetchedUser.save().then(()=>{
+            return res.status(200).json({
+                message: "activity setted"
+            });
+        })
+    })
+
+        .catch(err => {
+            console.log(err);
+        });
+};
+
+
+async function getIndexActivityForUser(array, id) {
+    return new Promise(resolve => {
+        let index;
+        for (let i = 0; i < array.length; i++) {
+            console.log('//////');
+            console.log(array[i].idActivity);
+            if (array[i].idActivity === id) {
+                index = i;
+            }
+        }
+        return resolve(index);
+    });
+}
+
+
+async function addMemberToActivity(idUser, idActiv) {
+    let fetchedActivity;
+    Activity.findById({_id: idActiv}).then(activity => {
+        if (!activity) {
+            return res.status(401).json({
+                message: "undifined activity"
+            });
+        }
+        fetchedActivity = activity
+
+    }).then(() => {
+        fetchedActivity.members.push(
+            idUser
+        );
+        fetchedActivity.save();
+
     })
         .catch(err => {
             console.log(err);

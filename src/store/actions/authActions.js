@@ -2,7 +2,7 @@ import axios from "axios";
 import setAuthToken from "../../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 
-import { GET_ERRORS, SET_CURRENT_USER, GET_USER_INFO } from "./types";
+import { GET_ERRORS, SET_CURRENT_USER, GET_USER_INFO , SET_CURRENT_USER_AFTER_UPDATE_IMAGE } from "./types";
 
 // Login - Get User Token
 export const loginUser = userData => dispatch => {
@@ -32,6 +32,14 @@ export const loginUser = userData => dispatch => {
 export const setCurrentUser = decoded => {
   return {
     type: SET_CURRENT_USER,
+    payload: decoded
+  };
+};
+
+// Set logged in user
+export const setCurrentUserAfterUpdate = decoded => {
+  return {
+    type: SET_CURRENT_USER_AFTER_UPDATE_IMAGE,
     payload: decoded
   };
 };

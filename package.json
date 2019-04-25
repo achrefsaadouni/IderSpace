@@ -43,6 +43,7 @@
     "react-infinite-loader": "^1.0.3",
     "react-js-pagination": "^3.0.2",
     "react-moment": "^0.8.4",
+    "react-notifications-component": "^1.1.1",
     "react-redux": "^6.0.1",
     "react-redux-loading-bar": "^4.2.0",
     "react-responsive-modal": "^3.6.0",
@@ -57,8 +58,9 @@
     "redux-thunk": "^2.3.0",
     "scrapedin": "^1.0.1",
     "socket.io": "^2.2.0",
-    "sweetalert2": "^8.8.7",
+    "socket.io-client": "latest",
     "sweetalert": "^2.1.2",
+    "sweetalert2": "^8.8.7",
     "validator": "^10.11.0",
     "xoauth2": "^1.2.0"
   },

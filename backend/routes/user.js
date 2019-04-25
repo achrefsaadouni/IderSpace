@@ -42,6 +42,10 @@ router.post("/changeProfilImage",authCheck ,upload.single('image') , UserControl
 
 router.get("/profile", authCheck, UserController.getProfileForConnectedUser);
 
+router.get("/getActivityByUser", authCheck, UserController.getActivityByUser);
+
+router.post("/manageActivityRequest", authCheck, UserController.manageActivityRequest);
+
 router.get("/profiles", UserController.getAllProfiles);
 
 module.exports = router;
