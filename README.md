@@ -5,7 +5,7 @@ Iderspace the best academic network
 
 Summary
 
-Global architecture /n
+Global architecture
 Server side
 Client side
 How To run it
