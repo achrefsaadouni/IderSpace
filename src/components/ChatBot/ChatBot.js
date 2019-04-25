@@ -50,7 +50,7 @@ class ChatBot extends Component {
         return (<div>
             <Launcher
                 agentProfile={{
-                    teamName: 'IderSpace ChatBot',
+                    teamName: 'Iderspace Assistance',
                     imageUrl: process.env.PUBLIC_URL + '/img/chatBot.png',
                 }}
                 onMessageWasSent={this._onMessageWasSent.bind(this)}

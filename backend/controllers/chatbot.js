@@ -18,7 +18,6 @@ if (req.body.queryResult.intent.displayName=="Add_Question_Forum")
   {
    res.send(chatbot.createTextResponse("Your Question were added successfully , do you need any other assistance ?"));
   }
-
 }
 
 

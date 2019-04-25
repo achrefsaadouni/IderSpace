@@ -7,10 +7,6 @@ import Moment from "react-moment";
 export default class Question extends Component {
 
 
-constructor()
-{
-    super();
-}
 
 
     // eslint-disable-next-line no-undef

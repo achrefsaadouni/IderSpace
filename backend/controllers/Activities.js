@@ -385,7 +385,7 @@ exports.incrementProgress = () => {
     });
 
 }
-
+/*
 
 var j = schedule.scheduleJob('* * * * *', function () {
     activity.find().then(ac => {
@@ -411,7 +411,7 @@ var j = schedule.scheduleJob('* * * * *', function () {
         }
     })
 
-})
+})*/
 
 
 exports.getAllCreatedActivities = (req, res, next) => {
