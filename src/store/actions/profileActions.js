@@ -1,4 +1,5 @@
 import axios from "axios";
+import {setCurrentUserAfterUpdate} from "./authActions"
 
 import {
     GET_PROFILE,
@@ -14,11 +15,13 @@ export const getCurrentProfile = () => dispatch => {
     dispatch(setProfileLoading());
     axios
         .get("api/user/profile")
-        .then(res =>
-            dispatch({
-                type: GET_PROFILE,
-                payload: res.data
-            })
+        .then(res => {
+                dispatch({
+                    type: GET_PROFILE,
+                    payload: res.data
+                })
+
+            }
         )
         .catch(err =>
             dispatch({

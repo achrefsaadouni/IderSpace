@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
 const Resume = require("./Resume");
+const ActivityRequest = require("./ActivityRequest");
 
 const userSchema = mongoose.Schema({
   email: { type: String, required: true, unique: true },
@@ -22,7 +23,8 @@ const userSchema = mongoose.Schema({
   firstLogin: {type: Boolean , default: false},
   profileImage:{type:String , default:'https://res.cloudinary.com/pi-dev/image/upload/v1555884886/bjce0bnez3w7oqbykqre.png'},
   oldPhoto: [{type:String}],
-  coverPhoto: {type:String}
+  coverPhoto: {type:String},
+  activityRequest:[ActivityRequest]
 });
 
 userSchema.plugin(uniqueValidator);

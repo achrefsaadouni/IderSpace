@@ -1,13 +1,14 @@
 import axios from "axios";
 
 
+import io from 'socket.io-client';
 import {
     LOADING,
     GET_ACTIVITIES, GET_SUPERVISORS, GET_ACTIVITIES_MEMBERS_LIST, ADD_ACTIVITY
 
 } from "./types";
 import {setForumLoading} from "./forumActions";
-
+const socket = io('http://localhost:2500');
 export const getActivities = () => dispatch => {
     dispatch(setForumLoading());
     axios
@@ -90,6 +91,7 @@ export const CreateActivity = values => dispatch => {
             })
 
             console.log(res.data)
+            socket.emit('activity', res.data)
         })
         .catch(err =>
             dispatch({

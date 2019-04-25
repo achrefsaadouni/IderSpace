@@ -6,6 +6,7 @@ import ListSkills from "../recommandation/listSkills";
 import {updatePhoto} from "../../store/actions/profileActions";
 import {connect} from "react-redux";
 import axios from "axios";
+import {setCurrentUserAfterUpdate} from "../../store/actions/authActions";
 
 class Profile extends Component {
     constructor(props) {
@@ -34,6 +35,7 @@ class Profile extends Component {
             data: data,
             config: { headers: { 'Content-Type': 'multipart/form-data' } }
         }).then(result => {
+
             this.props.onchangePhotoProfile ( result.data.message.profileImage);
             if (this.state.user.profileImage !== 'https://res.cloudinary.com/pi-dev/image/upload/v1555884886/bjce0bnez3w7oqbykqre.png'){
                 this.setState({
@@ -57,7 +59,7 @@ class Profile extends Component {
 
                 })
             }
-
+            this.props.setCurrentUserAfterUpdate({...this.state.user,profileImage:result.data.message.profileImage});
         })
 
         document.getElementById("update-header-photo").click();
@@ -410,5 +412,6 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 export default connect(mapStateToProps, {
-    updatePhoto
+    updatePhoto,
+    setCurrentUserAfterUpdate
 })(Profile);
