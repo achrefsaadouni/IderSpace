@@ -86,6 +86,7 @@ class Index extends Component {
     };
 
     this.props.addComment(this.props.match.params.question_id, newComment);
+    this.setState({ comment: "" })
   };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
@@ -213,6 +214,7 @@ class Index extends Component {
                             className="far fa-comments"
                           />
                         </Link>
+                        {this.props.user.userId === author ? (
                         <Link
                           to={
                             "/forum/" +
@@ -226,8 +228,9 @@ class Index extends Component {
                             style={{ margin: "0 8px" }}
                             className="far fa-edit"
                           />
-                        </Link>
+                        </Link> ) : ""}
                         {this.props.user.userId === author ? (
+                          
                           <Link
                             to="#"
                             onClick={this.deleteQuestion}

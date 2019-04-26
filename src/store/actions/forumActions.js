@@ -190,7 +190,7 @@ export const deleteComment = (id, id_comment) => dispatch => {
   axios
     .delete(`http://localhost:2500/api/question/${id}/comment/${id_comment}`)
     .then(res =>
-      dispatch(getComments(id))
+      dispatch(getComments(id, 3, 1))
     )
     .catch(err =>
       dispatch({
