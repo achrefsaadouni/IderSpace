@@ -144,18 +144,7 @@ class SideBar extends Component {
                     </svg>
                   </Link>
                 </li>
-                <li>
-                  <Link to="/">
-                    <svg
-                      className="olymp-manage-widgets-icon left-menu-icon"
-                      data-toggle="tooltip"
-                      data-placement="right"
-                      data-original-title="Manage Widgets"
-                    >
-                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-manage-widgets-icon" />
-                    </svg>
-                  </Link>
-                </li>
+
               </ul>
             </div>
           </div>
@@ -304,19 +293,6 @@ class SideBar extends Component {
                       <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-stats-icon" />
                     </svg>
                     <span className="left-menu-title">Account Stats</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/">
-                    <svg
-                      className="olymp-manage-widgets-icon left-menu-icon"
-                      data-toggle="tooltip"
-                      data-placement="right"
-                      data-original-title="Manage Widgets"
-                    >
-                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-manage-widgets-icon" />
-                    </svg>
-                    <span className="left-menu-title">Manage Widgets</span>
                   </Link>
                 </li>
               </ul>
@@ -529,19 +505,6 @@ class SideBar extends Component {
                       <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-stats-icon" />
                     </svg>
                     <span className="left-menu-title">Account Stats</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/">
-                    <svg
-                      className="olymp-manage-widgets-icon left-menu-icon"
-                      data-toggle="tooltip"
-                      data-placement="right"
-                      data-original-title="Manage Widgets"
-                    >
-                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-manage-widgets-icon" />
-                    </svg>
-                    <span className="left-menu-title">Manage Widgets</span>
                   </Link>
                 </li>
               </ul>
