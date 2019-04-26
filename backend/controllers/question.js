@@ -80,7 +80,8 @@ exports.createQuestion = (req, res, next) => {
         createdAt: new Date(),
         subject: filter.clean(req.body.subject),
         content: filter.clean(req.body.content),
-        author: req.userData.userId
+        author: req.userData.userId,
+        tags: req.body.tags
       });
       if (
         filter.isProfane(req.body.content) ||
@@ -130,13 +131,15 @@ exports.updateQuestion = (req, res, next) => {
       const question = {
         subject: req.body.subject,
         content: req.body.content,
-        category: req.body.category
+        category: req.body.category,
+        tags: req.body.tags
       };
       Question.findOne({ _id: req.params.id, author: req.userData.userId })
         .then(result => {
           result.subject = question.subject;
           result.content = question.content;
           result.category = question.category;
+          result.tags = question.tags;
           result.save().then(result => {
             if (
               filter.isProfane(req.body.content) ||
@@ -166,7 +169,9 @@ exports.updateQuestion = (req, res, next) => {
 exports.getQuestions = (req, res, next) => {
   const pageSize = +req.query.pageSize; //number of questions
   const currentPage = +req.query.currentPage; //number of page
-  const questionQuery = Question.find();
+  const questionQuery = Question.find().sort({
+    createdAt: -1
+  });
   let fetchedQuestions;
   if (pageSize && currentPage) {
     questionQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);
@@ -182,6 +187,25 @@ exports.getQuestions = (req, res, next) => {
         questions: fetchedQuestions,
         maxQuestions: count
       });
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).json({
+        message: "Fetching Questions failed!"
+      });
+    });
+};
+
+exports.getLast3Questions = (req, res, next) => {
+  const questionQuery = Question.find()
+    .limit(3)
+    .sort({
+      createdAt: -1
+    });
+
+  questionQuery
+    .then(documents => {
+      res.status(200).json(documents);
     })
     .catch(error => {
       console.log(error);

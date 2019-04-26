@@ -2,9 +2,6 @@ import React, {Component} from "react";
 import connect from "react-redux/es/connect/connect";
 import {getRecommandation, getAllSkills} from "../../store/actions/recommandationAction";
 import Spinner from "../common/Spinner";
-import { WithContext as ReactTags } from 'react-tag-input';
-
-import StepZilla from "react-stepzilla";
 import {AutoComplete} from 'primereact/autocomplete';
 import StyleLinks from "./StyleLinks";
 import swal from "sweetalert";

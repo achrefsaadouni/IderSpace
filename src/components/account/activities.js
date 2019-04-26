@@ -4,6 +4,7 @@ import Requests from './requests';
 class Activities extends Component {
     manageActivity = (etat , id) => {
         console.log(etat);
+        console.log(id);
         this.props.onActionOnActivity(etat , id);
     };
     render() {

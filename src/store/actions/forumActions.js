@@ -9,7 +9,8 @@ import {
   DELETE_QUESTION,
   CLEAR_ERRORS,
   GET_ERRORS,
-  LOADING
+  LOADING,
+  GET_QUESTIONS_LAST3
 } from "./types";
 
 // Get current forum
@@ -41,6 +42,24 @@ export const getQuestions = (id, page, current) => dispatch => {
     .then(res =>
       dispatch({
         type: GET_QUESTIONS,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_QUESTIONS,
+        payload: {}
+      })
+    );
+};
+
+// Get last 3 questions
+export const getLast3Questions = (id, page, current) => dispatch => {
+  axios
+    .get(`http://localhost:2500/api/question/last3`)
+    .then(res =>
+      dispatch({
+        type: GET_QUESTIONS_LAST3,
         payload: res.data
       })
     )
@@ -155,16 +174,13 @@ export const updateQuestion = (id, question, history) => dispatch => {
 };
 
 // Delete question
-export const deleteQuestion = id => dispatch => {
+export const deleteQuestion = (id, history, category_id) => dispatch => {
   dispatch(setForumLoading());
   axios
     .delete(`http://localhost:2500/api/question/${id}`)
-    .then(res =>
-      dispatch({
-        type: DELETE_QUESTION,
-        payload: res.data
-      })
-    )
+    .then(res => {
+      history.push("/forum/" + category_id);
+    })
     .catch(err =>
       dispatch({
         type: DELETE_QUESTION,
@@ -175,9 +191,8 @@ export const deleteQuestion = id => dispatch => {
 
 // Delete comment
 export const deleteComment = (id, id_comment) => dispatch => {
-  dispatch(setForumLoading());
   axios
-    .delete(`http://localhost:2500/api/question/comment/${id}/${id_comment}`)
+    .delete(`http://localhost:2500/api/question/${id}/comment/${id_comment}`)
     .then(res =>
       dispatch({
         type: GET_QUESTION,
@@ -213,15 +228,9 @@ export const bestComment = (id, id_comment) => dispatch => {
 
 // like
 export const likeQuestion = id => dispatch => {
-  dispatch(setForumLoading());
   axios
-    .post(`http://localhost:2500/api/like/comment/${id}`)
-    .then(res =>
-      dispatch({
-        type: GET_QUESTION,
-        payload: res.data
-      })
-    )
+    .post(`http://localhost:2500/api/question/like/${id}`)
+    .then(res => dispatch(getQuestion(id)))
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
@@ -232,15 +241,9 @@ export const likeQuestion = id => dispatch => {
 
 // dislike
 export const unlikeQuestion = id => dispatch => {
-  dispatch(setForumLoading());
   axios
-    .post(`http://localhost:2500/api/unlike/comment/${id}`)
-    .then(res =>
-      dispatch({
-        type: GET_QUESTION,
-        payload: res.data
-      })
-    )
+    .post(`http://localhost:2500/api/question/unlike/${id}`)
+    .then(res => dispatch(getQuestion(id)))
     .catch(err =>
       dispatch({
         type: GET_ERRORS,

@@ -30,7 +30,9 @@ class question extends Component {
               >
                 {title}
               </Link>
-              <p className="text">{content}</p>
+              <p className="text">
+                {content.length > 30 ? content.substring(0, 30) : content}
+              </p>
             </div>
           </div>
         </td>

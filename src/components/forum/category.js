@@ -13,7 +13,7 @@ export default class category extends Component {
           <div className="forum-item">
             <div className="content">
               <Link to={"forum/" + id} className="h6 title">
-                {name}
+                  {name}
               </Link>
               <p className="text">{description}</p>
             </div>
