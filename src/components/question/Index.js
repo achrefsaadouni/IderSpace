@@ -7,7 +7,8 @@ import {
   unlikeQuestion,
   getComments,
   deleteQuestion,
-  addComment
+  addComment,
+  bestComment
 } from "../../store/actions/forumActions";
 import { getUserInfo } from "../../store/actions/authActions";
 import Spinner from "../common/Spinner";
@@ -110,10 +111,11 @@ class Index extends Component {
     const getComments = comments.comments.map(item => (
       <Comment
         key={item.comment._id}
+        owner={this.state.user._id}
         question_id={item._id}
         approuved={item.comment.approved}
         content={item.comment.content}
-        user={item.comment.user}
+        user_id={item.comment.user}
         date={item.comment.date}
         id={item.comment._id}
       />
@@ -177,9 +179,7 @@ class Index extends Component {
                       className="btn btn-light mr-1"
                     >
                       <i
-                        className={classnames("fas fa-thumbs-down", {
-                          "text-red": !this.findUserLike()
-                        })}
+                        className="fas fa-thumbs-down"
                       />
                     </button>
                   </span>
@@ -247,8 +247,8 @@ class Index extends Component {
                       <td className="author">
                         <div className="author-thumb">
                           <img
-                            alt={this.props.user.username}
-                            src={this.props.user.profileImage}
+                            alt={this.state.user.username}
+                            src={this.state.user.profileImage}
                             className="avatar"
                           />
                         </div>
@@ -351,6 +351,7 @@ export default connect(
     getComments,
     getUserInfo,
     deleteQuestion,
-    addComment
+    addComment,
+    bestComment
   }
 )(Index);
