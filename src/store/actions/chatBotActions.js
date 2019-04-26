@@ -23,6 +23,27 @@ export  const ask = async question  => {
     });
 };
 
+export  const addIntent = async (intent)  => {
+    return new Promise (resolve =>{
+
+        axios
+            .post("http://localhost:2500/api/chat/intent", intent)
+            .then(res =>
+                {
+                    return resolve(res);
+                }
+            )
+            .catch(err =>
+                {
+                    return resolve(err);}
+            );
+    });
+};
+
+
+
+
+
 export  const deleteQuestion = async question  => {
     return new Promise (resolve =>{
 

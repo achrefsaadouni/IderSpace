@@ -22,8 +22,8 @@ router.get("/getAllForStudent",checkAuth, ActivityController.getAllForStudent);
 router.get("/getAllSupervisors",checkAuth, ActivityController.getAllSupervisors);
 router.post("/getAllMembers",checkAuth, ActivityController.getAllMembers);
 router.delete("/deleteToDo",checkAuth, ActivityController.deleteToDo);
-ActivityController.incrementProgress()
-ActivityController.enrichCv()
+//ActivityController.incrementProgress()
+//ActivityController.enrichCv()
 
 
 module.exports = router;

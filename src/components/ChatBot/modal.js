@@ -1,11 +1,11 @@
 import React, { Component } from "react";
+import Moment from "react-moment";
 const Swal = require('sweetalert2');
 
 
 
 
 export default class Modal extends Component {
-
 
     constructor()
     {
@@ -33,13 +33,11 @@ export default class Modal extends Component {
         e.preventDefault();
         this.state.valAnswers[e.target.name] = e.target.value;
     }
-
     handleSubmit(e)
     {
 
         e.preventDefault();
-        console.log(this.state);
-        if(this.state.valAnswers.length ===0 || this.state.valAnswers.length===0 || this.state.intent === '')
+        if(this.state.inputs.length ===0 || this.state.responses.length===0 || this.state.intent === '')
         {
             Swal.fire(
                 'Failed',
@@ -48,50 +46,59 @@ export default class Modal extends Component {
             )
         }
 
-        else if (this.state.valAnswers.length ===1 || this.state.valAnswers.length===1)
-        {
-            if (this.state.valAnswers.find(e => e==="") || this.state.valQuestions.find(e => e===""))
-            {
-                Swal.fire(
-                    'Failed',
-                    'You need atleast 1 non null question and answer',
-                    'error'
-                )
-            }
-            var trainingPhrases = [];
-            var responses = [];
-            for(var i in this.state.valQuestions)
-            {
-                trainingPhrases.push(i);
-            }
-            for (var i in this.state.valAnswers)
-            {
-                responses.push(i);
-            }
-
-
-
-        }
         else
         {
-            console.log("else")
             var trainingPhrases = [];
             var responses = [];
             for(var i in this.state.valQuestions)
             {
-                trainingPhrases.push(i);
+                trainingPhrases.push(this.state.valQuestions[i]);
             }
             for (var i in this.state.valAnswers)
             {
-                responses.push(i);
+                responses.push(this.state.valAnswers[i]);
             }
+
+            var intent = {
+                trainingPhrases : trainingPhrases,
+                responses : responses,
+                intentName : this.state.intent
+            };
+
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'You will Add This Intent to you chat bot !',
+                type: 'info',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, Add it!',
+                cancelButtonText: 'No'
+            }).then((result) => {
+                if (result.value) {
+                    this.props.onAddIntent(intent,this.props.question,this.props.questions)
+                    Swal.fire({
+                        type: 'success',
+                        title: 'The Intent has been Added',
+                        showConfirmButton: false,
+                        timer: 3000,
+                    }).then(() => {
+                        this.handleClick();
+                    })
+
+
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    Swal.fire(
+                        'Cancelled',
+                        'Your Data  is safe :)',
+                        'error'
+                    )
+                }
+            })
 
         }
 
 
     }
-
-
 
     addInput (e)
     {
@@ -112,11 +119,9 @@ export default class Modal extends Component {
         this.setState(({ inputs: this.state.inputs.filter(e => e!== input)}));
     }
 
-
-
-
-
-
+    handleClick = (e) => {
+        this.inputElement.click();
+    }
 
     addInputR (e)
     {
@@ -137,8 +142,6 @@ export default class Modal extends Component {
         delete this.state.valAnswers[i];
         this.setState(({ responses: this.state.responses.filter(e => e!== input)}));
     }
-
-
 
     render() {
     const question  = this.props.question;
@@ -174,7 +177,7 @@ export default class Modal extends Component {
                                 <h3>The Question</h3>
                                 {question == null ?
                                     (<p>vide</p>) :
-                                    (<React.Fragment><p>Content : {question.content}</p> <p> Created At : {question.content}</p></React.Fragment>)
+                                    (<React.Fragment><p>Content : {question.content}</p> <p> Created At : <Moment format="dddd MM, YYYY \at HH:mm">{question.createdAt }</Moment></p></React.Fragment>)
 
                                 }
 
@@ -216,15 +219,6 @@ export default class Modal extends Component {
                                     </li>
                                 </ul>
 
-
-
-
-
-
-
-
-
-
                                 <form className="resume-form" onSubmit={this.handleSubmit.bind(this)}>
                                     <div className="form-group">
                                     <h3>Submit Training</h3>
@@ -254,12 +248,6 @@ export default class Modal extends Component {
 
                                                )}
                                         </div>
-
-
-
-
-
-
 
                                         <h3>Responses</h3>
                                         <div className="col-md-1">
@@ -294,8 +282,8 @@ export default class Modal extends Component {
 
                                         <br/>
                                         <div className="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
-
-                                            <input type="submit" className="btn btn-primary btn-lg full-width"  value="Submit New Intent"/>
+                                            <input  hidden="hidden" ref={input => this.inputElement = input} data-toggle="modal" data-target="#edit-my-poll-popup"/>
+                                            <input type="submit" className="btn btn-primary btn-lg full-width"   value="Submit New Intent"/>
                                         </div>
                                     </div>
                                 </form>

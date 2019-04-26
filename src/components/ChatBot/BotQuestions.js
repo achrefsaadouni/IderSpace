@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {connect} from "react-redux";
-import {deleteQuestion, getQuestions} from "../../store/actions/chatBotActions"
+import {addIntent, deleteQuestion, getQuestions} from "../../store/actions/chatBotActions"
 import Spinner from "../common/Spinner";
 import Question from "./Question"
 import Modal from "./modal";
@@ -72,7 +72,25 @@ class index extends Component {
                 question : e
             }
         )
-    }
+    };
+
+    onAddIntentParent = (intent,question,questions) => {
+
+        var newQuestion = questions.filter(
+            e1 => e1._id !== question._id);
+        this.setState({
+            questions: newQuestion,
+            etat: true
+        });
+        deleteQuestion(question);
+        addIntent(intent);
+
+    };
+
+
+
+
+
 
     render() {
 
@@ -134,7 +152,7 @@ class index extends Component {
                                 </div>
                             </div>
                         </section>
-                        {this.state.question != null ? ( <Modal  key={this.state.question._id} question = {this.state.question} />) : <span></span>}
+                        {this.state.question != null ? ( <Modal  key={this.state.question._id} question = {this.state.question}  onAddIntent={this.onAddIntentParent.bind(this)} questions = {this.props.questionBots.questionBots}/>) : <span></span>}
 
                     </React.Fragment>
                 );

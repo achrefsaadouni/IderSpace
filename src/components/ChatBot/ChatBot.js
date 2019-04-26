@@ -11,7 +11,7 @@ class ChatBot extends Component {
         this.state = {
                 messageList: [ {type: 'text', author: "them", data: { text: "Welcome To IderSpace Platform"} },
                     {type: 'text', author: "them", data: { text: "I'am IderSpace chat bot my only job is to assist you while you are here"} },
-                    {type: 'text', author: "them", data: { text: "Just ask me what you need"}}
+                    {type: 'text', author: "them", data: { text: "if you want to add a question tap add question"}}
                 ],
         };
 
@@ -40,6 +40,10 @@ class ChatBot extends Component {
         };
         await ask(Question).then(e => {
             this._sendMessage(e.data)
+            if (e.data === "There are no Answer in our Forum that seems similar to your question . But no worries your question will be a reference for next time")
+            {
+                this._sendMessage("do you need anything else")
+            }
         })
 
     }
@@ -50,7 +54,7 @@ class ChatBot extends Component {
         return (<div>
             <Launcher
                 agentProfile={{
-                    teamName: 'IderSpace ChatBot',
+                    teamName: 'Iderspace Assistance',
                     imageUrl: process.env.PUBLIC_URL + '/img/chatBot.png',
                 }}
                 onMessageWasSent={this._onMessageWasSent.bind(this)}
