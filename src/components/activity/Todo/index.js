@@ -207,8 +207,8 @@ class todoBoard extends Component {
             </div>)
         }
         else {
-            console.log(moduleTodos.allTodo[0])
-            this.state.data =  {
+          if(moduleTodos.allTodo[0]!=null)
+          {  this.state.data =  {
                 lanes: [
                     {
                         id: 'lane1',
@@ -233,7 +233,7 @@ class todoBoard extends Component {
 
                     }
                 ]
-            }
+            }}
 
             return (
                 < React.Fragment>

@@ -11,10 +11,14 @@ class index extends Component {
         let path = `/activity/workplace/` + e.target.value;
         this.props.history.push(path);
     }
+    changeRouteToCreate() {
+        this.props.history.push("/activity/create")
+    }
 
     constructor() {
         super();
         this.goToWorkPlace = this.goToWorkPlace.bind(this);
+        this.routeChange=this.routeChange.bind(this)
 
         var today = new Date(),
             date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
@@ -183,10 +187,13 @@ class index extends Component {
                             <div className="ui-block responsive-flex">
                                 <div className="ui-block-title">
                                     <div className="h6 title">Your Activities ()</div>
+                                    <button className="btn btn-secondary" onClick={this.routeChange}>
+                                        New activity ?
+                                    </button>
                                     <form className="w-search">
                                         <div className="form-group with-button is-empty">
                                             <input className="form-control" type="text"
-                                                   placeholder="Search Friends..."/>
+                                                   placeholder="Search Activities..."/>
                                             <button>
                                                 <svg className="olymp-magnifying-glass-icon">
                                                     <use xlinkHref="#olymp-magnifying-glass-icon"></use>

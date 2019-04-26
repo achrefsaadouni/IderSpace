@@ -113,11 +113,14 @@ export default class create extends Component {
     constructor() {
         super()
         this.changeRouteToList = this.changeRouteToList.bind(this);
+       // this.changeRouteToCreate = this.changeRouteToCreate.bind(this);
     }
 
     changeRouteToList() {
         this.props.history.push("/activity")
     }
+
+
 
     onchange(e) {
         let files = e.target.files;
