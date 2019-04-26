@@ -62,7 +62,9 @@
     "sweetalert": "^2.1.2",
     "sweetalert2": "^8.8.7",
     "validator": "^10.11.0",
-    "xoauth2": "^1.2.0"
+    "xoauth2": "^1.2.0",
+    "youtube-api-search": "^0.0.5",
+    "antd": "^3.13.2"
   },
   "scripts": {
     "start": "react-scripts start",

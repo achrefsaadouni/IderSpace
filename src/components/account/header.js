@@ -16,6 +16,9 @@ class Header extends Component {
     makeinterfaceVideo = e => {
         this.props.setInterface('video');
     };
+    makeinterfaceImage = e => {
+        this.props.setInterface('photo');
+    };
 
     render() {
         return (
@@ -49,8 +52,9 @@ class Header extends Component {
                                             </div>
                                             <div className="col col-lg-5 ml-auto col-md-5 col-sm-12 col-12">
                                                 <ul className="profile-menu">
-                                                    <li>
-                                                        <Link to="07-ProfilePage-Photos.html">Photos</Link>
+                                                    <li onClick={this.makeinterfaceImage.bind(this)}
+                                                        style={{cursor: 'pointer'}}>
+                                                        <a>Photos</a>
                                                     </li>
                                                     <li onClick={this.makeinterfaceVideo.bind(this)}
                                                         style={{cursor: 'pointer'}}>
@@ -86,6 +90,7 @@ class Header extends Component {
                                                     <use
                                                         xlinkHref="/svg-icons/sprites/icons.svg#olymp-happy-face-icon"/>
                                                 </svg>
+                                                <div className="label-avatar bg-grey-light">6</div>
                                             </a>
 
                                             <Link to="/" className="btn btn-control bg-purple">

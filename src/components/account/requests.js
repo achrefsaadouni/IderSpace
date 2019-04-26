@@ -76,6 +76,7 @@ class Requests extends Component {
 
     render() {
         const request = this.props.request;
+        console.log(request)
         if (request.stat === 'waiting') {
             return (
 
