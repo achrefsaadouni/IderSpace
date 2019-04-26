@@ -837,8 +837,6 @@ exports.getAllMembers = (req, res, next) => {
         })
     })
 }
-exports.create = (req, res, next) => {
-
 async function sendInvitationToUsers(id , activity) {
     const activReq = mongoose.model("ActivityRequest", ActivityRequest);
     User.findById({_id:id}).then(user => {
@@ -869,7 +867,6 @@ async function sendInvitationToUsers(id , activity) {
             console.log(err);
         });
 }
-
 exports.create=(req,res,next)=>{
 
     const act = new activity({
@@ -904,7 +901,6 @@ exports.create=(req,res,next)=>{
             })
         });
 }
-
 exports.getActivityById = (req, res, next) => {
     let fetched
     let member
