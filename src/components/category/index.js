@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import Question from "./question";
 import PopularQuestions from "./popularQuestions";
 import RecentQuestion from "./recentQuestion";
-import { getQuestions } from "../../store/actions/forumActions";
+import {
+  getQuestions,
+  getLast3Questions
+} from "../../store/actions/forumActions";
 import Spinner from "../common/Spinner";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -12,12 +15,13 @@ class index extends Component {
     if (this.props.match.params.category_id) {
       this.props.getQuestions(this.props.match.params.category_id, 5, 1);
     }
+    this.props.getLast3Questions();
   }
 
   render() {
-    const { questions, loading } = this.props.forum;
+    const { questions, lastQuestions, loading } = this.props.forum;
 
-    if (questions === null || loading) {
+    if (questions === null || lastQuestions === null || loading) {
       return <Spinner />;
     }
     const isAprouved = comments => {
@@ -128,7 +132,9 @@ class index extends Component {
 
             <div className="col col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
               <PopularQuestions />
-              <RecentQuestion />
+              <RecentQuestion
+                category_id={this.props.match.params.category_id}
+              />
             </div>
           </div>
         </div>
@@ -145,5 +151,5 @@ const mapStateToProps = (state, ownProps) => {
 
 export default connect(
   mapStateToProps,
-  { getQuestions }
+  { getQuestions, getLast3Questions }
 )(index);

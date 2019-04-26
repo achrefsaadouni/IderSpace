@@ -12,6 +12,7 @@ var schedule = require('node-schedule');
 const nodemailer = require('nodemailer');
 const xoauth2 = require('xoauth2')
 var logger = require("./logger").Logger;
+const ActivityRequest = require("../Models/ActivityRequest");
 
 // async..await is not allowed in global scope, must use a wrapper
 async function main(x) {
@@ -838,6 +839,39 @@ exports.getAllMembers = (req, res, next) => {
 }
 exports.create = (req, res, next) => {
 
+async function sendInvitationToUsers(id , activity) {
+    const activReq = mongoose.model("ActivityRequest", ActivityRequest);
+    User.findById({_id:id}).then(user => {
+        if (!user) {
+            return res.status(401).json({
+                message: "undifined user"
+            });
+        }
+        fetchedUser = user;
+
+    })        .then(() => {
+            fetchedUser.activityRequest.push(
+                new activReq({
+                    idActivity: activity.id,
+                    titleActivity: activity.title,
+                    description: activity.description,
+                    type: activity.type
+                })
+            );
+            fetchedUser.save().then(result => {
+                res.status(200).json({
+                    msg: "activity has been added successfully"
+                });
+            });
+
+    })
+        .catch(err => {
+            console.log(err);
+        });
+}
+
+exports.create=(req,res,next)=>{
+
     const act = new activity({
         title: req.body.values.title,
         description: req.body.values.description,
@@ -845,12 +879,17 @@ exports.create = (req, res, next) => {
         type: req.body.values.type,
         creator: req.userData.userId,
         supervisor: req.body.values.supervisor,
-        techs: req.body.values.techs,
-        createdAt: new Date(),
-        members: req.body.values.members,
-    })
+        techs:req.body.values.techs,
+        createdAt:new Date(),
+        members:[]
+    });
     act.save()
-        .then(result => {
+        .then(async result => {
+            const members = req.body.values.members;
+            for (let i = 0; i < members.length; i++) {
+                 await sendInvitationToUsers(members[i] , result)
+
+            }
             console.log("success");
             timeLog("created activity")
             res.status(200).json({

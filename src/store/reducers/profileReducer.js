@@ -13,6 +13,7 @@ const initialState = {
   hobbies: null,
   about: null,
   languages: null,
+  facebook:'',
   url:null
 
 };
@@ -52,6 +53,7 @@ export default function(state = initialState, action) {
         hobbies: action.payload,
         about: action.payload,
         languages: action.payload,
+        facebook:action.payload,
         loading: false
       };
     case SET_LINKEDIN:

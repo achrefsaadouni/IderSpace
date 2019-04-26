@@ -1,4 +1,5 @@
 import axios from "axios";
+import {setCurrentUserAfterUpdate} from "./authActions"
 
 import {
     GET_PROFILE,
@@ -7,18 +8,20 @@ import {
     CLEAR_CURRENT_PROFILE,
     GET_ERRORS, SET_RESUME, SET_LINKEDIN,UPDATE_PHOTO
 } from "./types";
-import {setRecommandationLoading} from "./recommandationAction";
+
 
 // Get current profile
 export const getCurrentProfile = () => dispatch => {
     dispatch(setProfileLoading());
     axios
         .get("api/user/profile")
-        .then(res =>
-            dispatch({
-                type: GET_PROFILE,
-                payload: res.data
-            })
+        .then(res => {
+                dispatch({
+                    type: GET_PROFILE,
+                    payload: res.data
+                })
+
+            }
         )
         .catch(err =>
             dispatch({
@@ -42,13 +45,14 @@ export const addExperience = (expData, history) => dispatch => {
 };
 
 // Add resume
-export const addResume = (hobbies, about, languages) => dispatch => {
+export const addResume = (hobbies, about, languages , facebook) => dispatch => {
     dispatch(setProfileLoading());
     axios
         .post("http://localhost:2500/api/user/addResume", {
             hobbies: hobbies,
             about: about,
-            languages: languages
+            languages: languages,
+            facebook: facebook
         }, {headers: {'Content-Type': 'application/json'}})
         .then(res => {
             dispatch({
