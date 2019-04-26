@@ -4,6 +4,7 @@ import {
   GET_QUESTION,
   GET_QUESTIONS,
   GET_COMMENTS,
+  GET_QUESTIONS_LAST3,
   DELETE_QUESTION,
   LOADING
 } from "../actions/types";
@@ -14,6 +15,7 @@ const initialState = {
   forum: null,
   comments: null,
   newquestion: null,
+  lastQuestions: null,
   loading: true
 };
 
@@ -34,6 +36,12 @@ export default function(state = initialState, action) {
       return {
         ...state,
         questions: action.payload,
+        loading: false
+      };
+    case GET_QUESTIONS_LAST3:
+      return {
+        ...state,
+        lastQuestions: action.payload,
         loading: false
       };
     case GET_COMMENTS:

@@ -6,6 +6,15 @@ import TextFieldGroup from "../common/TextFieldGroup";
 import TextAreaFieldGroup from "../common/TextAreaFieldGroup";
 import isEmpty from "../../validation/is-empty";
 import Spinner from "../common/Spinner";
+import { WithContext as ReactTags } from "react-tag-input";
+import "./tag.css";
+
+const KeyCodes = {
+  comma: 188,
+  enter: 13
+};
+
+const delimiters = [KeyCodes.comma, KeyCodes.enter];
 
 class EditQuestion extends Component {
   constructor() {
@@ -14,9 +23,42 @@ class EditQuestion extends Component {
       category: "",
       subject: "",
       content: "",
-      tags: "",
+      tags: [],
+      suggestions: [
+        { id: "nodeJS", text: "nodeJS" },
+        { id: "vueJS", text: "vueJS" },
+        { id: "angularJS", text: "angularJS" },
+        { id: "Sport", text: "Sport" },
+        { id: "PHP", text: "PHP" },
+        { id: "JEE", text: "JEE" }
+      ],
       errors: {}
     };
+    this.handleDelete = this.handleDelete.bind(this);
+    this.handleAddition = this.handleAddition.bind(this);
+    this.handleDrag = this.handleDrag.bind(this);
+  }
+
+  handleDelete(i) {
+    const { tags } = this.state;
+    this.setState({
+      tags: tags.filter((tag, index) => index !== i)
+    });
+  }
+
+  handleAddition(tag) {
+    this.setState(state => ({ tags: [...state.tags, tag] }));
+  }
+
+  handleDrag(tag, currPos, newPos) {
+    const tags = [...this.state.tags];
+    const newTags = tags.slice();
+
+    newTags.splice(currPos, 1);
+    newTags.splice(newPos, 0, tag);
+
+    // re-render
+    this.setState({ tags: newTags });
   }
 
   componentDidMount() {
@@ -39,6 +81,17 @@ class EditQuestion extends Component {
       // If question field doesnt exist, make empty string
       question.subject = !isEmpty(question.subject) ? question.subject : "";
       question.content = !isEmpty(question.content) ? question.content : "";
+      question.tags = !isEmpty(question.tags) ? question.tags : "";
+
+      if (!isEmpty(question.tags)) {
+        const newTags = question.tags.map(t => {
+          return {
+            id: t,
+            text: t
+          };
+        });
+        this.setState({ tags: newTags });
+      }
 
       // Set component fields state
       this.setState({
@@ -53,10 +106,13 @@ class EditQuestion extends Component {
 
     const { category, subject, content } = this.state;
 
+    const tags = this.state.tags.map(x => x.text);
+
     const editQuestion = {
       category,
       subject,
-      content
+      content,
+      tags
     };
 
     this.props.updateQuestion(
@@ -73,7 +129,7 @@ class EditQuestion extends Component {
 
     if (question == null || loading) return <Spinner />;
 
-    const { subject, content, errors } = this.state;
+    const { subject, content, errors, suggestions, tags } = this.state;
     return (
       <React.Fragment>
         <div className="header-spacer header-spacer-small" />
@@ -131,13 +187,18 @@ class EditQuestion extends Component {
                           error={errors.content}
                           label="Question content"
                         />
-                        <div className="form-group">
-                          <input
-                            className="form-control"
-                            type="text"
-                            placeholder="Choose Optional Tags"
-                          />
-                        </div>
+                        <p style={{ color: "#38a9ff", paddingLeft: "10px" }}>
+                          All your tag list:
+                        </p>
+                        <ReactTags
+                          tags={tags}
+                          suggestions={suggestions}
+                          delimiters={delimiters}
+                          handleDelete={this.handleDelete}
+                          handleAddition={this.handleAddition}
+                          handleDrag={this.handleDrag}
+                          handleTagClick={this.handleTagClick}
+                        />
                       </div>
                       <div className="col col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                         <a

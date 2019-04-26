@@ -10,6 +10,7 @@ const QuestionSchema = mongoose.Schema({
       }
     }
   ],
+  tags: { type: [String] },
   createdAt: { type: Date, required: true },
   subject: { type: String, required: true },
   content: { type: String, required: true },
