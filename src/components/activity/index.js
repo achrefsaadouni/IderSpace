@@ -4,12 +4,18 @@ import {PropTypes} from "prop-types";
 import {getActivities} from "../../store/actions/activityActions";
 import Spinner from "../common/Spinner";
 import Moment from "react-moment";
-import InfiniteLoader from 'react-infinite-loader';
+import {Link} from "react-router-dom"
 
 class index extends Component {
+    goToWorkPlace = e => {
+        let path = `/activity/workplace/` + e.target.value;
+        this.props.history.push(path);
+    }
+
     constructor() {
         super();
-        this.routeChange = this.routeChange.bind(this);
+        this.goToWorkPlace = this.goToWorkPlace.bind(this);
+
         var today = new Date(),
             date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
@@ -17,10 +23,7 @@ class index extends Component {
             date: date
         };
     }
-    goToWorkPlace(){
-        let path = `/activity/workplace`;
-        this.props.history.push(path);
-    }
+
     routeChange() {
         let path = `/activity/create`;
         this.props.history.push(path);
@@ -46,22 +49,26 @@ class index extends Component {
 
         const listItems = activities.resultat.map((e) =>
 
-            <div className="col col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div className="col col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12" key={e._id}>
 
                 <div className="ui-block">
                     {/* Post */}
                     <article className="hentry post has-post-thumbnail thumb-full-width">
                         <div className="post__author author vcard inline-items">
-                            <img src="img/author-page.jpg" alt="author" />
+                            <img src="img/author-page.jpg" alt="author"/>
                             <div className="author-date">
-                                <a className="h6 post__author-name fn" href="02-ProfilePage.html">You </a> Created an <a href="#"><b>{e.type}</b> activity</a>
+                                <a className="h6 post__author-name fn" href="02-ProfilePage.html">You </a> Created an <a
+                                href="#"><b>{e.type}</b> activity</a>
                                 <div className="post__date">
                                     <time className="published" dateTime="2017-03-24T18:18">
-                                        <Moment format="dddd MM, YYYY \at HH:mm">{e.createdAt }</Moment>
+                                        <Moment format="dddd MM, YYYY \at HH:mm">{e.createdAt}</Moment>
                                     </time>
                                 </div>
                             </div>
-                            <div className="more"><svg className="olymp-three-dots-icon"><use xlinkHref="#olymp-three-dots-icon" /></svg>
+                            <div className="more">
+                                <svg className="olymp-three-dots-icon">
+                                    <use xlinkHref="#olymp-three-dots-icon"/>
+                                </svg>
                                 <ul className="more-dropdown">
                                     <li>
                                         <a href="#">Edit Post</a>
@@ -79,9 +86,10 @@ class index extends Component {
                             </div>
                         </div>
                         <div className="post-thumb">
-                            <img src="img/post__thumb5.jpg" alt="photo" />
+                            <img src="img/post__thumb5.jpg" alt="photo"/>
                         </div>
-                        <a href="#" data-toggle="modal" data-target="#blog-post-popup" className="h2 post-title">{e.title}</a>
+                        <a href="#" data-toggle="modal" data-target="#blog-post-popup"
+                           className="h2 post-title">{e.title}</a>
                         <p>this activity is a <b>{e.type}</b>.
                         </p>
                         <p>
@@ -90,33 +98,35 @@ class index extends Component {
                         <p>
                             To Manage you activities Go to its <b>Workspace</b> by clicking on Workplace...
                         </p>
-                        <a href="#" data-toggle="modal" data-target="#blog-post-popup" className="btn btn-md-2 btn-border-think c-grey btn-transparent custom-color">Read More</a>
+                        <Link to={"activity/workspace/"+e._id} className="btn btn-md-2 btn-border-think c-orange btn-transparent custom-color"
+                                >Read More
+                        </Link>
                         <div className="post-additional-info inline-items">
 
                             <ul className="friends-harmonic">
                                 <li>
                                     <a href="#">
-                                        <img src="img/friend-harmonic5.jpg" alt="friend" />
+                                        <img src="img/friend-harmonic5.jpg" alt="friend"/>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#">
-                                        <img src="img/friend-harmonic10.jpg" alt="friend" />
+                                        <img src="img/friend-harmonic10.jpg" alt="friend"/>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#">
-                                        <img src="img/friend-harmonic7.jpg" alt="friend" />
+                                        <img src="img/friend-harmonic7.jpg" alt="friend"/>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#">
-                                        <img src="img/friend-harmonic8.jpg" alt="friend" />
+                                        <img src="img/friend-harmonic8.jpg" alt="friend"/>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#">
-                                        <img src="img/friend-harmonic2.jpg" alt="friend" />
+                                        <img src="img/friend-harmonic2.jpg" alt="friend"/>
                                     </a>
                                 </li>
                             </ul>
@@ -126,20 +136,24 @@ class index extends Component {
                         </div>
                         <div className="control-block-button post-control-button">
                             <a href="#" className="btn btn-control">
-                                <svg className="olymp-like-post-icon"><use xlinkHref="#olymp-like-post-icon" /></svg>
+                                <svg className="olymp-like-post-icon">
+                                    <use xlinkHref="#olymp-like-post-icon"/>
+                                </svg>
                             </a>
                             <a href="#" className="btn btn-control">
-                                <svg className="olymp-comments-post-icon"><use xlinkHref="#olymp-comments-post-icon" /></svg>
+                                <svg className="olymp-comments-post-icon">
+                                    <use xlinkHref="#olymp-comments-post-icon"/>
+                                </svg>
                             </a>
                             <a href="#" className="btn btn-control">
-                                <svg className="olymp-share-icon"><use xlinkHref="#olymp-share-icon" /></svg>
+                                <svg className="olymp-share-icon">
+                                    <use xlinkHref="#olymp-share-icon"/>
+                                </svg>
                             </a>
                         </div>
                     </article>
-                    {/* ... end Post */}			</div>
+                    {/* ... end Post */}            </div>
             </div>
-
-
         )
 
         return (
@@ -171,7 +185,8 @@ class index extends Component {
                                     <div className="h6 title">Your Activities ()</div>
                                     <form className="w-search">
                                         <div className="form-group with-button is-empty">
-                                            <input className="form-control" type="text" placeholder="Search Friends..."/>
+                                            <input className="form-control" type="text"
+                                                   placeholder="Search Friends..."/>
                                             <button>
                                                 <svg className="olymp-magnifying-glass-icon">
                                                     <use xlinkHref="#olymp-magnifying-glass-icon"></use>
@@ -195,12 +210,7 @@ class index extends Component {
                     <div className="row">
 
 
-
                         {listItems}
-
-
-
-
 
 
                     </div>
