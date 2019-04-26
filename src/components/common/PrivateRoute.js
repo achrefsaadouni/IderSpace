@@ -3,15 +3,24 @@ import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-const PrivateRoute = ({ component: Component, auth, ...rest }) => (
+const PrivateRoute = ({ component: Component,val, auth, ...rest }) => (
   <Route
     {...rest}
     render={props =>
+        val === "botQuestion" ?
       auth.isAuthenticated === true ? (
-        <Component {...props} />
+          auth.user.role==="admin"  ?
+        <Component {...props} /> : <Redirect to="/" />
       ) : (
         <Redirect to="/login" />
       )
+            :
+
+            auth.isAuthenticated === true ? (
+                    <Component {...props} />
+            ) : (
+                <Redirect to="/login" />
+            )
     }
   />
 );
