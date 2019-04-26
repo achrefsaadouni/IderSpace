@@ -69,7 +69,9 @@ routes
 Contains the routes for cour application
 
 exemple :
+
 router.post("/", ChatbotController.chat);
+
 module.exports = router;
 
 
@@ -80,12 +82,19 @@ services
 Contains all the business functions of our application such as 
 
 function getApprovedAnswer(comments) {
+
     for (var i = 0; i < comments.comments.length; i++) {
+    
         if (comments.comments[i].approved == true)
+	
         {
+	
             return comments.comments[i];
+	    
         }
+	
     }
+    
 }
 
 validation
@@ -147,27 +156,40 @@ components: Contains the different components. Every module has it own directory
 utils: Contains function that will intercept all request and add the token to their headers
 
 exemple :
+
 const setAuthToken = token => {
+
   if (token) {
+  
     // Apply to every request
+    
     axios.defaults.headers.common["Authorization"] = token;
+    
   } else {
+  
     // Delete auth header
+    
     delete axios.defaults.headers.common["Authorization"];
+    
   }
+  
 };
 
 
 
 
 validation :
+
 Contains a function that can check if a string is empty or not
 
 server.js
+
 Contains the configuration of the server
 
 How To run it
+
 run " npm install " to get all dependencies
+
 run " npm run dev " to start both servers
 
 
