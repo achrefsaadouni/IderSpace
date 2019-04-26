@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import {connect} from "react-redux";
+import {loginUser} from "../../store/actions/authActions";
 
 class SideBar extends Component {
   render() {
+
     return (
       <React.Fragment>
         <div className="fixed-sidebar">
@@ -53,18 +56,22 @@ class SideBar extends Component {
                     </svg>
                   </Link>
                 </li>
-                <li>
+
+                {this.props.auth.user.role === "admin" ? <li>
                   <Link to="/botQuestion">
                     <svg
-                      className="olymp-star-icon left-menu-icon"
-                      data-toggle="tooltip"
-                      data-placement="right"
-                      data-original-title="ChatBot Unanswered Question"
+                        className="olymp-star-icon left-menu-icon"
+                        data-toggle="tooltip"
+                        data-placement="right"
+                        data-original-title="ChatBot Unanswered Question"
                     >
                       <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-manage-widgets-icon" />
                     </svg>
                   </Link>
-                </li>
+                </li> : <li></li>}
+
+
+
                  <li>
                   <Link to="/activity">
                     <svg
@@ -205,20 +212,21 @@ class SideBar extends Component {
                     <span className="left-menu-title">Q/A Forum</span>
                   </Link>
                 </li>
-                  {/* CREATED ACTIVITIES */}
-                <li>
+
+                {this.props.auth.user.role === "admin" ?<li>
                   <Link to="/botQuestion">
                     <svg
-                      className="olymp-star-icon left-menu-icon"
-                      data-toggle="tooltip"
-                      data-placement="right"
-                      data-original-title="ChatBot Unanswered Question"
+                        className="olymp-star-icon left-menu-icon"
+                        data-toggle="tooltip"
+                        data-placement="right"
+                        data-original-title="ChatBot Unanswered Question"
                     >
                       <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-manage-widgets-icon" />
                     </svg>
                     <span className="left-menu-title">ChatBot Unanswered Question</span>
                   </Link>
-                </li>
+                </li>  : <li></li>}
+
 
                 <li>
                   <Link to="/">
@@ -611,4 +619,13 @@ class SideBar extends Component {
   }
 }
 
-export default SideBar;
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+
+export default connect(
+    mapStateToProps,
+    { loginUser }
+)(SideBar);
+
