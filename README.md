@@ -20,16 +20,27 @@ Server side
 
 Directory tree
 ./backend
+
 ├── controllers
+
 ├── Dictionnary
+
 ├── handler
+
 ├── middleware
+
 ├── models
+
 ├── routes
+
 ├── ScrappingLinkedIn
+
 ├── services
+
 ├── validation
+
 ├── conf.js
+
 └── app.js
 
 Walking through

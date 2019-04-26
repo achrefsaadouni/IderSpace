@@ -16,12 +16,13 @@ import About from './about';
 import Header from './header';
 import Activities from './activities';
 import Video from './video';
+import Photo from './photo'
 import axios from "axios";
 import io from 'socket.io-client';
 import ReactNotification from "react-notifications-component";
 import "react-notifications-component/dist/theme.css";
-const socket = io('http://localhost:2500');
 
+const socket = io('http://localhost:2500');
 
 
 async function verifyExistanceBool(tab, val) {
@@ -52,8 +53,8 @@ class Index extends Component {
             responseService: '',
             currentInterface: '',
             currentProfileImage: '',
-            activityRequest:this.props.profile.activityRequest,
-            etat:false
+            activityRequest: this.props.profile.activityRequest,
+            etat: false
         };
         this.onClick = this.onClick.bind(this);
         this.messageReceive = this.messageReceive.bind(this);
@@ -65,22 +66,25 @@ class Index extends Component {
         this.props.getCurrentProfile();
         socket.on('userRecieve', this.messageReceive);
     }
+
     messageReceive(msg) {
         this.addNotification();
     }
+
     addNotification() {
-                this.notificationDOMRef.current.addNotification({
-                    title: "Attention",
-                    message: "You have new Activity!",
-                    type: "success",
-                    insert: "top",
-                    container: "top-right",
-                    animationIn: ["animated", "fadeIn"],
-                    animationOut: ["animated", "fadeOut"],
-                    dismiss: { duration: 8000 },
-                    dismissable: { click: true }
+        this.notificationDOMRef.current.addNotification({
+            title: "Attention",
+            message: "You have new Activity!",
+            type: "success",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animated", "fadeIn"],
+            animationOut: ["animated", "fadeOut"],
+            dismiss: {duration: 8000},
+            dismissable: {click: true}
         });
     }
+
     onOpenModal = () => {
         this.setState({open: true});
     };
@@ -134,34 +138,35 @@ class Index extends Component {
 
     };
 
-    onActionActivity = (etat , id) => {
+    onActionActivity = (etat, id) => {
         /*console.log('wsel lel index');
         var {profile} = this.props.profile;
         if (this.state.activityRequest.length ===0){
             this.setState({activityRequest : profile});
             console.log('dkhal lel if');
         }*/
-        var idd = '"'+id+'"';
-        if (!this.state.etat){
+        var idd = '"' + id + '"';
+        if (!this.state.etat) {
             var {profile} = this.props.profile;
             this.setState({
                 activityRequest: profile.activityRequest,
                 etat: true
             });
-            axios({
-                method: 'post',
-                url: 'http://localhost:2500/api/user/manageActivityRequest',
-                data: {idActiv:id , repUser:etat},
 
-            }).then(() => {
-                var newactiv = this.state.activityRequest.filter(ac => ac.idActivity !== id);
-                this.setState({
-                    activityRequest : newactiv,
-                    etat : true
-                })
-            })
 
         }
+        axios({
+            method: 'post',
+            url: 'http://localhost:2500/api/user/manageActivityRequest',
+            data: {idActiv: id, repUser: etat},
+
+        }).then(() => {
+            var newactiv = this.state.activityRequest.filter(ac => ac.idActivity !== id);
+            this.setState({
+                activityRequest: newactiv,
+                etat: true
+            })
+        })
 
     }
 
@@ -271,12 +276,11 @@ class Index extends Component {
         }
 
 
-
         if (this.state.firstlogin === true || profile.firstLogin === true) {
             if (this.state.currentInterface === '') {
                 return (
                     <React.Fragment>
-                        <ReactNotification ref={this.notificationDOMRef} />
+                        <ReactNotification ref={this.notificationDOMRef}/>
                         <div className="header-spacer"/>
                         {headerInterface}
                         <Profile onchangePhotoProfile={this.onChangePhoto.bind(this)} key={profile.id} profile={profile}
@@ -286,7 +290,7 @@ class Index extends Component {
             } else if (this.state.currentInterface === 'about') {
                 return (
                     <React.Fragment>
-                        <ReactNotification ref={this.notificationDOMRef} />
+                        <ReactNotification ref={this.notificationDOMRef}/>
                         <div className="header-spacer"/>
                         {headerInterface}
                         <About profile={profile}/>
@@ -296,40 +300,47 @@ class Index extends Component {
                 if (!this.state.etat) {
                     return (
                         <React.Fragment>
-                            <ReactNotification ref={this.notificationDOMRef} />
+                            <ReactNotification ref={this.notificationDOMRef}/>
                             <div className="header-spacer"/>
                             {headerInterface}
-                            <Activities onActionOnActivity={this.onActionActivity.bind(this)} profile={profile} etat={this.state.etat}/>
+                            <Activities onActionOnActivity={this.onActionActivity.bind(this)} profile={profile}
+                                        etat={this.state.etat}/>
                         </React.Fragment>
                     );
                 } else {
                     return (
                         <React.Fragment>
-                            <ReactNotification ref={this.notificationDOMRef} />
+                            <ReactNotification ref={this.notificationDOMRef}/>
                             <div className="header-spacer"/>
                             {headerInterface}
-                            <Activities onActionOnActivity={this.onActionActivity.bind(this)} profile={this.state.activityRequest} etat={this.state.etat}/>
+                            <Activities onActionOnActivity={this.onActionActivity.bind(this)}
+                                        profile={this.state.activityRequest} etat={this.state.etat}/>
                         </React.Fragment>
                     );
                 }
-            } else if (this.state.currentInterface === 'video'){
+            } else if (this.state.currentInterface === 'video') {
                 return (
-                        <React.Fragment>
-                            <ReactNotification ref={this.notificationDOMRef} />
-                            <div className="header-spacer"/>
-                            {headerInterface}
-                            <Video/>
-                        </React.Fragment>
-                    );
-
-
-
-
+                    <React.Fragment>
+                        <ReactNotification ref={this.notificationDOMRef}/>
+                        <div className="header-spacer"/>
+                        {headerInterface}
+                        <Video/>
+                    </React.Fragment>
+                );
+            } else if (this.state.currentInterface === 'photo'){
+                return (
+                    <React.Fragment>
+                        <ReactNotification ref={this.notificationDOMRef}/>
+                        <div className="header-spacer"/>
+                        {headerInterface}
+                        <Photo profile={profile}/>
+                    </React.Fragment>
+                );
             }
         } else {
             return (
                 <React.Fragment>
-                    <ReactNotification ref={this.notificationDOMRef} />
+                    <ReactNotification ref={this.notificationDOMRef}/>
                     <div className="main-header">
                         <div className="content-bg-wrap bg-badges"/>
                         <div className="container">

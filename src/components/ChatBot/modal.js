@@ -1,11 +1,12 @@
 import React, { Component } from "react";
+import Moment from "react-moment";
 const Swal = require('sweetalert2');
 
 
 
 
 export default class Modal extends Component {
-    
+
     constructor()
     {
         super();
@@ -176,7 +177,7 @@ export default class Modal extends Component {
                                 <h3>The Question</h3>
                                 {question == null ?
                                     (<p>vide</p>) :
-                                    (<React.Fragment><p>Content : {question.content}</p> <p> Created At : {question.content}</p></React.Fragment>)
+                                    (<React.Fragment><p>Content : {question.content}</p> <p> Created At : <Moment format="dddd MM, YYYY \at HH:mm">{question.createdAt }</Moment></p></React.Fragment>)
 
                                 }
 
