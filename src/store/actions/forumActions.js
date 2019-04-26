@@ -206,10 +206,9 @@ export const bestComment = (id, id_comment) => dispatch => {
   axios
     .post(`http://localhost:2500/api/question/comment/${id}/${id_comment}`)
     .then(res =>
-      dispatch({
-        type: GET_QUESTION,
-        payload: res.data
-      })
+      dispatch(
+        getComments(id,3,1)
+      )
     )
     .catch(err =>
       dispatch({
