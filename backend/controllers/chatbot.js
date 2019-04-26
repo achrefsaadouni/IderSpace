@@ -28,7 +28,7 @@ exports.chat = async (req, res, next) => {
         Question.findOne({'subject': {$regex: mot, $options: 'i'}}, 'comments', function (err, answer) {
             if (err)
                 res.send(err);
-            if (!answer) {
+            if (!answer || chatbot.getApprovedAnswer(answer) === undefined) {
                 var options = {
                     query: req.body.queryResult.queryText,
                     limit: 2,
@@ -38,7 +38,8 @@ exports.chat = async (req, res, next) => {
                 var test = true;
                     scraper.search(options, function(err, url, meta) {
                         if(err)
-                        {
+                        {   console.log("error")
+                            console.log(err);
                             chatbot.addBotQuestion(req.body.queryResult.queryText);
                             res.send(chatbot.createTextResponse("There are no Answer in our Forum that seems similar to your question . But no worries your question will be a reference for next time"));
                         }
@@ -46,7 +47,8 @@ exports.chat = async (req, res, next) => {
                         {
                             if (!(url===undefined || meta.desc===undefined))
                             {
-                                var resl = meta.desc+url+"                                                                    Is it what you are looking for ?";
+                                var resl = meta.desc+url+"\
+                                    Is it what you are looking for ?";
                                 test =false;
                                 resl = resl.replace('...',' ');
                                 resl = resl.replace(' ...',' ');
