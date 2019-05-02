@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import dotenv from 'dotenv';
 import YTSearch from 'youtube-api-search';
 import SearchBar from './SearchBar';
-//import './video.css';
+import './video.css';
 import VideoList from './VideoList';
 import VideoDetail from './VideoDetail';
 import {Icon, notification} from 'antd';

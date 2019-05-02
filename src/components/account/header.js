@@ -21,6 +21,9 @@ class Header extends Component {
     };
 
     render() {
+        let countActivityArray =[];
+        console.log(this.props.profile.activityRequest);
+        countActivityArray = this.props.profile.activityRequest.filter(request => request.stat ==='waiting');
         return (
             <div>
                 <div className="container">
@@ -29,7 +32,7 @@ class Header extends Component {
                             <div className="ui-block">
                                 <div className="top-header">
                                     <div className="top-header-thumb">
-                                        <img src="/img/top-header1.jpg" alt="nature"/>
+                                        <img src={this.props.wallpaper} style={{width: '1267px' , height:'422px'}} alt="nature"/>
                                     </div>
                                     <div className="profile-section">
                                         <div className="row">
@@ -90,7 +93,7 @@ class Header extends Component {
                                                     <use
                                                         xlinkHref="/svg-icons/sprites/icons.svg#olymp-happy-face-icon"/>
                                                 </svg>
-                                                <div className="label-avatar bg-grey-light">6</div>
+                                                <div className="label-avatar bg-grey-light">{countActivityArray.length + this.props.valReq}</div>
                                             </a>
 
                                             <Link to="/" className="btn btn-control bg-purple">
@@ -116,13 +119,13 @@ class Header extends Component {
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <Link
-                                                            to="/"
+                                                        <a onChange={console.log('aaaa')} href=''
                                                             data-toggle="modal"
-                                                            data-target="#update-header-photo"
-                                                        >
+                                                            data-target="#update-header-wallpaper"
+                                                        ><span>
                                                             Update Header Photo
-                                                        </Link>
+                                                        </span>
+                                                        </a>
                                                     </li>
                                                     <li>
                                                         <Link to="29-YourAccount-AccountSettings.html">

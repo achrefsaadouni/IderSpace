@@ -21,6 +21,10 @@ async function verifyExistance(tab, val) {
 
 async function verifyExistanceBool(tab, val) {
     return new Promise((resolve) => {
+        console.log('----')
+        console.log(tab);
+        console.log(val);
+        console.log('----')
         var etat = false;
         for (const element of tab) {
             if (element === val) {
@@ -74,7 +78,7 @@ class SetHobbies extends Component {
     onClickSelect = async e => {
         var {selectedHobbies} = this.state;
         const verify = await verifyExistance(selectedHobbies, e).then(res => {
-            //console.log(e.target.value)
+            console.log(res)
 
             this.setState({
                 tab: res
@@ -93,15 +97,18 @@ class SetHobbies extends Component {
     };
 
     newetatfunction = async id => {
+        console.log('******'+id);
         var listHobbies = this.props.getIdHobbies;
         const {hobbie} = this.state;
-        var etat = await verifyExistanceBool(listHobbies, id);
+        var etat = await verifyExistanceBool(listHobbies, id.name);
         if (etat === false) {
-            const hobname = hobbie.filter(hobb => hobb.id === id);
+            console.log('dkhal lel false');
+            console.log(hobbie);
+            const hobname = hobbie.filter(hobb => hobb.id === id.id);
             this.props.addIdToList(hobname[0].name);
-            const newHobbie = hobbie[id - 1];
+            const newHobbie = hobbie[id.id - 1];
             newHobbie.etat = !newHobbie.etat;
-            hobbie[id - 1] = newHobbie;
+            hobbie[id.id - 1] = newHobbie;
             if (newHobbie.etat === false) {
                 this.setState({hobbie: hobbie});
 
@@ -110,10 +117,17 @@ class SetHobbies extends Component {
 
             }
         } else {
-            listHobbies = verifyExistance(listHobbies, id);
-            const newHobbie = hobbie[id - 1];
-            newHobbie.etat = !newHobbie.etat;
-            hobbie[id - 1] = newHobbie;
+            listHobbies = verifyExistance(listHobbies, id.name);
+            const newHobbie = hobbie[id.id - 1];
+            console.log(newHobbie.etat);
+            newHobbie.etat = false;
+            console.log(newHobbie.etat);
+            console.log('===============')
+            console.log(hobbie[id.id - 1]);
+            hobbie[id.id - 1] = newHobbie;
+            console.log(hobbie[id.id - 1])
+            console.log('____');
+            console.log(hobbie);
             if (newHobbie.etat === false) {
                 this.setState({hobbie: hobbie});
 
@@ -121,6 +135,7 @@ class SetHobbies extends Component {
                 this.setState({hobbie: hobbie});
 
             }
+            console.log(hobbie);
         }
 
     }
@@ -152,7 +167,7 @@ class SetHobbies extends Component {
                         <div className="row">
 
                             {hobbie.map(hobbie => (
-                                <Hobbies key={hobbie.id} hobbie={hobbie} listId={this.props.getIdHobbies} onClick={this.onClickSelect.bind(this)}  verifyEtatHandler={this.newetatfunction.bind(this,hobbie.id)} />
+                                <Hobbies key={hobbie.id} hobbie={hobbie} listId={this.props.getIdHobbies} onClick={this.onClickSelect.bind(this)}  verifyEtatHandler={this.newetatfunction.bind(this,hobbie)} />
                             ))}
 
                         </div>

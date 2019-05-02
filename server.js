@@ -56,7 +56,6 @@ app.set('io', io);
 io.on('connection', function (socket) {
     console.log('A user connected');
     socket.on('activity', function (data) {
-        console.log("doussss");
         // check this msgBy in chatroom of database
         io.sockets.emit('userRecieve', data);
     });

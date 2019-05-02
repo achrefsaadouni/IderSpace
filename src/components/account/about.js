@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ListSkills from "./listSkills";
 import Education from "./education";
 import Experience from "./experience";
+import UploadImageModal from './uploadImageModal';
 class About extends Component {
 
 

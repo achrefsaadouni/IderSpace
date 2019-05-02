@@ -10,9 +10,10 @@ class Photo extends Component {
         interfaceSingleImage = this.props.profile.oldPhoto.map(photo =>
             <SinglePhoto key={photo.toString()} photo={photo}/>
         )
-
-        interfaceProfileImage = <SinglePhoto key={this.props.profile.profileImage.toString()} photo={this.props.profile.profileImage}/>
-
+        if (this.props.profileImage !== 'https://res.cloudinary.com/pi-dev/image/upload/v1555884886/bjce0bnez3w7oqbykqre.png') {
+            interfaceProfileImage =
+                <SinglePhoto key={this.props.profile.profileImage.toString()} photo={this.props.profile.profileImage}/>
+        }
         return (
             <div className="container">
                 <div className="row">

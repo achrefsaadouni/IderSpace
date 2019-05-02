@@ -9,6 +9,7 @@ const scrapping = require("../ScrappingLinkedIn/index");
 const kmeans = require("node-kmeans");
 const configFile = require("../config");
 const SkillsType = require("../Dictionnary/SkillsType");
+const Publications = require("../Models/Publications");
 const cloudinary = require('cloudinary');
 require('../handler/cloudinary');
 const upload = require('../handler/multer');
@@ -43,7 +44,8 @@ exports.createUser = (req, res, next) => {
             adresse: req.body.adresse,
             sexe: req.body.sexe,
             birthday: req.body.birthday,
-            activityRequest: []
+            activityRequest: [],
+            friends:[]
         });
         user
             .save()
@@ -915,11 +917,11 @@ exports.changeProfilImage = async (req, res, next) => {
 
 
 exports.manageActivityRequest = async (req, res, next) => {
-    let idActiv='';
+    let idActiv = '';
     let repUser;
     idActiv = req.body.idActiv;
     repUser = req.body.repUser;
-    console.log('--'+idActiv+'--'+repUser);
+    console.log('--' + idActiv + '--' + repUser);
     let fetchedUser;
     let fetchedActivity;
     User.findById({_id: req.userData.userId})
@@ -932,21 +934,20 @@ exports.manageActivityRequest = async (req, res, next) => {
             fetchedUser = user;
 
         }).then(async () => {
-            console.log('1');
+        console.log('1');
         const index = await getIndexActivityForUser(fetchedUser.activityRequest, idActiv);
-        console.log('index : '+index);
+        console.log('index : ' + index);
         if (repUser === true) {
             console.log('2');
             fetchedUser.activityRequest[index].stat = 'accepted';
             await addMemberToActivity(fetchedUser.id, idActiv);
-        }else{
+        } else {
             fetchedUser.activityRequest[index].stat = 'refused';
         }
 
 
-
-    }).then(() =>{
-        fetchedUser.save().then(()=>{
+    }).then(() => {
+        fetchedUser.save().then(() => {
             return res.status(200).json({
                 message: "activity setted"
             });
@@ -995,3 +996,94 @@ async function addMemberToActivity(idUser, idActiv) {
             console.log(err);
         });
 }
+
+
+exports.changeCouvertureImage = async (req, res, next) => {
+    const result = await cloudinary.v2.uploader.upload(req.file.path);
+    let fetchedUser;
+    User.findById({_id: req.userData.userId})
+        .then(user => {
+            if (!user) {
+                return res.status(401).json({
+                    message: "undifined user"
+                });
+            }
+            fetchedUser = user;
+
+        }).then(() => {
+        fetchedUser.couverturePhoto = result.secure_url;
+        fetchedUser.save();
+        res.send({
+            message: fetchedUser
+        })
+    })
+        .catch(err => {
+            console.log(err);
+        });
+};
+
+
+exports.addPublications = (req, res, next) => {
+    const publications = mongoose.model("publications", Publications);
+    let fetchedUser;
+    let verify = true;
+    User.findById({_id: req.userData.userId})
+        .then(user => {
+            if (!user) {
+                return res.status(401).json({
+                    message: "undifined user"
+                });
+            }
+            fetchedUser = user;
+        })
+        .then(() => {
+            fetchedUser.publications.push(
+                new publications({
+                    content: req.body.pub,
+                })
+            );
+            fetchedUser.save().then(result => {
+                res.status(200).json({
+                    result
+                });
+            });
+
+        })
+        .catch(err => {
+            console.log(err);
+        });
+};
+
+
+
+exports.manageRequestFriend = (req, res, next) => {
+    let fetchedUser;
+    User.findById({_id: req.userData.userId})
+        .then(user => {
+            if (!user) {
+                return res.status(401).json({
+                    message: "undifined user"
+                });
+            }
+            fetchedUser = user;
+        })
+        .then(() => {
+            console.log(req.body.responseInvitation);
+            if  (req.body.responseInvitation === true){
+                console.log('dkhal lel if')
+                fetchedUser.friends.push(req.body.idInviter);
+            }
+
+            fetchedUser.save().then(result => {
+                res.status(200).json({
+                    fetchedUser
+                });
+            });
+
+        })
+        .catch(err => {
+            console.log(err);
+        });
+};
+
+
