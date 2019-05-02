@@ -45,6 +45,7 @@ async function main(x) {
     // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
     // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
 }
+
 function timeLog(req) {
     // this is an example of how you would call our new logging system to log an info message
     logger.info(req);
@@ -60,7 +61,7 @@ exports.createActivity = (req, res, next) => {
             descriptionDocument: req.body.descriptionDocument,
             type: req.body.type,
             creator: req.userData.userId,
-            techs:req.body.techs
+            techs: req.body.techs
         })
         act.save()
             .then(result => {
@@ -172,7 +173,6 @@ exports.addToDosToModule = (req, res, next) => {
 
 
 }
-
 exports.addMembersManually = (req, res, next) => {
 
     let MembersId = []
@@ -216,8 +216,6 @@ exports.addMembersManually = (req, res, next) => {
 
 
 }
-
-
 exports.assignSupervisors = (req, res, next) => {
 
     let supervisorsId = []
@@ -251,7 +249,6 @@ exports.assignSupervisors = (req, res, next) => {
 
 
 }
-
 exports.assignModule = (req, res, next) => {
     Module.findById(req.body.moduleId).then((ac) => {
         if (ac != null) {
@@ -290,7 +287,7 @@ exports.pushTodoToValidation = (req, res, next) => {
                         activity: req.body.activityId,
                         module: req.body.moduleId,
                         validation: false,
-                        state:false
+                        state: false
                     }
                 )
                 validating.save()
@@ -321,7 +318,6 @@ exports.pushTodoToValidation = (req, res, next) => {
         })
     }
 }
-
 exports.validateRequest = (req, res, next) => {
 
     ValidatingRequests.findById(req.body.requestId).then(result => {
@@ -351,7 +347,6 @@ exports.validateRequest = (req, res, next) => {
         })
     });
 }
-
 exports.incrementProgress = () => {
     let requests = []
     var j = schedule.scheduleJob('* * * * *', function () {
@@ -386,9 +381,7 @@ exports.incrementProgress = () => {
     });
 
 }
-/*
-
-var j = schedule.scheduleJob('* * * * *', function () {
+/*var j = schedule.scheduleJob('* * * * *', function () {
     activity.find().then(ac => {
         if (ac.length !== 0) {
             ac.map(e => {
@@ -413,8 +406,6 @@ var j = schedule.scheduleJob('* * * * *', function () {
     })
 
 })*/
-
-
 exports.getAllCreatedActivities = (req, res, next) => {
     if (req.userData.role === "teacher") {
         activity.find().where("creator").equals(req.userData.userId).then(result => {
@@ -423,7 +414,7 @@ exports.getAllCreatedActivities = (req, res, next) => {
             res.status(200).json({
                 message: "All of your created activities!",
                 resultat: x,
-                creator:req.userData
+                creator: req.userData
             });
         })
             .catch(err => {
@@ -473,12 +464,48 @@ exports.getActivityModules = (req, res, next) => {
 }
 exports.getTodoByModule = (req, res, next) => {
     let Todoos = []
+    let x = []
+   let element = {
+        id:"1",
+        title:"todo",
+        description:"descr",
+        label: "date",
+        cardColor: '#E08521',
+        cardStyle: {borderRadius: 6, boxShadow: '0 0 6px 1px #E08521', marginBottom: 15},
+        metadata: {id: "1"},
+        tags: "tag"
+    }
+    let data = {lanes: [
+            {
+                id: 'lane1',
+                title: 'Planned Tasks',
+                label: '',
+                cards: []
+            },
+            {
+                id: 'lane2',
+                title: 'In Test',
+                label: '',
+                cards: [],
+
+
+            }, {
+                id: 'lane3',
+                title: 'Completed',
+                label: '',
+                cards: [],
+
+
+            }
+        ]}
+
     Module.findById(req.body.moduleId).then(ac => {
 
-
+        console.log(ac)
         var promises = todo.find({
             '_id': {$in: ac.todos}
         }, function (err, docs) {
+            if(!docs.length==0)
             Todoos.push(docs)
         });
         return promises
@@ -487,14 +514,73 @@ exports.getTodoByModule = (req, res, next) => {
     })
         .then(resultat => {
             Promise.all(resultat).then(reslt => {
-                if (reslt != null) {
-                    res.status(200).json(
-                        {
-                            message: "all Todos for this Module",
-                            result: reslt
-                        }
-                    )
-                }
+                            if (reslt.length!=0){
+                                ValidatingRequests.find({
+                                    'ToDo': {$in: reslt}
+                                }, function (err, docs) {
+                                    if(!docs.length==0)
+                                        x.push(docs)
+                                    return x
+                                })
+                                   .then(resl=>{
+                                  var promises=  Todoos.map(e => {
+
+
+                                        if (e.done) {
+
+                                            element.id=e._id
+                                            element.description=e.description
+                                            element.label=e.endDate
+                                            element.title=e.name
+                                            element.tags=e.tag
+                                           data.lanes[2].cards.push(element)
+
+                                        }
+                                        else if (resl.includes(e._id)) {
+                                            element.id=e._id
+                                            element.description=e.description
+                                            element.label=e.endDate
+                                            element.title=e.name
+                                            element.tags=e.tag
+                                            data.lanes[1].cards.push(element)
+                                        }
+                                        else {
+                                            element.id=e._id
+                                            element.description=e.description
+                                            element.label=e.endDate
+                                            element.title=e.name
+                                            element.tags=e.tag
+                                            data.lanes[0].cards.push(element)
+                                        }
+                                    })
+                                    return promises
+
+                                })
+
+                                    .then(rr=>{
+                                    res.status(200).json(
+                                        {
+                                            message: "ok",
+                                            result: rr,
+                                            allTodo:Todoos
+                                        }
+                                    )
+
+                                })
+                            }
+                            else
+                            {
+
+                   res.status(200).json(
+                       {
+                           message: "no",
+                           result: reslt
+                       }
+                   )
+
+                            }
+
+
             })
 
         })
@@ -507,7 +593,7 @@ exports.getTodoByModule = (req, res, next) => {
 }
 exports.getAllActivitiesSupervisor = (req, res, next) => {
     let activi = []
-    if (req.userData.role == "teacher") {
+    if (req.userData.role === "teacher") {
         activity.find({
             'supervisor': {$eq: req.userData.userId}
         }, function (err, docs) {
@@ -593,7 +679,7 @@ var sch = schedule.scheduleJob('* * * * *', function () {
                     if (res.length > 5) {
                         e.type = "gold member"
                         e.save()
-                        timeLog("gold member"+e.firs)
+                        timeLog("gold member" + e.firs)
                         console.log("changing to gold member :" + e.firstname)
                         var mailOptions = {
                             from: 'ismail <amuari01@gmail.com>',
@@ -658,16 +744,16 @@ exports.enrichCv = () => {
     });
 
 }
-exports.deleteToDo=(req,res,next)=>{
-    todo.deleteOne({ id: req.body.todoId }, function (err) {
+exports.deleteToDo = (req, res, next) => {
+    todo.deleteOne({id: req.body.todoId}, function (err) {
         if (err) return handleError(err);
         // deleted at most one tank document
-    }).then(result=>{
-        Module.findById(req.body.moduleId).then(mo=>{
+    }).then(result => {
+        Module.findById(req.body.moduleId).then(mo => {
             const index = mo.todos.indexOf(req.body.todoId);
-            mo.todos.splice(index,1)
+            mo.todos.splice(index, 1)
         })
-    }).then(resl=>{
+    }).then(resl => {
         console.log("deleted");
         res.status(200).json({
             message: "todo deleted",
@@ -680,14 +766,52 @@ exports.deleteToDo=(req,res,next)=>{
         })
     });
 };
-exports.getAllSupervisors=(req,res,next)=>{
+exports.addTodo = (req, res, next) => {
+   let created
+    const t = new todo({
+        name: req.body.title,
+        description: req.body.description,
+        state: false,
+        createdAt: new Date(),
+        tag: req.body.tags,
+        endDate: req.body.label,
+        done:false
+    })
+    t.save().then(result=>{
+        console.log("aaaaaaaaaaaaaaaaaaaaaaazezeae",result)
+        created=result
+        console.log(req.body.moduleId)
+        Module.findById(req.body.moduleId).then(result=>{
+
+                result.todos.push(created._id)
+                return result
+
+        }).then(x=>{
+            x.save() .then(result => {
+                console.log("success");
+                timeLog("created Todo")
+                res.status(200).json({
+                    message: "todo was created",
+                    result: result
+                });
+            })
+        })
+       })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            })
+        });
+};
+exports.getAllSupervisors = (req, res, next) => {
     User.find({role: {$eq: "teacher"}}).then(re => {
 
-            res.status(200).json({
-                message: "allSupervisors ",
-                result: re,
-                count :0
-            })
+        res.status(200).json({
+            message: "allSupervisors ",
+            result: re,
+            count: 0
+        })
 
     }).catch(err => {
         console.log(err);
@@ -696,15 +820,14 @@ exports.getAllSupervisors=(req,res,next)=>{
         })
     })
 }
+exports.getAllMembers = (req, res, next) => {
 
-exports.getAllMembers=(req,res,next)=>{
-
-       User.find({ _id : { $in : req.body.members } }).then(re => {
+    User.find({_id: {$in: req.body.members}}).then(re => {
 
         res.status(200).json({
             message: "allMembers ",
             result: re,
-            count :re.length
+            count: re.length
         })
 
     }).catch(err => {
@@ -714,7 +837,6 @@ exports.getAllMembers=(req,res,next)=>{
         })
     })
 }
-
 async function sendInvitationToUsers(id , activity) {
     const activReq = mongoose.model("ActivityRequest", ActivityRequest);
     User.findById({_id:id}).then(user => {
@@ -745,7 +867,6 @@ async function sendInvitationToUsers(id , activity) {
             console.log(err);
         });
 }
-
 exports.create=(req,res,next)=>{
 
     const act = new activity({
@@ -780,5 +901,157 @@ exports.create=(req,res,next)=>{
             })
         });
 }
+exports.getActivityById = (req, res, next) => {
+    let fetched
+    let member
+    let module
+
+    activity.findById(req.body.activityId).then(ac => {
+        fetched = ac
+        return fetched
+    }).then(ress => {
+        User.findById(ress.supervisor).then(u => {
+            fetched.supervisor = u
+            return fetched
+        })
+            .then(r => {
+
+                User.find({
+                    '_id': {$in: r.members}
+                }, function (err, docs) {
+                    if (docs.length!=0) {
+                        fetched.members = docs
+
+                    }
+                    return fetched
+                }).then(r => {
+                   // console.log("is mail",r)
+                    Module.find({
+                        '_id': {$in: fetched.modules}
+                    }, function (err, docs) {
+                        if (docs.length!=0) {
+
+                            fetched.modules = docs
+
+                        }
+                       // console.log(fetched)
+                         return fetched
+                    }).then(e=>{
+                        fetched.modules=e
+                        return fetched
+                    })
+                        .then(r => {
+                           // console.log(r)
+                            res.status(200).json(
+                                {
+                                    message: "this activity",
+                                    result: r
 
 
+                                })
+                        })
+
+                })
+
+            })
+
+
+    })
+
+
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            })
+        });
+
+}
+exports.getActMembers = (req, res, next) => {
+    User.find({_id: {$in: req.body.activityId}}).then(re => {
+
+        res.status(200).json({
+            message: "allMembers ",
+            result: re,
+
+        })
+
+    }).catch(err => {
+        console.log(err);
+        res.status(500).json({
+            error: err
+        })
+    })
+
+}
+exports.createModule = (req, res) => {
+    let fetched
+    activity.findById(req.body.activityId).then(m => {
+
+        if (m.modules.length!=0) {
+            Module.find({$and: [{_id: {$in: m.modules}}, {title: {$eq: req.body.title}}]}).then(e => {
+                console.log(e)
+                if (e.length !== 0) {
+                    res.status(200).json({
+                        result: "already exists in your modules",
+
+                    })
+                }
+                else {
+
+                    const module=Module({
+                        title:req.body.title,
+                        description:req.body.description,
+                        responsible:req.body.responsible,
+                        progress:0,state:false,createdAt:new Date(),todos: []
+                    })
+                    module.save().then(result=>{
+                        fetched=result
+                        activity.findById(req.body.activityId).then(reslt=>{
+                            reslt.modules.push(result._id)
+                            reslt.save()
+                        }).then(result=>{
+                            res.status(200).json({
+                                result: fetched,
+
+                            })
+                        })
+
+
+                    })
+                }
+
+            })
+        }
+        else{
+            const module=Module({
+                title:req.body.title,
+                description:req.body.description,
+                responsible:req.body.responsible,
+                progress:0,state:false,
+                createdAt:new Date()
+            })
+            module.save().then(result=>{
+                fetched=result
+                activity.findById(req.body.activityId).then(reslt=>{
+                    reslt.modules.push(result._id)
+                    reslt.save()
+                }).then(result=>{
+                    res.status(200).json({
+                        result:fetched,
+
+                    })
+                })
+
+
+            })
+
+        }
+        }).catch(err => {
+                    console.log(err);
+                    res.status(500).json({
+                        error: err
+                    })
+                })
+
+        }

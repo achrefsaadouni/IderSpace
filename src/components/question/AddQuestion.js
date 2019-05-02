@@ -5,6 +5,15 @@ import { addQuestion } from "../../store/actions/forumActions";
 import { Link } from "react-router-dom";
 import TextFieldGroup from "../common/TextFieldGroup";
 import TextAreaFieldGroup from "../common/TextAreaFieldGroup";
+import { WithContext as ReactTags } from "react-tag-input";
+import "./tag.css";
+
+const KeyCodes = {
+  comma: 188,
+  enter: 13
+};
+
+const delimiters = [KeyCodes.comma, KeyCodes.enter];
 
 class AddQuestion extends Component {
   constructor() {
@@ -14,9 +23,42 @@ class AddQuestion extends Component {
       subject: "",
       content: "",
       userId: "",
-      tags: "",
-      errors: {}
+      errors: {},
+      tags: [{ id: "reactJS", text: "reactJS" }],
+      suggestions: [
+        { id: "nodeJS", text: "nodeJS" },
+        { id: "vueJS", text: "vueJS" },
+        { id: "angularJS", text: "angularJS" },
+        { id: "Sport", text: "Sport" },
+        { id: "PHP", text: "PHP" },
+        { id: "JEE", text: "JEE" }
+      ]
     };
+    this.handleDelete = this.handleDelete.bind(this);
+    this.handleAddition = this.handleAddition.bind(this);
+    this.handleDrag = this.handleDrag.bind(this);
+  }
+
+  handleDelete(i) {
+    const { tags } = this.state;
+    this.setState({
+      tags: tags.filter((tag, index) => index !== i)
+    });
+  }
+
+  handleAddition(tag) {
+    this.setState(state => ({ tags: [...state.tags, tag] }));
+  }
+
+  handleDrag(tag, currPos, newPos) {
+    const tags = [...this.state.tags];
+    const newTags = tags.slice();
+
+    newTags.splice(currPos, 1);
+    newTags.splice(newPos, 0, tag);
+
+    // re-render
+    this.setState({ tags: newTags });
   }
 
   componentDidMount() {
@@ -39,11 +81,14 @@ class AddQuestion extends Component {
 
     const { categoryId, subject, content, userId } = this.state;
 
+    const tags = this.state.tags.map(x => x.text);
+
     const newQuestion = {
       categoryId,
       subject,
       content,
-      userId
+      userId,
+      tags
     };
 
     this.props.addQuestion(newQuestion, this.props.history);
@@ -52,7 +97,7 @@ class AddQuestion extends Component {
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
   render() {
-    const { subject, content, errors } = this.state;
+    const { subject, content, errors, tags, suggestions } = this.state;
     return (
       <React.Fragment>
         <div className="header-spacer header-spacer-small" />
@@ -91,6 +136,7 @@ class AddQuestion extends Component {
                   <form onSubmit={this.onSubmit}>
                     <div className="row">
                       <div className="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <p style={{ color: "red" }}>{ errors.message ? errors.message : "" }</p>
                         <TextFieldGroup
                           placeholder=""
                           name="subject"
@@ -102,6 +148,7 @@ class AddQuestion extends Component {
                         />
                       </div>
                       <div className="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
                         <TextAreaFieldGroup
                           placeholder=""
                           name="content"
@@ -110,13 +157,18 @@ class AddQuestion extends Component {
                           error={errors.content}
                           label="Question content"
                         />
-                        <div className="form-group">
-                          <input
-                            className="form-control"
-                            type="text"
-                            placeholder="Choose Optional Tags"
-                          />
-                        </div>
+                        <p style={{ color: "#38a9ff", paddingLeft: "10px" }}>
+                          All your tag list:
+                        </p>
+                        <ReactTags
+                          tags={tags}
+                          suggestions={suggestions}
+                          delimiters={delimiters}
+                          handleDelete={this.handleDelete}
+                          handleAddition={this.handleAddition}
+                          handleDrag={this.handleDrag}
+                          handleTagClick={this.handleTagClick}
+                        />
                       </div>
                       <div className="col col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                         <a
@@ -131,7 +183,7 @@ class AddQuestion extends Component {
                           type="submit"
                           className="btn btn-blue btn-lg full-width"
                         >
-                          Post Topic
+                          Post Question
                         </button>
                       </div>
                     </div>

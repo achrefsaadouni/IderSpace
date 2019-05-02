@@ -69,7 +69,9 @@ routes
 Contains the routes for cour application
 
 exemple :
+
 router.post("/", ChatbotController.chat);
+
 module.exports = router;
 
 
@@ -80,12 +82,19 @@ services
 Contains all the business functions of our application such as 
 
 function getApprovedAnswer(comments) {
+
     for (var i = 0; i < comments.comments.length; i++) {
+    
         if (comments.comments[i].approved == true)
+	
         {
+	
             return comments.comments[i];
+	    
         }
+	
     }
+    
 }
 
 validation
@@ -95,104 +104,92 @@ Contains all form validation functions of our application
 Client side
 
 Directory tree
-./judy-client
-├── build
-├── config
+./iderSpace
+
+├── backend
+
+├── logs
+
+├── public
+
 ├── src
-│   ├── assets
+
+│   ├── validations
+
 │   ├── components
-│   │   ├── restaurant
-│   │   └── users
-│   ├── router
-│   │   ├── guest
-│   │   └── staff
-│   ├── services
-│   └── store
-└── static
+
+│   ├── store
+	
+│   │	├── actions
+
+│   │	├── reducers
+
+│   │   └── store.js
+
+│   ├── utils
+
+│   └── App.js
+
+└── server.js
 
 Overview
 
 
-Build
-Contains utility code to build the application, and run the application in different modes (dev and prod). it contains also webpack configurations
+backend
+Contains the server side application
 
 
-Config
-Contains the configuration files of the application.
+logs
+Contains all the logs for the programmed  tasks
 
 
 Src
 This directory is the core of the application, all the logic is implemented within this folder.
-assets: Contains images, css and js files
-components: Contains the different components. Every module has it own directory, for example restaurant module has a directory restaurant which contains it components.
-Naming rule (pascal case): NameOfTheComponent.vue
-<template>
-    <h1 @click='doAction()'>{{ obj }}</h1>    
-</template>
-<script>
-  	export default {
-      	name: 'NameOfTheComponent',
-      	data() {
-  		return  {
-      		obj: 'somthing'
-  		},
-  		computed: {
-  		},
-  		methods: {
-      		doAction() {
-          		console.log('hello world')
-      		},
-  		},
-  		mounted() {
-      		//some logic to do whene the component is accessed
-  		}
-  	}
+
+
+public: Contains images, css and js files
+
+components: Contains the different components. Every module has it own directory, for example chatbot module has a directory chatbot which contains it components.
+
+
+
+utils: Contains function that will intercept all request and add the token to their headers
+
+exemple :
+
+const setAuthToken = token => {
+
+  if (token) {
+  
+    // Apply to every request
+    
+    axios.defaults.headers.common["Authorization"] = token;
+    
+  } else {
+  
+    // Delete auth header
+    
+    delete axios.defaults.headers.common["Authorization"];
+    
   }
-</script>
-<style scoped>
-</style>
-
-
-router: Contains the routes for client side application; like the server side, this folder has two subdirectories: guest and staff.
-The routes files inside each folder has the followning naming rule
-
-filename.(staff or guest).routes.js
-
-and the routes inside the file are going to be accessed as below:
-
-/staff or guest/filename/route_inside_the_file
-
-Examlple :
-restaurant.guest.routes.js
-import PlateForm from  '@/components/restaurant/PlateForm'
-export  default  new Array (
-{
-    path: '/plate',
-    name: 'plate',
-    component: PlateForm
-})
-PS: The routes are auto-imported, you have to focus only on creating your routes
-services: Contains all the backend-call implementation using axios api.
-Api.js contains the baseURI and Authentication header, so you don't need to add the token by yourself!
-the file naming rule: name_of_module.js
-Example:
-User.js
-import Api from  "@/services/Api"
-
-export  default {
-    register(credentials) {
-	    return  Api().post('users/register', credentials)
-    },
-    login(credentials) {
-	    return  Api().post('users/login', credentials)
-    }
-}
-store: Contains store.js which holds token, user object and some other information
-
-static
-files in static/ are not processed by Webpack at all: they are directly copied to their final destination as-is, with the same filename. You must reference these files using absolute paths, which is determined by joining build.assetsPublicPath and build.assetsSubDirectory in config.js
+  
+};
 
 
 
-Conclusion
-Vue is very beautiful and so is node js and express.
+
+validation :
+
+Contains a function that can check if a string is empty or not
+
+server.js
+
+Contains the configuration of the server
+
+How To run it
+
+run " npm install " to get all dependencies
+
+run " npm run dev " to start both servers
+
+

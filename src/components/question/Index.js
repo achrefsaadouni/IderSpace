@@ -5,7 +5,10 @@ import {
   getQuestion,
   likeQuestion,
   unlikeQuestion,
-  getComments
+  getComments,
+  deleteQuestion,
+  addComment,
+  bestComment
 } from "../../store/actions/forumActions";
 import { getUserInfo } from "../../store/actions/authActions";
 import Spinner from "../common/Spinner";
@@ -14,13 +17,19 @@ import Moment from "react-moment";
 import Pagination from "react-js-pagination";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import TextAreaFieldGroup from "../common/TextAreaFieldGroup";
+import classnames from "classnames";
+import "./tag.css";
 
 class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
       activePage: 1,
-      user: {}
+      user: {},
+      comment: "",
+      errors: {},
+      liked: true
     };
   }
 
@@ -36,12 +45,59 @@ class Index extends Component {
     this.props.getComments(this.props.match.params.question_id, 3, pageNumber);
   };
 
+  deleteQuestion = () => {
+    const { question } = this.props.forum;
+    this.props.deleteQuestion(
+      question._id,
+      this.props.history,
+      this.props.match.params.category_id
+    );
+  };
+
+  onLikeClick() {
+    this.props.likeQuestion(this.props.match.params.question_id);
+  }
+
+  onUnlikeClick() {
+    this.props.unlikeQuestion(this.props.match.params.question_id);
+  }
+
+  findUserLike() {
+    const { question } = this.props.forum;
+    const { likes } = question;
+
+    if (likes.filter(like => like.user === this.props.user.userId).length > 0) {
+      console.log("true");
+      return true;
+    } else {
+      console.log("false");
+      return false;
+    }
+  }
+
+  onSubmitComment = e => {
+    e.preventDefault();
+
+    const { comment } = this.state;
+
+    const newComment = {
+      content: comment,
+      name: "comment"
+    };
+
+    this.props.addComment(this.props.match.params.question_id, newComment);
+    this.setState({ comment: "" })
+  };
+
+  onChange = e => this.setState({ [e.target.name]: e.target.value });
+
   render() {
     const { question, comments, loading } = this.props.forum;
 
     if (comments == null || question == null || loading) return <Spinner />;
 
-    const { createdAt, subject, content, likes } = question;
+    const { createdAt, subject, content, likes, author } = question;
+    const { comment, errors, liked } = this.state;
 
     axios
       .get(
@@ -56,10 +112,11 @@ class Index extends Component {
     const getComments = comments.comments.map(item => (
       <Comment
         key={item.comment._id}
+        owner={this.state.user._id}
         question_id={item._id}
         approuved={item.comment.approved}
         content={item.comment.content}
-        user={item.comment.user}
+        user_id={item.comment.user}
         date={item.comment.date}
         id={item.comment._id}
       />
@@ -98,20 +155,35 @@ class Index extends Component {
               <div className="ui-block responsive-flex">
                 <div className="ui-block-title">
                   <div className="h6 title">{subject}</div>
-                  <form className="w-search">
-                    <div className="form-group with-button">
-                      <input
-                        className="form-control"
-                        type="text"
-                        placeholder="Search the forums..."
+                  <span>
+                    <button
+                      onClick={this.onLikeClick.bind(this)}
+                      type="button"
+                      className="btn btn-light mr-1"
+                    >
+                      <i
+                        className={classnames("fas fa-thumbs-up", {
+                          "text-red": this.findUserLike()
+                        })}
                       />
-                      <button>
-                        <svg className="olymp-magnifying-glass-icon">
-                          <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-magnifying-glass-icon" />
-                        </svg>
-                      </button>
-                    </div>
-                  </form>
+                      <span
+                        className={classnames("badge badge-light", {
+                          "text-red": this.findUserLike()
+                        })}
+                      >
+                        {likes.length}
+                      </span>
+                    </button>
+                    <button
+                      onClick={this.onUnlikeClick.bind(this)}
+                      type="button"
+                      className="btn btn-light mr-1"
+                    >
+                      <i
+                        className="fas fa-thumbs-down"
+                      />
+                    </button>
+                  </span>
                 </div>
               </div>
             </div>
@@ -137,9 +209,12 @@ class Index extends Component {
                           {createdAt}
                         </Moment>
                         <Link to="#" className="reply-topic">
-                          {" "}
-                          Reply
+                          <i
+                            style={{ margin: "0 8px" }}
+                            className="far fa-comments"
+                          />
                         </Link>
+                        {this.props.user.userId === author ? (
                         <Link
                           to={
                             "/forum/" +
@@ -149,14 +224,36 @@ class Index extends Component {
                           }
                           className="reply-topic"
                         >
-                          Edit |{" "}
-                        </Link>
+                          <i
+                            style={{ margin: "0 8px" }}
+                            className="far fa-edit"
+                          />
+                        </Link> ) : ""}
+                        {this.props.user.userId === author ? (
+                          
+                          <Link
+                            to="#"
+                            onClick={this.deleteQuestion}
+                            className="reply-topic"
+                          >
+                            <i
+                              style={{ margin: "0 8px" }}
+                              className="fas fa-trash-alt"
+                            />
+                          </Link>
+                        ) : (
+                          ""
+                        )}
                       </td>
                     </tr>
                     <tr>
                       <td className="author">
                         <div className="author-thumb">
-                          <img src="/img/avatar2.jpg" alt="author" />
+                          <img
+                            alt={this.state.user.username}
+                            src={this.state.user.profileImage}
+                            className="avatar"
+                          />
                         </div>
                         <div className="author-content">
                           <a
@@ -176,6 +273,28 @@ class Index extends Component {
                     {getComments}
                   </tbody>
                 </table>
+                <form onSubmit={this.onSubmitComment}>
+                  <div className="row">
+                    <div className="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                      <TextAreaFieldGroup
+                        placeholder=""
+                        name="comment"
+                        value={comment}
+                        onChange={this.onChange}
+                        error={errors.comment}
+                        label="comment content"
+                      />
+                    </div>
+                    <div className="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                      <button
+                        type="submit"
+                        className="btn btn-blue btn-lg full-width"
+                      >
+                        Post comment
+                      </button>
+                    </div>
+                  </div>
+                </form>
                 {/* ... end Open Topic Table */}
               </div>
               {/* Pagination */}
@@ -221,11 +340,21 @@ Index.propTypes = {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    forum: state.forum
+    forum: state.forum,
+    user: state.auth.user
   };
 };
 
 export default connect(
   mapStateToProps,
-  { getQuestion, likeQuestion, unlikeQuestion, getComments, getUserInfo }
+  {
+    getQuestion,
+    likeQuestion,
+    unlikeQuestion,
+    getComments,
+    getUserInfo,
+    deleteQuestion,
+    addComment,
+    bestComment
+  }
 )(Index);

@@ -7,6 +7,8 @@ const router = express.Router();
 
 router.post("/", authCheck, QuestionController.createQuestion);
 
+router.get("/last3", QuestionController.getLast3Questions);
+
 router.delete("/:id", authCheck, QuestionController.deleteQuestion);
 
 router.get("/:id", authCheck, QuestionController.getQuestion);
