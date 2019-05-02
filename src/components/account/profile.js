@@ -5,6 +5,7 @@ import LastPhotos from './LastPhotos';
 import ListSkills from "../recommandation/listSkills";
 import {updatePhoto} from "../../store/actions/profileActions";
 import Publications from './publications';
+import FriendsZone from './friendsZone';
 import {connect} from "react-redux";
 import axios from "axios";
 import {setCurrentUserAfterUpdate} from "../../store/actions/authActions";
@@ -14,6 +15,7 @@ class Profile extends Component {
         super(props);
         this.state = {
             user: this.props.profile,
+            friends: this.props.friends,
             auth: this.props.auth
         };
         this.handleClick = this.handleClick.bind(this);
@@ -69,22 +71,21 @@ class Profile extends Component {
     }
 
     savePublication = e => {
-      let text ='';
-      text = document.getElementById("textZonePub").value;
-      if (text != '')
-      {
-        axios({
-            method: 'post',
-            url: 'http://localhost:2500/api/user/addPublications',
-            data: {pub: text},
+        let text = '';
+        text = document.getElementById("textZonePub").value;
+        if (text != '') {
+            axios({
+                method: 'post',
+                url: 'http://localhost:2500/api/user/addPublications',
+                data: {pub: text},
 
-        }).then((res) => {
-            this.setState({
-                user: res.data.result
+            }).then((res) => {
+                this.setState({
+                    user: res.data.result
+                })
             })
-        })
-          document.getElementById("textZonePub").value ='';
-      }
+            document.getElementById("textZonePub").value = '';
+        }
     }
 
 
@@ -128,11 +129,14 @@ class Profile extends Component {
 
 
     render() {
+        console.log('___');
+        console.log(this.state.friends);
         const profile = this.props.profile;
         const about = this.props.about;
         const skills = this.props.skills;
         const hobbies = this.props.hobbies;
         let listLastPhotos;
+        let friendsZone;
         let listPublications;
         try {
             listLastPhotos = this.state.user.oldPhoto.map(photo => (
@@ -147,6 +151,13 @@ class Profile extends Component {
             ));
         } catch (err) {
             listLastPhotos = "no photos";
+        }
+        try {
+            friendsZone = this.state.friends.map(friend => (
+                <FriendsZone profile={this.state.user} key={friend.id} friend={friend}/>
+            ));
+        } catch (err) {
+            friendsZone = "no friends";
         }
         return (
             <div>
@@ -177,43 +188,45 @@ class Profile extends Component {
                                         <div className="tab-pane active" id="home-1" role="tabpanel"
                                              aria-expanded="true">
 
-                                                <div className="author-thumb">
-                                                    <img src={this.state.user.profileImage} style={{width:'35.99px',height:'35.99px'}} alt="author"/>
-                                                </div>
-                                                <div className="form-group with-icon label-floating is-empty">
-                                                    <label className="control-label">Share what you are thinking
-                                                        here...</label>
-                                                    <textarea className="form-control" id="textZonePub" placeholder=""/>
-                                                    <span className="material-input"/></div>
-                                                <div className="add-options-message">
-                                                    <a href="#" className="options-message" data-toggle="tooltip"
-                                                       data-placement="top" data-original-title="ADD PHOTOS">
-                                                        <svg className="olymp-camera-icon" data-toggle="modal"
-                                                             data-target="#update-header-photo">
-                                                            <use xlinkHref="#olymp-camera-icon"/>
-                                                        </svg>
-                                                    </a>
-                                                    <a href="#" className="options-message" data-toggle="tooltip"
-                                                       data-placement="top" data-original-title="TAG YOUR FRIENDS">
-                                                        <svg className="olymp-computer-icon">
-                                                            <use xlinkHref="#olymp-computer-icon"/>
-                                                        </svg>
-                                                    </a>
+                                            <div className="author-thumb">
+                                                <img src={this.state.user.profileImage}
+                                                     style={{width: '35.99px', height: '35.99px'}} alt="author"/>
+                                            </div>
+                                            <div className="form-group with-icon label-floating is-empty">
+                                                <label className="control-label">Share what you are thinking
+                                                    here...</label>
+                                                <textarea className="form-control" id="textZonePub" placeholder=""/>
+                                                <span className="material-input"/></div>
+                                            <div className="add-options-message">
+                                                <a href="#" className="options-message" data-toggle="tooltip"
+                                                   data-placement="top" data-original-title="ADD PHOTOS">
+                                                    <svg className="olymp-camera-icon" data-toggle="modal"
+                                                         data-target="#update-header-photo">
+                                                        <use xlinkHref="#olymp-camera-icon"/>
+                                                    </svg>
+                                                </a>
+                                                <a href="#" className="options-message" data-toggle="tooltip"
+                                                   data-placement="top" data-original-title="TAG YOUR FRIENDS">
+                                                    <svg className="olymp-computer-icon">
+                                                        <use xlinkHref="#olymp-computer-icon"/>
+                                                    </svg>
+                                                </a>
 
-                                                    <a href="#" className="options-message" data-toggle="tooltip"
-                                                       data-placement="top" data-original-title="ADD LOCATION">
-                                                        <svg className="olymp-small-pin-icon">
-                                                            <use xlinkHref="#olymp-small-pin-icon"/>
-                                                        </svg>
-                                                    </a>
+                                                <a href="#" className="options-message" data-toggle="tooltip"
+                                                   data-placement="top" data-original-title="ADD LOCATION">
+                                                    <svg className="olymp-small-pin-icon">
+                                                        <use xlinkHref="#olymp-small-pin-icon"/>
+                                                    </svg>
+                                                </a>
 
-                                                    <button className="btn btn-primary btn-md-2" onClick={this.savePublication.bind(this)}>Post Status
-                                                    </button>
-                                                    <button
-                                                        className="btn btn-md-2 btn-border-think btn-transparent c-grey">Preview
-                                                    </button>
+                                                <button className="btn btn-primary btn-md-2"
+                                                        onClick={this.savePublication.bind(this)}>Post Status
+                                                </button>
+                                                <button
+                                                    className="btn btn-md-2 btn-border-think btn-transparent c-grey">Preview
+                                                </button>
 
-                                                </div>
+                                            </div>
 
 
                                         </div>
@@ -308,7 +321,7 @@ class Profile extends Component {
                             <div id="newsfeed-items-grid">
 
 
-                                    {listPublications}
+                                {listPublications}
 
                             </div>
                         </div>
@@ -400,16 +413,7 @@ class Profile extends Component {
                                 </div>
                                 <div className="ui-block-content">
                                     <ul className="widget w-faved-page js-zoom-gallery">
-                                        <li>
-                                            <Link to="/">
-                                                <img src="/img/avatar26-sm.jpg" alt="user"/>
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link to="/">
-                                                <img src="/img/avatar25-sm.jpg" alt="user"/>
-                                            </Link>
-                                        </li>
+                                        {friendsZone}
                                     </ul>
                                 </div>
                             </div>
@@ -515,18 +519,18 @@ class Profile extends Component {
             </div>
 
 
-    );
+        );
     }
-    }
+}
 
-    const mapStateToProps = (state, ownProps) => {
-        return {
+const mapStateToProps = (state, ownProps) => {
+    return {
         auth: state.auth,
 
     };
-    };
+};
 
-    export default connect(mapStateToProps, {
-        updatePhoto,
-        setCurrentUserAfterUpdate
-    })(Profile);
+export default connect(mapStateToProps, {
+    updatePhoto,
+    setCurrentUserAfterUpdate
+})(Profile);

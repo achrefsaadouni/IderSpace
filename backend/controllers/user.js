@@ -1110,4 +1110,25 @@ exports.manageRequestFriend = (req, res, next) => {
         });
 };
 
+exports.getFriend = (req, res, next) => {
+  let fetchedUser;
+  User.findById({_id: req.userData.userId})
+      .then(user => {
+        if (!user) {
+          return res.status(401).json({
+            message: "undifined user"
+          });
+        }
+        fetchedUser = user;
+      })
+      .then(() => {
+        User.find({'_id':{$in:fetchedUser.friends}}).then(re=>{
+          res.status(200).json(re)
+        })
+      })
+      .catch(err => {
+        console.log(err);
+      });
+};
+
 

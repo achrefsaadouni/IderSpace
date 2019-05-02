@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
-import {getCurrentProfile, addResume, setLinkedIn} from "../../store/actions/profileActions";
+import {getCurrentProfile, addResume, setLinkedIn , getUserFriends} from "../../store/actions/profileActions";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import Spinner from "../common/Spinner";
@@ -66,6 +66,7 @@ class Index extends Component {
 
     componentDidMount() {
         this.props.getCurrentProfile();
+        this.props.getUserFriends();
         socket.on('userRecieve', this.messageReceive);
     }
 
@@ -201,7 +202,7 @@ class Index extends Component {
         var currentImage = '';
         var currentWalpaper='';
         //console.log(currentProfileImage)
-        const {profile, loading} = this.props.profile;
+        const {profile, friends , loading} = this.props.profile;
         if (this.state.currentProfileImage !== '') {
             currentImage = profile.profileImage;
         } else {
@@ -217,7 +218,7 @@ class Index extends Component {
         const {hobbie} = this.state;
 
 
-        if (profile === null || loading) {
+        if (profile === null || friends === null || loading) {
             return <Spinner/>;
         }
 
@@ -309,7 +310,7 @@ class Index extends Component {
                         <div className="header-spacer"/>
                         {headerInterface}
                         <Profile onchangeWallpaper={this.onChangewallpaper.bind(this)} onchangePhotoProfile={this.onChangePhoto.bind(this)} key={profile.id} profile={profile}
-                                 about={about} skills={skills} hobbies={hobbies}/>
+                                 about={about} skills={skills} friends={friends} hobbies={hobbies}/>
                     </React.Fragment>
                 );
             } else if (this.state.currentInterface === 'about') {
@@ -431,5 +432,5 @@ const mapStateToProps = (state, ownProps) => {
 
 export default connect(
     mapStateToProps,
-    {getCurrentProfile, addResume, setLinkedIn}
+    {getCurrentProfile, addResume, setLinkedIn , getUserFriends}
 )(Index);
