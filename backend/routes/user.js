@@ -54,8 +54,6 @@ router.post("/manageActivityRequest", authCheck, UserController.manageActivityRe
 router.post("/manageRequestFriend", authCheck, UserController.manageRequestFriend);
 
 
-router.post("/getFriends", authCheck, getFriends.manageRequestFriend);
-
 router.get("/profiles", UserController.getAllProfiles);
 
 module.exports = router;

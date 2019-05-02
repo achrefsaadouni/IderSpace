@@ -52,7 +52,7 @@ exports.createUser = (req, res, next) => {
           error: err
         });
       });
-  });
+
 };
 
 exports.userLogin = (req, res, next) => {
