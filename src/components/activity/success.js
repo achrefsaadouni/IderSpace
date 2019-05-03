@@ -8,13 +8,6 @@ import ProgressBar from "react-bootstrap/ProgressBar";
 
 
 class success extends Component {
-
-
-    constructor() {
-        super()
-
-
-    }
     componentDidMount(){
         const {values} = this.props;
         this.props.CreateActivity(values);
