@@ -9,9 +9,10 @@ const scrapping = require("../ScrappingLinkedIn/index");
 const kmeans = require("node-kmeans");
 const configFile = require("../config");
 const SkillsType = require("../Dictionnary/SkillsType");
-const cloudinary = require("cloudinary");
-require("../handler/cloudinary");
-const upload = require("../handler/multer");
+const Publications = require("../Models/Publications");
+const cloudinary = require('cloudinary');
+require('../handler/cloudinary');
+const upload = require('../handler/multer');
 
 // Load Input Validation
 const validateLoginInput = require("../validation/login");
@@ -28,29 +29,21 @@ const config = {
 };
 
 exports.createUser = (req, res, next) => {
-  bcrypt.hash(req.body.password, 10).then(hash => {
-    const user = new User({
-      email: req.body.email,
-      username: req.body.username,
-      firstname: req.body.firstname,
-      lastname: req.body.lastname,
-      role: req.body.role,
-      github: req.body.github,
-      linkedin: req.body.linkedin,
-      class: req.body.class,
-      password: hash,
-      adresse: req.body.adresse,
-      sexe: req.body.sexe,
-      birthday: req.body.birthday,
-      activityRequest: []
-    });
-    user
-      .save()
-      .then(result => {
-        console.log("ok");
-        res.status(201).json({
-          message: "User created!",
-          result: result
+    bcrypt.hash(req.body.password, 10).then(hash => {
+        const user = new User({
+            email: req.body.email,
+            username: req.body.username,
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+            role: req.body.role,
+            github: req.body.github,
+            linkedin: req.body.linkedin,
+            class: req.body.class,
+            password: hash,
+            adresse: req.body.adresse,
+            sexe: req.body.sexe,
+            birthday: req.body.birthday,
+            activityRequest: []
         });
       })
       .catch(err => {
@@ -59,7 +52,7 @@ exports.createUser = (req, res, next) => {
           error: err
         });
       });
-  });
+
 };
 
 exports.userLogin = (req, res, next) => {
@@ -930,21 +923,41 @@ exports.changeProfilImage = async (req, res, next) => {
 };
 
 exports.manageActivityRequest = async (req, res, next) => {
-  let idActiv = "";
-  let repUser;
-  idActiv = req.body.idActiv;
-  repUser = req.body.repUser;
-  console.log("--" + idActiv + "--" + repUser);
-  let fetchedUser;
-  let fetchedActivity;
-  User.findById({ _id: req.userData.userId })
-    .then(user => {
-      if (!user) {
-        return res.status(401).json({
-          message: "undifined user"
-        });
-      }
-      fetchedUser = user;
+    let idActiv = '';
+    let repUser;
+    idActiv = req.body.idActiv;
+    repUser = req.body.repUser;
+    console.log('--' + idActiv + '--' + repUser);
+    let fetchedUser;
+    let fetchedActivity;
+    User.findById({_id: req.userData.userId})
+        .then(user => {
+            if (!user) {
+                return res.status(401).json({
+                    message: "undifined user"
+                });
+            }
+            fetchedUser = user;
+
+        }).then(async () => {
+        console.log('1');
+        const index = await getIndexActivityForUser(fetchedUser.activityRequest, idActiv);
+        console.log('index : ' + index);
+        if (repUser === true) {
+            console.log('2');
+            fetchedUser.activityRequest[index].stat = 'accepted';
+            await addMemberToActivity(fetchedUser.id, idActiv);
+        } else {
+            fetchedUser.activityRequest[index].stat = 'refused';
+        }
+
+
+    }).then(() => {
+        fetchedUser.save().then(() => {
+            return res.status(200).json({
+                message: "activity setted"
+            });
+        })
     })
     .then(async () => {
       console.log("1");
@@ -1007,3 +1020,115 @@ async function addMemberToActivity(idUser, idActiv) {
       console.log(err);
     });
 }
+
+
+exports.changeCouvertureImage = async (req, res, next) => {
+    const result = await cloudinary.v2.uploader.upload(req.file.path);
+    let fetchedUser;
+    User.findById({_id: req.userData.userId})
+        .then(user => {
+            if (!user) {
+                return res.status(401).json({
+                    message: "undifined user"
+                });
+            }
+            fetchedUser = user;
+
+        }).then(() => {
+        fetchedUser.couverturePhoto = result.secure_url;
+        fetchedUser.save();
+        res.send({
+            message: fetchedUser
+        })
+    })
+        .catch(err => {
+            console.log(err);
+        });
+};
+
+
+exports.addPublications = (req, res, next) => {
+    const publications = mongoose.model("publications", Publications);
+    let fetchedUser;
+    let verify = true;
+    User.findById({_id: req.userData.userId})
+        .then(user => {
+            if (!user) {
+                return res.status(401).json({
+                    message: "undifined user"
+                });
+            }
+            fetchedUser = user;
+        })
+        .then(() => {
+            fetchedUser.publications.push(
+                new publications({
+                    content: req.body.pub,
+                })
+            );
+            fetchedUser.save().then(result => {
+                res.status(200).json({
+                    result
+                });
+            });
+
+        })
+        .catch(err => {
+            console.log(err);
+        });
+};
+
+
+
+exports.manageRequestFriend = (req, res, next) => {
+    let fetchedUser;
+    User.findById({_id: req.userData.userId})
+        .then(user => {
+            if (!user) {
+                return res.status(401).json({
+                    message: "undifined user"
+                });
+            }
+            fetchedUser = user;
+        })
+        .then(() => {
+            console.log(req.body.responseInvitation);
+            if  (req.body.responseInvitation === true){
+                console.log('dkhal lel if')
+                fetchedUser.friends.push(req.body.idInviter);
+            }
+
+            fetchedUser.save().then(result => {
+                res.status(200).json({
+                    fetchedUser
+                });
+            });
+
+        })
+        .catch(err => {
+            console.log(err);
+        });
+};
+
+exports.getFriend = (req, res, next) => {
+  let fetchedUser;
+  User.findById({_id: req.userData.userId})
+      .then(user => {
+        if (!user) {
+          return res.status(401).json({
+            message: "undifined user"
+          });
+        }
+        fetchedUser = user;
+      })
+      .then(() => {
+        User.find({'_id':{$in:fetchedUser.friends}}).then(re=>{
+          res.status(200).json(re)
+        })
+      })
+      .catch(err => {
+        console.log(err);
+      });
+};
+
+

@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
-import {getCurrentProfile, addResume, setLinkedIn} from "../../store/actions/profileActions";
+import {getCurrentProfile, addResume, setLinkedIn , getUserFriends} from "../../store/actions/profileActions";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import Spinner from "../common/Spinner";
@@ -53,8 +53,10 @@ class Index extends Component {
             responseService: '',
             currentInterface: '',
             currentProfileImage: '',
+            currentWallPaper:'',
             activityRequest: this.props.profile.activityRequest,
-            etat: false
+            etat: false,
+            valReqNotif:0,
         };
         this.onClick = this.onClick.bind(this);
         this.messageReceive = this.messageReceive.bind(this);
@@ -64,12 +66,16 @@ class Index extends Component {
 
     componentDidMount() {
         this.props.getCurrentProfile();
+        this.props.getUserFriends();
         socket.on('userRecieve', this.messageReceive);
     }
 
     messageReceive(msg) {
         this.addNotification();
+        this.setState({valReqNotif: this.state.valReqNotif+1})
     }
+
+
 
     addNotification() {
         this.notificationDOMRef.current.addNotification({
@@ -101,6 +107,7 @@ class Index extends Component {
 
     };
     onAddIdToList = e => {
+        console.log('----'+e);
         this.setState({idHobbie: [...this.state.idHobbie, e]})
     };
     onAddIdToListLanguage = async e => {
@@ -175,6 +182,10 @@ class Index extends Component {
         console.log(e)
         this.setState({currentProfileImage: e});
     };
+
+    onChangewallpaper = e => {
+        this.setState({currentWallPaper:e})
+    }
     getInterface = e => {
         this.setState({
             currentInterface: e
@@ -189,18 +200,25 @@ class Index extends Component {
 
         }
         var currentImage = '';
+        var currentWalpaper='';
         //console.log(currentProfileImage)
-        const {profile, loading} = this.props.profile;
+        const {profile, friends , loading} = this.props.profile;
         if (this.state.currentProfileImage !== '') {
             currentImage = profile.profileImage;
         } else {
             currentImage = this.state.currentProfileImage;
         }
+
+        if (this.state.currentWallPaper !== '') {
+            currentWalpaper = profile.couverturePhoto;
+        } else {
+            currentWalpaper = this.state.currentWallPaper;
+        }
         const {url} = this.props;
         const {hobbie} = this.state;
 
 
-        if (profile === null || loading) {
+        if (profile === null || friends === null || loading) {
             return <Spinner/>;
         }
 
@@ -249,11 +267,19 @@ class Index extends Component {
         }
         let headerInterface = [];
         if (this.state.currentProfileImage === '') {
+            if (this.state.currentWallPaper ===''){
             headerInterface =
-                <Header setInterface={this.getInterface.bind(this)} image={profile.profileImage} profile={profile}/>
+                <Header setInterface={this.getInterface.bind(this)} valReq={this.state.valReqNotif} image={profile.profileImage} wallpaper={profile.couverturePhoto} profile={profile}/>}else{
+                headerInterface =
+                    <Header setInterface={this.getInterface.bind(this)} valReq={this.state.valReqNotif} image={profile.profileImage} wallpaper={this.state.currentWallPaper} profile={profile}/>
+            }
         } else {
-            headerInterface = <Header setInterface={this.getInterface.bind(this)} image={this.state.currentProfileImage}
-                                      profile={profile}/>
+            if (this.state.currentWallPaper === ''){
+            headerInterface = <Header setInterface={this.getInterface.bind(this)} valReq={this.state.valReqNotif} image={this.state.currentProfileImage}
+                                      wallpaper={profile.couverturePhoto}       profile={profile}/>} else {
+                headerInterface = <Header setInterface={this.getInterface.bind(this)} valReq={this.state.valReqNotif} image={this.state.currentProfileImage}
+                                          wallpaper={this.state.currentWallPaper}       profile={profile}/>
+            }
         }
         let Interface = [];
         if (this.state.pourcentage === 0) {
@@ -283,8 +309,8 @@ class Index extends Component {
                         <ReactNotification ref={this.notificationDOMRef}/>
                         <div className="header-spacer"/>
                         {headerInterface}
-                        <Profile onchangePhotoProfile={this.onChangePhoto.bind(this)} key={profile.id} profile={profile}
-                                 about={about} skills={skills} hobbies={hobbies}/>
+                        <Profile onchangeWallpaper={this.onChangewallpaper.bind(this)} onchangePhotoProfile={this.onChangePhoto.bind(this)} key={profile.id} profile={profile}
+                                 about={about} skills={skills} friends={friends} hobbies={hobbies}/>
                     </React.Fragment>
                 );
             } else if (this.state.currentInterface === 'about') {
@@ -406,5 +432,5 @@ const mapStateToProps = (state, ownProps) => {
 
 export default connect(
     mapStateToProps,
-    {getCurrentProfile, addResume, setLinkedIn}
+    {getCurrentProfile, addResume, setLinkedIn , getUserFriends}
 )(Index);

@@ -87,10 +87,12 @@ class root extends Component {
             <PrivateRoute exact path="/edit-profile" component={EditProfile} />
 
             <PrivateRoute exact path="/activity" component={Activity} />
+
             <PrivateRoute exact path="/activity/workSpace/:activity_id" component={workSpace} />
+
             <PrivateRoute exact path="/activity/create" component={create} />
 
-            <PrivateRoute exact path="/botQuestion" component={index} />
+            <PrivateRoute exact path="/botQuestion" component={index} val={"botQuestion"} />
 
             <Route exact path="/login" component={Login} />
 

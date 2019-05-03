@@ -138,11 +138,7 @@ export const addComment = (id, comment) => dispatch => {
   dispatch(clearErrors());
   axios
     .post(`http://localhost:2500/api/question/comment/${id}`, comment)
-    .then(res =>
-      dispatch({
-        type: GET_QUESTION,
-        payload: res.data
-      })
+    .then(res => dispatch(getComments(id, 3, 1))
     )
     .catch(err =>
       dispatch({
@@ -194,10 +190,7 @@ export const deleteComment = (id, id_comment) => dispatch => {
   axios
     .delete(`http://localhost:2500/api/question/${id}/comment/${id_comment}`)
     .then(res =>
-      dispatch({
-        type: GET_QUESTION,
-        payload: res.data
-      })
+      dispatch(getComments(id, 3, 1))
     )
     .catch(err =>
       dispatch({
@@ -213,10 +206,9 @@ export const bestComment = (id, id_comment) => dispatch => {
   axios
     .post(`http://localhost:2500/api/question/comment/${id}/${id_comment}`)
     .then(res =>
-      dispatch({
-        type: GET_QUESTION,
-        payload: res.data
-      })
+      dispatch(
+        getComments(id,3,1)
+      )
     )
     .catch(err =>
       dispatch({

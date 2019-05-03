@@ -3,9 +3,25 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getUserInfo } from "../../store/actions/authActions";
 import { Link } from "react-router-dom";
+import axios from "axios";
 class question extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userInfo: {}
+    };
+  }
+
   componentWillMount() {
     this.props.getUserInfo(this.props.userId);
+  }
+  componentDidMount() {
+    //get comment author
+    axios
+        .get(`http://localhost:2500/api/user/some-info/${this.props.userId}`)
+        .then(res => {
+          this.setState({ userInfo: res.data });
+        });
   }
 
   render() {
@@ -56,10 +72,14 @@ class question extends Component {
         <td className="freshness">
           <div className="author-freshness">
             <div className="author-thumb">
-              <img src="/img/avatar40-sm.jpg" alt="author" />
+              <img
+                  alt={this.state.userInfo.username}
+                  src={this.state.userInfo.profileImage}
+                  className="avatar"
+              />
             </div>
             <a href="#" className="h6 title">
-              {this.props.auth.userInfo.username}
+              {this.state.userInfo.username}
             </a>
             {/*<time className="entry-date updated" dateTime="2017-06-24T18:18">
               set time here

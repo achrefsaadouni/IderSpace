@@ -136,6 +136,7 @@ class AddQuestion extends Component {
                   <form onSubmit={this.onSubmit}>
                     <div className="row">
                       <div className="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <p style={{ color: "red" }}>{ errors.message ? errors.message : "" }</p>
                         <TextFieldGroup
                           placeholder=""
                           name="subject"
@@ -147,6 +148,7 @@ class AddQuestion extends Component {
                         />
                       </div>
                       <div className="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
                         <TextAreaFieldGroup
                           placeholder=""
                           name="content"

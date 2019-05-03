@@ -6,7 +6,7 @@ import {
     GET_PROFILES,
     LOADING,
     CLEAR_CURRENT_PROFILE,
-    GET_ERRORS, SET_RESUME, SET_LINKEDIN,UPDATE_PHOTO
+    GET_ERRORS, SET_RESUME, SET_LINKEDIN,UPDATE_PHOTO,GET_USER_FRIENDS
 } from "./types";
 
 
@@ -30,6 +30,28 @@ export const getCurrentProfile = () => dispatch => {
             })
         );
 };
+
+export const getUserFriends = () => dispatch => {
+    dispatch(setProfileLoading());
+    axios
+        .post("http://localhost:2500/api/user/getFriend")
+        .then(res => {
+                dispatch({
+                    type: GET_USER_FRIENDS,
+                    payload: res.data
+                })
+
+            }
+        )
+        .catch(err =>
+            dispatch({
+                type: GET_USER_FRIENDS,
+                payload: {}
+            })
+        );
+};
+
+
 
 // Add experience
 export const addExperience = (expData, history) => dispatch => {

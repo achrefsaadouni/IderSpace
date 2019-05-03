@@ -89,7 +89,6 @@ exports.createQuestion = (req, res, next) => {
       ) {
         return res.status(400).json({
           message: "bad words exist",
-          badword: true
         });
       }
       question
@@ -426,7 +425,7 @@ exports.getAllCommentsQuestions = (req, res, next) => {
     { $project: { comment: "$comments" } },
     { $skip: pageSize * (currentPage - 1) },
     { $limit: pageSize },
-    { $sort: { date: 1 } }
+    { $sort: { approved: 1 } }
   ]);
   let fetcheDoc;
   questionQuery

@@ -21,11 +21,14 @@ class Hobbies extends Component {
             listId: this.props.listId
         };
         this.clickToBlur = this.clickToBlur.bind(this);
+        console.log(this.props.listId);
 
     }
 
     clickToBlur = () => {
         this.props.verifyEtatHandler();
+        console.log(this.props.hobbie.name);
+        console.log(this.state.show);
         if (this.state.show === false) {
             this.props.onClick(this.props.hobbie.name);
         } else {

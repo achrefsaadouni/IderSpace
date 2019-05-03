@@ -40,11 +40,22 @@ router.post("/updateSkill", UserController.updateSkill);
 
 router.post("/changeProfilImage",authCheck ,upload.single('image') , UserController.changeProfilImage);
 
+router.post("/changeCouvertureImage",authCheck ,upload.single('image') , UserController.changeCouvertureImage);
+
 router.get("/profile", authCheck, UserController.getProfileForConnectedUser);
+
+router.post("/addPublications", authCheck, UserController.addPublications);
 
 router.get("/getActivityByUser", authCheck, UserController.getActivityByUser);
 
 router.post("/manageActivityRequest", authCheck, UserController.manageActivityRequest);
+
+
+router.post("/manageRequestFriend", authCheck, UserController.manageRequestFriend);
+
+
+router.post("/getFriend", authCheck, UserController.getFriend);
+
 
 router.get("/profiles", UserController.getAllProfiles);
 
