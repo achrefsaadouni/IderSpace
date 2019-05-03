@@ -7,20 +7,14 @@ import {DataView, DataViewLayoutOptions} from 'primereact/dataview';
 import {Button} from 'primereact/button';
 import {Panel} from 'primereact/panel';
 import {Dropdown} from 'primereact/dropdown';
-import {Style} from 'primereact/components/dropdown/Dropdown.css'
+
 import {Dialog} from 'primereact/dialog';
 import StyleLinks from "../StyleLinks";
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
-import axios from "axios";
-import ModuleItem from "./moduleItem";
-import {swal} from "sweetalert";
+
+
 import Moment from "react-moment";
-
-const Swal = require('sweetalert2');
-const ReactDOM = require('react-dom');
-
-
 class createModule extends Component {
 
     constructor(props) {
