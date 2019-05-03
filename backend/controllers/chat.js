@@ -27,10 +27,6 @@ exports.ask = (req, res, next) => {
         });
 };
 
-
-
-
-
 exports.delete = async (req, res, next) => {
     const v = await chatbot.deleteBotQuestion(req.body.question);
     res.send(v);
