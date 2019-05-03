@@ -48,11 +48,17 @@ class NewCard extends React.Component {
                 this.props.onAdd(this.state)
                 console.clear()
                 console.log(this.props)
-              //  this.state.CreateTodo(title, description, tags, label, this.state.moduleId)
-               axios
+                //  this.state.CreateTodo(title, description, tags, label, this.state.moduleId)
+                axios
                     .post(
                         `http://localhost:2500/api/activity/addTodo`
-                        ,{title: title,description:description,tags:tags,label:label,moduleId:this.props.moduleId}
+                        , {
+                            title: title,
+                            description: description,
+                            tags: tags,
+                            label: label,
+                            moduleId: this.props.moduleId
+                        }
                     )
                     .then(res => {
 
@@ -61,12 +67,12 @@ class NewCard extends React.Component {
                     })
                     .catch(err =>
                         ({
-                          err:err
+                            err: err
                         })
                     );
 
 
-             //console.log(this.props.moduleId)
+                //console.log(this.props.moduleId)
             }
         }
         else {
@@ -136,8 +142,9 @@ class todoBoard extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            moduleId:this.props.module._id,
-            data: {lanes: [
+            moduleId: this.props.module._id,
+            data: {
+                lanes: [
                     {
                         id: 'lane1',
                         title: 'Planned Tasks',
@@ -149,6 +156,7 @@ class todoBoard extends Component {
                         title: 'In Test',
                         label: '',
                         cards: [],
+                        droppable: false
 
 
                     }, {
@@ -159,7 +167,8 @@ class todoBoard extends Component {
 
 
                     }
-                ]}
+                ]
+            }
         }
         // console.clear()
         // console.log(this.state.data.lanes[2].cards.length)
@@ -171,31 +180,31 @@ class todoBoard extends Component {
 
     componentDidMount() {
 
-         this.props.getTodosForModule(this.props.module._id)
-    /*    axios
-            .post(
-                `http://localhost:2500/api/activity/getTodoByModule`,{moduleId: this.props.module._id}
-            )
-            .then(res => {
-              //  console.log(res.data)
-               //this.setState({data:res.data.result})
-                //console.log(this.state.data)
-              return res.data.result
+        this.props.getTodosForModule(this.props.module._id)
+        /*    axios
+                .post(
+                    `http://localhost:2500/api/activity/getTodoByModule`,{moduleId: this.props.module._id}
+                )
+                .then(res => {
+                  //  console.log(res.data)
+                   //this.setState({data:res.data.result})
+                    //console.log(this.state.data)
+                  return res.data.result
 
-            }).then(e=>{
-                this.setState({data:e})
-        })
-            .catch(err =>
-                ({
-                    err:err
-                })
-            );*/
+                }).then(e=>{
+                    this.setState({data:e})
+            })
+                .catch(err =>
+                    ({
+                        err:err
+                    })
+                );*/
     }
 
     render() {
         const {moduleTodos, loading} = this.props.activity;
         const {fullActivity, module} = this.props
-        if (loading || moduleTodos==null) {
+        if (loading || moduleTodos == null) {
             return (<div>
                 <BarLoader
                     widthUnit={"%"}
@@ -206,84 +215,85 @@ class todoBoard extends Component {
                 />
             </div>)
         }
-        else {
-          if(moduleTodos.allTodo[0]!=null)
-          {  this.state.data =  {
-                lanes: [
-                    {
-                        id: 'lane1',
-                        title: 'Planned Tasks',
-                        label: '',
-                        cards: moduleTodos.allTodo[0]
-                    },
-                    {
-                        id: 'lane2',
-                        title: 'In Test',
-                        label: '',
-                        cards: [],
+        else if (moduleTodos != null) {
+            if (moduleTodos.allTodo != null) {
+                this.state.data = {
+                    lanes: [
+                        {
+                            id: 'lane1',
+                            title: 'Planned Tasks',
+                            label: '',
+                            cards: moduleTodos.allTodo[0]
+                        },
+                        {
+                            id: 'lane2',
+                            title: 'In Test',
+                            label: '',
+                            cards: [],
 
 
-                    },
-                    {
-                        id: 'lane3',
-                        title: 'Completed',
-                        label: '',
-                        cards: [],
+                        },
+                        {
+                            id: 'lane3',
+                            title: 'Completed',
+                            label: '',
+                            cards: [],
 
 
-                    }
-                ]
-            }}
+                        }
+                    ]
+                }
+            }
+        }
 
-            return (
-                < React.Fragment>
+        return (
+            < React.Fragment>
 
 
-                    <br/>
+                <br/>
 
-                    <div className="container">
+                <div className="container">
 
-                        <div className="row">
+                    <div className="row">
 
-                            <div
-                                className="col col-xl-12 order-xl-2 col-lg-12 order-lg-2 col-md-12 order-md-1 col-sm-12 col-12">
-                                <div className="ui-block">
+                        <div
+                            className="col col-xl-12 order-xl-2 col-lg-12 order-lg-2 col-md-12 order-md-1 col-sm-12 col-12">
+                            <div className="ui-block">
 
-                                    <div className="ui-block-content">
-                                        {/* Change Module Form */}
-                                        <div>
-                                            <div className="content-section implementation">
-                                                <Board data={this.state.data} draggable editable id="EditableBoard1"
-                                                       onDataChange={this.onDataChange}
-                                                       laneDraggable={false}
-                                                       onCardDelete={this.onCardDelete}
-                                                       onCardAdd={this.handleCardAdd}
-                                                       onCardClick={this.onCardClick}
-                                                       style={{backgroundColor: '#eee'}}
-                                                       newCardTemplate={<NewCard moduleId={this.state.moduleId} />}
-                                                       tagStyle={{fontSize: '80%'}}
-                                                />
+                                <div className="ui-block-content">
+                                    {/* Change Module Form */}
+                                    <div>
+                                        <div className="content-section implementation">
+                                            <Board data={this.state.data}  editable id="EditableBoard1"
+                                                   onDataChange={this.onDataChange}
 
-                                            </div>
-
+                                                   onCardDelete={this.onCardDelete}
+                                                   onCardAdd={this.handleCardAdd}
+                                                   onCardClick={this.onCardClick}
+                                                   style={{backgroundColor: '#eee'}}
+                                                   newCardTemplate={<NewCard moduleId={this.state.moduleId}/>}
+                                                   tagStyle={{fontSize: '80%'}}
+                                            />
 
                                         </div>
-                                        {/* ... end Change Module Form */}
+
+
                                     </div>
+                                    {/* ... end Change Module Form */}
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
-
-                </React.Fragment>
-            )
+                </div>
 
 
+            </React.Fragment>
+        )
 
-        }
+
     }
+
 }
 
 

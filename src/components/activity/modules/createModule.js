@@ -235,10 +235,12 @@ goTodo=e=>{
                     <Dropdown options={sortOptions} value={this.state.sortKey} placeholder="Sort By"
                               onChange={this.onSortChange}/>
                 </div>
+                {this.props.auth.user.role == "teacher" &&
                 <div className="p-col-4" style={{textAlign: 'center'}}>
                     <Button label="New"
                             onClick={this.create} className="p-button-raised p-button-rounded"/>
                 </div>
+                }
                 <div className="p-col-4" style={{textAlign: 'right'}}>
                     <DataViewLayoutOptions layout={this.state.layout}
                                            onChange={(e) => this.setState({layout: e.value})}/>
@@ -464,6 +466,7 @@ goTodo=e=>{
 }
 
 const mapStateToProps = state => ({
+    auth: state.auth,
     activity: state.activity
 });
 

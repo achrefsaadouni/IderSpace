@@ -11,7 +11,7 @@ import {
     GET_ACTIVITY,
     GET_MEMBERS_ACTIVITY,
     ADD_MODULE,
-    TODOS_MODULE, ADD_TODO
+    TODOS_MODULE, ADD_TODO, GET_PACTIVITY
 
 } from "./types";
 import {setForumLoading} from "./forumActions";
@@ -33,6 +33,27 @@ export const getActivities = () => dispatch => {
         .catch(err =>
             dispatch({
                 type: GET_ACTIVITIES,
+                payload: {}
+            })
+        );
+};
+export const getAllForStudent = () => dispatch => {
+    dispatch(setForumLoading());
+    axios
+        .get(
+            `http://localhost:2500/api/activity/getAllForStudent`
+        )
+        .then(res => {
+            dispatch({
+                type: GET_PACTIVITY,
+                payload: res.data
+            })
+
+                console.log(res)
+        })
+        .catch(err =>
+            dispatch({
+                type: GET_PACTIVITY,
                 payload: {}
             })
         );

@@ -33,4 +33,5 @@ export const SET_CURRENT_USER_AFTER_UPDATE_IMAGE =
 export const ADD_MODULE = "ADD_MODULE";
 export const TODOS_MODULE = "TODOS_MODULE";
 export const ADD_TODO = "ADD_TODO";
+export const GET_PACTIVITY = "GET_PACTIVITY";
 export const GET_USER_FRIENDS = "GET_USER_FRIENDS";

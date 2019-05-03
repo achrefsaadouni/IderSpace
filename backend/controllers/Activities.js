@@ -633,7 +633,7 @@ exports.getAllActivitiesSupervisor = (req, res, next) => {
 }
 exports.getAllForStudent = (req, res, next) => {
     let activi = []
-    if (req.userData.role == "student") {
+    if (req.userData.role == "Student") {
         activity.find({
             'members': {$eq: req.userData.userId}
         }, function (err, docs) {
