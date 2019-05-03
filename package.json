@@ -81,7 +81,6 @@
     "server": "nodemon server.js",
     "dev": "concurrently \"npm run server\" \"npm start\""
   },
-  "proxy": "http://iderspace.herokuapp.com:2500",
   "eslintConfig": {
     "extends": "react-app"
   },
