@@ -1,4 +1,4 @@
-const Question = require("../models/Question");
+const Question = require("../Models/Question");
 const BotQuestion = require("../Models/BotQuestion");
 const Activity = require("../Models/Activity");
 const Module = require("../Models/Module");
