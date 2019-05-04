@@ -84,7 +84,6 @@
     "dev": "concurrently \"npm run server\" \"react-scripts start --host 0.0.0.0 --disableHostCheck true\"",
     "heroku-postbuild": "npm run build "
   },
-  "proxy": "http://localhost:2500",
   "eslintConfig": {
     "extends": "react-app"
   },
