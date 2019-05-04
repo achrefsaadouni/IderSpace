@@ -1,5 +1,5 @@
 const activity = require("../Models/Activity")
-const User = require("../Models/user");
+const User = require("../Models/User");
 const Module = require("../Models/Module");
 const todo = require("../Models/ToDo");
 const Skills = require("../Models/Skills");

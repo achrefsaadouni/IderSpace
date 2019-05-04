@@ -1,7 +1,7 @@
 const Filter = require("bad-words");
 const Question = require("../Models/Question");
 const BadWord = require("../Models/BadWord");
-const User = require("../Models/user");
+const User = require("../Models/User");
 const mongoose = require("mongoose");
 
 // Load Input Validation
