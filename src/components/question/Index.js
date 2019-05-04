@@ -101,7 +101,7 @@ class Index extends Component {
 
     axios
       .get(
-        `http://localhost:2500/api/user/some-info/${
+        `/api/user/some-info/${
           this.props.forum.question.author
         }`
       )

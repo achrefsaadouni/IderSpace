@@ -28,7 +28,7 @@ class Comment extends Component {
   componentDidMount() {
     //get comment author
     axios
-      .get(`http://localhost:2500/api/user/some-info/${this.props.user_id}`)
+      .get(`/api/user/some-info/${this.props.user_id}`)
       .then(res => {
         this.setState({ userInfo: res.data });
       });

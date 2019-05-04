@@ -51,7 +51,7 @@ class NewCard extends React.Component {
                 //  this.state.CreateTodo(title, description, tags, label, this.state.moduleId)
                 axios
                     .post(
-                        `http://localhost:2500/api/activity/addTodo`
+                        `/api/activity/addTodo`
                         , {
                             title: title,
                             description: description,
@@ -183,7 +183,7 @@ class todoBoard extends Component {
         this.props.getTodosForModule(this.props.module._id)
         /*    axios
                 .post(
-                    `http://localhost:2500/api/activity/getTodoByModule`,{moduleId: this.props.module._id}
+                    `/api/activity/getTodoByModule`,{moduleId: this.props.module._id}
                 )
                 .then(res => {
                   //  console.log(res.data)

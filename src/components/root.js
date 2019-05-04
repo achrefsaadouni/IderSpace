@@ -13,7 +13,6 @@ import {
   Route,
   Switch,
   Link,
-  Redirect
 } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -33,7 +32,7 @@ class root extends Component {
     isAuthenticated: false
   };
 
-  static getDerivedStateFromProps(props, state) {
+  static getDerivedStateFromProps(props) {
     const { isAuth } = props;
 
     if (isAuth) {
@@ -120,7 +119,7 @@ class root extends Component {
     );
   }
 }
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
     isAuth: state.auth.isAuthenticated
   };

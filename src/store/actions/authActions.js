@@ -7,7 +7,7 @@ import { GET_ERRORS, SET_CURRENT_USER, GET_USER_INFO , SET_CURRENT_USER_AFTER_UP
 // Login - Get User Token
 export const loginUser = userData => dispatch => {
   axios
-    .post("http://localhost:2500/api/user/login", userData)
+    .post("/api/user/login", userData)
     .then(res => {
       // Save to localStorage
       const { token } = res.data;
@@ -47,7 +47,7 @@ export const setCurrentUserAfterUpdate = decoded => {
 // Get user info
 export const getUserInfo = id => dispatch => {
   axios
-    .get(`http://localhost:2500/api/user/some-info/${id}`)
+    .get(`/api/user/some-info/${id}`)
     .then(res =>
       dispatch({
         type: GET_USER_INFO,

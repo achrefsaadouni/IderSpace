@@ -164,7 +164,7 @@ class Index extends Component {
         }
         axios({
             method: 'post',
-            url: 'http://localhost:2500/api/user/manageActivityRequest',
+            url: '/api/user/manageActivityRequest',
             data: {idActiv: id, repUser: etat},
 
         }).then(() => {
