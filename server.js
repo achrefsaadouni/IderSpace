@@ -3,7 +3,7 @@ const debug = require("debug")("node:server");
 const app = require("./backend/app");
 const path = require('path');
 const express = require('express');
-
+const os = require('os');
 
 const normalizePort = val => {
     const port = parseInt(val, 10);
@@ -80,4 +80,9 @@ io.on('connection', function (socket) {
 server.on("error", onError);
 server.on("listening", onListening);
 
+
+
+
 var serverpost = server.listen(port);
+
+

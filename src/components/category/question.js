@@ -18,7 +18,7 @@ class question extends Component {
   componentDidMount() {
     //get comment author
     axios
-        .get(`http://localhost:2500/api/user/some-info/${this.props.userId}`)
+        .get(`https://iderspace.herokuapp.com/api/user/some-info/${this.props.userId}`)
         .then(res => {
           this.setState({ userInfo: res.data });
         });

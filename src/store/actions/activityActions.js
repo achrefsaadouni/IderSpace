@@ -15,12 +15,12 @@ import {
 
 } from "./types";
 import {setForumLoading} from "./forumActions";
-const socket = io('http://localhost:2500');
+const socket = io('https://iderspace.herokuapp.com');
 export const getActivities = () => dispatch => {
     dispatch(setForumLoading());
     axios
         .get(
-            `http://localhost:2500/api/activity/getAllCreatedActivities`
+            `https://iderspace.herokuapp.com/api/activity/getAllCreatedActivities`
         )
         .then(res => {
             dispatch({
@@ -41,7 +41,7 @@ export const getAllForStudent = () => dispatch => {
     dispatch(setForumLoading());
     axios
         .get(
-            `http://localhost:2500/api/activity/getAllForStudent`
+            `https://iderspace.herokuapp.com/api/activity/getAllForStudent`
         )
         .then(res => {
             dispatch({
@@ -62,7 +62,7 @@ export const getActivityById = (id) => dispatch => {
     dispatch(setForumLoading());
     axios
         .post(
-            `http://localhost:2500/api/activity/getActivityById`,{activityId:id}
+            `https://iderspace.herokuapp.com/api/activity/getActivityById`,{activityId:id}
         )
         .then(res => {
             dispatch({
@@ -82,7 +82,7 @@ export const getActivityMembers = (id) => dispatch => {
     dispatch(setForumLoading());
     axios
         .post(
-            `http://localhost:2500/api/activity/getActMembers`,{activityId:id}
+            `https://iderspace.herokuapp.com/api/activity/getActMembers`,{activityId:id}
         )
         .then(res => {
             dispatch({
@@ -101,7 +101,7 @@ export const getSupervisors = () => dispatch => {
     dispatch(setForumLoading());
     axios
         .get(
-            `http://localhost:2500/api/activity/getAllSupervisors`
+            `https://iderspace.herokuapp.com/api/activity/getAllSupervisors`
         )
         .then(res => {
             dispatch({
@@ -125,7 +125,7 @@ export const getMembersList = tab => dispatch => {
     dispatch(setForumLoading());
     axios
         .post(
-            `http://localhost:2500/api/activity/getAllMembers`,{members: tab}
+            `https://iderspace.herokuapp.com/api/activity/getAllMembers`,{members: tab}
         )
         .then(res => {
             dispatch({
@@ -148,7 +148,7 @@ export const CreateActivity = values => dispatch => {
     dispatch(setForumLoading());
     axios
         .post(
-            `http://localhost:2500/api/activity/createActivity`,{values: values}
+            `https://iderspace.herokuapp.com/api/activity/createActivity`,{values: values}
         )
         .then(res => {
             dispatch({
@@ -171,7 +171,7 @@ export const getTodosForModule = values => dispatch => {
     dispatch(setForumLoading());
     axios
         .post(
-            `http://localhost:2500/api/activity/getTodoByModule`,{moduleId: values}
+            `https://iderspace.herokuapp.com/api/activity/getTodoByModule`,{moduleId: values}
         )
         .then(res => {
             dispatch({
@@ -193,7 +193,7 @@ export const CreateModule = (x,y,z,w) => dispatch => {
     dispatch(setForumLoading());
     axios
         .post(
-            `http://localhost:2500/api/activity/createModule`,{activityId: x,title:y,responsible:z,description:w}
+            `https://iderspace.herokuapp.com/api/activity/createModule`,{activityId: x,title:y,responsible:z,description:w}
         )
         .then(res => {
             dispatch({
@@ -216,7 +216,7 @@ export const CreateTodo = (x,y,z,w,m) => dispatch => {
     dispatch(setForumLoading());
     axios
         .post(
-            `http://localhost:2500/api/activity/addTodo`
+            `https://iderspace.herokuapp.com/api/activity/addTodo`
             ,{title: x,description:y,tags:z,label:w,moduleId:m}
         )
         .then(res => {
