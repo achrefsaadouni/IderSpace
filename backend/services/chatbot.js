@@ -1,7 +1,7 @@
 const Question = require("../models/Question");
 const BotQuestion = require("../Models/BotQuestion");
 const Activity = require("../Models/Activity");
-const Module = require("../models/Module");
+const Module = require("../Models/Module");
 exports.createTextResponse = createTextResponse;
 exports.getApprovedAnswer = getApprovedAnswer;
 exports.addQuestion = addQuestion;

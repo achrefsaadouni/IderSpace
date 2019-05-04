@@ -1,13 +1,13 @@
 const Filter = require("bad-words");
-const Question = require("../models/Question");
-const BadWord = require("../models/BadWord");
-const User = require("../models/user");
+const Question = require("../Models/Question");
+const BadWord = require("../Models/BadWord");
+const User = require("../Models/user");
 const mongoose = require("mongoose");
 
 // Load Input Validation
 const validateQuestionInput = require("../validation/addQuestion");
 
-filter = new Filter();
+const filter = new Filter();
 
 exports.addBadWord = (req, res, next) => {
   const newBadWord = BadWord({
