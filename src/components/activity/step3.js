@@ -2,12 +2,7 @@ import React, {Component} from 'react';
 import {getSupervisors} from "../../store/actions/activityActions";
 import {connect} from "react-redux";
 import Spinner from "../common/Spinner";
-import PropTypes from "prop-types";
 import ProgressBar from "react-bootstrap/ProgressBar";
-import {ToggleButton} from 'primereact/togglebutton';
-import StyleLinks from "./StyleLinks";
-
-
 
 
 class step3 extends Component {

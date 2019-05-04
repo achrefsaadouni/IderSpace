@@ -55,7 +55,7 @@ class index extends Component {
         if (loading) {
             return <Spinner/>;
         }
-        else if(activities!=null){
+        else if(activities.resultat!=null){
 
          listItems = activities.resultat.map((e) =>
 
@@ -166,7 +166,7 @@ class index extends Component {
             </div>
         )
         }
-        else{
+        else if(pactivity.result!=null){
              listItems = pactivity.result.map((e) =>
 
                 <div className="col col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12" key={e._id}>
@@ -276,7 +276,7 @@ class index extends Component {
                 </div>
             )
         }
-
+        else window.location.reload()
         return (
             <React.Fragment>
                 <div className="main-header">
