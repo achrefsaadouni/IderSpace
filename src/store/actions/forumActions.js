@@ -17,7 +17,7 @@ import {
 export const getForum = () => dispatch => {
   dispatch(setForumLoading());
   axios
-    .get("/api/forum")
+    .get("http://localhost:2500/api/forum")
     .then(res =>
       dispatch({
         type: GET_FORUM,
@@ -37,7 +37,7 @@ export const getQuestions = (id, page, current) => dispatch => {
   dispatch(setForumLoading());
   axios
     .get(
-      `/api/question/forum/${id}?pageSize=${page}&currentPage=${current}`
+      `http://localhost:2500/api/question/forum/${id}?pageSize=${page}&currentPage=${current}`
     )
     .then(res =>
       dispatch({
@@ -56,7 +56,7 @@ export const getQuestions = (id, page, current) => dispatch => {
 // Get last 3 questions
 export const getLast3Questions = (id, page, current) => dispatch => {
   axios
-    .get(`/api/question/last3`)
+    .get(`http://localhost:2500/api/question/last3`)
     .then(res =>
       dispatch({
         type: GET_QUESTIONS_LAST3,
@@ -75,7 +75,7 @@ export const getLast3Questions = (id, page, current) => dispatch => {
 export const getQuestion = id => dispatch => {
   dispatch(setForumLoading());
   axios
-    .get(`/api/question/${id}`)
+    .get(`http://localhost:2500/api/question/${id}`)
     .then(res =>
       dispatch({
         type: GET_QUESTION,
@@ -95,7 +95,7 @@ export const getComments = (id, page, current) => dispatch => {
   dispatch(setForumLoading());
   axios
     .get(
-      `/api/question/comments/${id}?pageSize=${page}&currentPage=${current}`
+      `http://localhost:2500/api/question/comments/${id}?pageSize=${page}&currentPage=${current}`
     )
     .then(res =>
       dispatch({
@@ -115,7 +115,7 @@ export const getComments = (id, page, current) => dispatch => {
 export const addQuestion = (question, history) => dispatch => {
   dispatch(clearErrors());
   axios
-    .post("/api/question", question)
+    .post("http://localhost:2500/api/question", question)
     .then(res =>
       history.push(
         "/forum/" +
@@ -137,7 +137,7 @@ export const addQuestion = (question, history) => dispatch => {
 export const addComment = (id, comment) => dispatch => {
   dispatch(clearErrors());
   axios
-    .post(`/api/question/comment/${id}`, comment)
+    .post(`http://localhost:2500/api/question/comment/${id}`, comment)
     .then(res => dispatch(getComments(id, 3, 1))
     )
     .catch(err =>
@@ -152,7 +152,7 @@ export const addComment = (id, comment) => dispatch => {
 export const updateQuestion = (id, question, history) => dispatch => {
   dispatch(clearErrors());
   axios
-    .put(`/api/question/${id}`, question)
+    .put(`http://localhost:2500/api/question/${id}`, question)
     .then(res =>
       history.push(
         "/forum/" +
@@ -173,7 +173,7 @@ export const updateQuestion = (id, question, history) => dispatch => {
 export const deleteQuestion = (id, history, category_id) => dispatch => {
   dispatch(setForumLoading());
   axios
-    .delete(`/api/question/${id}`)
+    .delete(`http://localhost:2500/api/question/${id}`)
     .then(res => {
       history.push("/forum/" + category_id);
     })
@@ -188,7 +188,7 @@ export const deleteQuestion = (id, history, category_id) => dispatch => {
 // Delete comment
 export const deleteComment = (id, id_comment) => dispatch => {
   axios
-    .delete(`/api/question/${id}/comment/${id_comment}`)
+    .delete(`http://localhost:2500/api/question/${id}/comment/${id_comment}`)
     .then(res =>
       dispatch(getComments(id, 3, 1))
     )
@@ -204,7 +204,7 @@ export const deleteComment = (id, id_comment) => dispatch => {
 export const bestComment = (id, id_comment) => dispatch => {
   dispatch(setForumLoading());
   axios
-    .post(`/api/question/comment/${id}/${id_comment}`)
+    .post(`http://localhost:2500/api/question/comment/${id}/${id_comment}`)
     .then(res =>
       dispatch(
         getComments(id,3,1)
@@ -221,7 +221,7 @@ export const bestComment = (id, id_comment) => dispatch => {
 // like
 export const likeQuestion = id => dispatch => {
   axios
-    .post(`/api/question/like/${id}`)
+    .post(`http://localhost:2500/api/question/like/${id}`)
     .then(res => dispatch(getQuestion(id)))
     .catch(err =>
       dispatch({
@@ -234,7 +234,7 @@ export const likeQuestion = id => dispatch => {
 // dislike
 export const unlikeQuestion = id => dispatch => {
   axios
-    .post(`/api/question/unlike/${id}`)
+    .post(`http://localhost:2500/api/question/unlike/${id}`)
     .then(res => dispatch(getQuestion(id)))
     .catch(err =>
       dispatch({

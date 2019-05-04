@@ -34,7 +34,7 @@ export const getCurrentProfile = () => dispatch => {
 export const getUserFriends = () => dispatch => {
     dispatch(setProfileLoading());
     axios
-        .post("/api/user/getFriend")
+        .post("http://localhost:2500/api/user/getFriend")
         .then(res => {
                 dispatch({
                     type: GET_USER_FRIENDS,
@@ -56,7 +56,7 @@ export const getUserFriends = () => dispatch => {
 // Add experience
 export const addExperience = (expData, history) => dispatch => {
     axios
-        .post("/api/user/addExperience", expData)
+        .post("http://localhost:2500/api/user/addExperience", expData)
         .then(res => history.push("/profile"))
         .catch(err =>
             dispatch({
@@ -70,7 +70,7 @@ export const addExperience = (expData, history) => dispatch => {
 export const addResume = (hobbies, about, languages , facebook) => dispatch => {
     dispatch(setProfileLoading());
     axios
-        .post("/api/user/addResume", {
+        .post("http://localhost:2500/api/user/addResume", {
             hobbies: hobbies,
             about: about,
             languages: languages,
@@ -93,7 +93,7 @@ export const addResume = (hobbies, about, languages , facebook) => dispatch => {
 export const setLinkedIn = (url) => dispatch => {
     dispatch(setProfileLoading());
     axios
-        .post("/api/user/addLinkedIn", {url: url}, {headers: {'Content-Type': 'application/json'}})
+        .post("http://localhost:2500/api/user/addLinkedIn", {url: url}, {headers: {'Content-Type': 'application/json'}})
         .then(res => {
             dispatch({
                 type: SET_LINKEDIN,
@@ -115,7 +115,7 @@ export const setLinkedIn = (url) => dispatch => {
 export const updatePhoto = (image) => dispatch => {
     dispatch(setProfileLoading());
     axios
-        .post("/api/user/changeProfilImage", {image: image}, {headers: {'Content-Type': 'multipart/form-data'}})
+        .post("http://localhost:2500/api/user/changeProfilImage", {image: image}, {headers: {'Content-Type': 'multipart/form-data'}})
         .then(res => {
             dispatch({
                 type: UPDATE_PHOTO,
@@ -135,7 +135,7 @@ export const updatePhoto = (image) => dispatch => {
 // Add skill
 export const addSkills = (skillsData, history) => dispatch => {
     axios
-        .post("/api/user/addSkills", skillsData)
+        .post("http://localhost:2500/api/user/addSkills", skillsData)
         .then(res => history.push("/profile"))
         .catch(err =>
             dispatch({
@@ -151,7 +151,7 @@ export const addSkills = (skillsData, history) => dispatch => {
 export const getProfiles = () => dispatch => {
     dispatch(setProfileLoading());
     axios
-        .get("/api/user/profiles")
+        .get("http://localhost:2500/api/user/profiles")
         .then(res =>
             dispatch({
                 type: GET_PROFILES,

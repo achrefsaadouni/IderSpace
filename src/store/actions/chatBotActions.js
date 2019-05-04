@@ -10,7 +10,7 @@ export  const ask = async question  => {
     return new Promise (resolve =>{
 
         axios
-            .post("/api/chat", question)
+            .post("http://localhost:2500/api/chat", question)
             .then(res =>
                 {
                     return resolve(res);
@@ -27,7 +27,7 @@ export  const addIntent = async (intent)  => {
     return new Promise (resolve =>{
 
         axios
-            .post("/api/chat/intent", intent)
+            .post("http://localhost:2500/api/chat/intent", intent)
             .then(res =>
                 {
                     return resolve(res);
@@ -48,7 +48,7 @@ export  const deleteQuestion = async question  => {
     return new Promise (resolve =>{
 
         axios
-            .delete("/api/chat", {data:{question:question}})
+            .delete("http://localhost:2500/api/chat", {data:{question:question}})
             .then(res =>
                 {
                     return resolve(res);
@@ -67,7 +67,7 @@ export const getQuestions = () => dispatch => {
     dispatch(setForumLoading());
     axios
         .get(
-            `/api/chat`
+            `http://localhost:2500/api/chat`
         )
         .then(res => {
             dispatch({
