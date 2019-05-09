@@ -378,9 +378,6 @@ class todoBoard extends Component {
         }
         else if (moduleTodos != null) {
             if (moduleTodos.allTodo != null) {
-
-
-
                 console.log(moduleTodos);
                // this.state.data.lanes[0].cards=moduleTodos.todo[0]
                 if(moduleTodos.todo.length!==0){
