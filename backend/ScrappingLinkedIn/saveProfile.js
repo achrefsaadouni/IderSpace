@@ -3,7 +3,7 @@ const Skills = require('../Models/Skills.js');
 const Experience = require('../Models/Experience.js');
 const Education = require('../Models/Education.js');
 const SkillsType = require('../Dictionnary/SkillsType');
-const User = require("../models/user");
+const User = require("../Models/User");
 const dependencies = {
     fs: require('fs'),
     config: require('../config.json')

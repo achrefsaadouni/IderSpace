@@ -1,6 +1,6 @@
 {
-  "email": "pi.dev.esrpit2017@gmail.com",
-  "password": "Azerty123",
+  "email": "ghorbel_mahmoud@hotmail.com",
+  "password": "azerty123",
   "relatedProfilesKeywords": ["engineer", "developer", "programmer"],
   "maxConcurrentCrawlers": 5,
   "saveDirectory": "./crawledProfiles",

@@ -1,4 +1,4 @@
-const Forum = require("../models/Forum");
+const Forum = require("../Models/Forum");
 
 exports.addForum = (req, res, next) => {
   const newForum = Forum({

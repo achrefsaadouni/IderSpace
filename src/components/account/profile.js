@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
-
 import LastPhotos from './LastPhotos';
-import ListSkills from "../recommandation/listSkills";
 import {updatePhoto} from "../../store/actions/profileActions";
 import Publications from './publications';
 import FriendsZone from './friendsZone';
@@ -26,7 +24,7 @@ class Profile extends Component {
     }
 
     handleChange(e) {
-        const {user, auth} = this.state;
+        const {user} = this.state;
         const data = new FormData();
         const file = e.target.files[0];
         data.append("image", file);
@@ -34,7 +32,7 @@ class Profile extends Component {
 
         axios({
             method: 'post',
-            url: 'http://localhost:2500/api/user/changeProfilImage',
+            url: 'https://iderspace.herokuapp.com/api/user/changeProfilImage',
             data: data,
             config: {headers: {'Content-Type': 'multipart/form-data'}}
         }).then(result => {
@@ -76,7 +74,7 @@ class Profile extends Component {
         if (text != '') {
             axios({
                 method: 'post',
-                url: 'http://localhost:2500/api/user/addPublications',
+                url: 'https://iderspace.herokuapp.com/api/user/addPublications',
                 data: {pub: text},
 
             }).then((res) => {
@@ -90,7 +88,7 @@ class Profile extends Component {
 
 
     handleChangewallpapser(e) {
-        const {user, auth} = this.state;
+        const {user} = this.state;
         const data = new FormData();
         const file = e.target.files[0];
         data.append("image", file);
@@ -98,7 +96,7 @@ class Profile extends Component {
 
         axios({
             method: 'post',
-            url: 'http://localhost:2500/api/user/changeCouvertureImage',
+            url: 'https://iderspace.herokuapp.com/api/user/changeCouvertureImage',
             data: data,
             config: {headers: {'Content-Type': 'multipart/form-data'}}
         }).then(result => {
