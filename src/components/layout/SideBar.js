@@ -68,7 +68,7 @@ class SideBar extends Component {
                       <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-manage-widgets-icon" />
                     </svg>
                   </Link>
-                </li> : <li></li>}
+                </li> : <li/>}
 
 
 
@@ -78,7 +78,7 @@ class SideBar extends Component {
                       className="olymp-star-icon left-menu-icon"
                       data-toggle="tooltip"
                       data-placement="right"
-                      data-original-title="YOUR ACTIVITIES"
+                      data-original-title="ACTIVITIES"
                     >
                       <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-star-icon" />
                     </svg>
@@ -217,19 +217,19 @@ class SideBar extends Component {
                 </li>  : <li></li>}
 
 
-                <li>
-                  <Link to="/">
-                    <svg
-                      className="olymp-headphones-icon left-menu-icon"
-                      data-toggle="tooltip"
-                      data-placement="right"
-                      data-original-title="MUSIC&PLAYLISTS"
-                    >
-                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-headphones-icon" />
-                    </svg>
-                    <span className="left-menu-title">Music & Playlists</span>
-                  </Link>
-                </li>
+                  <li>
+                      <Link to="/activity">
+                          <svg
+                              className="olymp-star-icon left-menu-icon"
+                              data-toggle="tooltip"
+                              data-placement="right"
+                              data-original-title="Activities"
+                          >
+                              <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-star-icon" />
+                          </svg>
+                          <span className="left-menu-title">Activities</span>
+                      </Link>
+                  </li>
                 <li>
                   <Link to="/">
                     <svg

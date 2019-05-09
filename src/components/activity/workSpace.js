@@ -6,7 +6,7 @@ import TodoBoard from "./Todo/index"
 import ReactMinimalPieChart from 'react-minimal-pie-chart';
 import connect from "react-redux/es/connect/connect";
 import {getActivityById} from "../../store/actions/activityActions";
-
+import Spinner from "../common/Spinner";
 class workSpace extends Component {
     state = {
         id: "",
@@ -24,6 +24,7 @@ class workSpace extends Component {
         ]
     };
     todoList = e => {
+
         this.setState({module: e, step: 2})
 
     }
@@ -32,16 +33,16 @@ class workSpace extends Component {
 
     }
     changeStep = (e) => {
-        if (e.label == "Modules") {
+        if (e.label ==="Modules") {
             this.setState({activeItem: e})
             this.setState({step: 1})
         }
 
-        if (e.label == "Activity Details") {
+        if (e.label ==="Activity Details") {
             this.setState({activeItem: e})
             this.setState({step: 3})
         }
-        if (e.label == "Progress Stats") {
+        if (e.label ==="Progress Stats") {
             this.setState({activeItem: e})
             this.setState({step: 4})
         }
@@ -58,15 +59,11 @@ class workSpace extends Component {
 
 
     }
-    componentDidMount() {
 
-        this.props.getActivityById(this.state.id)
-    }
 
     render() {
+        const {step, module} = this.state;
 
-        const {workspaceActivity, activityMembers, modulecreation, loading} = this.props.activity;
-        const {step, id, module} = this.state;
         switch (step) {
             case 1:
                 return (
@@ -128,7 +125,7 @@ class workSpace extends Component {
                                     <div id="newsfeed-items-grid">
                                         <div className="ui-block">
                                             <TodoBoard fullActivity={this.state.fullActivity} id={this.state.id}
-                                                       module={this.state.module}/>
+                                                       module={module}/>
                                         </div>
                                     </div>
                                     <a id="load-more-button" href="#" className="btn btn-control btn-more"
@@ -144,8 +141,6 @@ class workSpace extends Component {
                     </React.Fragment>
                 );
             case 3:
-
-
                 return (
                     <React.Fragment>
                         <div className="header-spacer"/>
@@ -230,87 +225,7 @@ class workSpace extends Component {
                     </React.Fragment>
                 );
 
-            case 4:
-                return (<React.Fragment>
-                    <div className="header-spacer"/>
-                    <div className="container">
-                        <div className="row">
-                            {/* Main Content */}
-                            <main className="col col-xl-12 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-12">
-                                <div className="ui-block">
-                                    {/* News Feed Form  */}
-                                    <div className="news-feed-form">
-                                        <StyleLinks/>
-                                        <TabMenu model={this.state.items} activeItem={this.state.activeItem}
-                                                 onTabChange={(e) => this.changeStep(e.value)}/>
 
-                                    </div>
-                                    {/* ... end News Feed Form  */}            </div>
-                                <div   className="ui-block">
-                                {workspaceActivity.result != null &&
-                                <div className="col col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
-                                    <ReactMinimalPieChart
-
-                                        data={[
-                                            {
-                                                title: 'TODO',
-                                                value: 1,
-                                                color: '#E38627'
-                                            },
-                                            {
-                                                title: 'DONE',
-                                                value: 0,
-                                                color: '#C13C37'
-                                            },
-                                            {
-                                                title: 'In TEST',
-                                                value: 5,
-                                                color: '#6A2135'
-                                            }
-                                        ]}
-                                        lengthAngle={-360}
-                                        animate
-                                    />
-                                </div>
-                                }
-                                {workspaceActivity.result == null &&
-                                <div >
-                                    <ReactMinimalPieChart
-                                        style={{height:"20%"}}
-                                        data={[
-                                            {
-                                                title: 'TODO',
-                                                value: 5,
-                                                color: '#E38627'
-                                            },
-                                            {
-                                                title: 'DONE',
-                                                value: 0,
-                                                color: '#C13C37'
-                                            },
-                                            {
-                                                title: 'In TEST',
-                                                value: 2,
-                                                color: '#6A2135'
-                                            }
-                                        ]}
-                                        lengthAngle={-360}
-                                        animate
-                                    />
-                                </div>
-                                }
-                                </div>
-                                <a id="load-more-button" href="#" className="btn btn-control btn-more"
-                                   data-load-link="items-to-load.html" data-container="newsfeed-items-grid">
-                                    <svg className="olymp-three-dots-icon">
-                                        <use xlinkHref="#olymp-three-dots-icon"/>
-                                    </svg>
-                                </a>
-                            </main>
-
-                        </div>
-                    </div>
-                </React.Fragment>);
 
         }
 

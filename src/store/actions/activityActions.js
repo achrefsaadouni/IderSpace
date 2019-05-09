@@ -11,11 +11,32 @@ import {
     GET_ACTIVITY,
     GET_MEMBERS_ACTIVITY,
     ADD_MODULE,
-    TODOS_MODULE, ADD_TODO, GET_PACTIVITY
+    TODOS_MODULE, ADD_TODO, GET_PACTIVITY,GET_FOR_ADMIN
 
 } from "./types";
 import {setForumLoading} from "./forumActions";
 const socket = io('http://localhost:2500');
+export const getAllForAdmin = () => dispatch => {
+    dispatch(setForumLoading());
+    axios
+        .get(
+            `http://localhost:2500/api/activity/getAllForAdmin`
+        )
+        .then(res => {
+            dispatch({
+                type: GET_FOR_ADMIN,
+                payload: res.data
+            })
+
+
+        })
+        .catch(err =>
+            dispatch({
+                type: GET_FOR_ADMIN,
+                payload: {}
+            })
+        );
+};
 export const getActivities = () => dispatch => {
     dispatch(setForumLoading());
     axios
@@ -69,7 +90,7 @@ export const getActivityById = (id) => dispatch => {
                 type: GET_ACTIVITY,
                 payload: res.data
             })
-            console.log(res.data)
+
         })
         .catch(err =>
             dispatch({
@@ -118,8 +139,6 @@ export const getSupervisors = () => dispatch => {
             })
         );
 };
-
-
 export const getMembersList = tab => dispatch => {
 
     dispatch(setForumLoading());
@@ -142,7 +161,6 @@ export const getMembersList = tab => dispatch => {
             })
         );
 };
-
 export const CreateActivity = values => dispatch => {
 
     dispatch(setForumLoading());
@@ -210,7 +228,6 @@ export const CreateModule = (x,y,z,w) => dispatch => {
             })
         );
 };
-
 export const CreateTodo = (x,y,z,w,m) => dispatch => {
 
     dispatch(setForumLoading());
