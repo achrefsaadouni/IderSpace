@@ -12,30 +12,24 @@ class NewCard extends React.Component {
 
     updateField = (field, evt) => {
 
-        /*    [
-                {title: 'High', color: 'white', bgcolor: '#EB5A46'},
-                {title: 'Tech Debt', color: 'white', bgcolor: '#0079BF'},
-                {title: 'Very long tag that is', color: 'white', bgcolor: '#61BD4F'},
-                {title: 'One more', color: 'white', bgcolor: '#61BD4F'}
-            ]*/
-        if (field == "tags") {
+        if (field === "tags") {
             console.log("tag:", evt.target.value)
-            if (evt.target.value == "Hard") {
+            if (evt.target.value === "Hard") {
                 this.setState({[field]: [{title: 'Hard', color: 'white', bgcolor: 'red'}]})
             }
-             if (evt.target.value == "Very") {
+             if (evt.target.value === "Very") {
                 this.setState({[field]: [{title: 'Very Long', color: 'white', bgcolor: '#0079BF'}]})
             }
-             if (evt.target.value == "High") {
+             if (evt.target.value === "High") {
                 this.setState({[field]: [{title: 'High skills', color: 'white', bgcolor: '#61BD4F'}]})
             }
-            if (evt.target.value == "One") {
+            if (evt.target.value === "One") {
                 this.setState({[field]: [{title: 'One more', color: 'white', bgcolor: '#61BD4F'}]})
             }
         }
         else
             this.setState({[field]: evt.target.value})
-    }
+    };
 
     handleAdd = () => {
         if (this.state) {
@@ -145,7 +139,7 @@ class todoBoard extends Component {
                     },
                     {
                         id: 'intest',
-                        title: 'In Test',
+                        title: 'In Test Tasks',
                         label: '',
                         cards: [],
                         style: {width: 320, backgroundColor: '#FF6347', color: '#fff', boxShadow: '2px 2px 4px 0px rgba(0,0,0,0.75)'},
@@ -156,7 +150,7 @@ class todoBoard extends Component {
 
                     }, {
                         id: 'completed',
-                        title: 'Completed',
+                        title: 'Completed Tasks',
                         label: '',
                         cards: [],
                         style: {width: 320, backgroundColor: '#4BB543 ', color: '#fff', boxShadow: '2px 2px 4px 0px rgba(0,0,0,0.75)'},

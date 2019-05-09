@@ -3,10 +3,10 @@ import StyleLinks from "./StyleLinks"
 import {TabMenu} from 'primereact/tabmenu';
 import CreateModule from "./modules/createModule"
 import TodoBoard from "./Todo/index"
-import ReactMinimalPieChart from 'react-minimal-pie-chart';
+
 import connect from "react-redux/es/connect/connect";
 import {getActivityById} from "../../store/actions/activityActions";
-import Spinner from "../common/Spinner";
+import ToDoList from "./Todo/ToDoList";
 class workSpace extends Component {
     state = {
         id: "",
@@ -205,6 +205,60 @@ class workSpace extends Component {
                                                                 </ul>
                                                                 {/* ... end W-Personal-Info */}
                                                             </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <a id="load-more-button" href="#" className="btn btn-control btn-more"
+                                       data-load-link="items-to-load.html" data-container="newsfeed-items-grid">
+                                        <svg className="olymp-three-dots-icon">
+                                            <use xlinkHref="#olymp-three-dots-icon"/>
+                                        </svg>
+                                    </a>
+                                </main>
+
+                            </div>
+                        </div>
+                    </React.Fragment>
+                );
+            case 4:
+                return (
+                    <React.Fragment>
+                        <div className="header-spacer"/>
+                        <div className="container">
+                            <div className="row">
+                                {/* Main Content */}
+                                <main
+                                    className="col col-xl-12 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-12">
+                                    <div className="ui-block">
+                                        {/* News Feed Form  */}
+                                        <div className="news-feed-form">
+                                            <StyleLinks/>
+                                            <TabMenu model={this.state.items} activeItem={this.state.activeItem}
+                                                     onTabChange={(e) => this.changeStep(e.value)}/>
+
+                                        </div>
+                                        {/* ... end News Feed Form  */}            </div>
+                                    <div id="newsfeed-items-grid">
+                                        <div className="ui-block">
+                                            <div
+                                                className="col col-xl-12 order-xl-2 col-lg-12 order-lg-2 col-md-12 order-md-1 col-sm-12 col-12">
+                                                <div className="ui-block">
+                                                    <div className="ui-block-title">
+                                                        <h6 className="title">Activty Stats</h6>
+                                                        <a href="#" className="more">
+                                                            <svg className="olymp-three-dots-icon">
+                                                                <use xlinkHref="#olymp-three-dots-icon"/>
+                                                            </svg>
+                                                        </a>
+                                                    </div>
+                                                    <div className="ui-block-content">
+                                                        <div className="row">
+                                                           <ToDoList fullActivity={this.state.fullActivity} id={this.state.id}
+                                                                     module={module} />
                                                         </div>
                                                     </div>
                                                 </div>
