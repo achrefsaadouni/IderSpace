@@ -94,7 +94,7 @@ class index extends Component {
                             </div>
                         </div>
                         <div className="post-thumb">
-                            <img src="img/post__thumb5.jpg" alt="photo"/>
+                            <img src="https://res.cloudinary.com/pi-dev/image/upload/v1556040765/zrxqr9mpte9sydmhnxpe.jpg" alt="photo"/>
                         </div>
                         <a href="#" data-toggle="modal" data-target="#blog-post-popup"
                            className="h2 post-title">{e.title}</a>
@@ -176,7 +176,7 @@ class index extends Component {
                             <div className="post__author author vcard inline-items">
                                 <img src="img/author-page.jpg" alt="author"/>
                                 <div className="author-date">
-                                    <a className="h6 post__author-name fn" href="02-ProfilePage.html">You </a> Created an <a
+                                    <a className="h6 post__author-name fn" href="02-ProfilePage.html">You </a> are in an <a
                                     href="#"><b>{e.type}</b> activity</a>
                                     <div className="post__date">
                                         <time className="published" dateTime="2017-03-24T18:18">
@@ -205,7 +205,7 @@ class index extends Component {
                                 </div>
                             </div>
                             <div className="post-thumb">
-                                <img src="img/post__thumb5.jpg" alt="photo"/>
+                                <img src="https://res.cloudinary.com/pi-dev/image/upload/v1556040765/zrxqr9mpte9sydmhnxpe.jpg" alt="photo"/>
                             </div>
                             <a href="#" data-toggle="modal" data-target="#blog-post-popup"
                                className="h2 post-title">{e.title}</a>
@@ -317,7 +317,7 @@ class index extends Component {
                                 </div>
                             </div>
                             <div className="post-thumb">
-                                <img src="img/post__thumb5.jpg" alt="photo"/>
+                                <img src="https://res.cloudinary.com/pi-dev/image/upload/v1556040765/zrxqr9mpte9sydmhnxpe.jpg" alt="photo"/>
                             </div>
                             <a href="#" data-toggle="modal" data-target="#blog-post-popup"
                                className="h2 post-title">{e.title}</a>
