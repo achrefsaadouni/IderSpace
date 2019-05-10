@@ -51,12 +51,13 @@ const onListening = () => {
 // Server static assets if in production
 if (process.env.NODE_ENV === 'production') {
     // Set static folder
-    app.use(express.static('build'));
 
-    app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
-    });
 }
+app.use(express.static('build'));
+
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
+});
 
 const port = normalizePort(process.env.PORT || "2500");
 app.set("port", port);
