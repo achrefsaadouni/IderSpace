@@ -10,8 +10,29 @@ import {
   CLEAR_ERRORS,
   GET_ERRORS,
   LOADING,
-  GET_QUESTIONS_LAST3
+  GET_QUESTIONS_LAST3,
+  GET_SEARCH
 } from "./types";
+
+//Get search
+
+export const getSearchResult = search => dispatch => {
+  dispatch(setForumLoading());
+  axios
+    .get(`http://iderspace.herokuapp.com/api/question/search/1/1/1/${search}`)
+    .then(res =>
+      dispatch({
+        type: GET_SEARCH,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_SEARCH,
+        payload: {}
+      })
+    );
+};
 
 // Get current forum
 export const getForum = () => dispatch => {
@@ -138,8 +159,7 @@ export const addComment = (id, comment) => dispatch => {
   dispatch(clearErrors());
   axios
     .post(`https://iderspace.herokuapp.com/api/question/comment/${id}`, comment)
-    .then(res => dispatch(getComments(id, 3, 1))
-    )
+    .then(res => dispatch(getComments(id, 3, 1)))
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
@@ -188,10 +208,10 @@ export const deleteQuestion = (id, history, category_id) => dispatch => {
 // Delete comment
 export const deleteComment = (id, id_comment) => dispatch => {
   axios
-    .delete(`https://iderspace.herokuapp.com/api/question/${id}/comment/${id_comment}`)
-    .then(res =>
-      dispatch(getComments(id, 3, 1))
+    .delete(
+      `https://iderspace.herokuapp.com/api/question/${id}/comment/${id_comment}`
     )
+    .then(res => dispatch(getComments(id, 3, 1)))
     .catch(err =>
       dispatch({
         type: GET_QUESTION,
@@ -204,12 +224,10 @@ export const deleteComment = (id, id_comment) => dispatch => {
 export const bestComment = (id, id_comment) => dispatch => {
   dispatch(setForumLoading());
   axios
-    .post(`https://iderspace.herokuapp.com/api/question/comment/${id}/${id_comment}`)
-    .then(res =>
-      dispatch(
-        getComments(id,3,1)
-      )
+    .post(
+      `https://iderspace.herokuapp.com/api/question/comment/${id}/${id_comment}`
     )
+    .then(res => dispatch(getComments(id, 3, 1)))
     .catch(err =>
       dispatch({
         type: GET_QUESTION,

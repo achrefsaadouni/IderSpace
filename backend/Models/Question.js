@@ -12,8 +12,8 @@ const QuestionSchema = mongoose.Schema({
   ],
   tags: { type: [String] },
   createdAt: { type: Date, required: true },
-  subject: { type: String, required: true },
-  content: { type: String, required: true },
+  subject: { type: String, trim: true },
+  content: { type: String, trim: true },
   comments: [
     {
       user: {
@@ -47,5 +47,9 @@ const QuestionSchema = mongoose.Schema({
     ref: "Forum",
     required: true
   }
+});
+QuestionSchema.index({
+  subject: "text",
+  content: "text"
 });
 module.exports = mongoose.model("Question", QuestionSchema);

@@ -56,6 +56,29 @@ exports.getAllBadWords = (req, res, next) => {
     });
 };
 
+exports.searchQuestion = (req, res, next) => {
+  const search = req.params.text;
+  console.log("text");
+
+  Question.find({ $text: { $search: search } })
+    .then(results => {
+      if (results.length === 0) {
+        console.log(results);
+        return res.status(400).json({
+          message: "nothing found"
+        });
+      } else {
+        return res.status(200).json(results);
+      }
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).json({
+        message: "search failed!"
+      });
+    });
+};
+
 exports.createQuestion = (req, res, next) => {
   const { errors, isValid } = validateQuestionInput(req.body);
   // Check Validation
@@ -88,7 +111,7 @@ exports.createQuestion = (req, res, next) => {
         filter.isProfane(req.body.subject)
       ) {
         return res.status(400).json({
-          message: "bad words exist",
+          message: "bad words exist"
         });
       }
       question

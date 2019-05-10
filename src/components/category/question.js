@@ -18,10 +18,14 @@ class question extends Component {
   componentDidMount() {
     //get comment author
     axios
-        .get(`https://iderspace.herokuapp.com/api/user/some-info/${this.props.userId}`)
-        .then(res => {
-          this.setState({ userInfo: res.data });
-        });
+      .get(
+        `https://iderspace.herokuapp.com/api/user/some-info/${
+          this.props.userId
+        }`
+      )
+      .then(res => {
+        this.setState({ userInfo: res.data });
+      });
   }
 
   render() {
@@ -73,9 +77,9 @@ class question extends Component {
           <div className="author-freshness">
             <div className="author-thumb">
               <img
-                  alt={this.state.userInfo.username}
-                  src={this.state.userInfo.profileImage}
-                  className="avatar"
+                alt={this.state.userInfo.username}
+                src={this.state.userInfo.profileImage}
+                className="avatar"
               />
             </div>
             <a href="#" className="h6 title">

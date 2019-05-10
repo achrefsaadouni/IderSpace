@@ -86,7 +86,7 @@ class Index extends Component {
     };
 
     this.props.addComment(this.props.match.params.question_id, newComment);
-    this.setState({ comment: "" })
+    this.setState({ comment: "" });
   };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
@@ -100,11 +100,7 @@ class Index extends Component {
     const { comment, errors, liked } = this.state;
 
     axios
-      .get(
-        `/api/user/some-info/${
-          this.props.forum.question.author
-        }`
-      )
+      .get(`/api/user/some-info/${this.props.forum.question.author}`)
       .then(res => {
         this.setState({ user: res.data });
       });
@@ -179,9 +175,7 @@ class Index extends Component {
                       type="button"
                       className="btn btn-light mr-1"
                     >
-                      <i
-                        className="fas fa-thumbs-down"
-                      />
+                      <i className="fas fa-thumbs-down" />
                     </button>
                   </span>
                 </div>
@@ -215,22 +209,24 @@ class Index extends Component {
                           />
                         </Link>
                         {this.props.user.userId === author ? (
-                        <Link
-                          to={
-                            "/forum/" +
-                            this.props.match.params.category_id +
-                            "/edit-question/" +
-                            this.props.match.params.question_id
-                          }
-                          className="reply-topic"
-                        >
-                          <i
-                            style={{ margin: "0 8px" }}
-                            className="far fa-edit"
-                          />
-                        </Link> ) : ""}
+                          <Link
+                            to={
+                              "/forum/" +
+                              this.props.match.params.category_id +
+                              "/edit-question/" +
+                              this.props.match.params.question_id
+                            }
+                            className="reply-topic"
+                          >
+                            <i
+                              style={{ margin: "0 8px" }}
+                              className="far fa-edit"
+                            />
+                          </Link>
+                        ) : (
+                          ""
+                        )}
                         {this.props.user.userId === author ? (
-                          
                           <Link
                             to="#"
                             onClick={this.deleteQuestion}

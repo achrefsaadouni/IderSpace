@@ -13,7 +13,7 @@ router.delete("/:id", authCheck, QuestionController.deleteQuestion);
 
 router.get("/:id", authCheck, QuestionController.getQuestion);
 
-router.get("/", authCheck, QuestionController.getQuestions);
+router.get("/", QuestionController.getQuestions);
 
 router.get("/forum/:id", authCheck, QuestionController.getQuestionsByCategory);
 //"category": ObjectId("5caa1f12ff6f1827b83b6464"),
@@ -27,6 +27,8 @@ router.post("/unlike/:id", authCheck, QuestionController.unlikeQuestion);
 router.post("/comment/:id", authCheck, QuestionController.addCommenttoQuestion);
 
 router.get("/comments/:id", QuestionController.getAllCommentsQuestions);
+
+router.get("/search/1/1/1/:text", QuestionController.searchQuestion);
 
 router.delete(
   "/:id/comment/:comment_id",

@@ -6,7 +6,8 @@ import {
   GET_COMMENTS,
   GET_QUESTIONS_LAST3,
   DELETE_QUESTION,
-  LOADING
+  LOADING,
+  GET_SEARCH
 } from "../actions/types";
 
 const initialState = {
@@ -16,6 +17,7 @@ const initialState = {
   comments: null,
   newquestion: null,
   lastQuestions: null,
+  search: null,
   loading: true
 };
 
@@ -30,6 +32,12 @@ export default function(state = initialState, action) {
       return {
         ...state,
         forum: action.payload,
+        loading: false
+      };
+    case GET_SEARCH:
+      return {
+        ...state,
+        search: action.payload,
         loading: false
       };
     case GET_QUESTIONS:
