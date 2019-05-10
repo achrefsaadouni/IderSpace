@@ -22,7 +22,7 @@ import io from 'socket.io-client';
 import ReactNotification from "react-notifications-component";
 import "react-notifications-component/dist/theme.css";
 
-const socket = io('https://iderspace.herokuapp.com');
+const socket = io('');
 
 
 async function verifyExistanceBool(tab, val) {
@@ -164,7 +164,7 @@ class Index extends Component {
         }
         axios({
             method: 'post',
-            url: 'https://iderspace.herokuapp.com/api/user/manageActivityRequest',
+            url: '/api/user/manageActivityRequest',
             data: {idActiv: id, repUser: etat},
 
         }).then(() => {

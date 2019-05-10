@@ -101,7 +101,7 @@ class Index extends Component {
 
     axios
       .get(
-        `https://iderspace.herokuapp.com/api/user/some-info/${
+        `/api/user/some-info/${
           this.props.forum.question.author
         }`
       )

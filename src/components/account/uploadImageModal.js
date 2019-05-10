@@ -11,7 +11,7 @@ class UploadImageModal extends Component {
         data.append("image", file);
         axios({
             method: 'post',
-            url: 'http://localhost:2500/api/user/changeProfilImage',
+            url: '/api/user/changeProfilImage',
             data: data,
             config: {headers: {'Content-Type': 'multipart/form-data'}}
         }).then(result => {

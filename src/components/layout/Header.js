@@ -35,7 +35,7 @@ class Header extends Component {
         }
         axios({
             method: 'post',
-            url: 'http://localhost:2500/api/user/manageRequestFriend',
+            url: '/api/user/manageRequestFriend',
             data: {idInviter: idUser , responseInvitation: response},
 
         }).then((res) => {

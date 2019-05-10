@@ -32,7 +32,7 @@ class Profile extends Component {
 
         axios({
             method: 'post',
-            url: 'https://iderspace.herokuapp.com/api/user/changeProfilImage',
+            url: '/api/user/changeProfilImage',
             data: data,
             config: {headers: {'Content-Type': 'multipart/form-data'}}
         }).then(result => {
@@ -74,7 +74,7 @@ class Profile extends Component {
         if (text != '') {
             axios({
                 method: 'post',
-                url: 'https://iderspace.herokuapp.com/api/user/addPublications',
+                url: '/api/user/addPublications',
                 data: {pub: text},
 
             }).then((res) => {
@@ -96,7 +96,7 @@ class Profile extends Component {
 
         axios({
             method: 'post',
-            url: 'https://iderspace.herokuapp.com/api/user/changeCouvertureImage',
+            url: '/api/user/changeCouvertureImage',
             data: data,
             config: {headers: {'Content-Type': 'multipart/form-data'}}
         }).then(result => {

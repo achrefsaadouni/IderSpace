@@ -46,7 +46,7 @@ class NewCard extends React.Component {
                 //  this.state.CreateTodo(title, description, tags, label, this.state.moduleId)
                 axios
                     .post(
-                        `https://iderspace.herokuapp.com/api/activity/addTodo`
+                        `/api/activity/addTodo`
                         , {
                             title: title,
                             description: description,
@@ -173,7 +173,7 @@ class todoBoard extends Component {
 
                 axios
                     .post(
-                        `http://localhost:2500/api/activity/pushTodo`
+                        `/api/activity/pushTodo`
                         , {
                             todoId: todoId,
                             activityId: activityId,
@@ -198,7 +198,7 @@ class todoBoard extends Component {
 
                 axios
                     .post(
-                        `http://localhost:2500/api/activity/removeTodo`
+                        `/api/activity/removeTodo`
                         , {
                             todoId: todoId,
                         }
@@ -221,7 +221,7 @@ class todoBoard extends Component {
             if(operation==="validate"){
                 axios
                     .post(
-                        `http://localhost:2500/api/activity/validateRequest`
+                        `/api/activity/validateRequest`
                         , {
                             todoId: todoId,
                             activityId: activityId,
@@ -296,7 +296,7 @@ class todoBoard extends Component {
             .then((willDelete) => {
                 if (willDelete) {
                     axios.post(
-                        `http://localhost:2500/api/activity/deleteToDo`
+                        `/api/activity/deleteToDo`
                         , {
                             todoId: cardId,
                             moduleId: this.state.moduleId

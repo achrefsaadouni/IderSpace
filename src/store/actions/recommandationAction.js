@@ -10,7 +10,7 @@ import {setProfileLoading} from "./profileActions";
 export const getRecommandation = tab => dispatch => {
     dispatch(setRecommandationLoading());
     axios
-        .post("https://iderspace.herokuapp.com/api/user/getRecommendation", {reqSkills: tab},{headers:{'Content-Type': 'application/json'}})
+        .post("/api/user/getRecommendation", {reqSkills: tab},{headers:{'Content-Type': 'application/json'}})
         .then(res => {
             dispatch({
                 type: GET_RECOMMANDATION,
@@ -30,7 +30,7 @@ export const getRecommandation = tab => dispatch => {
 export const getAllSkills = () => dispatch => {
     dispatch(setRecommandationLoading());
     axios
-        .get("https://iderspace.herokuapp.com/api/user/getAllSkills")
+        .get("/api/user/getAllSkills")
         .then(res =>
             dispatch({
                 type: GET_ALLSKILLS,

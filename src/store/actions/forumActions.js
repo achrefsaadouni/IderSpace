@@ -19,7 +19,7 @@ import {
 export const getSearchResult = search => dispatch => {
   dispatch(setForumLoading());
   axios
-    .get(`http://iderspace.herokuapp.com/api/question/search/1/1/1/${search}`)
+    .get(`/api/question/search/1/1/1/${search}`)
     .then(res =>
       dispatch({
         type: GET_SEARCH,
@@ -38,7 +38,7 @@ export const getSearchResult = search => dispatch => {
 export const getForum = () => dispatch => {
   dispatch(setForumLoading());
   axios
-    .get("https://iderspace.herokuapp.com/api/forum")
+    .get("/api/forum")
     .then(res =>
       dispatch({
         type: GET_FORUM,
@@ -58,7 +58,7 @@ export const getQuestions = (id, page, current) => dispatch => {
   dispatch(setForumLoading());
   axios
     .get(
-      `https://iderspace.herokuapp.com/api/question/forum/${id}?pageSize=${page}&currentPage=${current}`
+      `/api/question/forum/${id}?pageSize=${page}&currentPage=${current}`
     )
     .then(res =>
       dispatch({
@@ -77,7 +77,7 @@ export const getQuestions = (id, page, current) => dispatch => {
 // Get last 3 questions
 export const getLast3Questions = (id, page, current) => dispatch => {
   axios
-    .get(`https://iderspace.herokuapp.com/api/question/last3`)
+    .get(`/api/question/last3`)
     .then(res =>
       dispatch({
         type: GET_QUESTIONS_LAST3,
@@ -96,7 +96,7 @@ export const getLast3Questions = (id, page, current) => dispatch => {
 export const getQuestion = id => dispatch => {
   dispatch(setForumLoading());
   axios
-    .get(`https://iderspace.herokuapp.com/api/question/${id}`)
+    .get(`/api/question/${id}`)
     .then(res =>
       dispatch({
         type: GET_QUESTION,
@@ -116,7 +116,7 @@ export const getComments = (id, page, current) => dispatch => {
   dispatch(setForumLoading());
   axios
     .get(
-      `https://iderspace.herokuapp.com/api/question/comments/${id}?pageSize=${page}&currentPage=${current}`
+      `/api/question/comments/${id}?pageSize=${page}&currentPage=${current}`
     )
     .then(res =>
       dispatch({
@@ -136,7 +136,7 @@ export const getComments = (id, page, current) => dispatch => {
 export const addQuestion = (question, history) => dispatch => {
   dispatch(clearErrors());
   axios
-    .post("https://iderspace.herokuapp.com/api/question", question)
+    .post("/api/question", question)
     .then(res =>
       history.push(
         "/forum/" +
@@ -158,7 +158,7 @@ export const addQuestion = (question, history) => dispatch => {
 export const addComment = (id, comment) => dispatch => {
   dispatch(clearErrors());
   axios
-    .post(`https://iderspace.herokuapp.com/api/question/comment/${id}`, comment)
+    .post(`/api/question/comment/${id}`, comment)
     .then(res => dispatch(getComments(id, 3, 1)))
     .catch(err =>
       dispatch({
@@ -172,7 +172,7 @@ export const addComment = (id, comment) => dispatch => {
 export const updateQuestion = (id, question, history) => dispatch => {
   dispatch(clearErrors());
   axios
-    .put(`https://iderspace.herokuapp.com/api/question/${id}`, question)
+    .put(`/api/question/${id}`, question)
     .then(res =>
       history.push(
         "/forum/" +
@@ -193,7 +193,7 @@ export const updateQuestion = (id, question, history) => dispatch => {
 export const deleteQuestion = (id, history, category_id) => dispatch => {
   dispatch(setForumLoading());
   axios
-    .delete(`https://iderspace.herokuapp.com/api/question/${id}`)
+    .delete(`/api/question/${id}`)
     .then(res => {
       history.push("/forum/" + category_id);
     })
@@ -209,7 +209,7 @@ export const deleteQuestion = (id, history, category_id) => dispatch => {
 export const deleteComment = (id, id_comment) => dispatch => {
   axios
     .delete(
-      `https://iderspace.herokuapp.com/api/question/${id}/comment/${id_comment}`
+      `/api/question/${id}/comment/${id_comment}`
     )
     .then(res => dispatch(getComments(id, 3, 1)))
     .catch(err =>
@@ -225,7 +225,7 @@ export const bestComment = (id, id_comment) => dispatch => {
   dispatch(setForumLoading());
   axios
     .post(
-      `https://iderspace.herokuapp.com/api/question/comment/${id}/${id_comment}`
+      `/api/question/comment/${id}/${id_comment}`
     )
     .then(res => dispatch(getComments(id, 3, 1)))
     .catch(err =>
@@ -239,7 +239,7 @@ export const bestComment = (id, id_comment) => dispatch => {
 // like
 export const likeQuestion = id => dispatch => {
   axios
-    .post(`https://iderspace.herokuapp.com/api/question/like/${id}`)
+    .post(`/api/question/like/${id}`)
     .then(res => dispatch(getQuestion(id)))
     .catch(err =>
       dispatch({
@@ -252,7 +252,7 @@ export const likeQuestion = id => dispatch => {
 // dislike
 export const unlikeQuestion = id => dispatch => {
   axios
-    .post(`https://iderspace.herokuapp.com/api/question/unlike/${id}`)
+    .post(`/api/question/unlike/${id}`)
     .then(res => dispatch(getQuestion(id)))
     .catch(err =>
       dispatch({

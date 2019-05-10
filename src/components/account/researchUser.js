@@ -12,7 +12,7 @@ class ResearchUser extends Component {
     clickSendInvitation = e => {
         axios({
             method: 'post',
-            url: 'http://localhost:2500/api/user/sendInvitation',
+            url: '/api/user/sendInvitation',
             data: {invitedUser: e},
 
         }).then((res) => {

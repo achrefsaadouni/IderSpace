@@ -34,7 +34,7 @@ export const getCurrentProfile = () => dispatch => {
 export const getUserFriends = () => dispatch => {
     dispatch(setProfileLoading());
     axios
-        .post("https://iderspace.herokuapp.com/api/user/getFriend")
+        .post("/api/user/getFriend")
         .then(res => {
                 dispatch({
                     type: GET_USER_FRIENDS,
@@ -53,7 +53,7 @@ export const getUserFriends = () => dispatch => {
 
 export const getUserInvitations = () => dispatch => {
     axios
-        .post("http://localhost:2500/api/user/getInvitations")
+        .post("/api/user/getInvitations")
         .then(res => {
                 dispatch({
                     type: GET_INVITATIONS,
@@ -75,7 +75,7 @@ export const getUserInvitations = () => dispatch => {
 // Add experience
 export const addExperience = (expData, history) => dispatch => {
     axios
-        .post("https://iderspace.herokuapp.com/api/user/addExperience", expData)
+        .post("/api/user/addExperience", expData)
         .then(res => history.push("/profile"))
         .catch(err =>
             dispatch({
@@ -89,7 +89,7 @@ export const addExperience = (expData, history) => dispatch => {
 export const addResume = (hobbies, about, languages , facebook) => dispatch => {
     dispatch(setProfileLoading());
     axios
-        .post("https://iderspace.herokuapp.com/api/user/addResume", {
+        .post("/api/user/addResume", {
             hobbies: hobbies,
             about: about,
             languages: languages,
@@ -112,7 +112,7 @@ export const addResume = (hobbies, about, languages , facebook) => dispatch => {
 export const setLinkedIn = (url) => dispatch => {
     dispatch(setProfileLoading());
     axios
-        .post("https://iderspace.herokuapp.com/api/user/addLinkedIn", {url: url}, {headers: {'Content-Type': 'application/json'}})
+        .post("/api/user/addLinkedIn", {url: url}, {headers: {'Content-Type': 'application/json'}})
         .then(res => {
             dispatch({
                 type: SET_LINKEDIN,
@@ -134,7 +134,7 @@ export const setLinkedIn = (url) => dispatch => {
 export const updatePhoto = (image) => dispatch => {
     dispatch(setProfileLoading());
     axios
-        .post("https://iderspace.herokuapp.com/api/user/changeProfilImage", {image: image}, {headers: {'Content-Type': 'multipart/form-data'}})
+        .post("/api/user/changeProfilImage", {image: image}, {headers: {'Content-Type': 'multipart/form-data'}})
         .then(res => {
             dispatch({
                 type: UPDATE_PHOTO,
@@ -154,7 +154,7 @@ export const updatePhoto = (image) => dispatch => {
 // Add skill
 export const addSkills = (skillsData, history) => dispatch => {
     axios
-        .post("https://iderspace.herokuapp.com/api/user/addSkills", skillsData)
+        .post("/api/user/addSkills", skillsData)
         .then(res => history.push("/profile"))
         .catch(err =>
             dispatch({
@@ -170,7 +170,7 @@ export const addSkills = (skillsData, history) => dispatch => {
 export const getProfiles = () => dispatch => {
     dispatch(setProfileLoading());
     axios
-        .get("https://iderspace.herokuapp.com/api/user/profiles")
+        .get("/api/user/profiles")
         .then(res =>
             dispatch({
                 type: GET_PROFILES,

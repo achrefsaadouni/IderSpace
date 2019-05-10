@@ -10,7 +10,7 @@ export  const ask = async question  => {
     return new Promise (resolve =>{
 
         axios
-            .post("https://iderspace.herokuapp.com/api/chat", question)
+            .post("/api/chat", question)
             .then(res =>
                 {
                     return resolve(res);
@@ -27,7 +27,7 @@ export  const addIntent = async (intent)  => {
     return new Promise (resolve =>{
 
         axios
-            .post("https://iderspace.herokuapp.com/api/chat/intent", intent)
+            .post("/api/chat/intent", intent)
             .then(res =>
                 {
                     return resolve(res);
@@ -48,7 +48,7 @@ export  const deleteQuestion = async question  => {
     return new Promise (resolve =>{
 
         axios
-            .delete("https://iderspace.herokuapp.com/api/chat", {data:{question:question}})
+            .delete("/api/chat", {data:{question:question}})
             .then(res =>
                 {
                     return resolve(res);
@@ -67,7 +67,7 @@ export const getQuestions = () => dispatch => {
     dispatch(setForumLoading());
     axios
         .get(
-            `https://iderspace.herokuapp.com/api/chat`
+            `/api/chat`
         )
         .then(res => {
             dispatch({

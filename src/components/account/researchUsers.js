@@ -14,7 +14,7 @@ class ResearchUsers extends Component {
 
         axios({
             method: 'get',
-            url: 'http://localhost:2500/api/user/searchUsers/'+this.props.match.params.name
+            url: '/api/user/searchUsers/'+this.props.match.params.name
 
         }).then((res) => {
             console.log(res.data.re);

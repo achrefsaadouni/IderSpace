@@ -27,7 +27,7 @@ class Comment extends Component {
     //get comment author
     axios
       .get(
-        `https://iderspace.herokuapp.com/api/user/some-info/${
+        `/api/user/some-info/${
           this.props.user_id
         }`
       )
