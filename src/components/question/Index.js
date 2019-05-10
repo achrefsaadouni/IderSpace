@@ -100,7 +100,11 @@ class Index extends Component {
     const { comment, errors, liked } = this.state;
 
     axios
-      .get(`/api/user/some-info/${this.props.forum.question.author}`)
+      .get(
+        `https://iderspace.herokuapp.com/api/user/some-info/${
+          this.props.forum.question.author
+        }`
+      )
       .then(res => {
         this.setState({ user: res.data });
       });
@@ -263,7 +267,9 @@ class Index extends Component {
                         </div>
                       </td>
                       <td className="posts">
-                        <p>{content}</p>
+                        <p style={{ whiteSpace: "pre-line" }}>
+                          {content.replace(/ /g, "\u00a0")}}
+                        </p>
                       </td>
                     </tr>
                     {getComments}
