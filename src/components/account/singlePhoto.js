@@ -10,7 +10,7 @@ class SinglePhoto extends Component {
                     <div className="photo-album-item" data-mh="album-item"
                          style={{height: '200.891px'}}>
                         <div className="photo-item">
-                            <img style={{width:'306.5px' ,height:'262.17px'}} src={this.props.photo} alt="photo"/>
+                            <img style={{width:'306.5px' ,height:'262.17px'}} src={this.props.photo} alt="profile"/>
                             <div className="overlay overlay-dark"/>
                             <a href="#" className="more">
                                 <svg className="olymp-three-dots-icon">

@@ -3,7 +3,7 @@ import {
     GET_PROFILES,
     LOADING,
     CLEAR_CURRENT_PROFILE,
-    SET_RESUME, SET_LINKEDIN, UPDATE_PHOTO, GET_USER_FRIENDS
+    SET_RESUME, SET_LINKEDIN, UPDATE_PHOTO, GET_USER_FRIENDS, GET_INVITATIONS
 } from "../actions/types";
 
 const initialState = {
@@ -15,7 +15,8 @@ const initialState = {
     languages: null,
     facebook: '',
     url: null,
-    friends:null
+    friends: null,
+    invitations: null
 
 };
 
@@ -29,7 +30,7 @@ export default function (state = initialState, action) {
         case GET_PROFILE:
             return {
                 ...state,
-                friends:null,
+                friends: null,
                 profile: action.payload,
                 loading: false
             };
@@ -37,6 +38,12 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 profiles: action.payload,
+                loading: false
+            };
+        case GET_INVITATIONS:
+            return {
+                ...state,
+                invitations: action.payload,
                 loading: false
             };
         case GET_USER_FRIENDS:

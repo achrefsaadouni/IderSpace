@@ -6,7 +6,7 @@ import {
     GET_PROFILES,
     LOADING,
     CLEAR_CURRENT_PROFILE,
-    GET_ERRORS, SET_RESUME, SET_LINKEDIN,UPDATE_PHOTO,GET_USER_FRIENDS
+    GET_ERRORS, SET_RESUME, SET_LINKEDIN,UPDATE_PHOTO,GET_USER_FRIENDS,GET_INVITATIONS
 } from "./types";
 
 
@@ -46,6 +46,25 @@ export const getUserFriends = () => dispatch => {
         .catch(err =>
             dispatch({
                 type: GET_USER_FRIENDS,
+                payload: {}
+            })
+        );
+};
+
+export const getUserInvitations = () => dispatch => {
+    axios
+        .post("http://localhost:2500/api/user/getInvitations")
+        .then(res => {
+                dispatch({
+                    type: GET_INVITATIONS,
+                    payload: res.data
+                })
+
+            }
+        )
+        .catch(err =>
+            dispatch({
+                type: GET_INVITATIONS,
                 payload: {}
             })
         );

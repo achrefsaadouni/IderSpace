@@ -14,11 +14,15 @@ router.post("/addResume", authCheck, UserController.addResume);
 
 router.post("/addLinkedIn",authCheck, UserController.addlinkedIn);
 
+router.post("/refreshLinkedIn",authCheck, UserController.refreshLinkedIn);
+
 router.put("/:d", UserController.updateUser);
 
 router.get("/some-info/:id", UserController.getSomeInfoUser);
 
 router.get("/getSkills/:id", UserController.getSkills);
+
+router.get("/searchUsers/:name", UserController.searchUsers);
 
 router.get("/getAllSkills", UserController.getAllSkills);
 
@@ -50,12 +54,13 @@ router.get("/getActivityByUser", authCheck, UserController.getActivityByUser);
 
 router.post("/manageActivityRequest", authCheck, UserController.manageActivityRequest);
 
-
 router.post("/manageRequestFriend", authCheck, UserController.manageRequestFriend);
-
 
 router.post("/getFriend", authCheck, UserController.getFriend);
 
+router.post("/sendInvitation", authCheck, UserController.sendInvitation);
+
+router.post("/getInvitations", authCheck, UserController.getInvitations);
 
 router.get("/profiles", UserController.getAllProfiles);
 

@@ -20,6 +20,9 @@ module.exports = (content) => {
                 }); */
                 console.log('undefined user');
             }
+            user.Resume.Skills = [];
+            user.Resume.experiences = [];
+            user.Resume.educations = [];
             for (const skil of content.skills) {
                 let skill = new skills({
                     name: skil.title,

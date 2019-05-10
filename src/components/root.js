@@ -3,6 +3,7 @@ import Header from "./layout/Header";
 import SideBar from "./layout/SideBar";
 import Login from "./pages/Login";
 import Profile from "./account/Index";
+import Research from "./account/researchUsers";
 import EditProfile from "./account/editProfile";
 import Forum from "./forum/index";
 import Category from "./category/index";
@@ -83,6 +84,8 @@ class root extends Component {
             <PrivateRoute exact path="/listReco" component={ListRecommanded} />
 
             <PrivateRoute exact path="/profile" component={Profile} />
+
+            <PrivateRoute exact path="/profile/search/:name" component={Research} />
 
             <PrivateRoute exact path="/edit-profile" component={EditProfile} />
 

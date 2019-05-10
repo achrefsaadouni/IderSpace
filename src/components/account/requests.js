@@ -16,17 +16,17 @@ class Requests extends Component {
     ondeleteParentAccept = e => {
         Swal.fire({
             title: 'Are you sure?',
-            text: 'You will not be able to recover this Data !',
+            text: 'Will you accept the activity !',
             type: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'Yes, delete it!',
-            cancelButtonText: 'No, keep it'
+            confirmButtonText: 'Yes!',
+            cancelButtonText: 'No'
         }).then((result) => {
             if (result.value) {
                 this.onClickAccept(e);
                 Swal.fire({
                     type: 'success',
-                    title: 'The Question has been deleted',
+                    title: 'The Activie has been accepted',
                     showConfirmButton: false,
                     timer: 1000,
                 })
@@ -46,10 +46,10 @@ class Requests extends Component {
     ondeleteParentCancel = e => {
         Swal.fire({
             title: 'Are you sure?',
-            text: 'You will not be able to recover this Data !',
+            text: 'You will reject the activity!',
             type: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'Yes, delete it!',
+            confirmButtonText: 'Yes, reject it!',
             cancelButtonText: 'No, keep it'
         }).then((result) => {
             if (result.value) {
