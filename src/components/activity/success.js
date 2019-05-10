@@ -8,13 +8,6 @@ import ProgressBar from "react-bootstrap/ProgressBar";
 
 
 class success extends Component {
-
-
-    constructor() {
-        super()
-
-
-    }
     componentDidMount(){
         const {values} = this.props;
         this.props.CreateActivity(values);
@@ -22,8 +15,8 @@ class success extends Component {
 
 
     render() {
-        const {loading, activity} = this.props.activity
-        const { values, changeRouteToList } = this.props;
+        const {loading} = this.props.activity
+        const {changeRouteToList } = this.props;
         if (loading) {
            return <Spinner/>
         }

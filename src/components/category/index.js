@@ -9,6 +9,7 @@ import {
 import Spinner from "../common/Spinner";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import Search from "./../question/search";
 
 class index extends Component {
   componentDidMount() {
@@ -78,20 +79,7 @@ class index extends Component {
                 <div className="ui-block-title">
                   <div className="h6 title">Q/A Forums</div>
                   <div className="align-right">
-                    <form className="w-search">
-                      <div className="form-group with-button">
-                        <input
-                          className="form-control"
-                          type="text"
-                          placeholder="Search the forums..."
-                        />
-                        <button>
-                          <svg className="olymp-magnifying-glass-icon">
-                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-magnifying-glass-icon" />
-                          </svg>
-                        </button>
-                      </div>
-                    </form>
+                    <Search />
                     <Link
                       to={
                         "/forum/" +
@@ -131,7 +119,6 @@ class index extends Component {
             </div>
 
             <div className="col col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-              <PopularQuestions />
               <RecentQuestion
                 category_id={this.props.match.params.category_id}
               />

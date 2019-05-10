@@ -1,13 +1,13 @@
 const Filter = require("bad-words");
-const Question = require("../models/Question");
-const BadWord = require("../models/BadWord");
-const User = require("../models/user");
+const Question = require("../Models/Question");
+const BadWord = require("../Models/BadWord");
+const User = require("../Models/User");
 const mongoose = require("mongoose");
 
 // Load Input Validation
 const validateQuestionInput = require("../validation/addQuestion");
 
-filter = new Filter();
+const filter = new Filter();
 
 exports.addBadWord = (req, res, next) => {
   const newBadWord = BadWord({
@@ -56,6 +56,29 @@ exports.getAllBadWords = (req, res, next) => {
     });
 };
 
+exports.searchQuestion = (req, res, next) => {
+  const search = req.params.text;
+  console.log("text");
+
+  Question.find({ $text: { $search: search } })
+    .then(results => {
+      if (results.length === 0) {
+        console.log(results);
+        return res.status(400).json({
+          message: "nothing found"
+        });
+      } else {
+        return res.status(200).json(results);
+      }
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).json({
+        message: "search failed!"
+      });
+    });
+};
+
 exports.createQuestion = (req, res, next) => {
   const { errors, isValid } = validateQuestionInput(req.body);
   // Check Validation
@@ -88,7 +111,7 @@ exports.createQuestion = (req, res, next) => {
         filter.isProfane(req.body.subject)
       ) {
         return res.status(400).json({
-          message: "bad words exist",
+          message: "bad words exist"
         });
       }
       question

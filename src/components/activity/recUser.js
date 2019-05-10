@@ -1,14 +1,11 @@
-import React, {Component, setState} from "react";
+import React, {Component} from "react";
 
 export default class recUser extends Component {
-    constructor(){
-        super()
 
-    }
 
     render() {
         const user = this.props.user;
-        const {values, handleChange,disabledButton} = this.props;
+        const {values, handleChange} = this.props;
         const bool=this.props.disabledButton(this.props.user._id)
 
         return (

@@ -1,5 +1,5 @@
 const chatbot = require('../services/chatbot');
-var Question = require('../models/Question');
+var Question = require('../Models/Question');
 var scraper = require('../handler/scrap-google');
 var last_asked_question = "";
 exports.chat = async (req, res, next) => {

@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-
 import BarLoader from 'react-spinners/BarLoader'
 import connect from "react-redux/es/connect/connect";
 import {CreateModule, getActivityById, getActivityMembers} from "../../../store/actions/activityActions";
@@ -7,20 +6,14 @@ import {DataView, DataViewLayoutOptions} from 'primereact/dataview';
 import {Button} from 'primereact/button';
 import {Panel} from 'primereact/panel';
 import {Dropdown} from 'primereact/dropdown';
-import {Style} from 'primereact/components/dropdown/Dropdown.css'
+
 import {Dialog} from 'primereact/dialog';
 import StyleLinks from "../StyleLinks";
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
-import axios from "axios";
-import ModuleItem from "./moduleItem";
-import {swal} from "sweetalert";
+
+
 import Moment from "react-moment";
-
-const Swal = require('sweetalert2');
-const ReactDOM = require('react-dom');
-
-
 class createModule extends Component {
 
     constructor(props) {
@@ -56,7 +49,7 @@ class createModule extends Component {
     }
 
 
-    componentWillMount() {
+    componentDidMount() {
 
         this.props.getActivityById(this.props.id)
     }
@@ -90,13 +83,6 @@ class createModule extends Component {
             });
         }
     }
-
-goTodo=e=>{
-    const {todoList}=this.props
-    todoList(e)
-
-}
-
     renderListItem(car) {
 
         return (
@@ -235,10 +221,12 @@ goTodo=e=>{
                     <Dropdown options={sortOptions} value={this.state.sortKey} placeholder="Sort By"
                               onChange={this.onSortChange}/>
                 </div>
+                {this.props.auth.user.role == "teacher" &&
                 <div className="p-col-4" style={{textAlign: 'center'}}>
                     <Button label="New"
                             onClick={this.create} className="p-button-raised p-button-rounded"/>
                 </div>
+                }
                 <div className="p-col-4" style={{textAlign: 'right'}}>
                     <DataViewLayoutOptions layout={this.state.layout}
                                            onChange={(e) => this.setState({layout: e.value})}/>
@@ -270,9 +258,9 @@ goTodo=e=>{
     render() {
 
         const header = this.renderHeader();
-        const {workspaceActivity, activityMembers,modulecreation, loading} = this.props.activity;
+        const {workspaceActivity,modulecreation, loading} = this.props.activity;
         const {validated} = this.state;
-        const{fullActivity}=this.props
+
 
         if (loading ) {
 
@@ -288,7 +276,7 @@ goTodo=e=>{
 
         }
 
-        else if ( workspaceActivity != null) {
+         if ( workspaceActivity != null) {
                     if(modulecreation!=null) {
                         if (modulecreation.result === "already exists in your modules") {
                             console.log("error")
@@ -305,16 +293,17 @@ goTodo=e=>{
                         this.state.cars.reverse()
                     }
             let cars = []
-            workspaceActivity.result.members.map(e => {
+            if(workspaceActivity.result.members.length!==0){   workspaceActivity.result.members.map(e => {
 
 
-                    let x = {label: '', value: '', image: ''}
+                let x = {label: '', value: '', image: ''}
                 x.label = e.firstname + " " + e.lastname
                 x.value = e._id
                 x.image = e.profileImage
                 cars.push(x)
 
-            })
+            })}
+
 
             let getLength
             if(this.state.cars.length<=7){
@@ -378,7 +367,7 @@ goTodo=e=>{
                                                             <br/><br/>
                                                             <label>Members</label>
                                                             <StyleLinks/>
-                                                            <Dropdown value={this.state.car2} options={cars}
+                                                            <Dropdown style={{width:"100%"}} value={this.state.car2} options={cars}
                                                                       onChange={this.onCarChange2}
                                                                       itemTemplate={this.carTemplate}
                                                                       placeholder="members" filter={true}
@@ -458,12 +447,14 @@ goTodo=e=>{
         }
         else window.location.reload()
 
+
     }
 
 
 }
 
 const mapStateToProps = state => ({
+    auth: state.auth,
     activity: state.activity
 });
 

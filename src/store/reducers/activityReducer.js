@@ -3,8 +3,8 @@ import {
     CREATIONBAR,
     GET_ACTIVITIES,
     GET_ACTIVITIES_MEMBERS_LIST,
-    GET_ACTIVITY,
-    GET_MEMBERS_ACTIVITY,
+    GET_ACTIVITY, GET_FOR_ADMIN,
+    GET_MEMBERS_ACTIVITY, GET_PACTIVITY,
     GET_SUPERVISORS,
     LOADING, TODOS_MODULE
 } from "../actions/types";
@@ -21,6 +21,8 @@ const initialState = {
     modulecreation: null,
     moduleTodos:null,
     todoCreation:null,
+    pactivity:null,
+    allActivities:null,
 };
 
 export default function (state = initialState, action) {
@@ -36,6 +38,18 @@ export default function (state = initialState, action) {
             workspaceActivity: action.payload,
             loading: false
         };
+        case GET_FOR_ADMIN:
+            return {
+                ...state,
+                allActivities: action.payload,
+                loading: false
+            };
+        case GET_PACTIVITY:
+            return {
+                ...state,
+                pactivity: action.payload,
+                loading: false
+            };
         case GET_MEMBERS_ACTIVITY:
             return {
                 ...state,

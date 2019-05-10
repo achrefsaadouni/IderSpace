@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
 import { getForum } from "../../store/actions/forumActions";
 import Spinner from "../common/Spinner";
+import Search from "./../question/search";
 
 class index extends Component {
   componentDidMount() {
@@ -59,20 +60,7 @@ class index extends Component {
                 <div className="ui-block-title">
                   <div className="h6 title">Q/A Forums</div>
                   <div className="align-right">
-                    <form className="w-search">
-                      <div className="form-group with-button">
-                        <input
-                          className="form-control"
-                          type="text"
-                          placeholder="Search the forums..."
-                        />
-                        <button>
-                          <svg className="olymp-magnifying-glass-icon">
-                            <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-magnifying-glass-icon" />
-                          </svg>
-                        </button>
-                      </div>
-                    </form>
+                    <Search />
                   </div>
                 </div>
               </div>

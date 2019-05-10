@@ -8,14 +8,9 @@ import EditProfile from "./account/editProfile";
 import Forum from "./forum/index";
 import Category from "./category/index";
 import Question from "./question/Index";
+import searchResult from "./question/searchResult";
 import ChatBot from "./ChatBot/ChatBot";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Link,
-  Redirect
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Error from "./common/Error";
@@ -24,7 +19,7 @@ import Recommandation from "./recommandation/recommandation";
 import ListRecommanded from "./recommandation/listRecommanded";
 import AddQuestion from "./question/AddQuestion";
 import EditQuestion from "./question/EditQuestion";
-import Activity from "./activity/index"
+import Activity from "./activity/index";
 import create from "./activity/create";
 import index from "./ChatBot/BotQuestions";
 import workSpace from "./activity/workSpace";
@@ -34,7 +29,7 @@ class root extends Component {
     isAuthenticated: false
   };
 
-  static getDerivedStateFromProps(props, state) {
+  static getDerivedStateFromProps(props) {
     const { isAuth } = props;
 
     if (isAuth) {
@@ -49,9 +44,7 @@ class root extends Component {
     return (
       <Router>
         <React.Fragment>
-          {isAuthenticated
-            ? [<SideBar key={1} />, <Header key={2} />, ]
-            : null}
+          {isAuthenticated ? [<SideBar key={1} />, <Header key={2} />] : null}
           <Switch>
             <PrivateRoute exact path="/forum" component={Forum} />
 
@@ -60,6 +53,8 @@ class root extends Component {
               exact
               component={Category}
             />
+
+            <PrivateRoute path="/search/:text" exact component={searchResult} />
 
             <PrivateRoute
               exact
@@ -91,39 +86,44 @@ class root extends Component {
 
             <PrivateRoute exact path="/activity" component={Activity} />
 
-            <PrivateRoute exact path="/activity/workSpace/:activity_id" component={workSpace} />
+            <PrivateRoute
+              exact
+              path="/activity/workSpace/:activity_id"
+              component={workSpace}
+            />
 
             <PrivateRoute exact path="/activity/create" component={create} />
 
-            <PrivateRoute exact path="/botQuestion" component={index} val={"botQuestion"} />
+            <PrivateRoute
+              exact
+              path="/botQuestion"
+              component={index}
+              val={"botQuestion"}
+            />
 
             <Route exact path="/login" component={Login} />
-
-
-
 
             <Route exact path="*" component={Error} />
           </Switch>
 
           {isAuthenticated ? (
-              <div>
-                <ChatBot/>
-            <Link className="back-to-top" to="#">
-
-              <img
-                src="/svg-icons/back-to-top.svg"
-                alt="arrow"
-                className="back-icon"
-              />
-            </Link>
-              </div>
+            <div>
+              <ChatBot />
+              <Link className="back-to-top" to="#">
+                <img
+                  src="/svg-icons/back-to-top.svg"
+                  alt="arrow"
+                  className="back-icon"
+                />
+              </Link>
+            </div>
           ) : null}
         </React.Fragment>
       </Router>
     );
   }
 }
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   return {
     isAuth: state.auth.isAuthenticated
   };

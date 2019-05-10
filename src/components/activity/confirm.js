@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {getMembersList,CreateActivity} from "../../store/actions/activityActions";
+import {getMembersList} from "../../store/actions/activityActions";
 import {connect} from "react-redux";
 import Spinner from "../common/Spinner";
 import ProgressBar from "react-bootstrap/ProgressBar";

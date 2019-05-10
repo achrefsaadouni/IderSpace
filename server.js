@@ -1,6 +1,9 @@
 const http = require("http");
 const debug = require("debug")("node:server");
 const app = require("./backend/app");
+const path = require('path');
+const express = require('express');
+const os = require('os');
 
 const normalizePort = val => {
     const port = parseInt(val, 10);
@@ -45,6 +48,16 @@ const onListening = () => {
     debug("Listening on " + bind);
 };
 
+// Server static assets if in production
+if (process.env.NODE_ENV === 'production') {
+    // Set static folder
+    app.use(express.static('build'));
+
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
+    });
+}
+
 const port = normalizePort(process.env.PORT || "2500");
 app.set("port", port);
 
@@ -54,7 +67,6 @@ app.set('io', io);
 
 
 io.on('connection', function (socket) {
-    console.log('A user connected');
     socket.on('activity', function (data) {
         // check this msgBy in chatroom of database
         io.sockets.emit('userRecieve', data);
@@ -62,13 +74,15 @@ io.on('connection', function (socket) {
 
     socket.on('msg', function (data) {
         //Send message to everyone
-
-
-
     });
 });
 
 server.on("error", onError);
 server.on("listening", onListening);
 
+
+
+
 var serverpost = server.listen(port);
+
+

@@ -86,7 +86,7 @@ class Index extends Component {
     };
 
     this.props.addComment(this.props.match.params.question_id, newComment);
-    this.setState({ comment: "" })
+    this.setState({ comment: "" });
   };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
@@ -101,7 +101,7 @@ class Index extends Component {
 
     axios
       .get(
-        `http://localhost:2500/api/user/some-info/${
+        `https://iderspace.herokuapp.com/api/user/some-info/${
           this.props.forum.question.author
         }`
       )
@@ -179,9 +179,7 @@ class Index extends Component {
                       type="button"
                       className="btn btn-light mr-1"
                     >
-                      <i
-                        className="fas fa-thumbs-down"
-                      />
+                      <i className="fas fa-thumbs-down" />
                     </button>
                   </span>
                 </div>
@@ -215,22 +213,24 @@ class Index extends Component {
                           />
                         </Link>
                         {this.props.user.userId === author ? (
-                        <Link
-                          to={
-                            "/forum/" +
-                            this.props.match.params.category_id +
-                            "/edit-question/" +
-                            this.props.match.params.question_id
-                          }
-                          className="reply-topic"
-                        >
-                          <i
-                            style={{ margin: "0 8px" }}
-                            className="far fa-edit"
-                          />
-                        </Link> ) : ""}
+                          <Link
+                            to={
+                              "/forum/" +
+                              this.props.match.params.category_id +
+                              "/edit-question/" +
+                              this.props.match.params.question_id
+                            }
+                            className="reply-topic"
+                          >
+                            <i
+                              style={{ margin: "0 8px" }}
+                              className="far fa-edit"
+                            />
+                          </Link>
+                        ) : (
+                          ""
+                        )}
                         {this.props.user.userId === author ? (
-                          
                           <Link
                             to="#"
                             onClick={this.deleteQuestion}
@@ -267,7 +267,9 @@ class Index extends Component {
                         </div>
                       </td>
                       <td className="posts">
-                        <p>{content}</p>
+                        <p style={{ whiteSpace: "pre-line" }}>
+                          {content.replace(/ /g, "\u00a0")}}
+                        </p>
                       </td>
                     </tr>
                     {getComments}

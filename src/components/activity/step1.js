@@ -184,7 +184,7 @@ pushToTechs(e){
                                             <div className="col col-lg-6 col-md-6 col-sm-12 col-12">
                                                 <div className="form-group label-floating">
                                                     <label className="control-label">Description document</label>
-                                                    <input className="form-control" placeholder="" type="file"  onChange={(e)=>this.onchange(e)} defaultValue={values.descriptionDocument}/>
+                                                    <input className="form-control" placeholder="" type="file"   defaultValue={values.descriptionDocument}/>
                                                     <span className="material-input"></span></div>
                                                 <div className="form-group label-floating">
                                                     <StyleLinks />
