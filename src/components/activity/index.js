@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {PropTypes} from "prop-types";
-import {getActivities,getAllForStudent} from "../../store/actions/activityActions";
+import {getActivities,getAllForStudent,getAllForAdmin} from "../../store/actions/activityActions";
 import Spinner from "../common/Spinner";
 import Moment from "react-moment";
 import {Link} from "react-router-dom"
@@ -35,28 +35,26 @@ class index extends Component {
     }
 
     componentDidMount() {
-        if(this.props.auth.user.role=="teacher")
+        if(this.props.auth.user.role==="teacher")
         this.props.getActivities();
-        else
+        else if(this.props.auth.user.role==="Student")
             this.props.getAllForStudent();
+        else if(this.props.auth.user.role==="admin")
+            this.props.getAllForAdmin();
 
-    }
+        }
+
 
     render() {
-        this.state = {
-            academics: [],
-            pros: [],
-            entertains: [],
-            volu: [],
-            challenges: [],
-        }
+
         let listItems
-        const {activities, loading,pactivity} = this.props.activity;
+        const {activities, loading,pactivity,allActivities} = this.props.activity;
+
         if (loading) {
             return <Spinner/>;
         }
-        else if(activities.resultat!=null){
-
+         if(activities!=null){
+            console.log(activities)
          listItems = activities.resultat.map((e) =>
 
             <div className="col col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12" key={e._id}>
@@ -96,7 +94,7 @@ class index extends Component {
                             </div>
                         </div>
                         <div className="post-thumb">
-                            <img src="img/post__thumb5.jpg" alt="photo"/>
+                            <img src="https://res.cloudinary.com/pi-dev/image/upload/v1556040765/zrxqr9mpte9sydmhnxpe.jpg" alt="photo"/>
                         </div>
                         <a href="#" data-toggle="modal" data-target="#blog-post-popup"
                            className="h2 post-title">{e.title}</a>
@@ -166,7 +164,8 @@ class index extends Component {
             </div>
         )
         }
-        else if(pactivity.result!=null){
+         if(pactivity!=null){
+             console.log(pactivity)
              listItems = pactivity.result.map((e) =>
 
                 <div className="col col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12" key={e._id}>
@@ -177,7 +176,7 @@ class index extends Component {
                             <div className="post__author author vcard inline-items">
                                 <img src="img/author-page.jpg" alt="author"/>
                                 <div className="author-date">
-                                    <a className="h6 post__author-name fn" href="02-ProfilePage.html">You </a> Created an <a
+                                    <a className="h6 post__author-name fn" href="02-ProfilePage.html">You </a> are in an <a
                                     href="#"><b>{e.type}</b> activity</a>
                                     <div className="post__date">
                                         <time className="published" dateTime="2017-03-24T18:18">
@@ -206,7 +205,7 @@ class index extends Component {
                                 </div>
                             </div>
                             <div className="post-thumb">
-                                <img src="img/post__thumb5.jpg" alt="photo"/>
+                                <img src="https://res.cloudinary.com/pi-dev/image/upload/v1556040765/zrxqr9mpte9sydmhnxpe.jpg" alt="photo"/>
                             </div>
                             <a href="#" data-toggle="modal" data-target="#blog-post-popup"
                                className="h2 post-title">{e.title}</a>
@@ -276,7 +275,118 @@ class index extends Component {
                 </div>
             )
         }
-        else window.location.reload()
+        if(allActivities!=null){
+
+            console.log(allActivities)
+            listItems = allActivities.resultat.map((e) =>
+
+                <div className="col col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12" key={e._id}>
+
+                    <div className="ui-block">
+                        {/* Post */}
+                        <article className="hentry post has-post-thumbnail thumb-full-width">
+                            <div className="post__author author vcard inline-items">
+                                <img src="img/author-page.jpg" alt="author"/>
+                                <div className="author-date">
+                                    <a className="h6 post__author-name fn" href="02-ProfilePage.html"> </a>  <a
+                                    href="#"><b>{e.type}</b> activity</a>
+                                    <div className="post__date">
+                                        <time className="published" dateTime="2017-03-24T18:18">
+                                            <Moment format="dddd MM, YYYY \at HH:mm">{e.createdAt}</Moment>
+                                        </time>
+                                    </div>
+                                </div>
+                                <div className="more">
+                                    <svg className="olymp-three-dots-icon">
+                                        <use xlinkHref="#olymp-three-dots-icon"/>
+                                    </svg>
+                                    <ul className="more-dropdown">
+                                        <li>
+                                            <a href="#">Edit Post</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Delete Post</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Turn Off Notifications</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Select as Featured</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div className="post-thumb">
+                                <img src="https://res.cloudinary.com/pi-dev/image/upload/v1556040765/zrxqr9mpte9sydmhnxpe.jpg" alt="photo"/>
+                            </div>
+                            <a href="#" data-toggle="modal" data-target="#blog-post-popup"
+                               className="h2 post-title">{e.title}</a>
+                            <p>this activity is a <b>{e.type}</b>.
+                            </p>
+                            <p>
+                                {e.description}.
+                            </p>
+                            <p>
+                                To Manage you activities Go to its <b>Workspace</b> by clicking on Workplace...
+                            </p>
+                            <Link to={"activity/workspace/"+e._id} className="btn btn-md-2 btn-border-think c-orange btn-transparent custom-color"
+                            >Read More
+                            </Link>
+                            <div className="post-additional-info inline-items">
+
+                                <ul className="friends-harmonic">
+                                    <li>
+                                        <a href="#">
+                                            <img src="img/friend-harmonic5.jpg" alt="friend"/>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img src="img/friend-harmonic10.jpg" alt="friend"/>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img src="img/friend-harmonic7.jpg" alt="friend"/>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img src="img/friend-harmonic8.jpg" alt="friend"/>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img src="img/friend-harmonic2.jpg" alt="friend"/>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div className="names-people-likes">
+                                    {e.members.length} are in this activity
+                                </div>
+                            </div>
+                            <div className="control-block-button post-control-button">
+                                <a href="#" className="btn btn-control">
+                                    <svg className="olymp-like-post-icon">
+                                        <use xlinkHref="#olymp-like-post-icon"/>
+                                    </svg>
+                                </a>
+                                <a href="#" className="btn btn-control">
+                                    <svg className="olymp-comments-post-icon">
+                                        <use xlinkHref="#olymp-comments-post-icon"/>
+                                    </svg>
+                                </a>
+                                <a href="#" className="btn btn-control">
+                                    <svg className="olymp-share-icon">
+                                        <use xlinkHref="#olymp-share-icon"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </article>
+                        {/* ... end Post */}            </div>
+                </div>
+            )
+        }
         return (
             <React.Fragment>
                 <div className="main-header">
@@ -360,5 +470,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    {getActivities,getAllForStudent}
+    {getActivities,getAllForStudent,getAllForAdmin}
 )(index);

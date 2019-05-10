@@ -9,7 +9,6 @@ var schedule = require('node-schedule');
 const nodemailer = require('nodemailer');
 var logger = require("./logger").Logger;
 const ActivityRequest = require("../Models/ActivityRequest");
-
 // async..await is not allowed in global scope, must use a wrapper
 async function main(x) {
 
@@ -41,14 +40,11 @@ async function main(x) {
     // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
     // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
 }
-
 function timeLog(req) {
     // this is an example of how you would call our new logging system to log an info message
     logger.info(req);
 
 }
-
-
 exports.createActivity = (req, res, next) => {
     if (req.userData.role === "teacher") {
         const act = new activity({
@@ -57,7 +53,8 @@ exports.createActivity = (req, res, next) => {
             descriptionDocument: req.body.descriptionDocument,
             type: req.body.type,
             creator: req.userData.userId,
-            techs: req.body.techs
+            techs: req.body.techs,
+            generalProgress:0
         })
         act.save()
             .then(result => {
@@ -273,7 +270,7 @@ exports.assignModule = (req, res, next) => {
 
 }
 exports.pushTodoToValidation = (req, res, next) => {
-    if (req.userData.role == "student") {
+    if (req.userData.role == "Student") {
         ValidatingRequests.find({"ToDo": req.body.todoId}).then(result => {
             console.log(result)
             if (result.length === 0) {
@@ -286,7 +283,12 @@ exports.pushTodoToValidation = (req, res, next) => {
                         state: false
                     }
                 )
-                validating.save()
+                validating.save().then(xx => {
+                    todo.findById(req.body.todoId).then(resa => {
+                        resa.state = true;
+                        resa.save()
+                    })
+                })
 
             }
             else {
@@ -314,34 +316,75 @@ exports.pushTodoToValidation = (req, res, next) => {
         })
     }
 }
-exports.validateRequest = (req, res, next) => {
-
-    ValidatingRequests.findById(req.body.requestId).then(result => {
-        console.log(result)
-        if (result != null) {
-
-            result.validation = true
-            result.save()
-
-        }
-    }).then(x => {
-        todo.findById(x.ToDo).then(e => {
-            e.done = true
-            e.save()
+exports.removeTodoToValidation = (req, res, next) => {
+    console.log("*****", req.body)
+    ValidatingRequests.remove({ToDo: req.body.todoId}
+    ).then(re=>{
+        todo.findById(req.body.todoId).then(xx=>{
+            xx.state=false;
+            xx.save()
         })
-    })
-        .then(result => {
-            console.log("success");
-            res.status(200).json({
-                message: "validation operation  runned successfully ",
-                result: result
-            });
-        }).catch(err => {
+    }).then(result => {
+        console.log("success");
+        res.status(200).json({
+            message: "removed from validation successfully ",
+            result: result
+        });
+    }).catch(err => {
         console.log(err);
         res.status(500).json({
             error: err
         })
     });
+
+}
+exports.validateRequest = (req, res, next) => {
+    console.log("**********************", req.body.todoId)
+    ValidatingRequests.findOne({ToDo: req.body.todoId}).then(result => {
+        console.log(result)
+
+        result.validation = true
+        result.save().then(x => {
+            todo.findById(x.ToDo).then(e => {
+                e.done = true
+                e.save().then(out=>{
+                    Module.findById(req.body.moduleId).then(xe=>{
+                        if(xe.progress!=100){
+                            if(xe.todos.length!=0){
+                                xe.progress+=(1/xe.todos.length)*100
+                                xe.save()
+                            }
+
+                        }
+                        if(xe.progress==100){
+                            activity.findById(req.body.activityId).then(ee=>{
+                                if(ee.generalProgress!=100){
+                                    if(ee.modules.length!=0){
+                                        ee.generalProgress+=(1/ee.modules.length)*100
+                                        ee.save()
+                                    }
+
+                                }
+                            })
+                        }
+                    })
+                })
+            }).then(result => {
+                console.log("success");
+                res.status(200).json({
+                    message: "validation operation  runned successfully ",
+                    result: result
+                });
+            }).catch(err => {
+                console.log(err);
+                res.status(500).json({
+                    error: err
+                })
+            });
+        })
+    })
+
+
 }
 exports.incrementProgress = () => {
     let requests = []
@@ -355,7 +398,7 @@ exports.incrementProgress = () => {
                         Module.findById(e.module).then(m => {
                             if (m.progress < 100) {
                                 m.progress += 100 / re.length
-                                if (m.progress != 100) {
+                                if (m.progress !== 100) {
                                     m.save().then(state => {
                                         e.state = true
                                         e.save()
@@ -377,7 +420,7 @@ exports.incrementProgress = () => {
     });
 
 }
-/*var j = schedule.scheduleJob('* * * * *', function () {
+var j = schedule.scheduleJob('* * * * *', function () {
     activity.find().then(ac => {
         if (ac.length !== 0) {
             ac.map(e => {
@@ -401,27 +444,43 @@ exports.incrementProgress = () => {
         }
     })
 
-})*/
+})
 exports.getAllCreatedActivities = (req, res, next) => {
-    if (req.userData.role === "teacher") {
-        activity.find().where("creator").equals(req.userData.userId).then(result => {
-            return result
-        }).then(x => {
-            res.status(200).json({
-                message: "All of your created activities!",
-                resultat: x,
-                creator: req.userData
-            });
-        })
-            .catch(err => {
-                console.log(err);
-                res.status(500).json({
-                    error: err
-                })
-            });
+
+    activity.find().where("creator").equals(req.userData.userId).then(result => {
+        return result
+    }).then(x => {
+        res.status(200).json({
+            message: "All of your created activities!",
+            resultat: x,
+            creator: req.userData
+        });
+    })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            })
+        });
 
 
-    }
+}
+exports.getAllForAdmin = (req, res, next) => {
+    let activities
+    activity.find().then(x => {
+        res.status(200).json({
+            message: "All activities!",
+            resultat: x,
+
+        });
+    })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            })
+        });
+
 
 }
 exports.getActivityModules = (req, res, next) => {
@@ -460,121 +519,76 @@ exports.getActivityModules = (req, res, next) => {
 }
 exports.getTodoByModule = (req, res, next) => {
     let Todoos = []
-    let x = []
-   let element = {
-        id:"1",
-        title:"todo",
-        description:"descr",
-        label: "date",
-        cardColor: '#E08521',
-        cardStyle: {borderRadius: 6, boxShadow: '0 0 6px 1px #E08521', marginBottom: 15},
-        metadata: {id: "1"},
-        tags: "tag"
-    }
-    let data = {lanes: [
-            {
-                id: 'lane1',
-                title: 'Planned Tasks',
-                label: '',
-                cards: []
-            },
-            {
-                id: 'lane2',
-                title: 'In Test',
-                label: '',
-                cards: [],
+    let createdTodo = []
+    let Intest = []
+    let x
+    let completed = []
 
-
-            }, {
-                id: 'lane3',
-                title: 'Completed',
-                label: '',
-                cards: [],
-
-
-            }
-        ]}
 
     Module.findById(req.body.moduleId).then(ac => {
-
-        console.log(ac)
         var promises = todo.find({
             '_id': {$in: ac.todos}
         }, function (err, docs) {
-            if(!docs.length==0)
-            Todoos.push(docs)
+            if (!docs.length == 0)
+                Todoos.push(docs)
         });
         return promises
-
-
     })
         .then(resultat => {
             Promise.all(resultat).then(reslt => {
-                            if (reslt.length!=0){
-                                ValidatingRequests.find({
-                                    'ToDo': {$in: reslt}
-                                }, function (err, docs) {
-                                    if(!docs.length==0)
-                                        x.push(docs)
-                                    return x
-                                })
-                                   .then(resl=>{
-                                  var promises=  Todoos.map(e => {
+                if (reslt.length != 0) {
+                    ValidatingRequests.find({
+                        'ToDo': {$in: reslt}
+                    }, function (err, docs) {
+                        if (!docs.length == 0)
+                            x = docs
+                        return x
+                    }).then(resl => {
+                        console.log("****************************")
+                        console.log(resl)
+                        console.log("******************************")
 
-
-                                        if (e.done) {
-
-                                            element.id=e._id
-                                            element.description=e.description
-                                            element.label=e.endDate
-                                            element.title=e.name
-                                            element.tags=e.tag
-                                           data.lanes[2].cards.push(element)
-
-                                        }
-                                        else if (resl.includes(e._id)) {
-                                            element.id=e._id
-                                            element.description=e.description
-                                            element.label=e.endDate
-                                            element.title=e.name
-                                            element.tags=e.tag
-                                            data.lanes[1].cards.push(element)
-                                        }
-                                        else {
-                                            element.id=e._id
-                                            element.description=e.description
-                                            element.label=e.endDate
-                                            element.title=e.name
-                                            element.tags=e.tag
-                                            data.lanes[0].cards.push(element)
-                                        }
-                                    })
-                                    return promises
-
-                                })
-
-                                    .then(rr=>{
-                                    res.status(200).json(
-                                        {
-                                            message: "ok",
-                                            result: rr,
-                                            allTodo:Todoos
-                                        }
-                                    )
-
-                                })
-                            }
-                            else
-                            {
-
-                   res.status(200).json(
-                       {
-                           message: "no",
-                           result: reslt
-                       }
-                   )
+                        var promises = Todoos[0].map(e => {
+                            // console.log("state",e)
+                            if (e.done) {
+                                completed.push(e)
 
                             }
+
+                            if (e.state === true && !e.done) {
+                                Intest.push(e)
+                            }
+                            if (!e.done && e.state===false) {
+                                createdTodo.push(e)
+                            }
+                        })
+                        return promises
+
+                    })
+
+                        .then(rr => {
+                            res.status(200).json(
+                                {
+                                    message: "ok",
+                                    intest: Intest,
+                                    completed: completed,
+                                    todo: createdTodo,
+                                    allTodo: Todoos
+                                }
+                            )
+
+                        })
+                }
+                else {
+
+                    res.status(200).json(
+                        {
+                            message: "no",
+                            result: reslt
+                        }
+                    )
+
+                }
 
 
             })
@@ -694,7 +708,7 @@ var sch = schedule.scheduleJob('* * * * *', function () {
 })
 exports.enrichCv = () => {
     var j = schedule.scheduleJob('* * * * *', function () {
-        //console.log("here")
+
         const skills = mongoose.model("skills", Skills);
         activity.find({generalProgress: {$eq: 100}}).then(finished => {
             finished.map(e => {
@@ -741,13 +755,17 @@ exports.enrichCv = () => {
 
 }
 exports.deleteToDo = (req, res, next) => {
-    todo.deleteOne({id: req.body.todoId}, function (err) {
+    todo.remove({_id: req.body.todoId}, function (err) {
         if (err) return handleError(err);
         // deleted at most one tank document
     }).then(result => {
         Module.findById(req.body.moduleId).then(mo => {
             const index = mo.todos.indexOf(req.body.todoId);
+
             mo.todos.splice(index, 1)
+            mo.save()
+        }).then(rr=>{
+            ValidatingRequests.remove({ToDo:req.body.todoId})
         })
     }).then(resl => {
         console.log("deleted");
@@ -763,7 +781,7 @@ exports.deleteToDo = (req, res, next) => {
     });
 };
 exports.addTodo = (req, res, next) => {
-   let created
+    let created
     const t = new todo({
         name: req.body.title,
         description: req.body.description,
@@ -771,19 +789,19 @@ exports.addTodo = (req, res, next) => {
         createdAt: new Date(),
         tag: req.body.tags,
         endDate: req.body.label,
-        done:false
+        done: false
     })
-    t.save().then(result=>{
-        console.log("aaaaaaaaaaaaaaaaaaaaaaazezeae",result)
-        created=result
+    t.save().then(result => {
+        console.log("aaaaaaaaaaaaaaaaaaaaaaazezeae", result)
+        created = result
         console.log(req.body.moduleId)
-        Module.findById(req.body.moduleId).then(result=>{
+        Module.findById(req.body.moduleId).then(result => {
 
-                result.todos.push(created._id)
-                return result
+            result.todos.push(created._id)
+            return result
 
-        }).then(x=>{
-            x.save() .then(result => {
+        }).then(x => {
+            x.save().then(result => {
                 console.log("success");
                 timeLog("created Todo")
                 res.status(200).json({
@@ -792,7 +810,7 @@ exports.addTodo = (req, res, next) => {
                 });
             })
         })
-       })
+    })
         .catch(err => {
             console.log(err);
             res.status(500).json({
@@ -833,9 +851,9 @@ exports.getAllMembers = (req, res, next) => {
         })
     })
 }
-async function sendInvitationToUsers(id , activity) {
+async function sendInvitationToUsers(id, activity) {
     const activReq = mongoose.model("ActivityRequest", ActivityRequest);
-    User.findById({_id:id}).then(user => {
+    User.findById({_id: id}).then(user => {
         if (!user) {
             return res.status(401).json({
                 message: "undifined user"
@@ -843,27 +861,27 @@ async function sendInvitationToUsers(id , activity) {
         }
         fetchedUser = user;
 
-    })        .then(() => {
-            fetchedUser.activityRequest.push(
-                new activReq({
-                    idActivity: activity.id,
-                    titleActivity: activity.title,
-                    description: activity.description,
-                    type: activity.type
-                })
-            );
-            fetchedUser.save().then(result => {
-                res.status(200).json({
-                    msg: "activity has been added successfully"
-                });
+    }).then(() => {
+        fetchedUser.activityRequest.push(
+            new activReq({
+                idActivity: activity.id,
+                titleActivity: activity.title,
+                description: activity.description,
+                type: activity.type
+            })
+        );
+        fetchedUser.save().then(result => {
+            res.status(200).json({
+                msg: "activity has been added successfully"
             });
+        });
 
     })
         .catch(err => {
             console.log(err);
         });
 }
-exports.create=(req,res,next)=>{
+exports.create = (req, res, next) => {
 
     const act = new activity({
         title: req.body.values.title,
@@ -872,15 +890,15 @@ exports.create=(req,res,next)=>{
         type: req.body.values.type,
         creator: req.userData.userId,
         supervisor: req.body.values.supervisor,
-        techs:req.body.values.techs,
-        createdAt:new Date(),
-        members:[]
+        techs: req.body.values.techs,
+        createdAt: new Date(),
+        members: []
     });
     act.save()
         .then(async result => {
             const members = req.body.values.members;
             for (let i = 0; i < members.length; i++) {
-                 await sendInvitationToUsers(members[i] , result)
+                await sendInvitationToUsers(members[i], result)
 
             }
             console.log("success");
@@ -915,29 +933,29 @@ exports.getActivityById = (req, res, next) => {
                 User.find({
                     '_id': {$in: r.members}
                 }, function (err, docs) {
-                    if (docs.length!=0) {
+                    if (docs.length != 0) {
                         fetched.members = docs
 
                     }
                     return fetched
                 }).then(r => {
-                   // console.log("is mail",r)
+                    // console.log("is mail",r)
                     Module.find({
                         '_id': {$in: fetched.modules}
                     }, function (err, docs) {
-                        if (docs.length!=0) {
+                        if (docs.length != 0) {
 
                             fetched.modules = docs
 
                         }
-                       // console.log(fetched)
-                         return fetched
-                    }).then(e=>{
-                        fetched.modules=e
+                        // console.log(fetched)
+                        return fetched
+                    }).then(e => {
+                        fetched.modules = e
                         return fetched
                     })
                         .then(r => {
-                           // console.log(r)
+                            // console.log(r)
                             res.status(200).json(
                                 {
                                     message: "this activity",
@@ -984,7 +1002,7 @@ exports.createModule = (req, res) => {
     let fetched
     activity.findById(req.body.activityId).then(m => {
 
-        if (m.modules.length!=0) {
+        if (m.modules.length != 0) {
             Module.find({$and: [{_id: {$in: m.modules}}, {title: {$eq: req.body.title}}]}).then(e => {
                 console.log(e)
                 if (e.length !== 0) {
@@ -995,18 +1013,18 @@ exports.createModule = (req, res) => {
                 }
                 else {
 
-                    const module=Module({
-                        title:req.body.title,
-                        description:req.body.description,
-                        responsible:req.body.responsible,
-                        progress:0,state:false,createdAt:new Date(),todos: []
+                    const module = Module({
+                        title: req.body.title,
+                        description: req.body.description,
+                        responsible: req.body.responsible,
+                        progress: 0, state: false, createdAt: new Date(), todos: []
                     })
-                    module.save().then(result=>{
-                        fetched=result
-                        activity.findById(req.body.activityId).then(reslt=>{
+                    module.save().then(result => {
+                        fetched = result
+                        activity.findById(req.body.activityId).then(reslt => {
                             reslt.modules.push(result._id)
                             reslt.save()
-                        }).then(result=>{
+                        }).then(result => {
                             res.status(200).json({
                                 result: fetched,
 
@@ -1019,22 +1037,22 @@ exports.createModule = (req, res) => {
 
             })
         }
-        else{
-            const module=Module({
-                title:req.body.title,
-                description:req.body.description,
-                responsible:req.body.responsible,
-                progress:0,state:false,
-                createdAt:new Date()
+        else {
+            const module = Module({
+                title: req.body.title,
+                description: req.body.description,
+                responsible: req.body.responsible,
+                progress: 0, state: false,
+                createdAt: new Date()
             })
-            module.save().then(result=>{
-                fetched=result
-                activity.findById(req.body.activityId).then(reslt=>{
+            module.save().then(result => {
+                fetched = result
+                activity.findById(req.body.activityId).then(reslt => {
                     reslt.modules.push(result._id)
                     reslt.save()
-                }).then(result=>{
+                }).then(result => {
                     res.status(200).json({
-                        result:fetched,
+                        result: fetched,
 
                     })
                 })
@@ -1043,11 +1061,11 @@ exports.createModule = (req, res) => {
             })
 
         }
-        }).catch(err => {
-                    console.log(err);
-                    res.status(500).json({
-                        error: err
-                    })
-                })
+    }).catch(err => {
+        console.log(err);
+        res.status(500).json({
+            error: err
+        })
+    })
 
-        }
+}
