@@ -27,4 +27,17 @@ app.use("/api/question", QuestRoutes);
 app.use("/api/forum", ForumRoutes);
 app.use("/api/activity", ActivitiesRoutes);
 
+
+/*
+app.get("/", (request, response) => {
+    response.status(200).send({"message":"No activities!"});
+});
+
+app.get("/test", (request, response) => {
+    response.status(500).send({ "message": "This is an error response" });
+});
+
+var server = app.listen(3002, () => {
+    console.log("Listening on port " + server.address().port + "...");
+});*/
 module.exports = app;
