@@ -57,9 +57,7 @@ export const getForum = () => dispatch => {
 export const getQuestions = (id, page, current) => dispatch => {
   dispatch(setForumLoading());
   axios
-    .get(
-      `/api/question/forum/${id}?pageSize=${page}&currentPage=${current}`
-    )
+    .get(`/api/question/forum/${id}?pageSize=${page}&currentPage=${current}`)
     .then(res =>
       dispatch({
         type: GET_QUESTIONS,
@@ -115,9 +113,7 @@ export const getQuestion = id => dispatch => {
 export const getComments = (id, page, current) => dispatch => {
   dispatch(setForumLoading());
   axios
-    .get(
-      `/api/question/comments/${id}?pageSize=${page}&currentPage=${current}`
-    )
+    .get(`/api/question/comments/${id}?pageSize=${page}&currentPage=${current}`)
     .then(res =>
       dispatch({
         type: GET_COMMENTS,
@@ -208,9 +204,7 @@ export const deleteQuestion = (id, history, category_id) => dispatch => {
 // Delete comment
 export const deleteComment = (id, id_comment) => dispatch => {
   axios
-    .delete(
-      `/api/question/${id}/comment/${id_comment}`
-    )
+    .delete(`/api/question/${id}/comment/${id_comment}`)
     .then(res => dispatch(getComments(id, 3, 1)))
     .catch(err =>
       dispatch({
@@ -224,9 +218,7 @@ export const deleteComment = (id, id_comment) => dispatch => {
 export const bestComment = (id, id_comment) => dispatch => {
   dispatch(setForumLoading());
   axios
-    .post(
-      `/api/question/comment/${id}/${id_comment}`
-    )
+    .post(`/api/question/comment/${id}/${id_comment}`)
     .then(res => dispatch(getComments(id, 3, 1)))
     .catch(err =>
       dispatch({

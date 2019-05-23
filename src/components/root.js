@@ -23,6 +23,7 @@ import Activity from "./activity/index";
 import create from "./activity/create";
 import index from "./ChatBot/BotQuestions";
 import workSpace from "./activity/workSpace";
+import home from "./layout/home";
 
 class root extends Component {
   state = {
@@ -74,13 +75,19 @@ class root extends Component {
               component={EditQuestion}
             />
 
+            <PrivateRoute exact path="/" component={home} />
+
             <PrivateRoute exact path="/getReco" component={Recommandation} />
 
             <PrivateRoute exact path="/listReco" component={ListRecommanded} />
 
             <PrivateRoute exact path="/profile" component={Profile} />
 
-            <PrivateRoute exact path="/profile/search/:name" component={Research} />
+            <PrivateRoute
+              exact
+              path="/profile/search/:name"
+              component={Research}
+            />
 
             <PrivateRoute exact path="/edit-profile" component={EditProfile} />
 

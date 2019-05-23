@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import {connect} from "react-redux";
-import {loginUser} from "../../store/actions/authActions";
+import { connect } from "react-redux";
+import { loginUser } from "../../store/actions/authActions";
 
 class SideBar extends Component {
   render() {
-
     return (
       <React.Fragment>
         <div className="fixed-sidebar">
@@ -57,22 +56,24 @@ class SideBar extends Component {
                   </Link>
                 </li>
 
-                {this.props.auth.user.role === "admin" ? <li>
-                  <Link to="/botQuestion">
-                    <svg
+                {this.props.auth.user.role === "admin" ? (
+                  <li>
+                    <Link to="/botQuestion">
+                      <svg
                         className="olymp-star-icon left-menu-icon"
                         data-toggle="tooltip"
                         data-placement="right"
                         data-original-title="ChatBot Unanswered Question"
-                    >
-                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-manage-widgets-icon" />
-                    </svg>
-                  </Link>
-                </li> : <li/>}
+                      >
+                        <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-manage-widgets-icon" />
+                      </svg>
+                    </Link>
+                  </li>
+                ) : (
+                  <li />
+                )}
 
-
-
-                 <li>
+                <li>
                   <Link to="/activity">
                     <svg
                       className="olymp-star-icon left-menu-icon"
@@ -84,67 +85,6 @@ class SideBar extends Component {
                     </svg>
                   </Link>
                 </li>
-                <li>
-                  <Link to="/">
-                    <svg
-                      className="olymp-weather-icon left-menu-icon"
-                      data-toggle="tooltip"
-                      data-placement="right"
-                      data-original-title="WEATHER APP"
-                    >
-                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-weather-icon" />
-                    </svg>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/">
-                    <svg
-                      className="olymp-calendar-icon left-menu-icon"
-                      data-toggle="tooltip"
-                      data-placement="right"
-                      data-original-title="CALENDAR AND EVENTS"
-                    >
-                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-calendar-icon" />
-                    </svg>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/">
-                    <svg
-                      className="olymp-badge-icon left-menu-icon"
-                      data-toggle="tooltip"
-                      data-placement="right"
-                      data-original-title="Community Badges"
-                    >
-                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-badge-icon" />
-                    </svg>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/">
-                    <svg
-                      className="olymp-cupcake-icon left-menu-icon"
-                      data-toggle="tooltip"
-                      data-placement="right"
-                      data-original-title="Friends Birthdays"
-                    >
-                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-cupcake-icon" />
-                    </svg>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/">
-                    <svg
-                      className="olymp-stats-icon left-menu-icon"
-                      data-toggle="tooltip"
-                      data-placement="right"
-                      data-original-title="Account Stats"
-                    >
-                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-stats-icon" />
-                    </svg>
-                  </Link>
-                </li>
-
               </ul>
             </div>
           </div>
@@ -202,131 +142,40 @@ class SideBar extends Component {
                   </Link>
                 </li>
 
-                {this.props.auth.user.role === "admin" ?<li>
-                  <Link to="/botQuestion">
-                    <svg
+                {this.props.auth.user.role === "admin" ? (
+                  <li>
+                    <Link to="/botQuestion">
+                      <svg
                         className="olymp-star-icon left-menu-icon"
                         data-toggle="tooltip"
                         data-placement="right"
                         data-original-title="ChatBot Unanswered Question"
-                    >
-                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-manage-widgets-icon" />
-                    </svg>
-                    <span className="left-menu-title">ChatBot Unanswered Question</span>
-                  </Link>
-                </li>  : <li></li>}
-
-
-                  <li>
-                      <Link to="/activity">
-                          <svg
-                              className="olymp-star-icon left-menu-icon"
-                              data-toggle="tooltip"
-                              data-placement="right"
-                              data-original-title="Activities"
-                          >
-                              <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-star-icon" />
-                          </svg>
-                          <span className="left-menu-title">Activities</span>
-                      </Link>
+                      >
+                        <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-manage-widgets-icon" />
+                      </svg>
+                      <span className="left-menu-title">
+                        ChatBot Unanswered Question
+                      </span>
+                    </Link>
                   </li>
+                ) : (
+                  <li />
+                )}
+
                 <li>
-                  <Link to="/">
+                  <Link to="/activity">
                     <svg
-                      className="olymp-weather-icon left-menu-icon"
+                      className="olymp-star-icon left-menu-icon"
                       data-toggle="tooltip"
                       data-placement="right"
-                      data-original-title="WEATHER APP"
+                      data-original-title="Activities"
                     >
-                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-weather-icon" />
+                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-star-icon" />
                     </svg>
-                    <span className="left-menu-title">Weather App</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/">
-                    <svg
-                      className="olymp-calendar-icon left-menu-icon"
-                      data-toggle="tooltip"
-                      data-placement="right"
-                      data-original-title="CALENDAR AND EVENTS"
-                    >
-                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-calendar-icon" />
-                    </svg>
-                    <span className="left-menu-title">Calendar and Events</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/">
-                    <svg
-                      className="olymp-badge-icon left-menu-icon"
-                      data-toggle="tooltip"
-                      data-placement="right"
-                      data-original-title="Community Badges"
-                    >
-                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-badge-icon" />
-                    </svg>
-                    <span className="left-menu-title">Community Badges</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/">
-                    <svg
-                      className="olymp-cupcake-icon left-menu-icon"
-                      data-toggle="tooltip"
-                      data-placement="right"
-                      data-original-title="Friends Birthdays"
-                    >
-                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-cupcake-icon" />
-                    </svg>
-                    <span className="left-menu-title">Friends Birthdays</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/">
-                    <svg
-                      className="olymp-stats-icon left-menu-icon"
-                      data-toggle="tooltip"
-                      data-placement="right"
-                      data-original-title="Account Stats"
-                    >
-                      <use xlinkHref="/svg-icons/sprites/icons.svg#olymp-stats-icon" />
-                    </svg>
-                    <span className="left-menu-title">Account Stats</span>
+                    <span className="left-menu-title">Activities</span>
                   </Link>
                 </li>
               </ul>
-
-              <div className="profile-completion">
-                <div className="skills-item">
-                  <div className="skills-item-info">
-                    <span className="skills-item-title">
-                      Profile Completion
-                    </span>
-                    <span className="skills-item-count">
-                      <span
-                        className="count-animate"
-                        data-speed="1000"
-                        data-refresh-interval="50"
-                        data-to="76"
-                        data-from="0"
-                      />
-                      <span className="units">76%</span>
-                    </span>
-                  </div>
-                  <div className="skills-item-meter">
-                    <span
-                      className="skills-item-meter-active bg-primary"
-                      style={{ width: 76 + "%" }}
-                    />
-                  </div>
-                </div>
-
-                <span>
-                  Complete <Link to="/">your profile</Link> so people can know
-                  more about you!
-                </span>
-              </div>
             </div>
           </div>
         </div>
@@ -588,7 +437,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-    mapStateToProps,
-    { loginUser }
+  mapStateToProps,
+  { loginUser }
 )(SideBar);
-
