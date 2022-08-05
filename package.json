@@ -27,7 +27,7 @@
     "jwt-decode": "^2.2.0",
     "mail-notifier": "^0.5.0",
     "mdbreact": "^4.13.0",
-    "mongoose": "^5.4.17",
+    "mongoose": "^5.7.5",
     "mongoose-unique-validator": "^2.0.2",
     "multer": "^1.4.1",
     "node-kmeans": "^1.1.8",
